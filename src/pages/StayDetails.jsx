@@ -16,15 +16,6 @@ export function StayDetails() {
     loadStay(stayId)
   }, [stayId])
 
-  async function onAddStayMsg(stayId) {
-    try {
-        await addStayMsg(stayId, 'bla bla ' + parseInt(Math.random()*10))
-        showSuccessMsg(`Stay msg added`)
-    } catch (err) {
-        showErrorMsg('Cannot add stay msg')
-    }        
-
-}
 
   return (
     <section className="stay-details">
