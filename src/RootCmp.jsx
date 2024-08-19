@@ -4,13 +4,13 @@ import { StayIndex } from './pages/StayIndex.jsx'
 import { StayDetails } from './pages/StayDetails'
 import { AppHeader } from './cmps/AppHeader.jsx'
 import { AppFooter } from './cmps/AppFooter.jsx'
-import { UserMsg } from './cmps/UserMsg.jsx'
+// import { UserMsg } from './cmps/UserMsg.jsx'
 
 export function RootCmp() {
     return (
         <div className="main-container">
             <AppHeader />
-            <UserMsg />
+            {/* <UserMsg /> */}
             <main>
                 <Routes>
                     <Route path="/" element={<StayIndex />} />

@@ -4,9 +4,9 @@
 
 html {
     line-height: 1.6;
-    color: $clr2;
+    color: $gray4;
 }
-    
+
 body {
     max-width: 1024px;
     margin: 0 auto;
@@ -15,7 +15,12 @@ body {
     font-size: rem(18px);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin: 0 0 0.6em;
 }
 

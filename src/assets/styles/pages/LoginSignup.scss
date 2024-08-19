@@ -34,14 +34,14 @@
 
 	a {
 		font-size: 0.8em;
-		color: $clr4;
+		color: $clr3;
 
 		&:hover {
-			color: $clr1;
+			color: $clr4;
 		}
 	}
 	a.active {
 		text-decoration: underline;
-		color: $clr2;
+		// color: $clr2;
 	}
 }
