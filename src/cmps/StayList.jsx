@@ -1,3 +1,6 @@
 export function StayList() {
-    return <section></section>
+
+    return <section>
+        
+    </section>
 }
