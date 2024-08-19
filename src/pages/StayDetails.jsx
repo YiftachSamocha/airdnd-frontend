@@ -1,15 +1,21 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 
-import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
-import { loadStay, addStayMsg } from '../store/actions/stay.actions'
+import { loadStay } from '../store/actions/stay.actions'
+import { StayAmeneties } from '../cmps/DetailsCmps/StayAmeneties'
+import { StayImage } from '../cmps/DetailsCmps/StayImage'
+import { StayMainInfo } from '../cmps/DetailsCmps/StayMainInfo'
+import { StayLocation } from '../cmps/DetailsCmps/StayLocation'
+import { StayReview } from '../cmps/DetailsCmps/StayReview'
+import { StayDate } from '../cmps/DetailsCmps/StayDate'
+import { StayHost } from '../cmps/DetailsCmps/StayHost'
+import { StayToKnow } from '../cmps/DetailsCmps/StayToKnow'
 
 
 export function StayDetails() {
 
-  const {stayId} = useParams()
+  const { stayId } = useParams()
   const stay = useSelector(storeState => storeState.stayModule.stay)
 
   useEffect(() => {
@@ -19,16 +25,14 @@ export function StayDetails() {
 
   return (
     <section className="stay-details">
-      <Link to="/stay">Back to list</Link>
-      <h1>Stay Details</h1>
-      {stay && <div>
-        <h3>{stay.vendor}</h3>
-        <h4>${stay.price}</h4>
-        <pre> {JSON.stringify(stay, null, 2)} </pre>
-      </div>
-      }
-      <button onClick={() => { onAddStayMsg(stay._id) }}>Add stay msg</button>
-
+      <StayImage />
+      <StayMainInfo />
+      <StayAmeneties />
+      <StayDate />
+      <StayReview />
+      <StayLocation />
+      <StayHost />
+      <StayToKnow />
     </section>
   )
 }

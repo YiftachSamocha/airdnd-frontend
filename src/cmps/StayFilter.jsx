@@ -1,4 +1,4 @@
-export function StayAmeneties(){
+export function StayFilter() {
     return <section></section>
 
 }
