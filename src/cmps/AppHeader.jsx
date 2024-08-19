@@ -1,4 +1,4 @@
-import { StayFilter } from "./StayFilter";
+import { StayFilter } from "./StayFilter.jsx";
 
 export function AppHeader() {
 	return (

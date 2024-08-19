@@ -1,7 +1,7 @@
-
 import { storageService } from '../async-storage.service'
 import { makeId } from '../util.service'
 import { userService } from '../user'
+import { createStay } from '../stay.data'
 
 const STORAGE_KEY = 'stay'
 
@@ -14,28 +14,10 @@ export const stayService = {
 }
 window.cs = stayService
 
+_createData()
 
-async function query(filterBy = { txt: '', price: 0 }) {
+async function query(filterBy = {}) {
     var stays = await storageService.query(STORAGE_KEY)
-    const { txt, minSpeed, maxPrice, sortField, sortDir } = filterBy
-
-    if (txt) {
-        const regex = new RegExp(filterBy.txt, 'i')
-        stays = stays.filter(stay => regex.test(stay.vendor) || regex.test(stay.description))
-    }
-    if (minSpeed) {
-        stays = stays.filter(stay => stay.speed >= minSpeed)
-    }
-    if(sortField === 'vendor' || sortField === 'owner'){
-        stays.sort((stay1, stay2) => 
-            stay1[sortField].localeCompare(stay2[sortField]) * +sortDir)
-    }
-    if(sortField === 'price' || sortField === 'speed'){
-        stays.sort((stay1, stay2) => 
-            (stay1[sortField] - stay2[sortField]) * +sortDir)
-    }
-    
-    stays = stays.map(({ _id, vendor, price, speed, owner }) => ({ _id, vendor, price, speed, owner }))
     return stays
 }
 
@@ -84,4 +66,17 @@ async function addStayMsg(stayId, txt) {
     await storageService.put(STORAGE_KEY, stay)
 
     return msg
+}
+
+function _createData(length = 24) {
+    const currData = JSON.parse(localStorage.getItem(STORAGE_KEY))
+    if (!currData || currData.length === 0) {
+        const stays = []
+        for (var i = 0; i < length; i++) {
+            const stay = createStay()
+            stays.push(stay)
+        }
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(stays))
+    }
+
 }
