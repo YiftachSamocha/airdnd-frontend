@@ -1,16 +1,20 @@
 // Colors
-$clr1: #ce2e6c;
-$clr2: #4f3a65;
-$clr3: #574f7d;
-$clr4: #95adbe;
-$clr5: #dff0ea;
-$clr6: #fff;
-$clr7: #222;
+$clr-red: #e00b41;
+$clr-light-red: #ff385c;
 
-$gray1: #ddd;
-$gray2: #aaa;
-$gray3: #777;
-$gray4: #333;
+$clr3: #ffffff;
+$clr4: #000000;
+
+
+$gray1: #f7f7f7;
+$gray2: #dddddd;
+$gray3: #b0b0b0;
+$gray4: #6a6a6a;
+$gray5: #222222;
+
+// $opacity1: #000000, opacity 0%;
+// $opacity2: #ffffff, opacity 90.0%;
+// $opacity3: #222222, opacity 10.0%;
 
 // Breakpoints
 $mobile-breakpoint: 460px;
