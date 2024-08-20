@@ -5,6 +5,8 @@
     }
 
     .initial-info {
+        margin-block: 2em;
+
         h2 {
             font-size: 1.2222em;
 
@@ -16,7 +18,7 @@
         .capacity {
             display: flex;
             gap: 5px;
-            font-size: 0.77778em;
+            font-size: 0.88889em;
         }
 
         .rating {
@@ -24,10 +26,10 @@
             align-items: center;
             gap: 5px;
             font-weight: 500;
-            font-size: 0.83333em;
+            font-size: 0.9445em;
 
-            .reviews-number{
-                font-size: 0.9333em;
+            .reviews-number {
+                font-size: 0.94112em;
                 text-decoration: underline;
             }
         }
@@ -35,5 +37,27 @@
         .star-icon {
             width: 16px;
         }
+    }
+
+    .host-info {
+        display: flex;
+        gap: 1.5em;
+        align-items: center;
+        padding-block: 1.5em;
+        border-top: 1.5px solid $gray2;
+        border-bottom: 1.5px solid $gray2;
+        font-size: 0.8889em;
+        
+        img {
+            height: 2.3em;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        p {
+            margin: 0;
+            line-height: 1;
+        }
+
     }
 }

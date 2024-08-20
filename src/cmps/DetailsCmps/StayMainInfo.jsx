@@ -7,25 +7,29 @@ export function StayMainInfo({ stay }) {
 
     return <section className="main-info">
         <div className="initial-info">
-             <h2>
-            {stay.type !== 'room' && 'Entire'}
-            <span className="type">{stay.type} </span>
-            in {stay.location.city}, {stay.location.country}
-        </h2>
-        <div className="capacity">
-            <span>{stay.capacity} guests</span>•
-            <span>{stay.rooms.bedrooms} bedrooms</span>•
-            <span>{stay.rooms.beds} beds</span>•
-            <span>{stay.rooms.bathrooms} bathrooms</span>
+
+            <h2>
+                {stay.type !== 'room' && 'Entire'}
+                <span className="type">{stay.type} </span>
+                in {stay.location.city}, {stay.location.country}
+            </h2>
+
+            <div className="capacity">
+                <span>{stay.capacity} guests</span>•
+                <span>{stay.rooms.bedrooms} bedrooms</span>•
+                <span>{stay.rooms.beds} beds</span>•
+                <span>{stay.rooms.bathrooms} bathrooms</span>
+            </div>
+
+            <div className="rating">
+                <img src={starIcon} alt="Star Icon" className="star-icon" />
+                <span>{avgRating.toFixed(1)}</span>•
+                <span className="reviews-number">{stay.reviews.length} reviews</span>
+            </div>
         </div>
-        <div className="rating">
-            <img src={starIcon} alt="Star Icon" className="star-icon" />
-            <span>{avgRating}</span>•
-            <span className="reviews-number">{stay.reviews.length} reviews</span>
-        </div>
-        <div>
-        </div>
-       
+
+        <div className="host-info">
+            <img src={stay.host.imgUrl} alt={`${stay.host.fullname}'s profile`} className="host-img" />
             <p>Hosted by {stay.host.fullname}</p>
         </div>
         <div className="highlights">

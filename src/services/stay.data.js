@@ -38,7 +38,7 @@ export function createStay() {
         host: {
             _id: makeId(),
             fullname: getRandomItems(fullnames, 1),
-            imgUrl: 'https://a0.muscache.com/im/pictures/fab79f25-2e10-4f0f-9711-663cb69dc7d8.jpg?aki_policy=profile_small',
+            imgUrl: getRandomItems(hostImages, 1)
         },
         location: getRandomItems(locations, 1),
         reviews: getRandomItems(reviews, getRandomIntInclusive(1, 15)),
@@ -466,6 +466,17 @@ const locations = [
     { country: 'Peru', city: 'Lima', lat: -12.04, lng: -77.03 },
     { country: 'Ukraine', city: 'Kyiv', lat: 50.45, lng: 30.52 },
     { country: 'Poland', city: 'Warsaw', lat: 52.23, lng: 21.01 }
+]
+
+const hostImages = [
+    'https://randomuser.me/api/portraits/men/32.jpg',
+    'https://randomuser.me/api/portraits/women/44.jpg',
+    'https://randomuser.me/api/portraits/men/75.jpg',
+    'https://randomuser.me/api/portraits/women/65.jpg',
+    'https://randomuser.me/api/portraits/men/81.jpg',
+    'https://randomuser.me/api/portraits/women/29.jpg',
+    'https://randomuser.me/api/portraits/men/11.jpg',
+    'https://randomuser.me/api/portraits/women/82.jpg'
 ]
 
 function getRandomDate() {
