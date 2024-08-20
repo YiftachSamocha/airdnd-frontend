@@ -1,19 +1,21 @@
-// // Setup
-// @import "setup/variables";
-// @import "setup/functions";
-// @import "setup/mixins";
-// @import "setup/typography";
+// Setup
+@import "setup/variables";
+@import "setup/functions";
+@import "setup/mixins";
+@import "setup/typography";
 
-// // Basics
-// @import "basics/helpers";
-// @import "basics/layout";
-// @import "basics/base";
-// @import "basics/links";
-// @import "basics/forms";
+// Basics
+@import "basics/helpers";
+@import "basics/layout";
+@import "basics/base";
+@import "basics/links";
+@import "basics/forms";
 
 
 // // pages
-// @import "RootCmp";
+@import "RootCmp";
+@import "pages/StayDetails";
+
 
 // @import "pages/AboutUs";
 // @import "pages/HomePage";
@@ -37,3 +39,4 @@
 // @import "cmps/ReviewPreview";
 // // @import "cmps/StayList";
 // // @import "cmps/StayPreview";
+@import "cmps/StayImages.scss";

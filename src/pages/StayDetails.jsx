@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { loadStay } from '../store/actions/stay.actions'
 import { StayAmeneties } from '../cmps/DetailsCmps/StayAmeneties'
@@ -22,11 +22,12 @@ export function StayDetails() {
     loadStay(stayId)
   }, [stayId])
 
-
+  if (!stay) return <div>Loading...</div>
   return (
     <section className="stay-details">
-      <StayImage />
-      <StayMainInfo />
+      <h1>{stay.name}</h1>
+      <StayImage stay={stay}/>
+      <StayMainInfo stay={stay}/>
       <StayAmeneties />
       <StayDate />
       <StayReview />

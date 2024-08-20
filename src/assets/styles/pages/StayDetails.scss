@@ -1,0 +1,11 @@
+.stay-details {
+
+    >* {
+        margin-block-start: 1.25rem; // Apply margin-block-start to all direct children
+    }
+
+    h1 {
+        color: $gray5;
+        font-size: 1.63rem;
+    }
+}

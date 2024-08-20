@@ -3,6 +3,6 @@ export function StayPreview({stay}) {
         <img src="" alt="" />  imgUrls
         <h3>{stay.name}</h3>
         <h3>{stay.location.country}</h3>
-        <h3>${stay.price.night} nigth</h3>
+        <h3>${stay.price.night} night</h3>
          </article>
 }

@@ -18,6 +18,7 @@ _createData()
 
 async function query(filterBy = {}) {
     var stays = await storageService.query(STORAGE_KEY)
+    console.log('service stays:', stays)
     return stays
 }
 
