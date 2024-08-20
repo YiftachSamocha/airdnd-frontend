@@ -10,6 +10,7 @@ export function StayIndex() {
         loadStays()
     }, [])
 
+
     return <section>
         <h2>Hello!</h2>
         <StayList stays={stays}/>
