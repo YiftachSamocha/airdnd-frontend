@@ -8,6 +8,7 @@ export const ADD_STAY_MSG = 'ADD_STAY_MSG'
 const initialState = {
     stays: [],
     stay: null
+    
 }
 
 export function stayReducer(state = initialState, action) {
