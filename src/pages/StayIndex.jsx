@@ -1,11 +1,11 @@
 import { StayList } from '../cmps/StayList.jsx'
 
 export function StayIndex() {
-    // const stays = useSelector(storeState => storeState.stayModule.stays)
+     const stays = useSelector(storeState => storeState.stayModule.stays)
 
-    // useEffect(() => {
-    //     loadStays(filterBy)
-    // }, [filterBy])
+    useEffect(() => {
+        loadStays()
+    }, [])
 
     return <section>
         <h2>Hello!</h2>
