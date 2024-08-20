@@ -239,7 +239,7 @@ const highlights = [
         sub: 'Check-in is easy with this hosts detailed'
     }
 ]
-const types = ['home', 'room', 'any']
+const types = ['home', 'room', 'apartment', 'villa',]
 
 const amenities = {
     bathroom: [

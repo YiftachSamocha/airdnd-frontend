@@ -1,0 +1,39 @@
+.main-info {
+    .initial-info>* {
+        margin-block-end: 5px;
+        color: $gray5;
+    }
+
+    .initial-info {
+        h2 {
+            font-size: 1.2222em;
+
+            .type {
+                text-transform: capitalize;
+            }
+        }
+
+        .capacity {
+            display: flex;
+            gap: 5px;
+            font-size: 0.77778em;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+            font-size: 0.83333em;
+
+            .reviews-number{
+                font-size: 0.9333em;
+                text-decoration: underline;
+            }
+        }
+
+        .star-icon {
+            width: 16px;
+        }
+    }
+}
