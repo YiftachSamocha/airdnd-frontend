@@ -20,7 +20,7 @@ export function When({dates, setDates}) {
             showPreview={true}
             minDate={new Date()}
             maxDate={addDays(new Date(), 365)}
-            staticRanges={[]}   // Remove any static ranges
+            staticRanges={[]}
             inputRanges={[]}
             onChange={handleDateChange} />
 
