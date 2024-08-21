@@ -1,65 +1,54 @@
+import { Where } from "./MainFilterCmps/Where";
+import { When } from "./MainFilterCmps/When";
+import { Who } from "./MainFilterCmps/Who";
 import { useState } from "react";
 import searchImg from "../assets/imgs/search.png";
-import flexibleImg from '../assets/imgs/labels/flexible.jpg';
-import europeImg from '../assets/imgs/labels/europe.jpeg';
-import italyImg from '../assets/imgs/labels/italy.jpeg';
-import unitedStatesImg from '../assets/imgs/labels/united-states.jpg';
-import greeceImg from '../assets/imgs/labels/greece.jpg';
-import southAmericaImg from '../assets/imgs/labels/south-america.jpg';
+import { format } from 'date-fns';
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
+
 export function MainFilter() {
     const [openType, setOpenType] = useState('')
-    const optionalAreas = [
-        { txt: 'Im flexible', img: flexibleImg },
-        { txt: 'Europe', img: europeImg },
-        { txt: 'Italy', img: italyImg },
-        { txt: 'United States', img: unitedStatesImg },
-        { txt: 'Greece', img: greeceImg },
-        { txt: 'South America', img: southAmericaImg }
-    ]
+    const [dates, setDates] = useState({
+        startDate: null,
+        endDate: null,
+    })
 
     return <section className="main-filter" >
-        <div onClick={() => setOpenType('where')}>
+        <div onClick={() => setOpenType('where')} className="where-input">
             <label htmlFor="">Where</label>
             <input type="text" placeholder="Search destinations" />
-
-            {openType === 'where' && <div className="where">
-                <h3>Search by region</h3>
-                <div >
-                    {optionalAreas.map(area => {
-                        return <div>
-                            <img src={area.img} alt="" />
-                            <h4>{area.txt}</h4>
-                        </div>
-                    })}
-                </div>
-
-            </div>}
+            {openType === 'where' && <Where />}
         </div>
 
-        
         <hr />
-        <div onClick={() => setOpenType('when')}>
-            <label htmlFor="">Cheak in</label>
-            <input type="text" placeholder="Add dated" />
+
+
+        <div className="when-input">
+            <div onClick={() => setOpenType('when')} >
+                <label htmlFor="">Cheak in</label>
+                <input type="text" placeholder="Add dates"
+                    value={dates.startDate ? format(dates.startDate, 'MMM dd') : ''} />
+            </div>
+            <hr />
+            <div onClick={() => setOpenType('when')}>
+                <label htmlFor="">Cheak out</label>
+                <input type="text" placeholder="Add dates"
+                    value={dates.endDate ? format(dates.endDate, 'MMM dd') : ''} />
+            </div>
+            {openType === 'when' && <When dates={dates} setDates={setDates} />}
         </div>
+
         <hr />
-        <div onClick={() => setOpenType('when')}>
-            <label htmlFor="">Cheak out</label>
-            <input type="text" placeholder="Add dated" />
+
+        <div onClick={() => setOpenType('who')} className="who-input">
+            <div>
+                <label htmlFor="">Who</label>
+                <input type="text" placeholder="Add guests" />
+            </div>
+            {openType === 'who' && <Who />}
+            <button> <img src={searchImg} /></button>
         </div>
-        <hr />
-        <div onClick={() => setOpenType('who')}>
-            <label htmlFor="">Who</label>
-            <input type="text" placeholder="Add guests" />
-
-        </div>
-        <button> <img src={searchImg} /></button>
-
-        {openType === 'when' && <div>when</div>}
-        {openType === 'who' && <div>who</div>}
-
-
-
-    </section>
+    </section >
 
 }

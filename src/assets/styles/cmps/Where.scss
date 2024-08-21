@@ -1,0 +1,43 @@
+.where {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border-radius: 25px;
+    z-index: 3;
+    box-shadow: 0 0 4px black;
+    background-color: white;
+    padding: 1em;
+
+
+    >div {
+        cursor: pointer;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+       
+
+        div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.5em;
+
+            img {
+                height: em(90px);
+                width: em(90px);
+                border: 1px solid $gray1;
+                border-radius: 5px;
+                margin-bottom: 0.5em;
+            }
+
+            p {
+                text-align: center;
+                font-size: 1em;
+                color: $gray5;
+            }
+        }
+        div:hover{
+            background-color: $gray1;
+            border-radius: 10px;
+        }
+    }
+}

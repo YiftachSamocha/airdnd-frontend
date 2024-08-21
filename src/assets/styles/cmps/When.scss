@@ -1,0 +1,45 @@
+.when {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border-radius: 25px;
+    z-index: 3;
+    box-shadow: 0 0 4px black;
+    background-color: white;
+}
+
+.rdrDaySelected .rdrDayNumber span {
+    background-color: lightgray !important;
+    color: black !important;
+}
+
+.rdrDayHovered .rdrDayNumber span {
+    border-color: black;
+    color: black !important;
+}
+
+.rdrStartEdge,
+.rdrEndEdge {
+    background-color: black !important;
+    color: red !important;
+    border-radius: 50% !important;
+    border: 2px solid black !important;
+}
+
+.rdrDayNumber span {
+    background-color: transparent !important;
+    color: black !important;
+}
+
+.rdrDefinedRangesWrapper {
+    display: none;
+}
+
+.rdrMonthPicker select,
+.rdrYearPicker select {
+    display: none;
+}
+
+.rdrMonthAndYearPickers {
+    justify-content: center;
+}

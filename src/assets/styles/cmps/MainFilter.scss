@@ -1,21 +1,20 @@
 .main-filter {
-
     box-shadow: 0 3px 3px 4px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
-    max-width: 60em;
+    max-width: 51.8em;
     margin: 0 auto;
     border-radius: 50px;
+    position: relative;
 
-
-
-    div {
-        font-size: 0.8em;
-        padding: em(15px) em(24px);
+    .who-input,
+    .when-input,
+    .where-input {
+        padding: em(8px) em(14px);
         border-radius: 50px;
         position: relative;
-
-
+        display: flex;
+        flex-direction: column;
 
         label {
             color: $gray5;
@@ -28,15 +27,45 @@
             background: none;
             z-index: 1;
         }
-
     }
 
-    div:first-of-type {
-        padding-inline: em(38px);
+    .when-input {
+        flex-direction: row;
     }
 
 
-    div:hover {
+
+    .where-input {
+        padding-inline: 2em;
+    }
+
+    .who-input {
+        display: flex;
+        align-items: center;
+        position: relative;
+        flex-direction: row;
+
+        >button {
+            background-color: $clr-light-red;
+            border-radius: 50%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 4em;
+            height: 4em;
+            margin-inline-end: 1em;
+        }
+
+        img {
+            width: 2em;
+            height: 2em;
+        }
+    }
+
+    .who-input:hover,
+    .where-input:hover,
+    .when-input:hover {
         background-color: $gray1;
     }
 
@@ -44,63 +73,11 @@
         height: 40px;
         width: 1px;
         background-color: $gray1;
-
-
     }
-
 
     div:hover+hr,
     div:hover~hr {
         opacity: 0;
     }
-
-    button {
-        background-color: $clr-light-red;
-        border-radius: 50%;
-        padding: 1em;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-
-    }
-
-    img {
-        height: 1.5em;
-        max-width: 1.5em;
-    }
-
-    .where {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background-color: white;
-        border-radius: 25px;
-        z-index: 3;
-
-        div {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            div{
-                display: flex;
-                flex-direction: column;
-                img{
-                    height: 20em;
-                    max-width: 20em;
-                    border: 1px solid $gray1;
-                    border-radius: 5px;
-                }
-            }
-        }
-    }
-
-    .where>*:hover {
-        background-color: inherit;
-
-    }
-
-
-
-
 
 }
