@@ -25,6 +25,7 @@ export function StayDetails() {
 
   return (
     <section className="stay-details">
+      <h1>hi</h1>
       <StayImage />
       <StayMainInfo />
       <StayAmeneties />
