@@ -1,13 +1,13 @@
 // // Setup
-// @import "setup/variables";
+@import "setup/variables.scss";
 // @import "setup/functions";
-// @import "setup/mixins";
-// @import "setup/typography";
+// @import "setup/mixins.scss";
+@import "setup/typography.scss";
 
 // // Basics
-// @import "basics/helpers";
-// @import "basics/layout";
-// @import "basics/base";
+@import "basics/helpers.scss";
+@import "basics/layout.scss";
+@import "basics/base.scss";
 // @import "basics/links";
 // @import "basics/forms";
 
@@ -24,8 +24,8 @@
 // @import "pages/LoginSignup";
 
 // // Components
-// @import "cmps/list";
-// @import "cmps/preview";
+@import "cmps/StayList.scss";
+@import "cmps/StayPreview.scss";
 
 // @import "cmps/AppHeader";
 // @import "cmps/AppFooter";
