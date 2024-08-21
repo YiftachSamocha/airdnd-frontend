@@ -1,0 +1,106 @@
+.main-filter {
+
+    box-shadow: 0 3px 3px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    max-width: 60em;
+    margin: 0 auto;
+    border-radius: 50px;
+
+
+
+    div {
+        font-size: 0.8em;
+        padding: em(15px) em(24px);
+        border-radius: 50px;
+        position: relative;
+
+
+
+        label {
+            color: $gray5;
+            font-weight: 500;
+        }
+
+        input {
+            border: 0;
+            outline: 0;
+            background: none;
+            z-index: 1;
+        }
+
+    }
+
+    div:first-of-type {
+        padding-inline: em(38px);
+    }
+
+
+    div:hover {
+        background-color: $gray1;
+    }
+
+    hr {
+        height: 40px;
+        width: 1px;
+        background-color: $gray1;
+
+
+    }
+
+
+    div:hover+hr,
+    div:hover~hr {
+        opacity: 0;
+    }
+
+    button {
+        background-color: $clr-light-red;
+        border-radius: 50%;
+        padding: 1em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+
+    }
+
+    img {
+        height: 1.5em;
+        max-width: 1.5em;
+    }
+
+    .where {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: white;
+        border-radius: 25px;
+        z-index: 3;
+
+        div {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            div{
+                display: flex;
+                flex-direction: column;
+                img{
+                    height: 20em;
+                    max-width: 20em;
+                    border: 1px solid $gray1;
+                    border-radius: 5px;
+                }
+            }
+        }
+    }
+
+    .where>*:hover {
+        background-color: inherit;
+
+    }
+
+
+
+
+
+}
