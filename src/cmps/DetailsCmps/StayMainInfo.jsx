@@ -32,16 +32,19 @@ export function StayMainInfo({ stay }) {
             <img src={stay.host.imgUrl} alt={`${stay.host.fullname}'s profile`} className="host-img" />
             <p>Hosted by {stay.host.fullname}</p>
         </div>
+
         <div className="highlights">
             {stay.hightlights.map((highlight, index) => (
                 <div key={index} className="highlight">
-                    <h3>{highlight.main}</h3>
-                    <p>{highlight.sub}</p>
+                    <img src={highlight.imgUrl} alt={highlight.main} className="highlight-img" />
+                    <div className="highlight-txt">
+                      <h3>{highlight.main}</h3>
+                    <p>{highlight.sub}</p>  
+                    </div> 
                 </div>
             ))}
         </div>
-        <div>
-            <h2>About this place</h2>
+        <div className="description">
             <p>{stay.description}</p>
         </div>
     </section>

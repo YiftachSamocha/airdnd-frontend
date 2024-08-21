@@ -1,14 +1,14 @@
 .main-info {
     .initial-info>* {
-        margin-block-end: 5px;
+        margin-block-end: 0px;
         color: $gray5;
     }
 
     .initial-info {
-        margin-block: 2em;
+        margin-block: 32px;
 
         h2 {
-            font-size: 1.2222em;
+            font-size: 1.375rem;
 
             .type {
                 text-transform: capitalize;
@@ -18,7 +18,7 @@
         .capacity {
             display: flex;
             gap: 5px;
-            font-size: 0.88889em;
+            font-size: 1rem;
         }
 
         .rating {
@@ -26,30 +26,30 @@
             align-items: center;
             gap: 5px;
             font-weight: 500;
-            font-size: 0.9445em;
+            font-size: 1.0625em;
 
             .reviews-number {
-                font-size: 0.94112em;
+                font-size: 1rem;
                 text-decoration: underline;
             }
         }
 
         .star-icon {
-            width: 16px;
+            width: 1rem;
         }
     }
 
     .host-info {
         display: flex;
-        gap: 1.5em;
+        gap: 1rem;
         align-items: center;
-        padding-block: 1.5em;
+        padding-block: 1.5rem;
         border-top: 1.5px solid $gray2;
         border-bottom: 1.5px solid $gray2;
-        font-size: 0.8889em;
-        
+        font-size: 1rem;
+
         img {
-            height: 2.3em;
+            height: 2.5rem;
             border-radius: 50%;
             object-fit: cover;
         }
@@ -60,4 +60,46 @@
         }
 
     }
+
+    .highlights {
+        padding-inline: 0.5rem;
+        padding-block: 1.5rem;
+        border-bottom: 1.5px solid $gray2;
+
+        .highlight {
+            display: flex;
+            gap: 1.5rem;
+            padding-block: 0;
+
+            h3 {
+                font-size: 1rem;
+                margin-block: 0 2px;
+            }
+
+            p {
+                font-size: 0.875rem;
+                color: $gray4;
+                font-weight: lighter;
+                margin-block: 0;
+            }
+        }
+
+        .highlight:not(:last-child) {
+            margin-block-end: 1.5rem;
+
+        }
+
+        img {
+            width: 1.5rem;
+            object-fit: contain;
+        }
+    }
+
+    .description p{
+        font-size: 1rem;
+        line-height: 1.5rem;
+        max-width: 650px;
+        font-weight: 300;
+    }
+
 }
