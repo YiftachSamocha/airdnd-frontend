@@ -1,10 +1,38 @@
 .stay-preview {
-    a {
-        color: $clr4;
-        padding: 0;
-    }    
-	p {
-		margin-block: 0 0.2rem;
-        font-size: .85em;
-	}
+    div{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    h3 {
+        font-size: 15px;
+        font-weight: 400;
+        color: $gray5;
+         margin: 0 0 0.6em;
+    }
+
+    p {
+        margin-block: 0 0.2rem;
+        // font-size: .88em;
+        // font-size: 14px;
+        color: $gray4;
+         margin: 0 0 1em;
+    }
+
+    .light {
+        color: $gray4;
+    }
+
+    article {
+        margin-top: 40px;
+    }
+
+
+    img {
+        border-radius: 10px;
+        object-fit: cover;
+        aspect-ratio: 319 / 319;
+    }
 }
