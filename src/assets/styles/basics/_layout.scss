@@ -14,7 +14,7 @@
     @include for-mobile-layout {
         .stay-main-list {
             grid-template-columns:
-                minmax(1px, 1fr) minmax(auto, $mobile-breakpoint) minmax(1px, 1fr);
+                minmax(22px, 1fr) minmax(auto, $mobile-breakpoint) minmax(22px, 1fr);
         }
 
         .stay-list {
@@ -48,6 +48,17 @@
         .stay-main-list {
             grid-template-columns:
                 minmax(40px, 1fr) minmax(auto, $wide-breakpoint) minmax(40px, 1fr);
+        }
+
+        .stay-list {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    @include for-large-layout {
+        .stay-main-list {
+            grid-template-columns:
+                minmax(80px, 1fr) minmax(auto, $large-breakpoint) minmax(80px, 1fr);
         }
 
         .stay-list {
