@@ -14,7 +14,7 @@ export function StayPreview({ stay }) {
     const distance = calculateDistance(userLat, userLng, targetLat, targetLng)
 
     const roundedDistance = distance > 0 ? formatNumberWithCommas(Math.round(distance)) : '0'
-
+    const price = formatNumberWithCommas(stay.price.night)
 
 
 
@@ -28,9 +28,6 @@ export function StayPreview({ stay }) {
                 '')}
         </div>
         <h3 className="light"> {roundedDistance} kilometers away</h3>
-        <h3>${stay.price.night} night</h3>
+        <h3>${price} night</h3>
     </article>
-
-
-    {/* <FontAwesomeIcon icon="fa-sharp fa-solid fa-star" /> */ }
 }

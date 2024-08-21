@@ -1,9 +1,5 @@
 .stay-list {
 
-    // body {
-    //     max-width: 1390px;
-    // }
-
     display: grid;
     // grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     grid-template-columns: repeat(4, 1fr);
@@ -17,3 +13,11 @@
     }
 }
 
+.stay-main-list {
+    display: grid;
+    grid-template-columns: minmax(0, 60px) 1fr minmax(0, 60px);
+
+    >* {
+        grid-column: 2;
+    }
+}
