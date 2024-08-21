@@ -28,7 +28,7 @@ export function StayDetails() {
       <h1>{stay.name}</h1>
       <StayImage stay={stay}/>
       <StayMainInfo stay={stay}/>
-      <StayAmeneties />
+      <StayAmeneties stay={stay}/>
       <StayDate />
       <StayReview />
       <StayLocation />
