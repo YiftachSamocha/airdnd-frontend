@@ -1,14 +1,14 @@
 import { useState } from "react"
 
-export function Who() {
-    const [capacity, setCapacity] = useState({ adults: 0, children: 0, infants: 0, pets: 0 })
+export function Who({filterCapacity, setFilterCapacity}) {
+    const [capacity, setCapacity] = useState(filterCapacity)
     const capacityInfo = [{ name: 'adults', info: 'Ages 13 or above' }, { name: 'children', info: 'Ages 2 - 12' }, { name: 'infants', info: 'Under 2' }, { name: 'pets', info: 'Bringing a service animal?' }]
 
     function changeCapacity(type, amount) {
-        setCapacity(prev => {
-            const newValue = prev[type] + amount
-            return newValue >= 0 ? { ...prev, [type]: newValue } : prev
-        })
+        const newValue = capacity[type] + amount
+        const newCapacity= newValue >= 0 ? { ...capacity, [type]: newValue } : capacity
+        setCapacity(newCapacity)
+        setFilterCapacity(newCapacity)
     }
     return <div className="who">
         {capacityInfo.map(type => {

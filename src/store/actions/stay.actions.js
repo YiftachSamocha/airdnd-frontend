@@ -1,6 +1,6 @@
 import { stayService } from '../../services/stay/stay.service.local.js'
 import { store } from '../store'
-import { ADD_STAY, REMOVE_STAY, SET_STAYS, SET_STAY, UPDATE_STAY, ADD_STAY_MSG } from '../reducers/stay.reducer'
+import { ADD_STAY, REMOVE_STAY, SET_STAYS, SET_STAY, UPDATE_STAY } from '../reducers/stay.reducer'
 
 export async function loadStays(filterBy) {
     try {
@@ -95,12 +95,6 @@ function getCmdUpdateStay(stay) {
     return {
         type: UPDATE_STAY,
         stay
-    }
-}
-function getCmdAddStayMsg(msg) {
-    return {
-        type: ADD_STAY_MSG,
-        msg
     }
 }
 

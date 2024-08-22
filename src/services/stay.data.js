@@ -1,4 +1,11 @@
 import { getRandomIntInclusive, makeId } from "./util.service.js";
+import flexibleImg from '../assets/imgs/countries/flexible.jpg';
+import italyImg from '../assets/imgs/countries/italy.jpeg';
+import spainImg from '../assets/imgs/countries/spain.jpg';
+import portugalImg from '../assets/imgs/countries/portugal.jpg';
+import usaImg from '../assets/imgs/countries/united-states.jpg';
+import greeceImg from '../assets/imgs/countries/greece.jpg';
+
 
 export function createStay() {
     return {
@@ -11,7 +18,7 @@ export function createStay() {
             beds: getRandomIntInclusive(1, 5),
             bathrooms: getRandomIntInclusive(1, 3),
         },
-        description: getRandomItems(descreptions, 1),
+        description: getRandomItems(descriptions, 1),
         highlights: getRandomItems(highlights, 3),
         price: {
             night: getRandomIntInclusive(200, 2000),
@@ -30,6 +37,23 @@ export function createStay() {
         reviews: getRandomItems(reviews, getRandomIntInclusive(1, 15)),
     }
 }
+
+export function getData(type) {
+    switch (type) {
+        case 'names': return names;
+        case 'imgs': return imgs;
+        case 'amenities': return amenities;
+        case 'descriptions': return descriptions;
+        case 'labels': return labels;
+        case 'highlights': return highlights;
+        case 'locations': return locations;
+        case 'hostImages': return hostImages;
+        case 'fullnames': return fullnames;
+        case 'reviewTxts': return reviewsTxts;
+        default: return null;
+    }
+}
+
 function getRandomItems(arr, numItems) {
     if (arr.length === 0 || numItems <= 0) return numItems === 1 ? null : []
 
@@ -82,7 +106,7 @@ function generateImgUrls() {
     })
 }
 
-const descreptions = [
+const descriptions = [
     "This stylish loft offers an open layout with industrial charm, featuring exposed brick walls and high ceilings. Perfectly sized for comfort, it includes modern furnishings and a spacious living area. The location provides easy access to everything you need.",
     "Step into this cozy retreat, where mid-century design meets modern comfort. The space is thoughtfully decorated with minimalist furniture, offering a welcoming atmosphere. The layout is efficient, making it ideal for a short or extended stay in a prime area.",
     "A bright and airy apartment with contemporary furnishings and clean lines. The spacious living room flows into a sleek kitchen with high-end appliances. The well-placed location makes exploring the surroundings a breeze.",
@@ -347,7 +371,7 @@ const amenities = [
     { type: 'laundry', name: 'Ironing board', imgUrl: '/src/assets/imgs/amenities/no-drayer.svg' },
     { type: 'laundry', name: 'Laundry detergent', imgUrl: '/src/assets/imgs/amenities/no-drayer.svg' },
 
-    {type: 'familyFeatures', name: 'Crib', imgUrl: '/src/assets/imgs/amenities/no-wifi.svg'},
+    { type: 'familyFeatures', name: 'Crib', imgUrl: '/src/assets/imgs/amenities/no-wifi.svg' },
     { type: 'familyFeatures', name: 'High chair', imgUrl: '/src/assets/imgs/amenities/no-wifi.svg' },
     { type: 'familyFeatures', name: 'Child safety locks', imgUrl: '/src/assets/imgs/amenities/no-wifi.svg' },
     { type: 'familyFeatures', name: 'Children’s books and toys', imgUrl: '/src/assets/imgs/amenities/no-wifi.svg' },
@@ -355,13 +379,13 @@ const amenities = [
 
     { type: 'petFriendly', name: 'Pets allowed', imgUrl: '/src/assets/imgs/amenities/no-kitchen.svg' },
     { type: 'petFriendly', name: 'Pet bowls', imgUrl: '/src/assets/imgs/amenities/no-kitchen.svg' },
-    { type: 'petFriendly', name: 'Pet bed', imgUrl: '/src/assets/imgs/amenities/no-kitchen.svg'},
+    { type: 'petFriendly', name: 'Pet bed', imgUrl: '/src/assets/imgs/amenities/no-kitchen.svg' },
     { type: 'petFriendly', name: 'Fenced yard', imgUrl: '/src/assets/imgs/amenities/no-kitchen.svg' },
 
     // Parking
     { type: 'parking', name: 'Free parking on premises', imgUrl: '/src/imgs/amenities/free-parking.svg' },
     { type: 'parking', name: 'Street parking', imgUrl: '/src/imgs/amenities/free-parking.svg' },
-    { type: 'parking', name: 'Garage', imgUrl: '/src/imgs/amenities/free-parking.svg'},
+    { type: 'parking', name: 'Garage', imgUrl: '/src/imgs/amenities/free-parking.svg' },
     { type: 'parking', name: 'EV charger', imgUrl: '/src/imgs/amenities/free-parking.svg' },
 
     // Entertainment
@@ -459,8 +483,14 @@ function generateAvailabilityRanges() {
 }
 
 const locations = [
+    { country: 'Im flexible', city: '', lat: 0, lng: 0, img: flexibleImg },
+    { country: 'Greece', city: 'Athens', lat: 37.98, lng: 23.73, img: greeceImg },
+    { country: 'Spain', city: 'Madrid', lat: 40.42, lng: -3.70, img: spainImg },
+    { country: 'Portugal', city: 'Lisbon', lat: 38.72, lng: -9.14, img: portugalImg },
+    { country: 'Italy', city: 'Rome', lat: 41.90, lng: 12.49, img: italyImg },
+    { country: 'USA', city: 'New York', lat: 40.71, lng: -74.01, img: usaImg },
+
     { country: 'Israel', city: 'Tel-Aviv', lat: 32.07, lng: 34.78 },
-    { country: 'USA', city: 'New York', lat: 40.71, lng: -74.01 },
     { country: 'USA', city: 'Los Angeles', lat: 34.05, lng: -118.24 },
     { country: 'France', city: 'Paris', lat: 48.85, lng: 2.35 },
     { country: 'Germany', city: 'Berlin', lat: 52.52, lng: 13.40 },
@@ -490,9 +520,8 @@ const locations = [
     { country: 'New Zealand', city: 'Auckland', lat: -36.85, lng: 174.76 },
     { country: 'Chile', city: 'Santiago', lat: -33.46, lng: -70.65 },
     { country: 'Colombia', city: 'Bogotá', lat: 4.61, lng: -74.08 },
-    { country: 'Peru', city: 'Lima', lat: -12.04, lng: -77.03 },
-    { country: 'Ukraine', city: 'Kyiv', lat: 50.45, lng: 30.52 },
-    { country: 'Poland', city: 'Warsaw', lat: 52.23, lng: 21.01 }
+
+
 ]
 
 const hostImages = [

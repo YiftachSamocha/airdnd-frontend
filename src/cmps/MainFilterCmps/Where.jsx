@@ -1,31 +1,47 @@
-import flexibleImg from '../../assets/imgs/labels/flexible.jpg'
-import europeImg from '../../assets/imgs/labels/europe.jpeg';
-import italyImg from '../../assets/imgs/labels/italy.jpeg';
-import unitedStatesImg from '../../assets/imgs/labels/united-states.jpg';
-import greeceImg from '../../assets/imgs/labels/greece.jpg';
-import southAmericaImg from '../../assets/imgs/labels/south-america.jpg';
+import locationImg from '../../assets/imgs/location.png'
+import { getData } from '../../services/stay.data';
 
-export function Where() {
-    const optionalAreas = [
-        { txt: 'Im flexible', img: flexibleImg },
-        { txt: 'Europe', img: europeImg },
-        { txt: 'Italy', img: italyImg },
-        { txt: 'United States', img: unitedStatesImg },
-        { txt: 'Greece', img: greeceImg },
-        { txt: 'South America', img: southAmericaImg }
-    ]
+export function Where({ input, setInput }) {
+    const locations = getData('locations')
+    const countryLocations= locations.filter(location=> location.img)
 
-    return <div className="where">
-        <h3>Search by region</h3>
-        <div >
-            {optionalAreas.map(area => {
-                return <div>
-                    <img src={area.img} alt="" />
-                    <p>{area.txt}</p>
+
+    function getOptionalLocs(value) {
+        return locations.filter(location =>
+            location.country.toLowerCase().includes(value.toLowerCase()) ||
+            location.city.toLowerCase().includes(value.toLowerCase()) ||
+            (location.city + ', ' + location.country).toLowerCase().includes(value.toLowerCase())
+        )
+    }
+
+    return <section className='where'>
+        {input === ''
+            ?
+
+            <div >
+                <h3>Search by region</h3>
+                <div >
+                    {countryLocations.map(location => {
+                        return <div key={location.img} onClick={() => setInput(location)}>
+                            <img src={location.img} alt="" />
+                            <p>{location.country}</p>
+                        </div>
+                    })}
                 </div>
-            })}
-        </div>
+            </div>
+            :
+            <ul>
+                {getOptionalLocs(input).map(location => {
+                    return <li key={location.lat} onClick={() => setInput(location)}>
+                        <img src={locationImg} alt="" />
+                        <p><span>{location.city}</span>, <span>{location.country}</span></p>
+                    </li>
+                })}
+            </ul>
 
-    </div>
+        }
+
+    </section>
+
 
 }
