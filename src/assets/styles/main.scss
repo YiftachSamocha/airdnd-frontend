@@ -2,7 +2,7 @@
 @import "setup/variables";
 @import "setup/functions";
 @import "setup/mixins";
-@import "setup/typography";
+@import "setup/typography.scss";
 
 // Basics
 @import "basics/helpers";
@@ -26,8 +26,12 @@
 // @import "pages/LoginSignup";
 
 // // Components
-// @import "cmps/list";
-// @import "cmps/preview";
+
+ @import "cmps/DetailsCmps/StayMainInfo";
+ @import "cmps/DetailsCmps/StayAmenities";
+
+ @import "cmps/StayList.scss";
+ @import "cmps/StayPreview.scss";
 
  @import "cmps/AppHeader.scss";
  @import "cmps/MainFilter.scss";

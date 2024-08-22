@@ -1,10 +1,54 @@
 .stay-preview {
-    a {
-        color: $clr4;
-        padding: 0;
-    }    
-	p {
-		margin-block: 0 0.2rem;
-        font-size: .85em;
-	}
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 7px;
+    }
+
+    // div:first-of-type{
+    //     margin-top: 7px;
+    // }
+
+    h3 {
+        font-size: 16px;
+        color: $gray5;
+        margin: 0 0 0.2em;
+    }
+
+    p {
+        margin-block: 0 0.2rem;
+        color: $gray4;
+        margin: 0 0 1em;
+    }
+
+    .light {
+        color: $gray4;
+        font-weight: 400;
+    }
+
+    article {
+        margin-top: 40px;
+    }
+
+
+    img {
+        border-radius: 10px;
+        object-fit: cover;
+        aspect-ratio: 319 / 319;
+    }
+
+    .rating {
+        margin-bottom: 9px;
+
+        img {
+            height: 13px;
+            margin-right: 5px;
+            margin-top: 3px;
+        }
+    }
+
+    span {
+        font-weight: 500;
+    }
 }
