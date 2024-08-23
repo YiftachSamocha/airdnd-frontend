@@ -64,6 +64,11 @@
         .stay-list {
             grid-template-columns: repeat(4, 1fr);
         }
+
+        .stay-payment{
+            max-width: 400px;
+            padding: 20px;
+        }
     }
 }
 

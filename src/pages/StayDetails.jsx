@@ -11,6 +11,7 @@ import { StayReview } from '../cmps/DetailsCmps/StayReview'
 import { StayDate } from '../cmps/DetailsCmps/StayDate'
 import { StayHost } from '../cmps/DetailsCmps/StayHost'
 import { StayToKnow } from '../cmps/DetailsCmps/StayToKnow'
+import { StayPayment } from '../cmps/DetailsCmps/StayPayment'
 
 
 export function StayDetails() {
@@ -34,6 +35,7 @@ export function StayDetails() {
       <StayLocation />
       <StayHost />
       <StayToKnow />
+      <StayPayment stay={stay}/>
     </section>
   )
 }

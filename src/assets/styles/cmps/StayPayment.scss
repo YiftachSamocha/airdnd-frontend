@@ -1,0 +1,193 @@
+.stay-payment {
+    position: fixed;
+    top: 0;
+    right: 0;
+    // min-width: 250px;
+    // max-width: 370em;
+    padding: 20px;
+    background-color: $clr3;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    border: 1px solid rgb(210, 208, 208);
+    border-radius: 10px;
+
+    // .grid-container {
+    //     grid-template-columns: 1fr 1fr;
+    //     grid-template-rows: repeat(6, auto);
+    //     width: 100%;
+    // }
+
+    // .btn-container::after {
+    //     border: 1px solid #9d9a9a;
+    //     pointer-events: none;
+
+    // }
+
+    .btn-container {
+        display: grid;
+        // padding: 10px;
+        // border: 1px solid #9d9a9a;
+
+        // align-items: center;
+        // justify-content: space-around;
+    }
+
+    .btn-team {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: 1px solid #9d9a9a;
+        background-color: white;
+        padding: 12px;
+        padding-bottom: 0;
+
+    }
+
+    // .btn-side{
+    //    font-size: 12px;
+
+    .btn-team:first-of-type {
+        border-bottom: none;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .btn-team:last-of-type {
+        border-radius: 0 0 10px 10px;
+    }
+.btn-side::after{
+    border: 1px solid #9d9a9a;
+}
+
+    // .items-container {
+    //     display: grid;
+    //     grid-template-columns: 1fr 1fr;
+    //     width: 100%;
+    //     padding: 5px;
+    //     border: 1px solid #9d9a9a;
+    //     border-radius: 10px;
+    // }
+
+
+
+    .btn-side {
+        display: flex;
+        flex-direction: column;
+
+        h4 {
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: -0.5px;
+            margin:0 0 3px 0;
+        }
+
+        p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    }
+
+    // .guests-container,
+    // .arrow-container {
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    // }
+
+    // .guests-container {
+    //     display: flex;
+    //     flex-direction: column;
+    //     align-items: center;
+    //     justify-content: center;
+    // }
+
+    // .arrow-container {
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    //     position: relative;
+    // }
+
+    .arrow-down-icon {
+        height: 17px;
+    }
+
+    .button-container {
+        grid-column: span 2;
+        display: flex;
+        justify-content: center;
+
+        .color-change {
+            border-radius: 5px;
+            width: 100%;
+            padding: 14px;
+            margin: 15px 0 15px 0;
+            font-size: 16px;
+            color: $gray1;
+            font-weight: bold;
+            background: linear-gradient(90deg, #e00b41, #c21c54);
+            border-radius: 10px;
+            border: 1px solid rgb(240, 231, 231);
+            // transition: background-color 0.5s ease, transform 0.3s ease;
+            transition: background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+
+            &:hover {
+                background: linear-gradient(90deg, #c21c54, #e00b41);
+            }
+        }
+    }
+
+    h2 {
+        margin-top: 5px;
+
+        span {
+            font-size: 19px;
+            font-weight: 400;
+        }
+    }
+
+    p {
+        color: $gray5;
+        font-weight: 400;
+    }
+
+    .light {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-decoration-color: #000;
+    }
+
+    .price-calc {
+        h3 {
+            font-weight: 400;
+        }
+
+        span span {
+            font-size: 15px;
+        }
+    }
+
+    .price-calc,
+    .total {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .total {
+        border-top: 1px solid #ccc;
+      
+    }
+
+    .total h3{
+         margin-bottom: 5px; 
+    }
+
+    // hr {
+    //     border: 0.1px solid rgb(228, 224, 224);
+    //     grid-column: span 2;
+    // }
+
+.grid-item p{
+    margin-left: 10px;
+}
+
+}
