@@ -2,15 +2,16 @@
     box-shadow: 0 3px 3px 4px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
-    max-width: 51.8em;
+    max-width: em(850px);
     margin: 0 auto;
     border-radius: 50px;
     position: relative;
+    cursor: pointer;
 
     .who-input,
     .when-input,
     .where-input {
-        padding: em(8px) em(14px);
+        padding: em(14px) em(24px);
         border-radius: 50px;
         position: relative;
         display: flex;
@@ -19,6 +20,7 @@
         label {
             color: $gray5;
             font-weight: 500;
+            cursor: pointer;
         }
 
         input {
@@ -29,14 +31,28 @@
         }
     }
 
-    .when-input {
-        flex-direction: row;
-    }
-
-
-
     .where-input {
         padding-inline: 2em;
+
+        input {
+            width: em(218px);
+        }
+    }
+
+    .when-input {
+        flex-direction: row;
+        padding: 0;
+    }
+
+    .when-input-start, .when-input-end {
+        border-radius: 50px;
+        padding: em(14px) em(24px);
+
+        input {
+            width: em(92px);
+            cursor: pointer;
+        }
+
     }
 
     .who-input {
@@ -44,6 +60,12 @@
         align-items: center;
         position: relative;
         flex-direction: row;
+        padding-block: em(11px);
+
+        input {
+            width: em(183px);
+            cursor: pointer;
+        }
 
         >button {
             background-color: $clr-light-red;
@@ -52,32 +74,51 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 4em;
-            height: 4em;
-            margin-inline-end: 1em;
+            width: 3em;
+            height: 3em;
+            border: 0;
         }
 
         img {
-            width: 2em;
-            height: 2em;
+            max-width: 1em;
+            height: 1em;
         }
     }
 
     .who-input:hover,
     .where-input:hover,
-    .when-input:hover {
+    .when-input>div:hover {
         background-color: $gray1;
     }
 
-    hr {
-        height: 40px;
-        width: 1px;
-        background-color: $gray1;
+    &.has-selection {
+        background-color: $gray7;
+
+        .selected {
+            background-color: white;
+        }
+        .when-input-start.selected,  .when-input-end.selected{
+            background-color: white;
+        }
+
+        .where-input:hover:not(.selected),
+        .when-input-start:hover:not(.selected),
+        .when-input-end:hover:not(.selected),
+        .who-input:hover:not(.selected) {
+            background-color: $gray2;
+        }
     }
 
-    div:hover+hr,
-    div:hover~hr {
-        opacity: 0;
-    }
+
+    // hr {
+    //     height: 40px;
+    //     width: 1px;
+    //     background-color: $gray1;
+    // }
+
+    // div:hover+hr,
+    // div:hover~hr {
+    //     opacity: 0;
+    // }
 
 }

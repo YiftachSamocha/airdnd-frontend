@@ -6,7 +6,7 @@
     z-index: 3;
     background-color: white;
     width: 150%;
-    padding: 1em 1em;
+    padding: 1em 2em;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 
     >div {
@@ -24,23 +24,29 @@
             font-size: 1.1em;
             color: $gray5;
             text-transform: capitalize;
+            text-decoration: none;
         }
 
         p {
-            margin: 1em;
+            margin: 1em 0;
             font-size: 0.9em;
             color: $gray4;
+        }
+
+        span{
+            margin: 1em;
         }
 
         button {
             background-color: inherit;
             border: 1px solid $gray3;
             border-radius: 50%;
-            width: 1.5em;
-            height: 1.5em;
+            width: 2em;
+            height: 2em;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 0;
             font-size: 1.2em;
             color: $gray4;
             cursor: pointer;

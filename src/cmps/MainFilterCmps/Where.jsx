@@ -3,7 +3,7 @@ import { getData } from '../../services/stay.data';
 
 export function Where({ input, setInput }) {
     const locations = getData('locations')
-    const countryLocations= locations.filter(location=> location.img)
+    const countryLocations = locations.filter(location => location.img)
 
 
     function getOptionalLocs(value) {
@@ -17,9 +17,8 @@ export function Where({ input, setInput }) {
     return <section className='where'>
         {input === ''
             ?
-
-            <div >
-                <h3>Search by region</h3>
+            <div className='where-areas' >
+                <h5>Search by region</h5>
                 <div >
                     {countryLocations.map(location => {
                         return <div key={location.img} onClick={() => setInput(location)}>
@@ -30,11 +29,14 @@ export function Where({ input, setInput }) {
                 </div>
             </div>
             :
-            <ul>
+            <ul className='where-cities'>
                 {getOptionalLocs(input).map(location => {
                     return <li key={location.lat} onClick={() => setInput(location)}>
-                        <img src={locationImg} alt="" />
-                        <p><span>{location.city}</span>, <span>{location.country}</span></p>
+                        <div><img src={locationImg} alt="" /></div>
+                        <p>
+                            {location.country !== 'Im flexible' && <span>{location.city}, </span>}
+                            <span>{location.country}</span>
+                        </p>
                     </li>
                 })}
             </ul>

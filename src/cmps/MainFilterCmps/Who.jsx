@@ -19,7 +19,7 @@ export function Who({filterCapacity, setFilterCapacity}) {
                 </div>
                 <div>
                     <button onClick={() => changeCapacity(type.name, -1)}>-</button>
-                    <p>{capacity[type.name]}</p>
+                    <span>{capacity[type.name]}</span>
                     <button onClick={() => changeCapacity(type.name, +1)}>+</button>
                 </div>
             </div>

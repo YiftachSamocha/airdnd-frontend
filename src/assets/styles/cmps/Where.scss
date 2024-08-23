@@ -6,38 +6,97 @@
     z-index: 3;
     box-shadow: 0 0 4px black;
     background-color: white;
-    padding: 1em;
+
+    .where-areas {
+        padding: 2em em(24px);
+
+        h5 {
+            margin: 0 0 1em 1em;
+        }
+
+        >div {
+            cursor: pointer;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
 
 
-    >div {
-        cursor: pointer;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-       
+            div {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 0.5em;
 
-        div {
+                img {
+                    height: em(110px);
+                    max-width: em(110px);
+                    border: 1px solid $gray1;
+                    border-radius: 5px;
+                    margin-bottom: 0.5em;
+                }
+
+                p {
+                    text-align: center;
+                    font-size: 1em;
+                    color: $gray5;
+                }
+            }
+
+            >div:hover {
+                background-color: $gray1;
+                border-radius: 10px;
+            }
+        }
+
+
+    }
+
+    .where-cities {
+        list-style: none;
+        padding: em(24px) 1em;
+        margin: 0;
+        border-radius: 12px;
+        overflow: hidden;
+        max-height: 22em;
+        
+
+        li {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            padding: 0.5em;
+            padding: 0.5em 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 15px;
+
+            &:hover {
+                background-color: $gray1;
+            }
+            div{
+                background-color: $gray2;
+                border-radius: 15px;
+                height: 3em;
+                width: 3em;
+                margin-inline-end: 1em;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
 
             img {
-                height: em(90px);
-                width: em(90px);
-                border: 1px solid $gray1;
-                border-radius: 5px;
-                margin-bottom: 0.5em;
+                width: em(22px);
+                height: em(22px);
+                border-radius: 8px;
+                object-fit: cover;
+                overflow-y: hidden;
             }
 
             p {
-                text-align: center;
-                font-size: 1em;
-                color: $gray5;
+                margin: 0;
+                width: em(300px);
+                span:last-child {
+                    margin-left: 4px;
+                }
             }
         }
-        div:hover{
-            background-color: $gray1;
-            border-radius: 10px;
-        }
     }
+
 }

@@ -22,8 +22,7 @@ export function When({dates, setDates}) {
             maxDate={addDays(new Date(), 365)}
             staticRanges={[]}
             inputRanges={[]}
-            onChange={handleDateChange} />
-
-
+            onChange={handleDateChange}
+             />
     </div>
 }

@@ -1,44 +1,103 @@
 .when {
     position: absolute;
     top: 100%;
-    left: 0;
-    border-radius: 25px;
+    left: -75%;
+    border-radius: 50%;
     z-index: 3;
-    box-shadow: 0 0 4px black;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
     background-color: white;
     color: black;
+    font-family: inherit;
+    width: em(850px);
+
+    .rdrCalendarWrapper {
+        border: none;
+        box-shadow: none;
+    }
+
+    .rdrDateDisplayWrapper {
+        display: none;
+    }
+
+    .rdrDefinedRangesWrapper {
+        display: none;
+    }
+
+    .rdrMonthPicker select,
+    .rdrYearPicker select {
+        display: none;
+    }
+
+    .rdrMonthAndYearPickers {
+        display: flex;
+        justify-content: center;
+        padding: 10px 0;
+        font-weight: bold;
+    }
+
+    .rdrNextPrevButton {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        color: black;
+        margin-block-start: 4em;
+    }
+
+    .rdrMonthName {
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .rdrDayNumber span {
+        background-color: transparent !important;
+        color: black !important;
+    }
+
+    .rdrDay{
+        height: 3em;
+        width: 3em;
+        span{
+            font-weight: 300;
+        }
+    }
+
+    .rdrDayHovered {
+        border: black 1px solid !important;
+        border-radius: 50%;
+        
+
+        .rdrDayNumber {
+            border: 0;
+            padding: 0;
+           
+        }
+    }
+
+    .rdrStartEdge,
+    .rdrEndEdge {
+        
+        background-color: black !important; // Black background for selected dates
+        border-radius: 50px !important; // Circular edges
+        border: 2px solid black !important; // Black border
+       
+    }
+    .rdrStartEdge+span span,
+    .rdrEndEdge+span span{
+        color: white !important;
+    }
+
+    .rdrDayInactive {
+        visibility: hidden; // Hides overflow dates from other months
+    }
+
+    .rdrInRange {
+        background-color: $gray1; // Light gray background for the date range
+    
+    }
+
+    // .rdrDayHovered .rdrInRange,
+    // .rdrDaySelected .rdrInRange {
+    //     background-color: $gray1; // Light gray for hovered/selected range
+    // }
 }
-
-.rdrDayHovered .rdrDayNumber span {
-    border-color: black;
-    background-color: $gray1; 
-}
-
-.rdrDayNumber span {
-    background-color: transparent !important;
-    color: black !important; 
-  }
-
-.rdrStartEdge,
-.rdrEndEdge {
-    color: white !important;
-    background-color: black !important;
-    border-radius: 50px !important;
-    border: 2px solid black !important;
-   
-}
-
-.rdrDefinedRangesWrapper {
-    display: none;
-}
-
-.rdrMonthPicker select,
-.rdrYearPicker select {
-    display: none;
-}
-
-.rdrMonthAndYearPickers {
-    justify-content: center;
-}
-
-
