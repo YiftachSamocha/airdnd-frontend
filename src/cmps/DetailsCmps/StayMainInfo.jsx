@@ -22,10 +22,10 @@ export function StayMainInfo({ stay }) {
                 </h2>
 
                 <div className="capacity">
-                    <span>{stay.capacity} guests</span>•
-                    <span>{stay.rooms.bedrooms} bedrooms</span>•
-                    <span>{stay.rooms.beds} beds</span>•
-                    <span>{stay.rooms.bathrooms} bathrooms</span>
+                    <span>{stay.sleep.maxCapacity} guests</span>•
+                    <span>{stay.sleep.bedrooms} bedrooms</span>•
+                    <span>{stay.sleep.beds} beds</span>•
+                    <span>{stay.sleep.bathrooms} bathrooms</span>
                 </div>
 
                 <div className="rating">
