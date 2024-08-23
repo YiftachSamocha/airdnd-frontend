@@ -2,11 +2,13 @@ import { formatNumberWithCommas } from "../../services/util.service"
 import arrowDown from "../../assets/imgs/icons/arrowDown.svg"
 export function StayPayment({ stay }) {
 
-// console.log(stay.dates);
+    // console.log(stay.dates);
 
-// const formatDate = stay.date ? stay.date : Add date
+    // const formatDate = stay.date ? stay.date : Add date
     const price = formatNumberWithCommas(stay.price.night)
-    const total = formatNumberWithCommas(price * 5)
+    const total = formatNumberWithCommas(stay.price.night * 5)
+    const cleaningFee = formatNumberWithCommas(stay.price.cleaning)
+
     return (
         <section className="stay-payment">
             <h2>${price} <span>night</span></h2>
@@ -14,13 +16,16 @@ export function StayPayment({ stay }) {
                 <button className="btn-team">
                     <div className="btn-side">
                         <h4>CHECK-IN</h4>
-                        <p>Add date</p></div>
+                        <p>Add date</p>
+                        </div>
+                </button>
+                <button className="btn-team">
                     <div className="btn-side">
                         <h4>CHECKOUT</h4>
                         <p>Add date</p>
                     </div>
                 </button>
-                <button className="btn-team">
+                <button className="btn-team full">
                     <div className="btn-side">
                         <h4>GUESTS</h4>
                         <p>{stay.capacity} guests</p>
@@ -40,6 +45,12 @@ export function StayPayment({ stay }) {
                 <h3 className="light">${price} <span><span>X</span> 5 nights</span></h3>
                 <h3>${total}</h3>
             </div>
+            {cleaningFee > 0 && (
+                <div className="price-calc">
+                    <h3 className="light">Cleaning fee</h3>
+                    <h3>${cleaningFee}</h3>
+                </div>
+            )}
             {/* <hr /> */}
             <div className="total">
                 <h3>Total</h3>
