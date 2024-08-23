@@ -9,6 +9,7 @@ import searchImg from "../assets/imgs/search.png";
 import { SET_FILTER_BY } from "../store/reducers/stay.reducer";
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
+import { LabelsFilter } from "./LabelsFilter";
 
 export function MainFilter() {
     const [openType, setOpenType] = useState('')
@@ -21,6 +22,10 @@ export function MainFilter() {
             setOpenType('when-start');
         }
     }, [filterBy.where])
+    
+    useEffect(() => {
+        submitFilter()
+    }, [filterBy.label])
 
     function handleChangeWhere({ target }) {
         const { value } = target
@@ -44,6 +49,10 @@ export function MainFilter() {
         setWhoInput(guestsString)
     }
 
+    function changeFilterLabel(label) {
+        setFilterBy(prev => ({ ...prev, label }))
+    }
+
     function createGuestsString(capacity) {
         const sum = capacity.adults + capacity.children + capacity.infants
         if (sum < 1) return ''
@@ -56,45 +65,44 @@ export function MainFilter() {
     }
 
 
-    return <section className={`main-filter ${openType ? 'has-selection' : ''}`} >
-        <div onClick={() => setOpenType('where')} className={`where-input ${openType === 'where' ? 'selected' : ''}`}>
-            <div>
-                <label htmlFor="">Where</label>
-                <input type="text" placeholder="Search destinations" value={whereInput}
-                    onChange={handleChangeWhere} />
-            </div>
-            {openType === 'where' && <Where input={whereInput} setInput={changeFilterWhere} />}
-        </div>
-
-
-
-
-        <div className="when-input">
-            <div onClick={() => setOpenType('when-start')} className={`when-input-start ${openType === 'when-start' ? 'selected' : ''}`}>
-                <label htmlFor="">Cheak in</label>
-                <input type="text" placeholder="Add dates" readOnly
-                    value={filterBy.when.startDate ? format(filterBy.when.startDate, 'MMM dd') : ''} />
+    return <section>
+        <section className={`main-filter ${openType ? 'has-selection' : ''}`} >
+            <div onClick={() => setOpenType('where')} className={`where-input ${openType === 'where' ? 'selected' : ''}`}>
+                <div>
+                    <label htmlFor="">Where</label>
+                    <input type="text" placeholder="Search destinations" value={whereInput}
+                        onChange={handleChangeWhere} />
+                </div>
+                {openType === 'where' && <Where input={whereInput} setInput={changeFilterWhere} />}
             </div>
 
-            <div onClick={() => setOpenType('when-end')} className={`when-input-end ${openType === 'when-end' ? 'selected' : ''}`}>
-                <label htmlFor="">Cheak out</label>
-                <input type="text" placeholder="Add dates" readOnly
-                    value={filterBy.when.endDate ? format(filterBy.when.endDate, 'MMM dd') : ''} />
+            <div className="when-input">
+                <div onClick={() => setOpenType('when-start')} className={`when-input-start ${openType === 'when-start' ? 'selected' : ''}`}>
+                    <label htmlFor="">Cheak in</label>
+                    <input type="text" placeholder="Add dates" readOnly
+                        value={filterBy.when.startDate ? format(filterBy.when.startDate, 'MMM dd') : ''} />
+                </div>
+
+                <div onClick={() => setOpenType('when-end')} className={`when-input-end ${openType === 'when-end' ? 'selected' : ''}`}>
+                    <label htmlFor="">Cheak out</label>
+                    <input type="text" placeholder="Add dates" readOnly
+                        value={filterBy.when.endDate ? format(filterBy.when.endDate, 'MMM dd') : ''} />
+                </div>
+                {(openType === 'when-start' || openType === 'when-end') && <When dates={filterBy.when} setDates={changeFilterWhen} />}
             </div>
-            {(openType === 'when-start' || openType === 'when-end') && <When dates={filterBy.when} setDates={changeFilterWhen} />}
-        </div>
 
-
-
-        <div onClick={() => setOpenType('who')} className={`who-input ${openType === 'who' ? 'selected' : ''}`}>
-            <div>
-                <label htmlFor="">Who</label>
-                <input type="text" placeholder="Add guests"
-                    value={whoInput} readOnly />
+            <div onClick={() => setOpenType('who')} className={`who-input ${openType === 'who' ? 'selected' : ''}`}>
+                <div>
+                    <label htmlFor="">Who</label>
+                    <input type="text" placeholder="Add guests"
+                        value={whoInput} readOnly />
+                </div>
+                {openType === 'who' && <Who filterCapacity={filterBy.who} setFilterCapacity={changeFilterWho} />}
+                <button onClick={submitFilter}> <img src={searchImg} /></button>
             </div>
-            {openType === 'who' && <Who filterCapacity={filterBy.who} setFilterCapacity={changeFilterWho} />}
-            <button onClick={submitFilter}> <img src={searchImg} /></button>
-        </div>
-    </section >
+        </section >
+        <hr />
+        <LabelsFilter filterBy={filterBy} changeFilterBy={changeFilterLabel} />
+    </section>
 
 }

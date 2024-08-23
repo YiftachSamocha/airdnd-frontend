@@ -23,10 +23,9 @@ export function AppHeader() {
 
 				</div>
 			</div>
+			
 			<MainFilter />
-			<LabelsFilter />
-
-
+		
 		</section>
 	)
 }

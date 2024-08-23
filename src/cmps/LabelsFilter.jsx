@@ -1,35 +1,56 @@
 import { useEffect, useState } from "react";
 import { getData } from "../services/stay.data";
 
-export function LabelsFilter() {
+export function LabelsFilter({ filterBy, changeFilterBy }) {
     const allLabels = getData('labels')
-    const [index, setIndex] = useState(1)
     const [slicedLabels, setSlicedLabels] = useState([])
+    const [selectedLabel, setSelectedLabel] = useState(allLabels[0])
+    const [startLabel, setStartLabel] = useState(0)
+    const max = allLabels.length
     const INDEX_SIZE = 12
+
     useEffect(() => {
-        const start = INDEX_SIZE * index
-        const end = start + INDEX_SIZE;
-        const newLabels = allLabels.slice(start, end)
+        const newLabels = allLabels.slice(startLabel, startLabel + INDEX_SIZE)
         setSlicedLabels(newLabels)
-    }, [index])
+    }, [startLabel])
+
+    useEffect(() => {
+        if (filterBy.label) setSelectedLabel(filterBy.label)
+    }, [filterBy.label])
 
     function changeIndex(leftRight) {
-        if (leftRight === 'left') {
-            setIndex(prev => prev - 1)
+        let newStart
+        if (leftRight === 'right') {
+            newStart = startLabel + INDEX_SIZE
+            if (newStart + INDEX_SIZE > max) {
+                newStart = max - INDEX_SIZE 
+            }
         }
         else {
-            setIndex(prev => prev + 1)
+            newStart = startLabel - INDEX_SIZE
+            if (newStart < 0) {
+                newStart = 0
+            }
         }
+        setStartLabel(newStart)
+    }
+
+    function selectLabel(label) {
+        setSelectedLabel(label)
+        changeFilterBy(label)
     }
 
     return <section className="labels-filter">
-        <button onClick={() => changeIndex('left')} >{'<'}</button>
-        {slicedLabels.map(label => {
-            return <div>
-                <img src={label.img} />
-                <p>{label.label}</p>
-            </div>
-        })}
-        <button onClick={() => changeIndex('right')}>{'>'}</button>
+        {(startLabel > 0) && <button onClick={() => changeIndex('left')} >{'<'}</button>}
+        <section className="labels-container">
+            {slicedLabels.map(label => {
+                return <div key={label.label} onClick={() => selectLabel(label)}
+                    className={label.label === selectedLabel.label && 'selected'}>
+                    <img src={label.img} />
+                    <p>{label.label}</p>
+                </div>
+            })}
+        </section>
+        {(startLabel + INDEX_SIZE) < allLabels.length && <button onClick={() => changeIndex('right')}>{'>'}</button>}
     </section>
 }
