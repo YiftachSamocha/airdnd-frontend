@@ -1,21 +1,21 @@
+import { useState } from 'react';
 import starIcon from '../../assets/imgs/icons/star.svg'; // Adjust the path based on your project structure
 import { ShowMoreCmp } from '../ShowMoreCmp.jsx';
 
 export function StayMainInfo({ stay }) {
-    console.log(stay)
-    console.log('stay highlights', stay.hightlights
-    )
-
-    // Handle case where reviews might be empty or undefined
     const totalReviews = stay.reviews ? stay.reviews.length : 0
     const avgRating = totalReviews > 0
         ? stay.reviews.reduce((sum, review) => sum + review.rate, 0) / totalReviews
         : 0
-
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    
+    function toggleModal() {
+        setIsModalOpen(prevState => !prevState)
+    }
 
     return (
-        <section className="main-info">
+        <section className={`main-info ${isModalOpen ? 'modal-open' : 'modal-closed'}`}>
+
             <div className="initial-info">
                 <h2>
                     {stay.type !== 'room' && 'Entire'} <span className="type">{stay.type}</span> in {stay.location.city}, {stay.location.country}
@@ -34,6 +34,7 @@ export function StayMainInfo({ stay }) {
                     <span className="reviews-number">{totalReviews} reviews</span>
                 </div>
             </div>
+            <hr className="details-seperation-line"></hr>
 
             <div className="host-info">
                 {stay.host && (
@@ -43,6 +44,8 @@ export function StayMainInfo({ stay }) {
                     </>
                 )}
             </div>
+            <hr className="details-seperation-line"></hr>
+
 
             <div className="highlights">
                 {stay.highlights && stay.highlights.map((highlight, index) => (
@@ -55,14 +58,20 @@ export function StayMainInfo({ stay }) {
                     </div>
                 ))}
             </div>
+            <hr className="details-seperation-line"></hr>
+
 
             <div className="description">
                 <ShowMoreCmp
                     content={stay.description}
                     limit={200}
                     type="description"
+                    stay={stay}
+                    isModalOpen={isModalOpen}
+                    toggleModal={toggleModal}
                 />
             </div>
+            <hr className="details-seperation-line"></hr>
         </section>
     )
 }
