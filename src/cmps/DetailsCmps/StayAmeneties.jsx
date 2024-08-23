@@ -1,15 +1,21 @@
+import { useState } from "react";
 import { ShowMoreCmp } from "../ShowMoreCmp.jsx";
 
 export function StayAmeneties({ stay }) {
-    return <section className="amenities">
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    function toggleModal() {
+        setIsModalOpen(prevState => !prevState)
+    }
+
+    return <section className={`amenities ${isModalOpen ? 'modal-open' : 'modal-closed'}`}>
         <h3>What this place offers</h3>
-        <ShowMoreCmp content={stay.amenities} limit={10} type="amenities" />
+        <ShowMoreCmp
+            content={stay.amenities}
+            limit={10}
+            type="amenities"
+            stay={stay}
+            isModalOpen={isModalOpen}
+            toggleModal={toggleModal}
+        />
     </section>
-
-    // <ShowMore
-    //     content={stay.amenities}
-    //     limit={10}
-    //     type="amenities"
-    // />
-
 }

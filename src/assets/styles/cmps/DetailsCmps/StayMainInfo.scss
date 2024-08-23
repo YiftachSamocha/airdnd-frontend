@@ -43,9 +43,6 @@
         display: flex;
         gap: 1rem;
         align-items: center;
-        padding-block: 1.5rem;
-        border-top: 1.5px solid $gray2;
-        border-bottom: 1.5px solid $gray2;
         max-width:650px;
         font-size: 1rem;
 
@@ -64,14 +61,11 @@
 
     .highlights {
         padding-inline: 0.5rem;
-        padding-block: 1.5rem;
         max-width:650px;
-        border-bottom: 1.5px solid $gray2;
 
         .highlight {
             display: flex;
             gap: 1.5rem;
-            padding-block: 0;
 
             h3 {
                 font-size: 1rem;
@@ -100,9 +94,8 @@
     .description {
         font-size: 1rem;
         line-height: 1.5rem;
-        max-width: 650px;
-        padding-block: 2.0625rem;
-        border-bottom: 1.5px solid $gray2;
+        // max-width: 650px;
+        padding-block-end: 1rem !important;
 
         .show-more div {
             padding-bottom: 1rem;
@@ -119,5 +112,14 @@
             }
         }
     }
+
+    .details-seperation-line {
+        max-width: 650px;
+        margin-block: 2rem;
+        border-top: 0px solid $gray1;
+        margin-inline-start: 0; // Align to the start
+
+    }
+
 
 }

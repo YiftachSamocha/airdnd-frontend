@@ -9,10 +9,10 @@ export function StayImage({ stay }) {
     const imgsToShow = stay.imgs.slice(0, 5) // Take only the first 5 images
 
     return <section className="details-imgs">
-        {imgsToShow.map((imgUrl, imgIndex) => (
-            <img key={imgIndex} src={imgUrl} alt={`img-${imgIndex + 1}`}
-            className={`img-${imgIndex + 1}`} // Apply the correct class name
-            />
-        ))}
+          {imgsToShow.map((imgUrl, imgIndex) => (
+                <div key={imgIndex} className={`img-container img-${imgIndex + 1}`}>
+                    <img src={imgUrl} alt={`img-${imgIndex + 1}`} className="details-img" />
+                </div>
+            ))}
     </section >
 }

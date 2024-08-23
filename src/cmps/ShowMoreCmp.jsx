@@ -1,63 +1,68 @@
-import { useState } from 'react';
-import { ModalCmp } from './ModalCmp.jsx'; // Import the Modal component
+import { useEffect, useState } from 'react'
+import { ModalCmp } from './ModalCmp.jsx' // Import the Modal component
 import arrowIcon from '../assets/imgs/icons/arrow-right.svg'
 
-export function ShowMoreCmp({ content, limit, type }) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const buttonClass = type === 'amenities' ? 'white' : 'btn-link';
+export function ShowMoreCmp({ content, limit, type, stay, isModalOpen, toggleModal }) {
+    const buttonClass = type === 'amenities' ? 'white' : 'btn-link'
+    const buttonLabel = type === 'amenities'
+        ? `Show all ${content.length} amenities`
+        : type === 'description'
+            ? (
+                <>
+                    Show more <img src={arrowIcon} alt="Arrow Right" className="arrow-icon" />
+                </>
+            )
+            : 'Show More'
 
-    // Toggle function to open/close modal
-    function toggleModal() {
-        setIsModalOpen(!isModalOpen);
+    useEffect(() => {}, [isModalOpen])
+
+    function groupItemsByType(items) {
+        return items.reduce(function (acc, item) {
+            acc[item.type] = acc[item.type] || []
+            acc[item.type].push(item)
+            return acc
+        }, {})
     }
 
-    // General method to handle different content types
-    const renderContent = (items, limit) => {
-        if (Array.isArray(items)) {
-            return items.slice(0, limit).map((item, index) => {
-                if (typeof item === 'object') {
-                    return (
-                        <div key={index} className="item">
-                            {item.imgUrl && <img src={item.imgUrl} alt={item.name || 'Image'} className="details-icon" />}
-                            <span>{item.name || item.text || item.toString()}</span>
-                        </div>
-                    );
-                }
-                return <span key={index}>{item}</span>;
-            });
-        }
-        return items.slice(0, limit);
-    };
-
-    // Modal content rendering based on type
-    const renderModalContent = (items) => {
-        if (Array.isArray(items)) {
-            return items.map((item, index) => (
-                <div key={index} className="item">
-                    {item.imgUrl && <img src={item.imgUrl} alt={item.name || 'Image'} className="details-icon" />}
-                    <span>{item.name || item.text || item.toString()}</span>
+    function renderItem(item, index) {
+        return (
+            <div key={index} className={`item ${index}`}>
+                <div>
+                {item.imgUrl && (
+                    <img
+                        src={item.imgUrl}
+                        alt={item.name || 'Image'}
+                        className="details-icon"
+                    />
+                )}
+                <span>{item.name || item.text || item.toString()}</span>
                 </div>
-            ));
-        }
-        return <p>{items}</p>;
-    };
+                {isModalOpen && <hr />}
+            </div>
+        )
+    }
 
-    // Button label determination
-    const buttonLabel =
-        type === 'amenities'
-            ? `Show all ${content.length} amenities`
-            : type === 'description'
-                ? (
-                 <>
-                    Show more <img src={arrowIcon} alt="Arrow Right" className="arrow-icon" />
-                </>   
-                )
-                
-                : 'Show More';
+    function renderContent(items, limit) {
+        if (typeof items === 'string') {
+            return isModalOpen ? items : items.slice(0, limit)
+        }
+
+        if (isModalOpen) {
+            const groupedItems = groupItemsByType(items)
+            return Object.keys(groupedItems).map((type, index) => (
+                <div key={index} className="group">
+                    <h3>{type}</h3>
+                    {groupedItems[type].map(renderItem)}
+                </div>
+            ))
+        } else {
+            return items.slice(0, limit).map(renderItem)
+        }
+    }
 
     return (
-        <div className="show-more">
-            <div>{renderContent(content, limit)}</div>
+        <div className={`show-more ${type}-style`}>
+            <div className="items">{renderContent(content, limit)}</div>
 
             {content.length > limit && (
                 <button onClick={toggleModal} className={buttonClass}>
@@ -66,10 +71,10 @@ export function ShowMoreCmp({ content, limit, type }) {
             )}
 
             {isModalOpen && (
-                <ModalCmp onClose={toggleModal} className={`modal-${type}`}>
-                    {renderModalContent(content)}
+                <ModalCmp onClose={toggleModal} type={type} stay={stay}>
+                    <p>{renderContent(content, content.length)}</p>
                 </ModalCmp>
             )}
         </div>
-    );
+    )
 }
