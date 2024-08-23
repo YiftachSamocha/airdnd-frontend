@@ -6,6 +6,62 @@ import portugalImg from '../assets/imgs/countries/portugal.jpg';
 import usaImg from '../assets/imgs/countries/united-states.jpg';
 import greeceImg from '../assets/imgs/countries/greece.jpg';
 
+import barnsImg from '../assets/imgs/labels/barns.jpeg';
+import beachImg from '../assets/imgs/labels/beach.jpeg';
+import beachfrontImg from '../assets/imgs/labels/beachfront.jpeg';
+import bedAndBreakfastImg from '../assets/imgs/labels/bed&breakfast.jpeg';
+import boatsImg from '../assets/imgs/labels/boats.jpeg';
+import cabinsImg from '../assets/imgs/labels/cabins.jpeg';
+import campersImg from '../assets/imgs/labels/campers.jpeg';
+import campingImg from '../assets/imgs/labels/camping.jpeg';
+import casasParticularesImg from '../assets/imgs/labels/casas-particulares.jpeg';
+import castelsImg from '../assets/imgs/labels/castels.jpeg';
+import cavesImg from '../assets/imgs/labels/caves.jpeg';
+import chefsKitchensImg from '../assets/imgs/labels/chefs-kitchens.jpeg';
+import containersImg from '../assets/imgs/labels/containers.jpeg';
+import countrysideImg from '../assets/imgs/labels/countryside.jpeg';
+import creativeSpacesImg from '../assets/imgs/labels/creative-spaces.jpeg';
+import cycladicHomesImg from '../assets/imgs/labels/cycladic-homes.jpeg';
+import dammusiImg from '../assets/imgs/labels/dammusi.jpeg';
+import desertImg from '../assets/imgs/labels/desert.jpeg';
+import designImg from '../assets/imgs/labels/design.jpeg';
+import domesImg from '../assets/imgs/labels/domes.jpeg';
+import earthHomesImg from '../assets/imgs/labels/earth-homes.jpeg';
+import farmsImg from '../assets/imgs/labels/farms.jpeg';
+import golfingImg from '../assets/imgs/labels/golfing.jpeg';
+import grandPianosImg from '../assets/imgs/labels/grand-pianos.jpeg';
+import hanoksImg from '../assets/imgs/labels/hanoks.jpeg';
+import historicalHomesImg from '../assets/imgs/labels/historical-homes.jpeg';
+import houseboatsImg from '../assets/imgs/labels/houseboats.jpeg';
+import islandsImg from '../assets/imgs/labels/islands.jpeg';
+import lakefrontImg from '../assets/imgs/labels/lakefront.jpeg';
+import luxeImg from '../assets/imgs/labels/luxe.jpeg';
+import mansionsImg from '../assets/imgs/labels/mansions.jpeg';
+import minsusImg from '../assets/imgs/labels/minsus.jpeg';
+import nationalParksImg from '../assets/imgs/labels/national-parks.jpeg';
+import newImg from '../assets/imgs/labels/new.jpeg';
+import offTheGridImg from '../assets/imgs/labels/off-the-grid.jpeg';
+import omgImg from '../assets/imgs/labels/omg.jpeg';
+import playImg from '../assets/imgs/labels/play.jpeg';
+import riadsImg from '../assets/imgs/labels/riads.jpeg';
+import roomsImg from '../assets/imgs/labels/rooms.jpeg';
+import ryokansImg from '../assets/imgs/labels/ryokans.jpeg';
+import shepardsHutsImg from '../assets/imgs/labels/shepards-huts.jpeg';
+import skiInOutImg from '../assets/imgs/labels/ski-in-out.jpeg';
+import skiingImg from '../assets/imgs/labels/skiing.jpeg';
+import surfingImg from '../assets/imgs/labels/surfing.jpeg';
+import tinyHomesImg from '../assets/imgs/labels/tinyhomes.jpeg';
+import topCitiesImg from '../assets/imgs/labels/top-cities.jpeg';
+import topOfTheWorldImg from '../assets/imgs/labels/top-of-the-world.jpeg';
+import towersImg from '../assets/imgs/labels/towers.jpeg';
+import treehousesImg from '../assets/imgs/labels/treehouses.jpeg';
+import trendingImg from '../assets/imgs/labels/trending.jpeg';
+import tropicalImg from '../assets/imgs/labels/tropical.jpeg';
+import trulliImg from '../assets/imgs/labels/trulli.jpeg';
+import vineyardsImg from '../assets/imgs/labels/vineyards.jpeg';
+import windmillsImg from '../assets/imgs/labels/windmills.jpeg';
+import yurtsImg from '../assets/imgs/labels/yurts.jpeg';
+
 
 export function createStay() {
     return {
@@ -20,17 +76,17 @@ export function createStay() {
             cleaning: getRandomIntInclusive(200, 1000)
         },
         type: getRandomItems(types, 1),
-        amenities: getRandomItems(amenities, getRandomIntInclusive(10, 35)), // Randomly select 10 to 35 amenities
+        amenities: getRandomItems(amenities, getRandomIntInclusive(10, 35)), 
         labels: getRandomItems(labels, 3),
         reservedDates: generateAvailabilityRanges(),
         host: {
             _id: makeId(),
             fullname: getRandomItems(fullnames, 1),
             imgUrl: getRandomItems(hostImages, 1),
-            reviews: getRandomIntInclusive(3,100),
-            rating:  Math.round((Math.random() * 4 + 1) * 100) / 100,
-            yearsHosting: getRandomIntInclusive(1,15),
-            responceRate: getRandomIntInclusive(80,100),
+            reviews: getRandomIntInclusive(3, 100),
+            rating: Math.round((Math.random() * 4 + 1) * 100) / 100,
+            yearsHosting: getRandomIntInclusive(1, 15),
+            responceRate: getRandomIntInclusive(80, 100),
         },
         location: getRandomItems(locations, 1),
         reviews: getRandomItems(reviews, getRandomIntInclusive(1, 15)),
@@ -428,52 +484,61 @@ const amenities = [
 ]
 
 const labels = [
-    'Rooms',
-    'Lake',
-    'National parks',
-    'Amazing pools',
-    'Mountain views',
-    'Oceanfront',
-    'Pet-friendly',
-    'Family-friendly',
-    'Luxury',
-    'Historic',
-    'Modern',
-    'Chic',
-    'Cozy',
-    'Unique',
-    'Secluded',
-    'Downtown',
-    'Waterfront',
-    'Rural',
-    'Urban',
-    'Countryside',
-    'Eco-friendly',
-    'Romantic',
-    'Studio',
-    'Penthouse',
-    'Loft',
-    'Villa',
-    'Cottage',
-    'Cabin',
-    'Houseboat',
-    'Castle',
-    'Farm stay',
-    'Beachfront',
-    'Historic district',
-    'Designer',
-    'Rustic',
-    'Urban retreat',
-    'Ski-in/Ski-out',
-    'Wine country',
-    'Golf course',
-    'Spa',
-    'Private',
-    'Shared',
-    'Social space',
-    'Business travel ready',
-    'Near public transport',
-    'Off-the-grid'
+    { label: 'barns', img: barnsImg },
+    { label: 'beach', img: beachImg },
+    { label: 'beachfront', img: beachfrontImg },
+    { label: 'bed&breakfast', img: bedAndBreakfastImg },
+    { label: 'boats', img: boatsImg },
+    { label: 'cabins', img: cabinsImg },
+    { label: 'campers', img: campersImg },
+    { label: 'camping', img: campingImg },
+    { label: 'casas-particulares', img: casasParticularesImg },
+    { label: 'castels', img: castelsImg },
+    { label: 'caves', img: cavesImg },
+    { label: 'chefs-kitchens', img: chefsKitchensImg },
+    { label: 'containers', img: containersImg },
+    { label: 'countryside', img: countrysideImg },
+    { label: 'creative-spaces', img: creativeSpacesImg },
+    { label: 'cycladic-homes', img: cycladicHomesImg },
+    { label: 'dammusi', img: dammusiImg },
+    { label: 'desert', img: desertImg },
+    { label: 'design', img: designImg },
+    { label: 'domes', img: domesImg },
+    { label: 'earth-homes', img: earthHomesImg },
+    { label: 'farms', img: farmsImg },
+    { label: 'golfing', img: golfingImg },
+    { label: 'grand-pianos', img: grandPianosImg },
+    { label: 'hanoks', img: hanoksImg },
+    { label: 'historical-homes', img: historicalHomesImg },
+    { label: 'houseboats', img: houseboatsImg },
+    { label: 'islands', img: islandsImg },
+    { label: 'lakefront', img: lakefrontImg },
+    { label: 'luxe', img: luxeImg },
+    { label: 'mansions', img: mansionsImg },
+    { label: 'minsus', img: minsusImg },
+    { label: 'national-parks', img: nationalParksImg },
+    { label: 'new', img: newImg },
+    { label: 'off-the-grid', img: offTheGridImg },
+    { label: 'omg', img: omgImg },
+    { label: 'play', img: playImg },
+    { label: 'riads', img: riadsImg },
+    { label: 'rooms', img: roomsImg },
+    { label: 'ryokans', img: ryokansImg },
+    { label: 'shepards-huts', img: shepardsHutsImg },
+    { label: 'ski-in-out', img: skiInOutImg },
+    { label: 'skiing', img: skiingImg },
+    { label: 'surfing', img: surfingImg },
+    { label: 'tinyhomes', img: tinyHomesImg },
+    { label: 'top-cities', img: topCitiesImg },
+    { label: 'top-of-the-world', img: topOfTheWorldImg },
+    { label: 'towers', img: towersImg },
+    { label: 'treehouses', img: treehousesImg },
+    { label: 'trending', img: trendingImg },
+    { label: 'tropical', img: tropicalImg },
+    { label: 'trulli', img: trulliImg },
+    { label: 'vineyards', img: vineyardsImg },
+    { label: 'windmills', img: windmillsImg },
+    { label: 'yurts', img: yurtsImg }
 ]
 
 function getRandomDateRange(startDate, endDate) {

@@ -16,7 +16,7 @@ export function StayPreview({ stay }) {
 
     const roundedDistance = distance > 0 ? formatNumberWithCommas(Math.round(distance)) : '0'
     const price = formatNumberWithCommas(stay.price.night)
-    const freeDate = getDateRange(stay.dates) 
+    const freeDate = getDateRange(stay.reservedDates) 
 
     return <article className="stay-preview">
         <img src={stay.imgs[0]} alt="" />

@@ -27,16 +27,23 @@
 
 // // Components
 
- @import "cmps/DetailsCmps/StayMainInfo";
- @import "cmps/DetailsCmps/StayAmenities";
+@import "cmps/DetailsCmps/StayMainInfo";
+@import "cmps/DetailsCmps/StayAmenities";
 //  @import "cmps/StayMainInfo";
 //  @import "cmps/StayAmenities";
- @import "cmps/StayPayment";
+@import "cmps/StayPayment";
 
- @import "cmps/StayList.scss";
- @import "cmps/StayPreview.scss";
+@import "cmps/StayList.scss";
+@import "cmps/StayPreview.scss";
 
-// @import "cmps/AppHeader";
+
+@import "cmps/AppHeader";
+@import "cmps/MainFilter.scss";
+@import "cmps/LabelsFilter.scss";
+@import "cmps/When.scss";
+@import "cmps/Where.scss";
+@import "cmps/Who.scss";
+
 // @import "cmps/AppFooter";
 // @import "cmps/UserMsg";
 

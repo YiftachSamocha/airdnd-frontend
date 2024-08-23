@@ -4,6 +4,8 @@ import languageImg from "../assets/imgs/language.png";
 import hamburgerImg from "../assets/imgs/hamburger.png";
 import profileImg from "../assets/imgs/profile.png";
 import { MainFilter } from "./MainFilter";
+import { LabelsFilter } from "./LabelsFilter";
+
 
 export function AppHeader() {
 	return (
@@ -22,6 +24,7 @@ export function AppHeader() {
 				</div>
 			</div>
 			<MainFilter />
+			<LabelsFilter />
 
 
 		</section>
