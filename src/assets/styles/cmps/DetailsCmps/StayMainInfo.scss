@@ -46,6 +46,7 @@
         padding-block: 1.5rem;
         border-top: 1.5px solid $gray2;
         border-bottom: 1.5px solid $gray2;
+        max-width:650px;
         font-size: 1rem;
 
         img {
@@ -64,6 +65,7 @@
     .highlights {
         padding-inline: 0.5rem;
         padding-block: 1.5rem;
+        max-width:650px;
         border-bottom: 1.5px solid $gray2;
 
         .highlight {
@@ -95,11 +97,27 @@
         }
     }
 
-    .description p{
+    .description {
         font-size: 1rem;
         line-height: 1.5rem;
         max-width: 650px;
-        font-weight: 300;
+        padding-block: 2.0625rem;
+        border-bottom: 1.5px solid $gray2;
+
+        .show-more div {
+            padding-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .btn-link {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+
+            .arrow-icon{
+                width: 1rem;
+            }
+        }
     }
 
 }

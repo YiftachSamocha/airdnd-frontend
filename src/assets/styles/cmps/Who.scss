@@ -1,0 +1,62 @@
+.who {
+    position: absolute;
+    top: 100%;
+    left: -10em;
+    border-radius: 25px;
+    z-index: 3;
+    background-color: white;
+    width: 150%;
+    padding: 1em 1em;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+
+    >div {
+        display: flex;
+        justify-content: space-between;
+        padding: 1em 0;
+        border-bottom: 1px solid $gray2;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        h5 {
+            margin: 0;
+            font-size: 1.1em;
+            color: $gray5;
+            text-transform: capitalize;
+        }
+
+        p {
+            margin: 1em;
+            font-size: 0.9em;
+            color: $gray4;
+        }
+
+        button {
+            background-color: inherit;
+            border: 1px solid $gray3;
+            border-radius: 50%;
+            width: 1.5em;
+            height: 1.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            color: $gray4;
+            cursor: pointer;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: $gray1;
+            }
+        }
+
+        div:last-of-type {
+            display: flex;
+            align-items: center;
+        }
+
+    }
+
+
+}

@@ -6,19 +6,18 @@ import { stayService as local } from './stay.service.local'
 import { stayService as remote } from './stay.service.remote'
 
 function getEmptyStay() {
-	return {
-		vendor: makeId(),
-		speed: getRandomIntInclusive(80, 240),
-		msgs: [],
-	}
+    return {
+        vendor: makeId(),
+        speed: getRandomIntInclusive(80, 240),
+        msgs: [],
+    }
 }
 
 function getDefaultFilter() {
     return {
-        txt: '',
-        minSpeed: '',
-        sortField: '',
-        sortDir: '',
+        where: '',
+        when: { startDate: null, endDate: null, },
+        who: { adults: 0, children: 0, infants: 0, pets: 0 }
     }
 }
 

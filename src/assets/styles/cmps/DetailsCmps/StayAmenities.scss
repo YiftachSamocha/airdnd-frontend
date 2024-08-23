@@ -1,0 +1,50 @@
+.amenities {
+    h3 {
+        font-size: 1.5rem;
+    }
+
+    .show-more div {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr)); // Creates flexible columns
+        max-width: 650px; // Ensures the columns do not exceed this width
+        margin-block-end: 1.5rem;
+
+        .item {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .item:not(:last-child) {
+            margin-block-end: 1.25rem;
+        }
+    }
+}
+
+@media (max-width: $normal-breakpoint) {
+
+    // Replace $normal-breakpoint with your breakpoint, e.g., 768px
+    .amenities {
+        .show-more div {
+            grid-column: 1;
+
+            .item:nth-child(n+8) {
+                display: none; // Hide all amenities after the 7th one
+            }
+        }
+    }
+
+    @media (max-width:743px) {
+        .amenities {
+            button {
+                display: block;
+                width: 100%;
+            }
+        }
+
+    }
+
+
+
+
+
+}

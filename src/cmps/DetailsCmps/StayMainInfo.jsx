@@ -1,7 +1,8 @@
 import starIcon from '../../assets/imgs/icons/star.svg'; // Adjust the path based on your project structure
+import { ShowMoreCmp } from '../ShowMoreCmp.jsx';
 
 export function StayMainInfo({ stay }) {
-console.log(stay)
+    console.log(stay)
     console.log('stay highlights', stay.hightlights
     )
 
@@ -21,10 +22,10 @@ console.log(stay)
                 </h2>
 
                 <div className="capacity">
-                    <span>{stay.capacity} guests</span>•
-                    <span>{stay.rooms.bedrooms} bedrooms</span>•
-                    <span>{stay.rooms.beds} beds</span>•
-                    <span>{stay.rooms.bathrooms} bathrooms</span>
+                    <span>{stay.sleep.maxCapacity} guests</span>•
+                    <span>{stay.sleep.bedrooms} bedrooms</span>•
+                    <span>{stay.sleep.beds} beds</span>•
+                    <span>{stay.sleep.bathrooms} bathrooms</span>
                 </div>
 
                 <div className="rating">
@@ -43,8 +44,6 @@ console.log(stay)
                 )}
             </div>
 
-
-
             <div className="highlights">
                 {stay.highlights && stay.highlights.map((highlight, index) => (
                     <div key={index} className="highlight">
@@ -58,8 +57,14 @@ console.log(stay)
             </div>
 
             <div className="description">
-                <p>{stay.description}</p>
+                <ShowMoreCmp
+                    content={stay.description}
+                    limit={200}
+                    type="description"
+                />
             </div>
         </section>
     )
 }
+
+

@@ -1,19 +1,51 @@
 button {
-	cursor: pointer;
+	font-size: 1rem;
+	font-weight: bolder;
+	border: 1px solid $gray5;
+	padding: 0.9rem 1.5rem;
+    cursor: pointer;
+    border-radius: 10px;
+
+	&.white {
+		color: $gray5;
+		background-color: transparent;
+	}
+
+	&.white:hover{
+		background-color: $gray6;
+		transition: 0.4ms;
+	}
+
+	&.black {
+		color: whitesmoke;
+		background-color: black;
+	}
 }
 
-form > * {
+form>* {
 	display: block;
 	// width: 200px;
 	margin: 10px 0px;
 }
 
 .btn-link {
-	border: 0;
+	padding: 0;
+	margin: 0;
+	font-weight: bolder;
+	font-size: 1rem;
+	text-decoration: underline;
+	cursor: pointer;
+	color: $gray5;
 	background-color: transparent;
-	// text-decoration: underline;
-	transition: 0.5s;
+	border: none;
 }
-.btn-link:hover {
-	background-color: $gray5;
-}
+
+// .btn-link {
+// 	border: 0;
+// 	background-color: transparent;
+// 	// text-decoration: underline;
+// 	transition: 0.5s;
+// }
+// .btn-link:hover {
+// 	background-color: $gray5;
+// }
