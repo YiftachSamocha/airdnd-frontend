@@ -347,7 +347,7 @@ const amenities = [
     { type: 'laundry', name: 'Ironing board', imgUrl: '/src/assets/imgs/amenities/no-drayer.svg' },
     { type: 'laundry', name: 'Laundry detergent', imgUrl: '/src/assets/imgs/amenities/no-drayer.svg' },
 
-    {type: 'familyFeatures', name: 'Crib', imgUrl: '/src/assets/imgs/amenities/no-wifi.svg'},
+    { type: 'familyFeatures', name: 'Crib', imgUrl: '/src/assets/imgs/amenities/no-wifi.svg' },
     { type: 'familyFeatures', name: 'High chair', imgUrl: '/src/assets/imgs/amenities/no-wifi.svg' },
     { type: 'familyFeatures', name: 'Child safety locks', imgUrl: '/src/assets/imgs/amenities/no-wifi.svg' },
     { type: 'familyFeatures', name: 'Children’s books and toys', imgUrl: '/src/assets/imgs/amenities/no-wifi.svg' },
@@ -355,13 +355,13 @@ const amenities = [
 
     { type: 'petFriendly', name: 'Pets allowed', imgUrl: '/src/assets/imgs/amenities/no-kitchen.svg' },
     { type: 'petFriendly', name: 'Pet bowls', imgUrl: '/src/assets/imgs/amenities/no-kitchen.svg' },
-    { type: 'petFriendly', name: 'Pet bed', imgUrl: '/src/assets/imgs/amenities/no-kitchen.svg'},
+    { type: 'petFriendly', name: 'Pet bed', imgUrl: '/src/assets/imgs/amenities/no-kitchen.svg' },
     { type: 'petFriendly', name: 'Fenced yard', imgUrl: '/src/assets/imgs/amenities/no-kitchen.svg' },
 
     // Parking
     { type: 'parking', name: 'Free parking on premises', imgUrl: '/src/imgs/amenities/free-parking.svg' },
     { type: 'parking', name: 'Street parking', imgUrl: '/src/imgs/amenities/free-parking.svg' },
-    { type: 'parking', name: 'Garage', imgUrl: '/src/imgs/amenities/free-parking.svg'},
+    { type: 'parking', name: 'Garage', imgUrl: '/src/imgs/amenities/free-parking.svg' },
     { type: 'parking', name: 'EV charger', imgUrl: '/src/imgs/amenities/free-parking.svg' },
 
     // Entertainment
@@ -439,12 +439,12 @@ function getRandomDateRange(startDate, endDate) {
 
 function generateAvailabilityRanges() {
     const months = [
-        { start: '2023-09-01', end: '2023-09-30' },
-        { start: '2023-10-01', end: '2023-10-31' },
-        { start: '2023-11-01', end: '2023-11-30' },
-        { start: '2023-12-01', end: '2023-12-31' },
-        { start: '2024-01-01', end: '2024-01-31' },
-    ];
+        { start: 1693526400000, end: 1696032000000 },
+        { start: 1696147200000, end: 1698777600000 },
+        { start: 1698854400000, end: 1701475200000 },
+        { start: 1701561600000, end: 1704182400000 },
+        { start: 1704268800000, end: 1706841600000 },
+    ]
 
     const availabilityRanges = []
 

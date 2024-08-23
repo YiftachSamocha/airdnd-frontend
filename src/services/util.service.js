@@ -83,6 +83,36 @@ export function randomPastTime() {
     return Date.now() - pastTime
 }
 
+export function getDateRange(dates) {
+    const randomIndex = Math.floor(Math.random() * dates.length)
+    const { start, end } = dates[randomIndex]
+    return formatDateRange(start, end)
+}
+
+
+function formatDate(dateString) {
+    const date = new Date(dateString)
+    const options = { month: 'short', day: 'numeric' }
+    return date.toLocaleDateString('en-US', options)
+}
+
+
+function formatDateRange(start, end) {
+    const startDate = new Date(start)
+    const endDate = new Date(end)
+
+    const startMonthDay = formatDate(start)
+    const endMonthDay = formatDate(end)
+    if (startDate.getMonth() === endDate.getMonth()) {
+        const startDay = startDate.toLocaleDateString('en-US', { day: 'numeric' })
+        const endDay = endDate.toLocaleDateString('en-US', { day: 'numeric' })
+        return `${startMonthDay.split(' ')[0]} ${startDay} – ${endDay}`
+    } else {
+        return `${startMonthDay} – ${endMonthDay}`
+    }
+}
+
+
 export function debounce(func, timeout = 300) {
     let timer
     return (...args) => {
