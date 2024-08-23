@@ -12,12 +12,7 @@ export function createStay() {
         _id: makeId(),
         name: getRandomItems(names, 1),
         imgs: generateImgUrls(),
-        capacity: getRandomIntInclusive(1, 12),
-        rooms: {
-            bedrooms: getRandomIntInclusive(1, 5),
-            beds: getRandomIntInclusive(1, 5),
-            bathrooms: getRandomIntInclusive(1, 3),
-        },
+        sleep: createSleep(),
         description: getRandomItems(descriptions, 1),
         highlights: getRandomItems(highlights, 3),
         price: {
@@ -27,7 +22,7 @@ export function createStay() {
         type: getRandomItems(types, 1),
         amenities: getRandomItems(amenities, getRandomIntInclusive(10, 35)), // Randomly select 10 to 35 amenities
         labels: getRandomItems(labels, 3),
-        dates: generateAvailabilityRanges(),
+        reservedDates: generateAvailabilityRanges(),
         host: {
             _id: makeId(),
             fullname: getRandomItems(fullnames, 1),
@@ -99,6 +94,33 @@ const names = [
 
 const imgs = ['271624', '1918291', '6315808', '7045712', '6283965', '7214173', '279614', '5998117', '6283961', '5997959', '1457841', '6908367', '6758788', '6908368', '6492398', '6782567', '5997967', '4450337', '6775268', '6527069', '3315291', '2079249', '7018391', '7018824', '6903160', '5998120', '4099357', '3190541']
 
+function createSleep() {
+    const bedTypes = ["king bed", "queen bed", "double bed", "single bed"]
+    const roomAmount = getRandomIntInclusive(1, 6)
+    let rooms = []
+    let maxCapacity = 0
+    for (var i = 0; i < roomAmount; i++) {
+        const room = { roomType: 'bedroom', bedType: getRandomItems(bedTypes, 1) }
+        rooms.push(room)
+        room.bedType === 'single bed' ? maxCapacity += 1 : maxCapacity += 2
+    }
+
+    //Add livingroom
+    const livingroom = { roomType: 'living Room', bedType: 'sofa bed' }
+    const isLivingroom = !!Math.round(Math.random())
+    if (isLivingroom) {
+        rooms.push(livingroom);
+        maxCapacity += 1
+    }
+
+    return {
+        rooms,
+        maxCapacity,
+        bathrooms: getRandomIntInclusive(1, 3),
+        beds: rooms.length,
+        bedrooms: rooms.filter(room => room.roomType === 'bedroom').length
+    }
+}
 function generateImgUrls() {
     const imgIds = getRandomItems(imgs, getRandomIntInclusive(4, 10))
     return imgIds.map(imgId => {

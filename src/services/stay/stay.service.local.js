@@ -18,7 +18,16 @@ _createData()
 
 async function query(filterBy = {}) {
     var stays = await storageService.query(STORAGE_KEY)
-    // console.log('service stays:', stays)
+    const { where, when, who } = filterBy
+    if (where && where.country !== 'Im flexible') {
+        stays = stays.filter(stay => stay.location.country === where.country && stay.location.city === where.city)
+    }
+    if (when && when.startDate && when.endDate) {
+        stays = stays.filter(stay => _filterWhen(stay.reservedDates, when))
+    }
+    if (who) {
+        stays = stays.filter(stay => _filterWho(stay.sleep, who))
+    }
     return stays
 }
 
@@ -79,5 +88,33 @@ function _createData(length = 24) {
         }
         localStorage.setItem(STORAGE_KEY, JSON.stringify(stays))
     }
+}
+
+function _filterWhen(reservedDates, vacationRange) {
+    const vacationStart = vacationRange.startDate
+    const vacationEnd = vacationRange.endDate
+
+
+    return !reservedDates.some(({ start, end }) => {
+        const reservedStart = new Date(start)
+        const reservedEnd = new Date(end)
+        console.log(vacationStart, reservedStart, vacationStart <= reservedStart)
+
+
+        if (vacationStart >= reservedStart && vacationStart <= reservedEnd) return true
+        if (vacationEnd >= reservedStart && vacationEnd <= reservedEnd) return true
+        if (vacationStart <= reservedStart && vacationEnd >= reservedEnd) return true
+        return false
+
+    })
+}
+
+function _filterWho(sleep, who) {
+    const amount = who.adults + who.children + who.infants
+    if (amount === 0) return true
+    if (sleep.maxCapacity < amount) return false
+    const minimumCapacity = sleep.rooms.length
+    if (minimumCapacity > amount) return false
+    return true
 
 }

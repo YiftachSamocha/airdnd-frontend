@@ -19,6 +19,7 @@ export function MainFilter() {
     function handleChangeWhere({ target }) {
         const { value } = target
         setWhereInput(value)
+        if (filterBy.where !== '') setFilterBy(prev => ({ ...prev, where: '' }))
     }
 
     function changeFilterWhere(location) {
@@ -46,7 +47,9 @@ export function MainFilter() {
 
     function submitFilter() {
         store.dispatch({ type: SET_FILTER_BY, filterBy })
+        setOpenType('')
     }
+
 
     return <section className="main-filter" >
         <div onClick={() => setOpenType('where')} className="where-input">
@@ -62,13 +65,13 @@ export function MainFilter() {
         <div className="when-input">
             <div onClick={() => setOpenType('when')} >
                 <label htmlFor="">Cheak in</label>
-                <input type="text" placeholder="Add dates"
+                <input type="text" placeholder="Add dates" readOnly
                     value={filterBy.when.startDate ? format(filterBy.when.startDate, 'MMM dd') : ''} />
             </div>
             <hr />
             <div onClick={() => setOpenType('when')}>
                 <label htmlFor="">Cheak out</label>
-                <input type="text" placeholder="Add dates"
+                <input type="text" placeholder="Add dates" readOnly
                     value={filterBy.when.endDate ? format(filterBy.when.endDate, 'MMM dd') : ''} />
             </div>
             {openType === 'when' && <When dates={filterBy.when} setDates={changeFilterWhen} />}
@@ -80,7 +83,7 @@ export function MainFilter() {
             <div>
                 <label htmlFor="">Who</label>
                 <input type="text" placeholder="Add guests"
-                    value={whoInput} />
+                    value={whoInput} readOnly />
             </div>
             {openType === 'who' && <Who filterCapacity={filterBy.who} setFilterCapacity={changeFilterWho} />}
             <button onClick={submitFilter}> <img src={searchImg} /></button>

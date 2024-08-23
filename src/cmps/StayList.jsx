@@ -7,11 +7,11 @@ import { loadStays } from "../store/actions/stay.actions.js";
 export function StayList() {
     const stays = useSelector(state => state.stayModule.stays)
     const filterBy = useSelector(state => state.stayModule.filterBy)
-    
-    useEffect(() => {
-        loadStays()
-    }, [filterBy])
 
+    useEffect(() => {
+        loadStays(filterBy)
+    }, [filterBy])
+    
     return <section className="stay-main-list">
         <div>{filterBy.where.country}</div>
         <ul className="stay-list">
