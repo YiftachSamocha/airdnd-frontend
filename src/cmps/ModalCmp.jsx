@@ -8,7 +8,7 @@ export function ModalCmp({ children, onClose, type, stay }) {
     stay && stay.type === 'room'
         ? guestAccess = `An amazing room in the ${stay.type} is now available.`
         : guestAccess = `Entire ${stay.type} is now available.`
-
+console.log('type', type)
     switch (type) {
         case ('description'):
             headlineContent = 'About this place'
