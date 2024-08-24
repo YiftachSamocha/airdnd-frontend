@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getData } from "../services/stay.data";
 
-export function LabelsFilter({ filterBy, changeFilterBy }) {
+export function LabelsFilter({ filterBy, setFilterBy }) {
     const allLabels = getData('labels')
     const [slicedLabels, setSlicedLabels] = useState([])
     const [selectedLabel, setSelectedLabel] = useState(allLabels[0])
@@ -37,7 +37,7 @@ export function LabelsFilter({ filterBy, changeFilterBy }) {
 
     function selectLabel(label) {
         setSelectedLabel(label)
-        changeFilterBy(label)
+        setFilterBy(prev => ({ ...prev, label }))
     }
 
     return <section className="labels-filter">
