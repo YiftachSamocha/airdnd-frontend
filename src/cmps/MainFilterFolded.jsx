@@ -6,13 +6,20 @@ export function MainFilterFolded({ filterBy }) {
     const [filterValues, setFilterValues] = useState({ where: 'anywhere', when: 'any week', who: 'add guests' })
 
     useEffect(() => {
-        if (filterBy && filterBy.where && filterBy.when && filterBy.who) {
+        if (filterBy) {
+            const where = filterBy.where.city === '' ? filterBy.where.city : 'anywhere'
+            let when
+            if (filterBy.when.startDate && filterBy.when.endDate) {
+                when = format(filterBy.when.startDate, 'MMMM d') + ' - ' + format(filterBy.when.endDate, 'MMMM d')
+            } else when = 'any week'
+            let who = filterBy.who.adults + filterBy.who.children + filterBy.who.infants
+            who = who === 0 ? 'add guests' : who + ' guests'
             const newFilter = {
-                where: filterBy.where.city,
-                // when: format(filterBy.when.startDate, 'MMMM d') - format(filterBy.when.endDate, 'MMMM d'),
-                who: filterBy.who.adults + filterBy.who.children + filterBy.who.infants,
-                when: 'bulbul'
+                where,
+                when,
+                who
             }
+
             setFilterValues(newFilter)
         }
     }, [filterBy])
