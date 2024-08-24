@@ -1,21 +1,12 @@
-.stay-index {
-    header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+.main-layout {
+    display: grid;
+    grid-template-columns: 40px 1fr 40px;
 
-        padding-block: .3em;
+    >* {
+        grid-column: 2;
     }
 
-    h2 {
-        margin: 0;
-        font-size: 1.3em;
-    }
-
-    button {
-        margin-inline-end: 0;
-    }
-    hr{
-        color: $gray1;
+    hr {
+        grid-column: 1/-1;
     }
 }

@@ -4,14 +4,13 @@ import languageImg from "../assets/imgs/language.png";
 import hamburgerImg from "../assets/imgs/hamburger.png";
 import profileImg from "../assets/imgs/profile.png";
 import { MainFilter } from "./MainFilter";
-import { LabelsFilter } from "./LabelsFilter";
 
 
 export function AppHeader() {
 	return (
 		<section className="app-header">
 			<div className="main-header">
-				<Link><img src={logoImg} alt="" /></Link>
+				<Link className="logo"><img src={logoImg}  /></Link>
 
 				<div className="user-header">
 					<Link>Airdnd your home</Link>
@@ -23,7 +22,7 @@ export function AppHeader() {
 
 				</div>
 			</div>
-			
+
 			<MainFilter />
 		
 		</section>
