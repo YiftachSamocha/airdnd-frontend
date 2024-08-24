@@ -6,6 +6,7 @@ import portugalImg from '../assets/imgs/countries/portugal.jpg';
 import usaImg from '../assets/imgs/countries/united-states.jpg';
 import greeceImg from '../assets/imgs/countries/greece.jpg';
 
+import iconsImg from '../assets/imgs/labels/icons.webp'
 import barnsImg from '../assets/imgs/labels/barns.jpeg';
 import beachImg from '../assets/imgs/labels/beach.jpeg';
 import beachfrontImg from '../assets/imgs/labels/beachfront.jpeg';
@@ -76,7 +77,7 @@ export function createStay() {
             cleaning: getRandomIntInclusive(200, 1000)
         },
         type: getRandomItems(types, 1),
-        amenities: getRandomItems(amenities, getRandomIntInclusive(10, 35)), 
+        amenities: getRandomItems(amenities, getRandomIntInclusive(10, 35)),
         labels: getRandomItems(labels, 3),
         reservedDates: generateAvailabilityRanges(),
         host: {
@@ -484,6 +485,7 @@ const amenities = [
 ]
 
 const labels = [
+    { label: 'icons', img: iconsImg },
     { label: 'barns', img: barnsImg },
     { label: 'beach', img: beachImg },
     { label: 'beachfront', img: beachfrontImg },

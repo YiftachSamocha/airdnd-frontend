@@ -3,7 +3,8 @@
     display: flex;
     align-items: center;
     max-width: em(850px);
-    margin: 0 auto;
+    margin-inline: auto;
+    margin-bottom: em(24px);
     border-radius: 50px;
     position: relative;
     cursor: pointer;
@@ -44,7 +45,8 @@
         padding: 0;
     }
 
-    .when-input-start, .when-input-end {
+    .when-input-start,
+    .when-input-end {
         border-radius: 50px;
         padding: em(14px) em(24px);
 
@@ -97,7 +99,9 @@
         .selected {
             background-color: white;
         }
-        .when-input-start.selected,  .when-input-end.selected{
+
+        .when-input-start.selected,
+        .when-input-end.selected {
             background-color: white;
         }
 
@@ -108,6 +112,7 @@
             background-color: $gray2;
         }
     }
+
 
 
     // hr {
@@ -121,4 +126,8 @@
     //     opacity: 0;
     // }
 
+}
+
+hr {
+    background-color: red;
 }

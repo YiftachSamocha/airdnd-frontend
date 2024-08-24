@@ -12,6 +12,7 @@ import { StayDate } from '../cmps/DetailsCmps/StayDate'
 import { StayHost } from '../cmps/DetailsCmps/StayHost'
 import { StayToKnow } from '../cmps/DetailsCmps/StayToKnow'
 import { StayPayment } from '../cmps/DetailsCmps/StayPayment'
+import { AppHeader } from '../cmps/AppHeader'
 
 
 export function StayDetails() {
@@ -26,16 +27,17 @@ export function StayDetails() {
   if (!stay) return <div>Loading...</div>
   return (
     <section className="stay-details">
+      <AppHeader />
       <h1>{stay.name}</h1>
-      <StayImage stay={stay}/>
-      <StayMainInfo stay={stay}/>
-      <StayAmeneties stay={stay}/>
+      <StayImage stay={stay} />
+      <StayMainInfo stay={stay} />
+      <StayAmeneties stay={stay} />
       <StayDate />
       <StayReview />
       <StayLocation />
       <StayHost />
       <StayToKnow />
-      {/* <StayPayment stay={stay}/> */}
+      <StayPayment stay={stay} />
     </section>
   )
 }
