@@ -2,6 +2,9 @@
     position: fixed;
     top: 0;
     right: 0;
+    display: grid;
+    grid-template-columns: (1fr);
+    // gap: 1.5em;/
     // min-width: 250px;
     // max-width: 370em;
     padding: 20px;
@@ -12,9 +15,15 @@
     border-radius: 10px;
 
     .btn-container {
+        grid-column: span 2;
         display: grid;
         grid-template-columns: 1fr 1fr;
         width: 100%;
+    }
+
+    .add-grid {
+        display: grid;
+        grid-column: span 2;
     }
 
     .full {
@@ -48,15 +57,17 @@
         flex-direction: column;
 
         h4 {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
             letter-spacing: -0.5px;
-            margin: 0 0 3px 0;
+            margin: 0;
         }
 
         p {
             font-size: 14px;
-            margin-bottom: 10px;
+            padding-bottom: 3px;
+            // margin-bottom: 10px;
+            margin: 5px;
         }
     }
 
@@ -90,6 +101,7 @@
     }
 
     h2 {
+        grid-column: span 2;
         margin-top: 5px;
 
         span {
@@ -99,8 +111,20 @@
     }
 
     p {
+        grid-column: span 2;
         color: $gray5;
         font-weight: 400;
+    }
+
+    h5{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        grid-column: span 2;
+        color: $gray5;
+        font-size: 15px;
+        font-weight: 400;  
+        margin: 10px;
     }
 
     .light {
@@ -110,6 +134,10 @@
     }
 
     .price-calc {
+        // display: grid;
+
+        // grid-column: span 2;
+
         h3 {
             font-weight: 400;
             margin: 8px;
@@ -126,11 +154,13 @@
 
     .price-calc,
     .total {
+        // grid-column: span 2;
         display: flex;
         justify-content: space-between;
     }
 
     .total {
+        grid-column: span 2;
         border-top: 1px solid #ccc;
         margin-top: 10px;
     }
@@ -142,6 +172,19 @@
     .grid-item p {
         margin-left: 10px;
         margin-bottom: 7px;
+    }
+
+    .modal-payment {
+        position: absolute;
+        // background: white;
+        // border: 1px solid #ddd;
+        // box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+        // padding: 16px;
+        z-index: 1000;
+    }
+
+    .modal-payment.hidden {
+        display: none;
     }
 
 }

@@ -9,10 +9,10 @@ export function LabelsFilter({ filterBy, changeFilterBy }) {
     const max = allLabels.length
     const INDEX_SIZE = 12
 
-    useEffect(() => {
-        const newLabels = allLabels.slice(startLabel, startLabel + INDEX_SIZE)
-        setSlicedLabels(newLabels)
-    }, [startLabel])
+    // useEffect(() => {
+    //     const newLabels = allLabels.slice(startLabel, startLabel + INDEX_SIZE)
+    //     setSlicedLabels(newLabels)
+    // }, [startLabel])
 
     useEffect(() => {
         if (filterBy.label) setSelectedLabel(filterBy.label)

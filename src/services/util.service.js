@@ -83,7 +83,7 @@ export function randomPastTime() {
     return Date.now() - pastTime
 }
 
-export function getDateRange(dates) {
+export function getDateRange(dates) {    
     const randomIndex = Math.floor(Math.random() * dates.length)
     const { start, end } = dates[randomIndex]
     return formatDateRange(start, end)

@@ -31,6 +31,10 @@
         .stay-list {
             grid-template-columns: repeat(2, 1fr);
         }
+        .stay-payment{
+            grid-template-columns:
+            minmax(auto,20px);
+    }
     }
 
     @include for-normal-layout {
@@ -42,6 +46,10 @@
         .stay-list {
             grid-template-columns: repeat(3, 1fr);
         }
+        .stay-payment{
+            grid-template-columns:
+            minmax(auto,110px);
+    }
     }
 
     @include for-wide-layout {
@@ -53,6 +61,11 @@
         .stay-list {
             grid-template-columns: repeat(4, 1fr);
         }
+
+        .stay-payment{
+            grid-template-columns:
+            minmax(auto,110px);
+    }
     }
 
     @include for-large-layout {
@@ -66,9 +79,12 @@
         }
 
         .stay-payment{
-            max-width: 400px;
-            padding: 20px;
-        }
+            grid-template-columns:
+            minmax(auto,160px);
     }
+            // max-width: 400px;
+            // padding: 20px;
+        }
+    
 }
 
