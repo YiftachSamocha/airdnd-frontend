@@ -30,6 +30,29 @@
             outline: 0;
             background: none;
             z-index: 1;
+            flex: 1;
+        }
+
+        button {
+            background-color: inherit;
+            border-radius: 50%;
+            padding: 0.5em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2em;
+            height: 2em;
+            border: 0;
+            margin-left: 0.5em;
+
+            &:hover {
+                background-color: $gray3;
+            }
+
+            img {
+                max-width: 0.75em;
+                height: 0.75em;
+            }
         }
     }
 
@@ -70,7 +93,7 @@
             cursor: pointer;
         }
 
-        >button {
+        .search-button {
             background-color: $clr-light-red;
             border-radius: 50%;
             padding: 0;
@@ -80,13 +103,18 @@
             width: 3em;
             height: 3em;
             border: 0;
+
+            img {
+                max-width: 1em;
+                height: 1em;
+            }
         }
 
-        img {
-            max-width: 1em;
-            height: 1em;
-        }
+
+
     }
+
+
 
     .who-input:hover,
     .where-input:hover,
