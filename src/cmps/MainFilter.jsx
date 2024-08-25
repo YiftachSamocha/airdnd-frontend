@@ -81,8 +81,8 @@ export function MainFilter({ filterBy, setFilterBy }) {
 
     return <section className={`main-filter ${openType ? 'has-selection' : ''}`} >
         <div onClick={() => setOpenType('where')} className={`where-input ${openType === 'where' ? 'selected' : ''}`}>
+            <label htmlFor="">Where</label>
             <div>
-                <label htmlFor="">Where</label>
                 <input type="text" placeholder="Search destinations" value={whereInput}
                     onChange={handleChangeWhere} />
                 {filterBy.where && <button onClick={() => deleteFilter('where')} >X</button>}
@@ -93,17 +93,23 @@ export function MainFilter({ filterBy, setFilterBy }) {
         <div className="when-input">
             <div onClick={() => setOpenType('when-start')} className={`when-input-start ${openType === 'when-start' ? 'selected' : ''}`}>
                 <label htmlFor="">Cheak in</label>
-                <input type="text" placeholder="Add dates" readOnly
-                    value={filterBy.when.startDate ? format(filterBy.when.startDate, 'MMM dd') : ''} />
+                <div>
+                    <input type="text" placeholder="Add dates" readOnly
+                        value={filterBy.when.startDate ? format(filterBy.when.startDate, 'MMM dd') : ''} />
                     {filterBy.when.startDate && <button onClick={() => deleteFilter('when-start')} >X</button>}
+                </div>
             </div>
-            
+
 
             <div onClick={() => setOpenType('when-end')} className={`when-input-end ${openType === 'when-end' ? 'selected' : ''}`}>
+
                 <label htmlFor="">Cheak out</label>
-                <input type="text" placeholder="Add dates" readOnly
-                    value={filterBy.when.endDate ? format(filterBy.when.endDate, 'MMM dd') : ''} />
-                {filterBy.when.endDate && <button onClick={() => deleteFilter('when-end')} >X</button>}
+                <div>
+                    <input type="text" placeholder="Add dates" readOnly
+                        value={filterBy.when.endDate ? format(filterBy.when.endDate, 'MMM dd') : ''}
+                    />
+                    {filterBy.when.endDate && <button onClick={() => deleteFilter('when-end')} >X</button>}
+                </div>
             </div>
             {(openType === 'when-start' || openType === 'when-end') && <When dates={filterBy.when} setDates={changeFilterWhen} />}
         </div>
@@ -111,9 +117,11 @@ export function MainFilter({ filterBy, setFilterBy }) {
         <div onClick={() => setOpenType('who')} className={`who-input ${openType === 'who' ? 'selected' : ''}`}>
             <div>
                 <label htmlFor="">Who</label>
-                <input type="text" placeholder="Add guests"
-                    value={whoInput} readOnly />
-                {filterBy.who && <button onClick={() => deleteFilter('who')} >X</button>}
+                <div>
+                    <input type="text" placeholder="Add guests"
+                        value={whoInput} readOnly />
+                    {filterBy.who && <button onClick={() => deleteFilter('who')} >X</button>}
+                </div>
             </div>
             {openType === 'who' && <Who filterCapacity={filterBy.who} setFilterCapacity={changeFilterWho} />}
             <button onClick={submitFilter} className="search-button"> <img src={searchImg} /></button>

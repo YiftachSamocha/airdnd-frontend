@@ -31,19 +31,28 @@
             background: none;
             z-index: 1;
             flex: 1;
+            max-width: 13em;
         }
+
+
+    }
+
+    .where-input>div,
+    .who-input>div>div,
+    .when-input-start>div,
+    .when-input-end>div {
+        display: flex;
+        
 
         button {
             background-color: inherit;
             border-radius: 50%;
             padding: 0.5em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: inline;
             width: 2em;
             height: 2em;
             border: 0;
-            margin-left: 0.5em;
+            margin-bottom: 1em;
 
             &:hover {
                 background-color: $gray3;
@@ -60,7 +69,7 @@
         padding-inline: 2em;
 
         input {
-            width: em(218px);
+            width: 6em;
         }
     }
 
@@ -74,11 +83,6 @@
         border-radius: 50px;
         padding: em(14px) em(24px);
 
-        input {
-            width: em(92px);
-            cursor: pointer;
-        }
-
     }
 
     .who-input {
@@ -89,7 +93,7 @@
         padding-block: em(11px);
 
         input {
-            width: em(183px);
+            width: 15em;
             cursor: pointer;
         }
 

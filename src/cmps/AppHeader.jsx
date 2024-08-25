@@ -8,6 +8,7 @@ import { useEffect, useState, useRef } from "react"
 import { LabelsFilter } from "./LabelsFilter"
 import { MainFilterFolded } from "./MainFilterFolded"
 import { stayService } from "../services/stay"
+import { ExtraFilter } from "./ExtraFilter"
 
 export function AppHeader() {
     const [isFolded, setIsFolded] = useState(false)
@@ -89,6 +90,7 @@ export function AppHeader() {
             <div ref={labelsFilterRef}>
                 <LabelsFilter filterBy={filterBy} setFilterBy={setFilterBy} />
             </div>
+            <ExtraFilter />
         </section>
     )
 }
