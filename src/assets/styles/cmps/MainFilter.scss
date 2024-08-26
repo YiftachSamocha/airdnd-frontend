@@ -17,7 +17,6 @@
         border-radius: 50px;
         position: relative;
         display: flex;
-        flex-direction: column;
 
         label {
             color: $gray5;
@@ -31,46 +30,49 @@
             background: none;
             z-index: 1;
             flex: 1;
-            max-width: 13em;
         }
 
-
+        
     }
 
-    .where-input>div,
-    .who-input>div>div,
-    .when-input-start>div,
-    .when-input-end>div {
+    .where-input,
+    .when-input-end,
+    .when-input-start,
+    .who-input>div:first-of-type{
         display: flex;
-        
-
-        button {
+        justify-content: space-between;
+        align-items: center;
+        >button {
             background-color: inherit;
             border-radius: 50%;
             padding: 0.5em;
             display: inline;
-            width: 2em;
-            height: 2em;
+            width: 1.5em;
+            height: 1.5em;
             border: 0;
-            margin-bottom: 1em;
-
-            &:hover {
-                background-color: $gray3;
-            }
-
-            img {
-                max-width: 0.75em;
-                height: 0.75em;
-            }
+            font-size: em(13px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
+        >button:hover {
+            background-color: $gray6;
+        }
+    }
+
+    .where-input>div,
+    .when-input-start>div,
+    .when-input-end>div {
+        display: flex;
+        flex-direction: column;
+
     }
 
     .where-input {
         padding-inline: 2em;
+        width: 17.5em;
 
-        input {
-            width: 6em;
-        }
     }
 
     .when-input {
@@ -82,6 +84,10 @@
     .when-input-end {
         border-radius: 50px;
         padding: em(14px) em(24px);
+        width: 10em;
+        input{
+            width: 5em;
+        }
 
     }
 
@@ -91,10 +97,16 @@
         position: relative;
         flex-direction: row;
         padding-block: em(11px);
+        width: 16em;
+        justify-content: space-between;
 
         input {
-            width: 15em;
+            width: 10em;
             cursor: pointer;
+        }
+        >div:first-of-type>div{
+            display: flex;
+            flex-direction: column;
         }
 
         .search-button {

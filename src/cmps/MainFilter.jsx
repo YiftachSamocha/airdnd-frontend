@@ -67,10 +67,8 @@ export function MainFilter({ filterBy, setFilterBy }) {
                 setWhereInput('')
                 break
             case 'when-start':
-                setFilterBy(prev => ({ ...prev, when: { ...prev.when, startDate: emptyFilter.when.startDate } }))
-                break
             case 'when-end':
-                setFilterBy(prev => ({ ...prev, when: { ...prev.when, endDate: emptyFilter.when.endDate } }))
+                setFilterBy(prev => ({ ...prev, when: emptyFilter.when }))
                 break
             case 'who':
                 setFilterBy(prev => ({ ...prev, who: emptyFilter.who }))
@@ -78,50 +76,67 @@ export function MainFilter({ filterBy, setFilterBy }) {
                 break
         }
     }
+    function isDeleteBtnShown(type) {
+        if (type !== openType) return false
+        switch (type) {
+            case 'where':
+                if (!filterBy.where) return false
+                break
+            case 'when-start':
+                if (!filterBy.when.startDate) return false
+                break
+            case 'when-end':
+                if (!filterBy.when.endDate) return false
+                break
+            case 'who':
+                if (filterBy.who.adults <= 0 && filterBy.who.children <= 0 && filterBy.who.infants <= 0) return false
+                break
+        }
+        return true
+    }
 
     return <section className={`main-filter ${openType ? 'has-selection' : ''}`} >
         <div onClick={() => setOpenType('where')} className={`where-input ${openType === 'where' ? 'selected' : ''}`}>
-            <label htmlFor="">Where</label>
             <div>
+                <label htmlFor="">Where</label>
                 <input type="text" placeholder="Search destinations" value={whereInput}
                     onChange={handleChangeWhere} />
-                {filterBy.where && <button onClick={() => deleteFilter('where')} >X</button>}
             </div>
+            {isDeleteBtnShown('where') && <button onClick={() => deleteFilter('where')} >x</button>}
             {openType === 'where' && <Where input={whereInput} setInput={changeFilterWhere} />}
         </div>
 
         <div className="when-input">
             <div onClick={() => setOpenType('when-start')} className={`when-input-start ${openType === 'when-start' ? 'selected' : ''}`}>
-                <label htmlFor="">Cheak in</label>
                 <div>
+                    <label htmlFor="">Cheak in</label>
                     <input type="text" placeholder="Add dates" readOnly
                         value={filterBy.when.startDate ? format(filterBy.when.startDate, 'MMM dd') : ''} />
-                    {filterBy.when.startDate && <button onClick={() => deleteFilter('when-start')} >X</button>}
                 </div>
+                {isDeleteBtnShown('when-start') && <button onClick={() => deleteFilter('when-start')} >X</button>}
             </div>
 
 
             <div onClick={() => setOpenType('when-end')} className={`when-input-end ${openType === 'when-end' ? 'selected' : ''}`}>
-
-                <label htmlFor="">Cheak out</label>
                 <div>
+                    <label htmlFor="">Cheak out</label>
                     <input type="text" placeholder="Add dates" readOnly
                         value={filterBy.when.endDate ? format(filterBy.when.endDate, 'MMM dd') : ''}
                     />
-                    {filterBy.when.endDate && <button onClick={() => deleteFilter('when-end')} >X</button>}
                 </div>
+                {isDeleteBtnShown('when-end') && <button onClick={() => deleteFilter('when-end')} >X</button>}
             </div>
             {(openType === 'when-start' || openType === 'when-end') && <When dates={filterBy.when} setDates={changeFilterWhen} />}
         </div>
 
         <div onClick={() => setOpenType('who')} className={`who-input ${openType === 'who' ? 'selected' : ''}`}>
             <div>
-                <label htmlFor="">Who</label>
                 <div>
+                    <label htmlFor="">Who</label>
                     <input type="text" placeholder="Add guests"
                         value={whoInput} readOnly />
-                    {filterBy.who && <button onClick={() => deleteFilter('who')} >X</button>}
                 </div>
+                {isDeleteBtnShown('who') && <button onClick={() => deleteFilter('who')} >X</button>}
             </div>
             {openType === 'who' && <Who filterCapacity={filterBy.who} setFilterCapacity={changeFilterWho} />}
             <button onClick={submitFilter} className="search-button"> <img src={searchImg} /></button>
