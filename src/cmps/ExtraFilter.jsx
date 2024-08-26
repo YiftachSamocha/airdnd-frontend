@@ -8,7 +8,7 @@ import { getData } from "../services/stay.data"
 import { Range, getTrackBackground } from 'react-range';
 import { BarChart } from "./LibariesCmps/BarChart"
 
-export function ExtraFilter({ filterBy, setFilterBy }) {
+export function ExtraFilter({ filterBy, setFilterBy, closeExtra }) {
     const MAX_PRICE_TO_PERSON = 500
     const [selectedType, setSelectedType] = useState('any')
     const [rooms, setRooms] = useState({ rooms: 0, bedrooms: 0, bathrooms: 0 })
@@ -77,7 +77,7 @@ export function ExtraFilter({ filterBy, setFilterBy }) {
 
     return <div className="extra-filter">
         <div className="extra-header">
-            <button>X</button>
+            <button onClick={() => closeExtra()}>X</button>
             <h4>Filters</h4>
         </div>
         <div className="extra-main">

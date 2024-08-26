@@ -10,6 +10,7 @@ import { LabelsFilter } from "./LabelsFilter"
 import { MainFilterFolded } from "./MainFilterFolded"
 import { stayService } from "../services/stay"
 import { ExtraFilter } from "./ExtraFilter"
+import { OutsideClick } from "./OutsideClick"
 
 export function AppHeader() {
     const [isFolded, setIsFolded] = useState(false)
@@ -96,7 +97,10 @@ export function AppHeader() {
                 </button>
             </div>
             {isExtaVisible && <div className="layout">
-                <ExtraFilter filterBy={filterBy} setFilterBy={setFilterBy} />
+                <OutsideClick onOutsideClick={() => setIsExtraVisible(prev => !prev)} >
+                    <ExtraFilter filterBy={filterBy} setFilterBy={setFilterBy} closeExtra={() => setIsExtraVisible(prev => !prev)} />
+                </OutsideClick>
+
             </div>}
 
         </section>
