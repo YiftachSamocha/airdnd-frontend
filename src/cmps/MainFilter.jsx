@@ -10,14 +10,15 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { stayService } from "../services/stay";
 
-export function MainFilter({ filterBy, setFilterBy }) {
+export function MainFilter() {
     const [openType, setOpenType] = useState('')
     const [whereInput, setWhereInput] = useState('')
     const [whoInput, setWhoInput] = useState('')
+    const [filterBy, setFilterBy] = useState(stayService.getDefaultFilter())
 
     useEffect(() => {
         if (filterBy.where) {
-            setOpenType('when-start');
+            setOpenType('when-start')
         }
     }, [filterBy.where])
 

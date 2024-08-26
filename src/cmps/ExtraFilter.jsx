@@ -7,38 +7,46 @@ import luxeImg from '../assets/imgs/Extra/luxe.png'
 import { getData } from "../services/stay.data"
 import { Range, getTrackBackground } from 'react-range';
 import { BarChart } from "./LibariesCmps/BarChart"
+import { SET_FILTER_BY } from "../store/reducers/stay.reducer"
+import { useSelector } from "react-redux"
+import { stayService } from "../services/stay"
+import { store } from "../store/store"
 
-export function ExtraFilter({ filterBy, setFilterBy, closeExtra }) {
+export function ExtraFilter({ closeExtra }) {
+    const filterBy = useSelector(state => state.stayModule.filterBy)
     const MAX_PRICE_TO_PERSON = 500
-    const [selectedType, setSelectedType] = useState('any')
+    const [type, setType] = useState('any')
     const [rooms, setRooms] = useState({ rooms: 0, bedrooms: 0, bathrooms: 0 })
-    const [price, setPrice] = useState([40, MAX_PRICE_TO_PERSON])
+    const [price, setPrice] = useState([40, 3000])
+    const [maxPrice, setMaxPrice] = useState(3000)
     const [booking, setBooking] = useState({ instant: false, self: false, pets: false })
     const [standout, setStandout] = useState({ favorite: false, luxe: false })
-    const [amenteies, setAmeneties] = useState(getData('mainAmenities'))
-    const [maxPrice, setMaxPrice] = useState(MAX_PRICE_TO_PERSON);
-    const [priceInput, setPriceInput] = useState(price)
+    const [amenities, setAmenities] = useState(getData('mainAmenities'))
+    const [priceInput, setPriceInput] = useState(price);
 
     useEffect(() => {
-        if (filterBy.who) {
-            let newMax = MAX_PRICE_TO_PERSON
-            const capacity = filterBy.who.adults + filterBy.who.children + filterBy.who.infants
-            if (capacity !== 0) {
-                newMax = capacity * MAX_PRICE_TO_PERSON
-                setMaxPrice(newMax)
-            }
+        if (filterBy.extra.type) setType(filterBy.extra.type)
+        if (filterBy.extra.rooms) setRooms(filterBy.extra.rooms)
+        if (filterBy.extra.price) setPrice(filterBy.extra.price)
+        if (filterBy.extra.maxPrice) setMaxPrice(filterBy.extra.maxPrice)
+        if (filterBy.extra.amenities) setAmenities(filterBy.extra.amenities)
+        if (filterBy.extra.booking) setBooking(filterBy.extra.booking)
+        if (filterBy.extra.standout) setStandout(filterBy.extra.standout)
+    }, [filterBy.extra])
 
-            setPrice(prevPrice => [
-                Math.max(40, Math.min(prevPrice[0], newMax)),
-                Math.min(prevPrice[1], newMax)
-            ])
-        }
-    }, [filterBy])
+    useEffect(() => {
+        setPrice(prevPrice => [
+            Math.max(40, Math.min(prevPrice[0], maxPrice)),
+            Math.min(prevPrice[1], maxPrice)
+        ]);
+    }, [maxPrice])
+
     useEffect(() => {
         if (price) {
             setPriceInput(price)
         }
     }, [price])
+
 
     function changeRooms(type, size) {
         if (rooms[type] + size < 0) return
@@ -64,14 +72,28 @@ export function ExtraFilter({ filterBy, setFilterBy, closeExtra }) {
     }
 
     function clearAll() {
-        setSelectedType('any')
-        setRooms({ rooms: 0, bedrooms: 0, bathrooms: 0 })
-        setPrice([40, MAX_PRICE_TO_PERSON])
-        setBooking({ instant: false, self: false, pets: false })
-        setStandout({ favorite: false, luxe: false })
-        setAmeneties(getData('mainAmenities'))
-        setMaxPrice(MAX_PRICE_TO_PERSON)
+        const defaultFilter = stayService.getDefaultFilter()
+        setType(defaultFilter.extra.type)
+        setRooms(defaultFilter.extra.rooms)
+        setPrice(defaultFilter.extra.price)
+        setBooking(defaultFilter.extra.booking)
+        setStandout(defaultFilter.extra.standout)
+        setAmenities(defaultFilter.extra.amenities)
+        setMaxPrice(defaultFilter.extra.maxPrice)
         setPriceInput([40, MAX_PRICE_TO_PERSON])
+    }
+
+    function onSubmit() {
+        const extra = {
+            type,
+            price,
+            rooms,
+            amenities,
+            booking,
+            standout,
+        }
+        store.dispatch({ type: SET_FILTER_BY, filterBy: ({ ...filterBy, extra }) })
+        closeExtra()
     }
 
 
@@ -84,13 +106,13 @@ export function ExtraFilter({ filterBy, setFilterBy, closeExtra }) {
             <div className="type">
                 <h5>Type of place</h5>
                 <div>
-                    <button onClick={() => setSelectedType('any')} className={selectedType === 'any' ? 'selected' : ''}>
+                    <button onClick={() => setType('any')} className={type === 'any' ? 'selected' : ''}>
                         Any type
                     </button>
-                    <button onClick={() => setSelectedType('room')} className={selectedType === 'room' ? 'selected' : ''}>
+                    <button onClick={() => setType('room')} className={type === 'room' ? 'selected' : ''}>
                         Room
                     </button>
-                    <button onClick={() => setSelectedType('home')} className={selectedType === 'home' ? 'selected' : ''}>
+                    <button onClick={() => setType('home')} className={type === 'home' ? 'selected' : ''}>
                         Entire home
                     </button>
                 </div>
@@ -194,12 +216,12 @@ export function ExtraFilter({ filterBy, setFilterBy, closeExtra }) {
             </div>
             <hr />
             <div className="amenities">
-                <h5>Amenteies</h5>
+                <h5>Amenities</h5>
                 <div>
-                    {amenteies.map(amenity => {
-                        return <button className={amenity.isSelected ? 'selected' : ''}
+                    {amenities.map(amenity => {
+                        return <button className={amenity.isSelected ? 'selected' : ''} key={amenity.label}
                             onClick={() =>
-                                setAmeneties(prev =>
+                                setAmenities(prev =>
                                     prev.map(am => am.name === amenity.name ? { ...am, isSelected: !am.isSelected } : am))}>
                             <img src={amenity.imgUrl} alt="" />
                             {amenity.name}
@@ -252,9 +274,7 @@ export function ExtraFilter({ filterBy, setFilterBy, closeExtra }) {
         </div>
         <div className="extra-footer">
             <button onClick={clearAll}>Clear all</button>
-            <button>Show 1000+ places</button>
+            <button onClick={onSubmit}>Show 1000+ places</button>
         </div>
-
-
     </div>
 }

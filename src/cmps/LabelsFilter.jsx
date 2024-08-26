@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import { getData } from "../services/stay.data";
 import arrowRight from '../assets/imgs/arrow-right.png'
 import arrowLeft from '../assets/imgs/arrow-left.png'
+import { store } from "../store/store";
+import { SET_FILTER_BY } from "../store/reducers/stay.reducer";
+import { useSelector } from "react-redux";
 
-export function LabelsFilter({ filterBy, setFilterBy }) {
+export function LabelsFilter() {
+    const filterBy = useSelector(state => state.stayModule.filterBy)
     const allLabels = getData('labels')
     const [slicedLabels, setSlicedLabels] = useState([])
     const [selectedLabel, setSelectedLabel] = useState(allLabels[0])
@@ -39,7 +43,7 @@ export function LabelsFilter({ filterBy, setFilterBy }) {
 
     function selectLabel(label) {
         setSelectedLabel(label)
-        setFilterBy(prev => ({ ...prev, label }))
+        store.dispatch({ type: SET_FILTER_BY, filterBy: { ...filterBy, label } })
     }
 
     return <section className="labels-filter">
@@ -47,7 +51,7 @@ export function LabelsFilter({ filterBy, setFilterBy }) {
         <section className="labels-container">
             {slicedLabels.map(label => {
                 return <div key={label.label} onClick={() => selectLabel(label)}
-                    className={label.label === selectedLabel.label && 'selected'}>
+                    className={label.label === selectedLabel.label ? 'selected' : ''}>
                     <img src={label.img} />
                     <p>{label.label}</p>
                 </div>

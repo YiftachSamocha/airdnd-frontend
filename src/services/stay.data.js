@@ -400,6 +400,13 @@ const highlights = [
 ]
 const types = ['home', 'room', 'apartment', 'villa',]
 const amenities = [
+    { type: 'main', name: 'wifi', imgUrl: wifiImg },
+    { type: 'main', name: 'Air conditioning', imgUrl: acImg },
+    { type: 'main', name: 'kitchen', imgUrl: kitchenImg },
+    { type: 'main', name: 'free parking', imgUrl: parkingImg },
+    { type: 'main', name: 'Television', imgUrl: tvImg },
+    { type: 'main', name: 'washing mashine', imgUrl: washingMashineImg },
+
     { type: 'bathroom', name: 'Hair dryer', imgUrl: '/src/assets/imgs/amenities/hot-water.svg' },
     { type: 'bathroom', name: 'Shampoo', imgUrl: '/src/assets/imgs/amenities/essentials.svg' },
     { type: 'bathroom', name: 'Conditioner', imgUrl: '/src/assets/imgs/amenities/essentials.svg' },

@@ -11,14 +11,17 @@ import { MainFilterFolded } from "./MainFilterFolded"
 import { stayService } from "../services/stay"
 import { ExtraFilter } from "./ExtraFilter"
 import { OutsideClick } from "./OutsideClick"
+import { store } from "../store/store"
+import { SET_FILTER_BY } from "../store/reducers/stay.reducer"
+import { useSelector } from "react-redux"
 
 export function AppHeader() {
     const [isFolded, setIsFolded] = useState(false)
-    const [filterBy, setFilterBy] = useState(stayService.getDefaultFilter())
     const [isExtaVisible, setIsExtraVisible] = useState(false)
     const mainFilterRef = useRef(null)
     const labelsFilterRef = useRef(null)
     const userInitiatedOpen = useRef(false)
+    const filterBy = useSelector(state => state.stayModule.filterBy)
 
     useEffect(() => {
         const handleScroll = () => {
@@ -64,8 +67,8 @@ export function AppHeader() {
     return (
         <section className="app-header">
             <div className="main-header">
-                <Link to={'/stay'} onClick={() => setFilterBy(stayService.getDefaultFilter())} className="logo"><img src={logoImg} /></Link>
-
+                <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
+                    className="logo"><img src={logoImg} /></Link>
                 {isFolded && (
                     <div onClick={handleMainFilterFoldedClick}>
                         <MainFilterFolded filterBy={filterBy} />
@@ -84,12 +87,12 @@ export function AppHeader() {
 
             {!isFolded && (
                 <div ref={mainFilterRef}>
-                    <MainFilter filterBy={filterBy} setFilterBy={setFilterBy} />
+                    <MainFilter />
                 </div>
             )}
             <hr />
             <div ref={labelsFilterRef} className="labels-container">
-                <LabelsFilter filterBy={filterBy} setFilterBy={setFilterBy} />
+                <LabelsFilter />
                 <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button">
                     <img src={filterImg} alt="" />
                     Filters
@@ -98,7 +101,7 @@ export function AppHeader() {
             </div>
             {isExtaVisible && <div className="layout">
                 <OutsideClick onOutsideClick={() => setIsExtraVisible(prev => !prev)} >
-                    <ExtraFilter filterBy={filterBy} setFilterBy={setFilterBy} closeExtra={() => setIsExtraVisible(prev => !prev)} />
+                    <ExtraFilter closeExtra={() => setIsExtraVisible(prev => !prev)} />
                 </OutsideClick>
 
             </div>}

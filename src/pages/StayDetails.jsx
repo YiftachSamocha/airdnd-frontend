@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { loadStay } from '../store/actions/stay.actions'
-import { StayAmeneties } from '../cmps/DetailsCmps/StayAmeneties'
+import { StayAmenities } from '../cmps/DetailsCmps/StayAmenities'
 import { StayImage } from '../cmps/DetailsCmps/StayImage'
 import { StayMainInfo } from '../cmps/DetailsCmps/StayMainInfo'
 import { StayLocation } from '../cmps/DetailsCmps/StayLocation'
@@ -31,7 +31,7 @@ export function StayDetails() {
       <h1>{stay.name}</h1>
       <StayImage stay={stay} />
       <StayMainInfo stay={stay} />
-      <StayAmeneties stay={stay} />
+      <StayAmenities stay={stay} />
       <StayDate />
       <StayReview />
       <StayLocation />
