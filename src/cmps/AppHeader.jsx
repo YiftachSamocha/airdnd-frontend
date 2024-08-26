@@ -3,6 +3,7 @@ import logoImg from "../assets/imgs/logo.png"
 import languageImg from "../assets/imgs/language.png"
 import hamburgerImg from "../assets/imgs/hamburger.png"
 import profileImg from "../assets/imgs/profile.png"
+import filterImg from "../assets/imgs/filter.png"
 import { MainFilter } from "./MainFilter"
 import { useEffect, useState, useRef } from "react"
 import { LabelsFilter } from "./LabelsFilter"
@@ -13,6 +14,7 @@ import { ExtraFilter } from "./ExtraFilter"
 export function AppHeader() {
     const [isFolded, setIsFolded] = useState(false)
     const [filterBy, setFilterBy] = useState(stayService.getDefaultFilter())
+    const [isExtaVisible, setIsExtraVisible] = useState(false)
     const mainFilterRef = useRef(null)
     const labelsFilterRef = useRef(null)
     const userInitiatedOpen = useRef(false)
@@ -87,10 +89,18 @@ export function AppHeader() {
                 </div>
             )}
             <hr />
-            <div ref={labelsFilterRef}>
+            <div ref={labelsFilterRef} className="labels-container">
                 <LabelsFilter filterBy={filterBy} setFilterBy={setFilterBy} />
+                <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button">
+                <img src={filterImg} alt="" />
+                    Filters
+                    
+                </button>
             </div>
-            <ExtraFilter filterBy={filterBy} setFilterBy={setFilterBy} />
+            {isExtaVisible && <div className="layout">
+                <ExtraFilter filterBy={filterBy} setFilterBy={setFilterBy} />
+            </div>}
+
         </section>
     )
 }

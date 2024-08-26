@@ -65,9 +65,22 @@
 
         .user-header>:hover {
             background-color: $gray1;
-
-
         }
 
     }
+
+    .labels-container {
+        display: flex;
+        align-items: center;
+
+        .extra-button {
+            @include extra-btn();
+            padding: 1em;
+            border-radius: 15px;
+            margin-inline: 1em 0;
+
+        }
+    }
+
+
 }
