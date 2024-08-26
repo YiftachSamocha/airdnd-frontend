@@ -249,11 +249,10 @@ export function ExtraFilter({ filterBy, setFilterBy }) {
                     </button>
                 </div>
             </div>
-            <hr />
-            <div className="extra-footer">
-                <button onClick={clearAll}>Clear all</button>
-                <button>Show 1000+ places</button>
-            </div>
+        </div>
+        <div className="extra-footer">
+            <button onClick={clearAll}>Clear all</button>
+            <button>Show 1000+ places</button>
         </div>
 
 

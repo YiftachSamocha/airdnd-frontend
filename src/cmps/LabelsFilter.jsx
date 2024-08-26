@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { getData } from "../services/stay.data";
+import arrowRight from '../assets/imgs/arrow-right.png'
+import arrowLeft from '../assets/imgs/arrow-left.png'
 
 export function LabelsFilter({ filterBy, setFilterBy }) {
     const allLabels = getData('labels')
@@ -7,7 +9,7 @@ export function LabelsFilter({ filterBy, setFilterBy }) {
     const [selectedLabel, setSelectedLabel] = useState(allLabels[0])
     const [startLabel, setStartLabel] = useState(0)
     const max = allLabels.length
-    const INDEX_SIZE = 12
+    const INDEX_SIZE = 10
 
     useEffect(() => {
         const newLabels = allLabels.slice(startLabel, startLabel + INDEX_SIZE)
@@ -23,7 +25,7 @@ export function LabelsFilter({ filterBy, setFilterBy }) {
         if (leftRight === 'right') {
             newStart = startLabel + INDEX_SIZE
             if (newStart + INDEX_SIZE > max) {
-                newStart = max - INDEX_SIZE 
+                newStart = max - INDEX_SIZE
             }
         }
         else {
@@ -41,7 +43,7 @@ export function LabelsFilter({ filterBy, setFilterBy }) {
     }
 
     return <section className="labels-filter">
-        {(startLabel > 0) && <button onClick={() => changeIndex('left')} >{'<'}</button>}
+        {(startLabel > 0) && <button onClick={() => changeIndex('left')} ><img src={arrowLeft} alt="" /></button>}
         <section className="labels-container">
             {slicedLabels.map(label => {
                 return <div key={label.label} onClick={() => selectLabel(label)}
@@ -51,6 +53,6 @@ export function LabelsFilter({ filterBy, setFilterBy }) {
                 </div>
             })}
         </section>
-        {(startLabel + INDEX_SIZE) < allLabels.length && <button onClick={() => changeIndex('right')}>{'>'}</button>}
+        {(startLabel + INDEX_SIZE) < allLabels.length && <button onClick={() => changeIndex('right')}> <img src={arrowRight} alt="" /> </button>}
     </section>
 }

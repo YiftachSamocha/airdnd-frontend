@@ -109,7 +109,7 @@ export function MainFilter({ filterBy, setFilterBy }) {
         <div className="when-input">
             <div onClick={() => setOpenType('when-start')} className={`when-input-start ${openType === 'when-start' ? 'selected' : ''}`}>
                 <div>
-                    <label htmlFor="">Cheak in</label>
+                    <label htmlFor="">Check in</label>
                     <input type="text" placeholder="Add dates" readOnly
                         value={filterBy.when.startDate ? format(filterBy.when.startDate, 'MMM dd') : ''} />
                 </div>
@@ -119,7 +119,7 @@ export function MainFilter({ filterBy, setFilterBy }) {
 
             <div onClick={() => setOpenType('when-end')} className={`when-input-end ${openType === 'when-end' ? 'selected' : ''}`}>
                 <div>
-                    <label htmlFor="">Cheak out</label>
+                    <label htmlFor="">Check out</label>
                     <input type="text" placeholder="Add dates" readOnly
                         value={filterBy.when.endDate ? format(filterBy.when.endDate, 'MMM dd') : ''}
                     />

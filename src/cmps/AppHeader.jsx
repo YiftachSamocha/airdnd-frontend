@@ -63,9 +63,7 @@ export function AppHeader() {
     return (
         <section className="app-header">
             <div className="main-header">
-                <div onClick={() => setFilterBy(stayService.getDefaultFilter())} className="logo">
-                    <img src={logoImg} />
-                </div>
+                <Link to={'/stay'} onClick={() => setFilterBy(stayService.getDefaultFilter())} className="logo"><img src={logoImg} /></Link>
 
                 {isFolded && (
                     <div onClick={handleMainFilterFoldedClick}>
@@ -92,9 +90,9 @@ export function AppHeader() {
             <div ref={labelsFilterRef} className="labels-container">
                 <LabelsFilter filterBy={filterBy} setFilterBy={setFilterBy} />
                 <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button">
-                <img src={filterImg} alt="" />
+                    <img src={filterImg} alt="" />
                     Filters
-                    
+
                 </button>
             </div>
             {isExtaVisible && <div className="layout">
