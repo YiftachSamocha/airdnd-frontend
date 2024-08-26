@@ -3,6 +3,7 @@ import { ModalCmp } from './ModalCmp.jsx' // Import the Modal component
 import arrowIcon from '../assets/imgs/icons/arrow-right.svg'
 
 export function ShowMoreCmp({ content, limit, type, stay, isModalOpen, toggleModal }) {
+    console.log('Modal is open', isModalOpen)
     const buttonClass = type === 'amenities' ? 'white' : 'btn-link'
     const buttonLabel = type === 'amenities'
         ? `Show all ${content.length} amenities`
@@ -14,7 +15,10 @@ export function ShowMoreCmp({ content, limit, type, stay, isModalOpen, toggleMod
             )
             : 'Show More'
 
-    useEffect(() => {}, [isModalOpen])
+    useEffect(() => {
+        console.log('Toggling modal');
+
+    }, [isModalOpen])
 
     function groupItemsByType(items) {
         return items.reduce(function (acc, item) {
@@ -25,17 +29,18 @@ export function ShowMoreCmp({ content, limit, type, stay, isModalOpen, toggleMod
     }
 
     function renderItem(item, index) {
+        // debugger
         return (
             <div key={index} className={`item ${index}`}>
                 <div>
-                {item.imgUrl && (
-                    <img
-                        src={item.imgUrl}
-                        alt={item.name || 'Image'}
-                        className="details-icon"
-                    />
-                )}
-                <span>{item.name || item.text || item.toString()}</span>
+                    {item.imgUrl && (
+                        <img
+                            src={item.imgUrl}
+                            alt={item.name || 'Image'}
+                            className="details-icon"
+                        />
+                    )}
+                    <span>{item.name || item.text || item.toString()}</span>
                 </div>
                 {isModalOpen && <hr />}
             </div>
@@ -62,9 +67,11 @@ export function ShowMoreCmp({ content, limit, type, stay, isModalOpen, toggleMod
 
     return (
         <div className={`show-more ${type}-style`}>
-            <div className="items">{renderContent(content, limit)}</div>
-
-            {content.length > limit && (
+            <div className="items">{renderContent(content, limit)}
+                {type === 'description' ? '...' : ''}
+            </div>
+            
+            {content.length >= limit && (
                 <button onClick={toggleModal} className={buttonClass}>
                     {buttonLabel}
                 </button>

@@ -37,6 +37,7 @@
     .stay-details {
         grid-template-columns: 1fr;
         max-width: 743px;
+        margin-inline: 0;
         /* Single column layout for small screens */
     }
 
