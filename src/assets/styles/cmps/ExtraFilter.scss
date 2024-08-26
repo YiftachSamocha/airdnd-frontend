@@ -87,6 +87,48 @@
                 margin: 0;
             }
 
+            .chart {
+                margin-block-start: 2em;
+            }
+
+            .range {
+                margin-block-end: 2em;
+            }
+
+            .price-inputs {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    label{
+                        font-size: em(12px);
+                        font-weight: 600;
+                    }
+
+                    input {
+                        width: 6.5em;
+                        border: 1px solid $gray3;
+                        border-radius: 40px;
+                        padding: 1.2em;
+                        display: block;
+                        font-size: em(14px);
+                        margin-block-start: 0.5em;
+                    }
+                    input:focus{
+                        background-color: $gray1;
+                    }
+                }
+
+
+            }
+
+
+
+
         }
 
         .rooms {
@@ -128,6 +170,26 @@
 
                         }
                     }
+                }
+            }
+        }
+
+        .amenities {
+
+            div {
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                gap: 10px;
+
+                button {
+                    @include extra-btn();
+                    flex: 0 1 auto;
+                    max-width: fit-content;
+                    text-transform: capitalize;
+                    margin: 0;
+
+
                 }
             }
         }

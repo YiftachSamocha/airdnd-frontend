@@ -90,7 +90,7 @@ export function AppHeader() {
             <div ref={labelsFilterRef}>
                 <LabelsFilter filterBy={filterBy} setFilterBy={setFilterBy} />
             </div>
-            <ExtraFilter />
+            <ExtraFilter filterBy={filterBy} setFilterBy={setFilterBy} />
         </section>
     )
 }

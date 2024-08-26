@@ -63,6 +63,13 @@ import vineyardsImg from '../assets/imgs/labels/vineyards.jpeg';
 import windmillsImg from '../assets/imgs/labels/windmills.jpeg';
 import yurtsImg from '../assets/imgs/labels/yurts.jpeg';
 
+import parkingImg from '../assets/imgs/Extra/parking.png'
+import tvImg from '../assets/imgs/Extra/tv.png'
+import acImg from '../assets/imgs/Extra/ac.png'
+import kitchenImg from '../assets/imgs/Extra/kitchen.png'
+import washingMashineImg from '../assets/imgs/Extra/washing-mashine.png'
+import wifiImg from '../assets/imgs/Extra/wifi.png'
+
 
 export function createStay() {
     return {
@@ -111,6 +118,7 @@ export function getData(type) {
         case 'hostImages': return hostImages;
         case 'fullnames': return fullnames;
         case 'reviewTxts': return reviewsTxts;
+        case 'mainAmenities': return mainAmenities
         default: return null;
     }
 }
@@ -482,6 +490,15 @@ const amenities = [
     { type: 'entertainment', name: 'Outdoor toys', imgUrl: '/src/imgs/amenities/luggage-dropoff-allowed.svg' },
     { type: 'entertainment', name: 'Books', imgUrl: '/src/imgs/amenities/luggage-dropoff-allowed.svg' },
     { type: 'entertainment', name: 'Music player', imgUrl: '/src/imgs/amenities/luggage-dropoff-allowed.svg' }
+]
+
+const mainAmenities = [
+    { name: 'wifi', imgUrl: wifiImg, isSelected: false },
+    { name: 'Air conditioning', imgUrl: acImg, isSelected: false },
+    { name: 'kitchen', imgUrl: kitchenImg, isSelected: false },
+    { name: 'free parking', imgUrl: parkingImg, isSelected: false },
+    { name: 'Television', imgUrl: tvImg, isSelected: false },
+    { name: 'washing mashine', imgUrl: washingMashineImg, isSelected: false },
 ]
 
 const labels = [
