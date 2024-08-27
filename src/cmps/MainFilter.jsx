@@ -6,8 +6,6 @@ import { Who } from "./MainFilterCmps/Who";
 import { format } from 'date-fns';
 import searchImg from "../assets/imgs/search.png";
 import { SET_FILTER_BY } from "../store/reducers/stay.reducer";
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
 import { stayService } from "../services/stay";
 
 export function MainFilter() {
@@ -70,6 +68,7 @@ export function MainFilter() {
             case 'when-start':
             case 'when-end':
                 setFilterBy(prev => ({ ...prev, when: emptyFilter.when }))
+                setOpenType('when-start')
                 break
             case 'who':
                 setFilterBy(prev => ({ ...prev, who: emptyFilter.who }))

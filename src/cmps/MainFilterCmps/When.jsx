@@ -1,5 +1,7 @@
 import { DateRangePicker } from 'react-date-range';
 import { addDays } from 'date-fns';
+import 'react-date-range/dist/styles.css'; 
+import 'react-date-range/dist/theme/default.css'; 
 
 export function When({dates, setDates}) {
    
