@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import starIcon from '../../assets/imgs/icons/star.svg'; // Adjust the path based on your project structure
 import { ShowMoreCmp } from '../ShowMoreCmp.jsx';
+import { StayPayment } from './StayPayment.jsx';
 
 export function StayMainInfo({ stay }) {
     const totalReviews = stay.reviews ? stay.reviews.length : 0

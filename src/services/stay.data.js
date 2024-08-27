@@ -89,12 +89,12 @@ export function createStay(host, location) {
         reservedDates: generateAvailabilityRanges(),
         host: {
             _id: host._id,
-            fullName: host.fullName,  // Corrected from 'fullName' to 'fullname' if necessary
+            fullname: host.fullname,  // Corrected from 'fullName' to 'fullname' if necessary
             imgUrl: host.imgUrl,
             reviews: host.reviews,
             rating: host.rating,
             yearsHosting: host.yearsHosting,
-            responceRate: host.responceRate
+            responceRate: host.responseRate
         },
         location,
         reviews: getRandomItems(reviews, getRandomIntInclusive(1, 15)),
@@ -125,7 +125,7 @@ export async function createHosts( listingsPerHost = 2) {
         }
 
         for (let j = 0; j < listingsPerHost; j++) {
-            const stay = await createStay(host._id, location)
+            const stay =  createStay(host, location)
             host.listings.push(stay)
             stays.push(stay) // Also push the stay into the stays array for storage
         }
@@ -861,6 +861,47 @@ const cancellationPolicy = [
     { txt: "Changes made less than 48 hours after booking may incur additional fees, depending on the host’s policies." },
     { txt: "No refund will be issued for cancellations made less than 24 hours before check-in." }
 ]
+
+
+async function fetchRoomImg(type) {
+    const API_KEY = import.meta.env.VITE_PEXELS_API_KEY
+    const query = type
+    const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=10`
+
+    // Static variable to track used image URLs
+    if (!fetchRoomImg.usedImages) {
+        fetchRoomImg.usedImages = new Set()
+    }
+
+    try {
+        const response = await fetch(url, {
+            headers: {
+                Authorization: API_KEY
+            }
+        })
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const data = await response.json()
+
+        const availablePhotos = data.photos.filter(photo => !fetchRoomImg.usedImages.has(photo.src.medium))
+
+        if (availablePhotos.length === 0) {
+            fetchRoomImg.usedImages.clear() // Clear used images if all are exhausted
+            return await fetchRoomImg(type) // Retry with a fresh set
+        }
+
+        const selectedImage = availablePhotos[0].src.medium // Use the first available image
+        fetchRoomImg.usedImages.add(selectedImage) // Mark it as used
+
+        return selectedImage
+    } catch (error) {
+        console.error('Error fetching data from Pexels API:', error)
+        return '../assets/imgs/bed/double-bed.svg' // Return a default image in case of an error
+    }
+}
 
 
 

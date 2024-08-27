@@ -35,7 +35,7 @@ export function StayDetails() {
       <StayDate />
       <StayReview />
       <StayLocation />
-      <StayHost />
+      <StayHost stay={stay}/>
       <StayToKnow />
     </section>
   )
