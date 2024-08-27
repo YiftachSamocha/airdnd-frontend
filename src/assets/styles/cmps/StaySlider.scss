@@ -1,0 +1,170 @@
+.slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 319px;
+    // aspect-ratio: 319px / 319px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+// .slick-slide {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     position: relative;
+// }
+
+// .slick-prev,
+// .slick-next {
+//     width: 35px;
+//     height: 35px;
+//     background-color: transparent;
+//     border: none;
+//     z-index: 1000;
+// }
+
+// .slider-wrapper{
+//     display: flex;
+//     position: relative;
+//     width: 100%;
+//     max-width: 319px;
+//     // aspect-ratio: 319px / 319px;
+//     margin: 0;
+//     padding: 0;
+//     object-fit: cover;
+// }
+
+
+.slick-track {
+    width: 319px;
+    // width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+// .img-body {
+//     width: 100%;
+//     height: 100%;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     object-fit: cover;
+//     aspect-ratio: 1/1;
+//     // border-radius: 10px;
+//     // display: inline-block;
+//     // background-color: aqua;
+
+// }
+
+.img-body img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    // border-radius: 10px;
+    aspect-ratio: 1/1;
+    // position: relative;
+    // display: flex;
+    //   justify-content: center;
+    // align-items: center;
+
+}
+
+
+
+.slick-dots {
+    position: absolute;
+    bottom: 10px; /* מרחק מהתחתית של הסליידר */
+    width: 100%; /* התאמת אורך הנקודות לאורך של הסליידר */
+    display: flex;
+    justify-content: center; /* מרכז את הנקודות בצורה אופקית */
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+
+/* עיצוב לחיצים בצדדים */
+// .slick-prev,
+// .slick-next {
+//     width: 35px;
+//     height: 35px;
+//     border-radius: 50%;
+//     z-index: 1000;
+// }
+
+.slick-next {
+    // display: none;
+    z-index: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+/* שינוי העיצוב של החיצים */
+.slick-prev::before,
+.slick-next::before {
+    opacity: 1;
+    color: rgb(246, 241, 241);
+    font-size: 30px;
+}
+
+// .slick-prev img, .slick-next img {
+//     width: 100%;
+//     height: 100%;
+//     color: red;
+//   }
+
+/* מיקום החיצים בצדדים */
+.slick-prev {
+    left: 10px;
+}
+
+.slick-next {
+    right: 10px;
+}
+
+/* עיצוב לעיגולים למטה */
+.slick-dots {
+    // z-index: 1000; 
+    // position: absolute; 
+}
+
+.slick-dots li button:before {
+    opacity: 0;
+}
+
+.slick-dots li.slick-active button:before {
+    color: none;
+    opacity: 0;
+}
+
+// ul.slick-dots{
+//     position: absolute; 
+//     display: flex;
+//     z-index: 1000; 
+// }
+
+/* עיצוב לעיגולים */
+.slick-dots li button {
+    z-index: 1000;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+
+    background-color: rgba(97, 93, 93, 0.5);
+}
+
+/* עיצוב לעיגול פעיל */
+.slick-dots .slick-active button {
+    font-size: 50px;
+    background-color: aliceblue;
+    // opacity: 0;
+    // .slick-prev,
+}
