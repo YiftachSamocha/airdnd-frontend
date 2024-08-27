@@ -28,7 +28,6 @@
             border: 0;
             outline: 0;
             background: none;
-            z-index: 1;
             flex: 1;
         }
 
@@ -96,7 +95,7 @@
         align-items: center;
         position: relative;
         flex-direction: row;
-        padding-block: em(11px);
+        padding-block: em(9px);
         width: 16em;
         justify-content: space-between;
 

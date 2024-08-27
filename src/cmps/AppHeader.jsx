@@ -18,6 +18,7 @@ import { useSelector } from "react-redux"
 export function AppHeader() {
     const [isFolded, setIsFolded] = useState(false)
     const [isExtaVisible, setIsExtraVisible] = useState(false)
+    const [isTop, setIsTop] = useState(true)
     const mainFilterRef = useRef(null)
     const labelsFilterRef = useRef(null)
     const userInitiatedOpen = useRef(false)
@@ -25,8 +26,13 @@ export function AppHeader() {
 
     useEffect(() => {
         const handleScroll = () => {
-            if (!isFolded && !userInitiatedOpen.current) {
-                setIsFolded(true)
+            if (window.scrollY === 0) {
+                setIsTop(true) // Set isTop to true when at the top
+            } else {
+                setIsTop(false) // Set isTop to false when scrolling down
+                if (!isFolded && !userInitiatedOpen.current) {
+                    setIsFolded(true)
+                }
             }
         }
 
@@ -38,6 +44,8 @@ export function AppHeader() {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
+            if (isTop) return // If isTop is true, do nothing
+
             if (
                 mainFilterRef.current &&
                 !mainFilterRef.current.contains(event.target) &&
@@ -57,7 +65,7 @@ export function AppHeader() {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside)
         }
-    }, [isFolded])
+    }, [isFolded, isTop])
 
     const handleMainFilterFoldedClick = () => {
         setIsFolded(false)
@@ -105,6 +113,7 @@ export function AppHeader() {
                 </OutsideClick>
 
             </div>}
+            {(!isFolded && !isTop) && <div className="layout-main"></div>}
 
         </section>
     )

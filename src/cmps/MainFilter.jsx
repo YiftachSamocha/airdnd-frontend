@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { store } from '../store/store'
 import { Where } from "./MainFilterCmps/Where";
 import { When } from "./MainFilterCmps/When";
@@ -13,6 +13,19 @@ export function MainFilter() {
     const [whereInput, setWhereInput] = useState('')
     const [whoInput, setWhoInput] = useState('')
     const [filterBy, setFilterBy] = useState(stayService.getDefaultFilter())
+    const filterRef = useRef(null)
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (filterRef.current && !filterRef.current.contains(event.target)) {
+                setOpenType('')
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [])
 
     useEffect(() => {
         if (filterBy.where) {
@@ -22,7 +35,7 @@ export function MainFilter() {
 
     useEffect(() => {
         submitFilter()
-    }, [filterBy.label])
+    }, [filterBy.label, filterBy.extra])
 
 
     function handleChangeWhere({ target }) {
@@ -55,7 +68,9 @@ export function MainFilter() {
 
     function submitFilter() {
         store.dispatch({ type: SET_FILTER_BY, filterBy })
-        setOpenType('')
+        setTimeout(() => {
+            setOpenType('')
+        }, 100)
     }
 
     function deleteFilter(type) {
@@ -95,7 +110,7 @@ export function MainFilter() {
         return true
     }
 
-    return <section className={`main-filter ${openType ? 'has-selection' : ''}`} >
+    return <section className={`main-filter ${openType ? 'has-selection' : ''}`} ref={filterRef} >
         <div onClick={() => setOpenType('where')} className={`where-input ${openType === 'where' ? 'selected' : ''}`}>
             <div>
                 <label htmlFor="">Where</label>
