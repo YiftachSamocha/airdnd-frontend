@@ -37,7 +37,6 @@ export function StayDetails() {
       <StayLocation />
       <StayHost stay={stay}/>
       <StayToKnow />
-      </div>
     </section>
   )
 }
