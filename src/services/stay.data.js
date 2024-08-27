@@ -209,6 +209,7 @@ export function getData(type) {
     }
 }
 
+
 function getRandomItems(arr, numItems) {
     if (arr.length === 0 || numItems <= 0) return numItems === 1 ? null : []
 

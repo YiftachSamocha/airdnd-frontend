@@ -29,7 +29,7 @@ export function StayMainInfo({ stay }) {
 
     return (
         <section className={`main-info ${isModalOpen ? 'modal-open' : 'modal-closed'}`}>
-
+            <StayPayment stay={stay} />
             <div className="initial-info">
                 <div>
                     <h2>
