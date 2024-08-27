@@ -1,15 +1,21 @@
 .stay-payment {
-    position: fixed;
-    top: 0;
-    right: 0;
-    // min-width: 250px;
-    // max-width: 370em;
+    // position: relative; /* Initially part of the flow */
+    // top: 0;
+    // right: 0;
+    width: 372px;
     padding: 20px;
     background-color: $clr3;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 1000;
     border: 1px solid rgb(210, 208, 208);
     border-radius: 10px;
+    transition: all 0.3s ease-in-out; /* Smooth transition for sticky effect */
+
+    &.sticky {
+        position: fixed;
+        top: 0;
+        right: 0;
+    }
 
     .btn-container {
         display: grid;
