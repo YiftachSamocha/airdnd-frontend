@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ShowMoreCmp } from "../ShowMoreCmp.jsx";
 
-export function StayAmeneties({ stay }) {
+export function StayAmenities({ stay }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     function toggleModal() {
         setIsModalOpen(prevState => !prevState)
@@ -17,5 +17,7 @@ export function StayAmeneties({ stay }) {
             isModalOpen={isModalOpen}
             toggleModal={toggleModal}
         />
+                <hr className="details-seperation-line"></hr>
+
     </section>
 }

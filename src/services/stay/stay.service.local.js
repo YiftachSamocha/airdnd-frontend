@@ -1,7 +1,7 @@
 import { storageService } from '../async-storage.service'
 import { makeId } from '../util.service'
 import { userService } from '../user'
-import { createStay } from '../stay.data'
+import { createHosts, createStay } from '../stay.data'
 
 const STORAGE_KEY = 'stay'
 
@@ -18,7 +18,7 @@ _createData()
 
 async function query(filterBy = {}) {
     var stays = await storageService.query(STORAGE_KEY)
-    const { where, when, who, label } = filterBy
+    const { where, when, who, label, extra } = filterBy
     if (where && where.country !== 'Im flexible') {
         stays = stays.filter(stay => stay.location.country === where.country && stay.location.city === where.city)
     }
@@ -29,9 +29,13 @@ async function query(filterBy = {}) {
         stays = stays.filter(stay => _filterWho(stay.sleep, who))
     }
     if (label && label.label !== 'icons') {
+
         stays = stays.filter(stay =>
             stay.labels.some(lbl => lbl.label === label.label)
         )
+    }
+    if (extra) {
+        stays = stays.filter(stay => _filterExtra(stay, extra))
     }
 
     return stays
@@ -84,15 +88,13 @@ async function addStayMsg(stayId, txt) {
     return msg
 }
 
-function _createData(length = 24) {
-    const currData = JSON.parse(localStorage.getItem(STORAGE_KEY))
+async function _createData(listingsPerHost = 2) {
+    const currData = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (!currData || currData.length === 0) {
-        const stays = []
-        for (var i = 0; i < length; i++) {
-            const stay = createStay()
-            stays.push(stay)
-        }
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(stays))
+        const { hosts, stays } = await createHosts(listingsPerHost);
+
+        localStorage.setItem('hosts', JSON.stringify(hosts));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(stays));
     }
 }
 
@@ -123,4 +125,24 @@ function _filterWho(sleep, who) {
     if (minimumCapacity > amount) return false
     return true
 
+}
+
+function _filterExtra(stay, extra) {
+    const { type, price, rooms, amenities, booking, standout } = extra
+    const filterAmenities = amenities.filter(amenity => amenity.isSelected)
+    if (!filterAmenities.every(amenity =>
+        stay.amenities.some(stayAmenity => stayAmenity.name === amenity.name))) return false
+    if (type !== 'any' && type !== stay.type) return false
+    if (price[0] + price[1] !== 0) {
+        if (stay.price.night < price[0] || stay.price.night > price[1]) return false
+    }
+    if ((rooms.bedrooms + rooms.rooms + rooms.bathrooms) !== 0) {
+        if (stay.sleep.bedrooms < rooms.bedrooms || stay.sleep.bathrooms < rooms.bathrooms || stay.sleep.rooms.length < rooms.rooms) return false
+    }
+    if (booking.instant && !stay.highlights.some(highlight => highlight.main === 'Great check-in experience')) return false
+    if (booking.self && !stay.highlights.some(highlight => highlight.main === 'Self check-in')) return false
+    if (booking.pets && !stay.highlights.some(highlight => highlight.main === 'Pet-friendly')) return false
+    if (standout.favorite && !stay.highlights.some(highlight => highlight.main === 'Great value')) return false
+    if (standout.luxe && !stay.labels.some(label => label.label === 'luxe')) return false
+    return true
 }

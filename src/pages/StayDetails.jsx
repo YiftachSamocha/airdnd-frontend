@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { loadStay } from '../store/actions/stay.actions'
-import { StayAmeneties } from '../cmps/DetailsCmps/StayAmeneties'
 import { StayImage } from '../cmps/DetailsCmps/StayImage'
 import { StayMainInfo } from '../cmps/DetailsCmps/StayMainInfo'
 import { StayLocation } from '../cmps/DetailsCmps/StayLocation'
@@ -13,6 +12,7 @@ import { StayHost } from '../cmps/DetailsCmps/StayHost'
 import { StayToKnow } from '../cmps/DetailsCmps/StayToKnow'
 import { StayPayment } from '../cmps/DetailsCmps/StayPayment'
 import { AppHeader } from '../cmps/AppHeader'
+import { StayAmenities } from '../cmps/DetailsCmps/stayAmenities'
 
 
 export function StayDetails() {
@@ -28,16 +28,15 @@ export function StayDetails() {
   return (
     <section className="stay-details">
       <AppHeader />
-      <div>
-        <h1>{stay.name}</h1>
-        <StayImage stay={stay} />
-        <StayMainInfo stay={stay} />
-        <StayAmeneties stay={stay} />
-        <StayDate />
-        <StayReview />
-        <StayLocation />
-        <StayHost />
-        <StayToKnow />
+      <h1>{stay.name}</h1>
+      <StayImage stay={stay} />
+      <StayMainInfo stay={stay} />
+      <StayAmenities stay={stay} />
+      <StayDate />
+      <StayReview />
+      <StayLocation />
+      <StayHost stay={stay}/>
+      <StayToKnow />
       </div>
     </section>
   )

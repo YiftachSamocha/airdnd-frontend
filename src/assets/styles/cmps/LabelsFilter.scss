@@ -13,13 +13,19 @@
         cursor: pointer;
         transition: all 0.3s ease;
         border-radius: 50%;
-        border: 1px solid black;
+        border: 1px solid $gray3;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         margin: 0;
-        height: 3em;
-        width: 3em;
-        flex-shrink: 0;
-        align-self: center;
+        height: 2em;
+        width: 2em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            max-width: 1em;
+            height: 1em;
+        }
 
         &:hover {
             transform: translateY(-3px);
@@ -45,12 +51,13 @@
             align-items: center;
             border-bottom: 1px solid transparent;
             padding-bottom: em(14px);
-            transition: transform 2s ease-in-out; 
+            transition: transform 2s ease-in-out;
 
             p {
                 text-transform: capitalize;
                 margin-top: 0.5em;
                 text-align: center;
+                white-space: nowrap;
 
             }
 
@@ -75,7 +82,8 @@
         .selected:hover {
             border-bottom: 2px solid black;
         }
-        div:first-of-type{
+
+        div:first-of-type {
             margin-inline-start: 0;
         }
     }

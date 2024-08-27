@@ -2,17 +2,16 @@
     position: absolute;
     top: 100%;
     left: -75%;
-    border-radius: 50%;
-    z-index: 3;
+    z-index: 35;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
     background-color: white;
     color: black;
-    font-family: inherit;
-    width: em(850px);
+    border-radius: 25px;
 
     .rdrCalendarWrapper {
         border: none;
         box-shadow: none;
+        border-radius: 25px;
     }
 
     .rdrDateDisplayWrapper {
@@ -28,6 +27,10 @@
         display: none;
     }
 
+    .rdrMonthAndYearWrapper {
+        height: 2em;
+    }
+
     .rdrMonthAndYearPickers {
         display: flex;
         justify-content: center;
@@ -41,63 +44,116 @@
         cursor: pointer;
         font-size: 18px;
         color: black;
-        margin-block-start: 4em;
+        margin-block-start: 4.5em;
     }
 
     .rdrMonthName {
-        margin: 0 auto;
+        margin: 1.5em auto;
+        font-size: em(20px);
+        font-weight: bolder;
         padding: 0;
+        color: black;
+        width: 5em;
     }
 
-    .rdrDayNumber span {
-        background-color: transparent !important;
-        color: black !important;
-    }
 
-    .rdrDay{
-        height: 3em;
-        width: 3em;
-        span{
+    .rdrDay {
+        font-size: initial;
+        font-weight: bold;
+
+        font span {
             font-weight: 300;
         }
+    }
+
+    .rdrDayNumber {
+        font-size: em(16px);
+    }
+
+    .rdrDayPassive .rdrDayNumber {
+        display: none;
+    }
+
+    .rdrDayPassive.rdrDayHovered {
+        border: 0;
     }
 
     .rdrDayHovered {
         border: black 1px solid !important;
         border-radius: 50%;
-        
 
         .rdrDayNumber {
             border: 0;
             padding: 0;
-           
         }
     }
 
+    button:has(.rdrStartEdge),
+    button:has(.rdrEndEdge) {
+        background-color: black !important;
+        border-radius: 50% !important;
+    }
+
+    button:has(.rdrInRange) {
+        border: 0 !important
+    }
+
+    .rdrDayStartPreview,
+    .rdrDayEndPreview {
+        border: 0;
+    }
+
+    button:has(.rdrDayInPreview) {
+        background-color: $gray1;
+        border-radius: 0;
+    }
+
+
+
     .rdrStartEdge,
     .rdrEndEdge {
-        
-        background-color: black !important; // Black background for selected dates
-        border-radius: 50px !important; // Circular edges
-        border: 2px solid black !important; // Black border
-       
+        border: black 1px solid !important;
+        background-color: black !important;
+        border-radius: 50% !important;
+
+
+        .rdrDayNumber {
+            border: 0;
+            padding: 0;
+        }
     }
-    .rdrStartEdge+span span,
-    .rdrEndEdge+span span{
-        color: white !important;
+
+    .rdrDayToday:not(.rdrDayPassive) .rdrEndEdge~.rdrDayNumber span:after {
+        display: none;
+    }
+
+    .rdrDayToday .rdrDayNumber span:after {
+        display: none;
     }
 
     .rdrDayInactive {
-        visibility: hidden; // Hides overflow dates from other months
+        visibility: hidden;
     }
 
-    .rdrInRange {
-        background-color: $gray1; // Light gray background for the date range
-    
+    button:has(.rdrInRange) {
+        background-color: $gray1;
+        border-radius: 0;
     }
 
-    // .rdrDayHovered .rdrInRange,
-    // .rdrDaySelected .rdrInRange {
-    //     background-color: $gray1; // Light gray for hovered/selected range
-    // }
+    .rdrDay:not(.rdrDayPassive) .rdrInRange~.rdrDayNumber span {
+        color: black;
+    }
+
+    .rdrInRange:hover {
+        border: 0;
+    }
+
+    .rdrDayToday .rdrDayNumber {
+        border: 0;
+    }
+
+    .rdrDayDisabled {
+        opacity: 0.5;
+        background-color: white;
+    }
 }

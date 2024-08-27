@@ -1,5 +1,5 @@
 .main-filter {
-    box-shadow: 0 3px 3px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
     max-width: em(850px);
@@ -8,6 +8,7 @@
     border-radius: 50px;
     position: relative;
     cursor: pointer;
+    border: 1px solid $gray1;
 
     .who-input,
     .when-input,
@@ -16,7 +17,6 @@
         border-radius: 50px;
         position: relative;
         display: flex;
-        flex-direction: column;
 
         label {
             color: $gray5;
@@ -28,16 +28,50 @@
             border: 0;
             outline: 0;
             background: none;
-            z-index: 1;
+            flex: 1;
         }
+
+        
+    }
+
+    .where-input,
+    .when-input-end,
+    .when-input-start,
+    .who-input>div:first-of-type{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        >button {
+            background-color: inherit;
+            border-radius: 50%;
+            padding: 0.5em;
+            display: inline;
+            width: 1.5em;
+            height: 1.5em;
+            border: 0;
+            font-size: em(13px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        >button:hover {
+            background-color: $gray6;
+        }
+    }
+
+    .where-input>div,
+    .when-input-start>div,
+    .when-input-end>div {
+        display: flex;
+        flex-direction: column;
+
     }
 
     .where-input {
         padding-inline: 2em;
+        width: 17.5em;
 
-        input {
-            width: em(218px);
-        }
     }
 
     .when-input {
@@ -49,10 +83,9 @@
     .when-input-end {
         border-radius: 50px;
         padding: em(14px) em(24px);
-
-        input {
-            width: em(92px);
-            cursor: pointer;
+        width: 10em;
+        input{
+            width: 5em;
         }
 
     }
@@ -62,14 +95,20 @@
         align-items: center;
         position: relative;
         flex-direction: row;
-        padding-block: em(11px);
+        padding-block: em(9px);
+        width: 16em;
+        justify-content: space-between;
 
         input {
-            width: em(183px);
+            width: 10em;
             cursor: pointer;
         }
+        >div:first-of-type>div{
+            display: flex;
+            flex-direction: column;
+        }
 
-        >button {
+        .search-button {
             background-color: $clr-light-red;
             border-radius: 50%;
             padding: 0;
@@ -79,13 +118,18 @@
             width: 3em;
             height: 3em;
             border: 0;
+
+            img {
+                max-width: 1em;
+                height: 1em;
+            }
         }
 
-        img {
-            max-width: 1em;
-            height: 1em;
-        }
+
+
     }
+
+
 
     .who-input:hover,
     .where-input:hover,
@@ -126,8 +170,4 @@
     //     opacity: 0;
     // }
 
-}
-
-hr {
-    background-color: red;
 }

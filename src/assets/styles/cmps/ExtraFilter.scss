@@ -1,0 +1,285 @@
+.layout {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.extra-filter {
+    position: fixed;
+    background-color: white;
+    z-index: 101;
+    width: 35.5em;
+    height: 35em;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-inline: 2em;
+    border-radius: 25px;
+    overflow: scroll;
+
+    .extra-header {
+        display: flex;
+        position: sticky;
+        top: 0;
+        background-color: white;
+        z-index: 102;
+        padding-block: 2em;
+        border-bottom: 1px solid $gray3;
+
+
+        h4 {
+            margin: 0 auto;
+        }
+
+        button {
+            padding: 0;
+            background-color: inherit;
+            border: 0;
+        }
+    }
+
+    .extra-main {
+
+        h5 {
+            font-size: em(18px);
+        }
+
+        hr {
+            margin-block: 2em;
+        }
+
+
+        .type {
+            >div {
+                border: 1px solid $gray3;
+                border-radius: 25px;
+                display: flex;
+                justify-content: space-between;
+                padding: 0.5em;
+                margin-block-end: 2em;
+
+                button {
+                    background-color: white;
+                    border: 0;
+                }
+
+                button:hover {
+                    background-color: $gray3;
+                }
+
+                .selected {
+                    border: 2px solid black;
+                }
+
+                .selected:hover {
+                    background-color: white;
+                }
+            }
+        }
+
+        .price {
+            h5 {
+                margin-block-end: 0.5em;
+            }
+
+            h6 {
+                font-size: em(18px);
+                font-weight: lighter;
+                margin: 0;
+            }
+
+            .chart {
+                margin-block-start: 2em;
+            }
+
+            .range {
+                margin-block-end: 2em;
+            }
+
+            .price-inputs {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    label {
+                        font-size: em(12px);
+                        font-weight: 600;
+                    }
+
+                    input {
+                        width: 6.5em;
+                        border: 1px solid $gray3;
+                        border-radius: 40px;
+                        padding: 1.2em;
+                        display: block;
+                        font-size: em(14px);
+                        margin-block-start: 0.5em;
+                    }
+
+                    input:focus {
+                        background-color: $gray1;
+                    }
+                }
+
+
+            }
+
+
+
+
+        }
+
+        .rooms {
+            .rooms-container {
+                div {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-block: 0.5em;
+
+                    div {
+                        display: flex;
+                        justify-content: space-between;
+                        width: 10em;
+
+
+
+
+                        button {
+                            background-color: inherit;
+                            border: 1px solid black;
+                            border-radius: 50%;
+                            width: 2em;
+                            height: 2em;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            padding: 0;
+                            font-size: 1.2em;
+                            color: black;
+                            cursor: pointer;
+                            transition: background-color 0.3s;
+                            opacity: 0.5;
+
+                            &:hover {
+                                opacity: 1;
+
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+        .amenities {
+
+            div {
+                display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                gap: 10px;
+
+                button {
+                    @include extra-btn();
+                    flex: 0 1 auto;
+                    max-width: fit-content;
+                    text-transform: capitalize;
+                    margin: 0;
+
+
+                }
+            }
+        }
+
+        .booking {
+            div {
+                display: flex;
+
+                button {
+                    @include extra-btn()
+                }
+            }
+
+        }
+
+        .standout {
+            margin-bottom: 2em;
+            div {
+                display: flex;
+
+                button {
+                    @include extra-btn();
+                    display: flex;
+                    justify-content: space-around;
+                    border: 1px solid $gray6;
+                    border-radius: 25px;
+
+                    img {
+                        height: em(44px);
+                        width: em(44px);
+                    }
+
+                    div {
+                        flex-direction: column;
+
+                        h5 {
+                            margin: 0.5em;
+                            font-size: em(16px);
+                        }
+
+                        h6 {
+                            margin: 0.5em;
+                            font-size: em(14px);
+                            font-weight: lighter;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+    .extra-footer {
+        display: flex;
+        justify-content: space-between;
+        position: sticky;
+        bottom: 0;
+        background-color: white;
+        z-index: 102;
+        padding-block: 1em;
+        border-top: 1px solid $gray3;
+
+        button:first-of-type {
+            padding: 0.1em;
+            background-color: inherit;
+            border: 0;
+        }
+
+        button:first-of-type:hover {
+            background-color: $gray3;
+        }
+
+        button:last-of-type {
+            background-color: black;
+            color: white;
+            opacity: 0.9;
+        }
+
+        button:last-of-type:hover {
+            opacity: 1;
+        }
+    }
+
+}

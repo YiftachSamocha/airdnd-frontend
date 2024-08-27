@@ -1,14 +1,19 @@
 .main-info {
+    &.modal-closed {
+        display: flex;
+        margin-block: 32px;
+
+    }
     .initial-info>* {
         margin-block-end: 0px;
         color: $gray5;
     }
 
     .initial-info {
-        margin-block: 32px;
 
         h2 {
             font-size: 1.375rem;
+            margin-block-start: 0;
 
             .type {
                 text-transform: capitalize;

@@ -25,6 +25,8 @@
 
 @import "cmps/DetailsCmps/StayMainInfo";
 @import "cmps/DetailsCmps/StayAmenities";
+@import "cmps/DetailsCmps/StayHost";
+
 //  @import "cmps/StayMainInfo";
 //  @import "cmps/StayAmenities";
 @import "cmps/StayPayment";
@@ -37,9 +39,12 @@
 @import "cmps/MainFilter.scss";
 @import "cmps/LabelsFilter.scss";
 @import "cmps/ModalCmp.scss";
+@import "cmps/ExtraFilter.scss";
 @import "cmps/When.scss";
 @import "cmps/Where.scss";
 @import "cmps/Who.scss";
+@import "cmps/MainFilterFolded.scss";
+
 
 // @import "cmps/AppFooter";
 // @import "cmps/UserMsg";

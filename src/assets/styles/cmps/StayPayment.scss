@@ -9,6 +9,10 @@
     grid-template-columns: (1fr);
     // min-width: 40px;
     max-width: 23em;
+    // position: relative; /* Initially part of the flow */
+    // top: 0;
+    // right: 0;
+    width: 372px;
     padding: 20px;
     background-color: $clr3;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -19,6 +23,13 @@
     .main-container {
         position: relative;
         height: 100%;
+    }
+    transition: all 0.3s ease-in-out; /* Smooth transition for sticky effect */
+
+    &.sticky {
+        position: fixed;
+        top: 0;
+        right: 0;
     }
 
     .btn-container {
