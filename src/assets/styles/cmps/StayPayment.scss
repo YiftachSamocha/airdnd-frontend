@@ -1,18 +1,25 @@
 .stay-payment {
-    position: fixed;
+    position: sticky;
+    // position: fixed;
+    // top: 90%;
+    // top: 20px;
     top: 0;
-    right: 0;
+    right: 13%;
     display: grid;
     grid-template-columns: (1fr);
-    // gap: 1.5em;/
-    // min-width: 250px;
-    // max-width: 370em;
+    // min-width: 40px;
+    max-width: 23em;
     padding: 20px;
     background-color: $clr3;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     z-index: 1000;
     border: 1px solid rgb(210, 208, 208);
     border-radius: 10px;
+
+    .main-container {
+        position: relative;
+        height: 100%;
+    }
 
     .btn-container {
         grid-column: span 2;
@@ -75,6 +82,12 @@
         height: 17px;
     }
 
+    .button-container a {
+        display: block;
+        width: 100%;
+        text-decoration: none;
+    }
+
     .button-container {
         grid-column: span 2;
         display: flex;
@@ -116,14 +129,14 @@
         font-weight: 400;
     }
 
-    h5{
+    h5 {
         display: flex;
         align-items: center;
         justify-content: center;
         grid-column: span 2;
         color: $gray5;
         font-size: 15px;
-        font-weight: 400;  
+        font-weight: 400;
         margin: 10px;
     }
 

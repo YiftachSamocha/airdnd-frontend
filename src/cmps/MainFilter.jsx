@@ -66,7 +66,7 @@ export function MainFilter() {
 
 
     return <section>
-        <section className={`main-filter ${openType ? 'has-selection' : ''}`} >
+        {/* <section className={`main-filter ${openType ? 'has-selection' : ''}`} >
             <div onClick={() => setOpenType('where')} className={`where-input ${openType === 'where' ? 'selected' : ''}`}>
                 <div>
                     <label htmlFor="">Where</label>
@@ -102,7 +102,7 @@ export function MainFilter() {
             </div>
         </section >
         <hr />
-        <LabelsFilter filterBy={filterBy} changeFilterBy={changeFilterLabel} />
+        <LabelsFilter filterBy={filterBy} changeFilterBy={changeFilterLabel} /> */}
     </section>
 
 }

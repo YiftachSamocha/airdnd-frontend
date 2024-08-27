@@ -16,7 +16,7 @@
 @import "RootCmp";
 @import "pages/StayDetails";
 @import "pages/StayIndex";
-// @import "pages/ReviewIndex";
+@import "pages/StayOrder";
 // @import "pages/UserDetails";
 // @import "pages/TaskDetails";
 // @import "pages/LoginSignup";
@@ -31,7 +31,7 @@
 
 @import "cmps/StayList.scss";
 @import "cmps/StayPreview.scss";
-
+@import "cmps/StaySlider.scss";
 
 @import "cmps/AppHeader";
 @import "cmps/MainFilter.scss";
@@ -51,3 +51,4 @@
 // // @import "cmps/StayList";
 // // @import "cmps/StayPreview";
 @import "cmps/StayImages.scss";
+

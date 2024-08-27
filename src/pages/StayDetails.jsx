@@ -28,16 +28,17 @@ export function StayDetails() {
   return (
     <section className="stay-details">
       <AppHeader />
-      <h1>{stay.name}</h1>
-      <StayImage stay={stay} />
-      <StayMainInfo stay={stay} />
-      <StayAmeneties stay={stay} />
-      <StayDate />
-      <StayReview />
-      <StayLocation />
-      <StayHost />
-      <StayToKnow />
-      <StayPayment stay={stay} />
+      <div>
+        <h1>{stay.name}</h1>
+        <StayImage stay={stay} />
+        <StayMainInfo stay={stay} />
+        <StayAmeneties stay={stay} />
+        <StayDate />
+        <StayReview />
+        <StayLocation />
+        <StayHost />
+        <StayToKnow />
+      </div>
     </section>
   )
 }

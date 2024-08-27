@@ -31,14 +31,17 @@
         .stay-list {
             grid-template-columns: repeat(2, 1fr);
         }
-        .stay-payment{
+
+        .stay-payment {
             grid-template-columns:
-            minmax(auto,20px);
-    }
+                minmax(auto, 20px);
+        }
     }
 
     @include for-normal-layout {
-        .stay-main-list {
+
+        .stay-main-list,
+        .stay-main-order {
             grid-template-columns:
                 minmax(20px, 1fr) minmax(auto, $normal-breakpoint) minmax(20px, 1fr);
         }
@@ -46,14 +49,21 @@
         .stay-list {
             grid-template-columns: repeat(3, 1fr);
         }
-        .stay-payment{
+
+        .stay-payment {
             grid-template-columns:
-            minmax(auto,110px);
-    }
+                minmax(auto, 100px);
+        }
+
+        .stay-order {
+            grid-column: 2;
+        }
     }
 
     @include for-wide-layout {
-        .stay-main-list {
+
+        .stay-main-list,
+        .stay-main-order {
             grid-template-columns:
                 minmax(40px, 1fr) minmax(auto, $wide-breakpoint) minmax(40px, 1fr);
         }
@@ -62,13 +72,19 @@
             grid-template-columns: repeat(4, 1fr);
         }
 
-        .stay-payment{
+        .stay-payment {
             grid-template-columns:
-            minmax(auto,110px);
-    }
+                minmax(auto, 140px);
+        }
+
+        .stay-order {
+            grid-column: 2;
+        }
     }
 
+
     @include for-large-layout {
+
         .stay-main-list {
             grid-template-columns:
                 minmax(80px, 1fr) minmax(auto, $large-breakpoint) minmax(80px, 1fr);
@@ -78,13 +94,26 @@
             grid-template-columns: repeat(4, 1fr);
         }
 
-        .stay-payment{
+        .stay-payment {
             grid-template-columns:
-            minmax(auto,160px);
-    }
-            // max-width: 400px;
-            // padding: 20px;
+                minmax(auto, 200px);
         }
-    
-}
 
+
+
+
+
+        .stay-main-order {
+            grid-template-columns:
+                minmax(160px, 1fr) minmax(auto, $large-breakpoint) minmax(160px, 1fr);
+
+            .stay-order {
+                grid-column: 2;
+            }
+        }
+
+        // max-width: 400px;
+        // padding: 20px;
+    }
+
+}

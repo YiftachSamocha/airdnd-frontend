@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import starIcon from '../../assets/imgs/icons/star.svg'; // Adjust the path based on your project structure
 import { ShowMoreCmp } from '../ShowMoreCmp.jsx';
+import { StayPayment } from './StayPayment.jsx';
 
 export function StayMainInfo({ stay }) {
     const totalReviews = stay.reviews ? stay.reviews.length : 0
@@ -8,14 +9,14 @@ export function StayMainInfo({ stay }) {
         ? stay.reviews.reduce((sum, review) => sum + review.rate, 0) / totalReviews
         : 0
     const [isModalOpen, setIsModalOpen] = useState(false);
-    
+
     function toggleModal() {
         setIsModalOpen(prevState => !prevState)
     }
 
     return (
         <section className={`main-info ${isModalOpen ? 'modal-open' : 'modal-closed'}`}>
-
+            <StayPayment stay={stay} />
             <div className="initial-info">
                 <h2>
                     {stay.type !== 'room' && 'Entire'} <span className="type">{stay.type}</span> in {stay.location.city}, {stay.location.country}
