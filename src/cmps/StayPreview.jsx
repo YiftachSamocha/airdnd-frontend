@@ -16,21 +16,27 @@ export function StayPreview({ stay }) {
     const distance = calculateDistance(userLat, userLng, targetLat, targetLng)
     const roundedDistance = distance > 0 ? formatNumberWithCommas(Math.round(distance)) : '0'
     const price = formatNumberWithCommas(stay.price.night)
-    const freeDate = getDateRange(stay.reservedDates) 
-    
+    const freeDate = getDateRange(stay.reservedDates)
+
 
     return (
-    <article className="stay-preview">
-        <div>
-            <h3>{stay.location.city}, {stay.location.country}</h3>
-            <div className="rating">
-                {formattedRating && (<>
-                    <img src={starIcon} alt="Star Icon" className="star-icon" />
-                    <span> {formattedRating}</span> </>
-                )} </div>
-        </div>
-        <h3 className="light"> {roundedDistance} kilometers away</h3>
-        <h3 className="light">{freeDate}</h3>
-        <h3>${price} <span>night</span></h3>
-    </article>
-)}
+        <article className="stay-preview">
+            <div>
+                <StaySlider images={stay.imgs} />
+            </div>
+            <div className="preview-details">
+                <div>
+                    <h3>{stay.location.city}, {stay.location.country}</h3>
+                    <div className="rating">
+                        {formattedRating && (<>
+                            <img src={starIcon} alt="Star Icon" className="star-icon" />
+                            <span> {formattedRating}</span> </>
+                        )} </div>
+                </div>
+                <h3 className="light"> {roundedDistance} kilometers away</h3>
+                <h3 className="light">{freeDate}</h3>
+                <h3>${price} <span>night</span></h3>
+            </div>
+        </article>
+    )
+}

@@ -19,7 +19,6 @@ export function StayList() {
             {stays.map(stay => (
                 <Link to={`/stay/${stay._id}`} key={stay._id}>
                     <li>
-                        <StaySlider images={stay.imgs} />
                         <StayPreview stay={stay} />
                     </li>
                 </Link>
