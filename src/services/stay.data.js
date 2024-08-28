@@ -71,12 +71,14 @@ import washingMashineImg from '../assets/imgs/Extra/washing-mashine.png'
 import wifiImg from '../assets/imgs/Extra/wifi.png'
 
 
-export function createStay() {
+export async function createStay(host, location) {
+    const sleep = await createSleep();  // Await the asynchronous createSleep function
+
     return {
         _id: makeId(),
         name: getRandomItems(names, 1),
-        imgs: generateImgUrls(),
-        sleep: createSleep(),
+        imgs: generateImgUrls(imgs),
+        sleep,
         description: getRandomItems(descriptions, 1),
         highlights: getRandomItems(highlights, 3),
         price: {
@@ -88,15 +90,15 @@ export function createStay() {
         labels: getRandomItems(labels, 3),
         reservedDates: generateAvailabilityRanges(),
         host: {
-            _id: makeId(),
-            fullname: getRandomItems(fullnames, 1),
-            imgUrl: getRandomItems(hostImages, 1),
-            reviews: getRandomIntInclusive(3, 100),
-            rating: Math.round((Math.random() * 4 + 1) * 100) / 100,
-            yearsHosting: getRandomIntInclusive(1, 15),
-            responceRate: getRandomIntInclusive(80, 100),
+            _id: host._id,
+            fullname: host.fullname,  // Corrected from 'fullName' to 'fullname' if necessary
+            imgUrl: host.imgUrl,
+            reviews: host.reviews,
+            rating: host.rating,
+            yearsHosting: host.yearsHosting,
+            responceRate: host.responseRate
         },
-        location: getRandomItems(locations, 1),
+        location,
         reviews: getRandomItems(reviews, getRandomIntInclusive(1, 15)),
         thingsToKnow: {
             houseRules: getRandomItems(houseRules, getRandomIntInclusive(6 - 12)),
@@ -105,6 +107,90 @@ export function createStay() {
         }
     }
 }
+
+export async function createHosts( listingsPerHost = 2) {
+    const hosts = []
+    const stays = []
+
+    for (let i = 1; i < locations.length; i++) {
+        const location = getRandomItems(locations, 1)
+        const host = {
+            _id: makeId(),
+            fullname: getRandomItems(fullnames, 1),
+            imgUrl: getRandomItems(hostImages, 1),
+            reviews: getRandomIntInclusive(3, 100),
+            rating: Math.round((Math.random() * 4 + 1) * 100) / 100,
+            yearsHosting: getRandomIntInclusive(1, 15),
+            responseRate: getRandomIntInclusive(80, 100),
+            personalDetails: createPersonalDetails(location),
+            listings: [] // Array to hold the host's listings
+        }
+
+        for (let j = 0; j < listingsPerHost; j++) {
+            const stay =  await createStay(host, location)
+            host.listings.push(stay)
+            stays.push(stay) // Also push the stay into the stays array for storage
+        }
+        hosts.push(host)
+    }
+    return  { hosts, stays }
+}
+
+const workOptions = ["Software Engineer", "Artist", "Teacher", "Entrepreneur"]
+const favoriteSongs = ["Bohemian Rhapsody", "Stairway to Heaven", "Imagine", "Hotel California"]
+const forGuestsOptions = ["Always available to help", "Loves to share local tips", "Enjoys meeting new people"]
+const petOptions = ["Dog", "Cat", "None"]
+const spendTimeOptions = ["Hiking", "Reading", "Cooking", "Traveling"]
+const homeUniqueOptions = ["Beautiful garden", "Cozy fireplace", "Stunning views"]
+const breakfastOptions = ["Continental", "Local delicacies", "Vegan options"]
+const languages = ["English", "French", "German", "Japanese"]
+
+function createPersonalDetails(location) {
+    return {
+        work: {
+            name: getRandomItems(workOptions, 1),
+            imgUrl: '../assets/imgs/icons/work.svg' // Replace with actual icon path
+        },
+        favoriteSong: {
+            name: getRandomItems(favoriteSongs, 1),
+            imgUrl: '../assets/imgs/icons/song.svg' // Replace with actual icon path
+        },
+        forGuests: {
+            name: getRandomItems(forGuestsOptions, 1),
+            imgUrl: '../assets/imgs/amenities/host-greets-you.svg' // Replace with actual icon path
+        },
+        pets: {
+            name: getRandomItems(petOptions, 1),
+            imgUrl: '../assets/imgs/icons/pets.svg' // Replace with actual icon path
+        },
+        bornIn: {
+            name: getRandomItems(["80s", "90s", "2000s"], 1),
+            imgUrl: '../assets/imgs/icons/birth-decade.svg' // Replace with actual icon path
+        },
+        spendsMuchTime: {
+            name: getRandomItems(spendTimeOptions, 1),
+            imgUrl: '../assets/imgs/icons/hoby.svg' // Replace with actual icon path
+        },
+        speaks: {
+            name: location.language,
+            imgUrl: '../assets/imgs/icons/language.svg' // Replace with actual icon path
+        },
+        whatMakesHomeUnique: {
+            name: getRandomItems(homeUniqueOptions, 1),
+            imgUrl: '../assets/imgs/icons/uniqueness.svg' // Replace with actual icon path
+        },
+        whatsForBreakfast: {
+            name: getRandomItems(breakfastOptions, 1),
+            imgUrl: '../assets/imgs/amenities/breakfast.svg' // Replace with actual icon path
+        },
+        livesIn: {
+            name: `${location.city}, ${location.country}`,
+            imgUrl: '../assets/imgs/icons/location.svg' // Replace with actual icon path
+
+        }
+    }
+}
+
 
 export function getData(type) {
     switch (type) {
@@ -122,6 +208,7 @@ export function getData(type) {
         default: return null;
     }
 }
+
 
 function getRandomItems(arr, numItems) {
     if (arr.length === 0 || numItems <= 0) return numItems === 1 ? null : []
@@ -167,24 +254,62 @@ const names = [
 ]
 
 const imgs = ['271624', '1918291', '6315808', '7045712', '6283965', '7214173', '279614', '5998117', '6283961', '5997959', '1457841', '6908367', '6758788', '6908368', '6492398', '6782567', '5997967', '4450337', '6775268', '6527069', '3315291', '2079249', '7018391', '7018824', '6903160', '5998120', '4099357', '3190541']
+const singleBedroomImgs = [
+    '19878532', '4115551', '7587810', '19836795', 
+    '26859033', '271618', '271695'
+];
 
-function createSleep() {
-    const bedTypes = ["king bed", "queen bed", "double bed", "single bed"]
-    const roomAmount = getRandomIntInclusive(1, 6)
-    let rooms = []
-    let maxCapacity = 0
-    for (var i = 0; i < roomAmount; i++) {
-        const room = { roomType: 'bedroom', bedType: getRandomItems(bedTypes, 1) }
-        rooms.push(room)
-        room.bedType === 'single bed' ? maxCapacity += 1 : maxCapacity += 2
+const doubleBedroomImgs = [
+    '1454806', '90317', '262048', '1329711', '279746', 
+    '271743', '1743229', '775219', '1457845', '3773575', 
+    '5178070', '9130978', '9582420'
+];
+
+const livingRoomImgs = [
+    '2747901', '1428348', '26859039', '6782353', '6908363', 
+    '7534294', '6782346'
+]
+
+async function createSleep() {
+    const bedTypes = ["king bed", "queen bed", "double bed", "single bed"];
+    const roomAmount = getRandomIntInclusive(1, 6);
+    let rooms = [];
+    let maxCapacity = 0;
+
+    for (let i = 0; i < roomAmount; i++) {
+        const bedType = getRandomItems(bedTypes, 1);
+        let imgUrl;
+
+        // Generate room images based on bed type
+        if (bedType === "single bed") {
+            imgUrl = generateImgUrls(singleBedroomImgs)[0];
+        } else if (bedType === "double bed" || bedType === "queen bed" || bedType === "king bed") {
+            imgUrl = generateImgUrls(doubleBedroomImgs)[0];
+        } else {
+            imgUrl = generateImgUrls(livingRoomImgs)[0];
+        }
+
+        const room = {
+            roomType: 'bedroom',
+            bedType: bedType,
+            imgUrl: imgUrl || (bedType === 'single bed' 
+                ? '../assets/imgs/beds/single-bed.svg' 
+                : './assets/imgs/beds/double-bed.svg')
+        };
+
+        rooms.push(room);
+        maxCapacity += room.bedType === 'single bed' ? 1 : 2;
     }
 
-    //Add livingroom
-    const livingroom = { roomType: 'living Room', bedType: 'sofa bed' }
-    const isLivingroom = !!Math.round(Math.random())
-    if (isLivingroom) {
-        rooms.push(livingroom);
-        maxCapacity += 1
+    // Optionally add a living room
+    if (Math.random() > 0.5) { // Randomly decide whether to add a living room
+        const livingRoomImgUrl = generateImgUrls(livingRoomImgs)[0];
+        rooms.push({
+            roomType: 'living room',
+            bedType: 'sofa bed',
+            imgUrl: livingRoomImgUrl || '../assets/imgs/beds/sofa-bed.svg'
+        });
+        maxCapacity += 1;
     }
 
     return {
@@ -193,9 +318,10 @@ function createSleep() {
         bathrooms: getRandomIntInclusive(1, 3),
         beds: rooms.length,
         bedrooms: rooms.filter(room => room.roomType === 'bedroom').length
-    }
+    };
 }
-function generateImgUrls() {
+
+function generateImgUrls(imgs) {
     const imgIds = getRandomItems(imgs, getRandomIntInclusive(4, 10))
     return imgIds.map(imgId => {
         return `https://images.pexels.com/photos/${imgId}/pexels-photo-${imgId}.jpeg`
@@ -761,15 +887,3 @@ const cancellationPolicy = [
     { txt: "Changes made less than 48 hours after booking may incur additional fees, depending on the host’s policies." },
     { txt: "No refund will be issued for cancellations made less than 24 hours before check-in." }
 ]
-
-
-
-
-
-
-
-
-
-
-
-

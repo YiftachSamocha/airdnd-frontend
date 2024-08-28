@@ -1,7 +1,7 @@
 import { storageService } from '../async-storage.service'
 import { makeId } from '../util.service'
 import { userService } from '../user'
-import { createStay } from '../stay.data'
+import { createHosts } from '../stay.data'
 
 const STORAGE_KEY = 'stay'
 
@@ -88,15 +88,13 @@ async function addStayMsg(stayId, txt) {
     return msg
 }
 
-function _createData(length = 24) {
-    const currData = JSON.parse(localStorage.getItem(STORAGE_KEY))
+async function _createData(listingsPerHost = 2) {
+    const currData = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (!currData || currData.length === 0) {
-        const stays = []
-        for (var i = 0; i < length; i++) {
-            const stay = createStay()
-            stays.push(stay)
-        }
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(stays))
+        const { hosts, stays } = await createHosts(listingsPerHost);
+
+        localStorage.setItem('hosts', JSON.stringify(hosts));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(stays));
     }
 }
 

@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { loadStay } from '../store/actions/stay.actions'
-import { StayAmenities } from '../cmps/DetailsCmps/StayAmenities'
 import { StayImage } from '../cmps/DetailsCmps/StayImage'
 import { StayMainInfo } from '../cmps/DetailsCmps/StayMainInfo'
 import { StayLocation } from '../cmps/DetailsCmps/StayLocation'
@@ -13,6 +12,8 @@ import { StayHost } from '../cmps/DetailsCmps/StayHost'
 import { StayToKnow } from '../cmps/DetailsCmps/StayToKnow'
 import { StayPayment } from '../cmps/DetailsCmps/StayPayment'
 import { AppHeader } from '../cmps/AppHeader'
+import { StayAmenities } from '../cmps/DetailsCmps/stayAmenities'
+import { StayRooms } from '../cmps/DetailsCmps/stayRooms'
 
 
 export function StayDetails() {
@@ -32,12 +33,12 @@ export function StayDetails() {
       <StayImage stay={stay} />
       <StayMainInfo stay={stay} />
       <StayAmenities stay={stay} />
+      <StayRooms stay={stay} />
       <StayDate />
       <StayReview />
       <StayLocation />
-      <StayHost />
+      <StayHost stay={stay}/>
       <StayToKnow />
-      <StayPayment stay={stay} />
     </section>
   )
 }
