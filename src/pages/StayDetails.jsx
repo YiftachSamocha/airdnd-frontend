@@ -13,6 +13,7 @@ import { StayToKnow } from '../cmps/DetailsCmps/StayToKnow'
 import { StayPayment } from '../cmps/DetailsCmps/StayPayment'
 import { AppHeader } from '../cmps/AppHeader'
 import { StayAmenities } from '../cmps/DetailsCmps/stayAmenities'
+import { StayRooms } from '../cmps/DetailsCmps/stayRooms'
 
 
 export function StayDetails() {
@@ -30,13 +31,23 @@ export function StayDetails() {
       <AppHeader />
       <h1>{stay.name}</h1>
       <StayImage stay={stay} />
-      <StayMainInfo stay={stay} />
-      <StayAmenities stay={stay} />
-      <StayDate />
-      <StayReview />
-      <StayLocation />
-      <StayHost stay={stay}/>
-      <StayToKnow />
+      <div className="details-container">
+        <div className="content">
+          <StayMainInfo stay={stay} />
+          <StayRooms stay={stay} />
+          <StayAmenities stay={stay} />
+          <StayDate />
+          <StayReview />
+          <StayLocation />
+          <StayHost stay={stay} />
+          <StayToKnow />
+        </div>
+
+        <div className="payment-container">
+          <StayPayment stay={stay} />
+        </div>
+      </div>
+
     </section>
   )
 }

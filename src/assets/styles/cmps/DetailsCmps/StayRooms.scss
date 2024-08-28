@@ -1,0 +1,72 @@
+.bedrooms {
+    box-shadow: 0px 1px 0 0 #e1dede;
+    padding-block: 3rem;
+
+    .rooms-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        line-height: 100%;
+
+        .btn-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            button {
+                background-color: transparent;
+                border-radius: 50%;
+                aspect-ratio: 1/1;
+                padding: 8px !important;
+                border-color: $gray2;
+                box-shadow: -1px 3px 3px 0 #dddddd;
+                cursor: pointer;
+
+                img {
+                    height: 16px;
+                    width: 16px;
+                    padding: 0;
+                    transition: transform 0.5s ease-in-out; // Slows down the transition on hover
+
+                }
+
+                &:hover {
+                    transform: scale(1.05); // Example hover effect (zoom in slightly)
+                    box-shadow: -1px 3px 15px 0 #dddddd;
+                }
+            }
+        }
+    }
+
+    .rooms-list-container {
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+
+
+        .rooms-list {
+            display: flex;
+            gap: 1em;
+            max-width: 650px;
+            width: 100%;
+            padding-bottom: 1rem;
+            transition: transform 0.5s ease-in-out;
+
+        }
+
+        .room {
+            flex: 0 0 50%; // Ensure each room takes up 50% of the container width
+            width: 50%; // Adjust based on how many rooms per page
+            flex-shrink: 0;
+            box-sizing: border-box;
+            padding: 0;
+
+            img {
+                width: 95%;
+                border-radius: 10px;
+                margin-bottom: 1rem;
+                transition: transform 0.5s ease-in-out;
+            }
+        }
+    }
+}

@@ -71,12 +71,14 @@ import washingMashineImg from '../assets/imgs/Extra/washing-mashine.png'
 import wifiImg from '../assets/imgs/Extra/wifi.png'
 
 
-export function createStay(host, location) {
+export async function createStay(host, location) {
+    const sleep = await createSleep();  // Await the asynchronous createSleep function
+
     return {
         _id: makeId(),
         name: getRandomItems(names, 1),
-        imgs: generateImgUrls(),
-        sleep: createSleep(),
+        imgs: generateImgUrls(imgs),
+        sleep,
         description: getRandomItems(descriptions, 1),
         highlights: getRandomItems(highlights, 3),
         price: {
@@ -125,7 +127,7 @@ export async function createHosts( listingsPerHost = 2) {
         }
 
         for (let j = 0; j < listingsPerHost; j++) {
-            const stay =  createStay(host, location)
+            const stay =  await createStay(host, location)
             host.listings.push(stay)
             stays.push(stay) // Also push the stay into the stays array for storage
         }
@@ -252,39 +254,62 @@ const names = [
 ]
 
 const imgs = ['271624', '1918291', '6315808', '7045712', '6283965', '7214173', '279614', '5998117', '6283961', '5997959', '1457841', '6908367', '6758788', '6908368', '6492398', '6782567', '5997967', '4450337', '6775268', '6527069', '3315291', '2079249', '7018391', '7018824', '6903160', '5998120', '4099357', '3190541']
+const singleBedroomImgs = [
+     '4115551', '7587810', '19836795', 
+    '26859033', '271618', '271695'
+];
+
+const doubleBedroomImgs = [
+    '1454806', '90317', '262048', '1329711', '279746', 
+    '271743', '1743229', '775219', '1457845', '3773575', 
+    '5178070', '9130978', '9582420'
+];
+
+const livingRoomImgs = [
+    '2747901', '1428348', '26859039', '6782353', '6908363', 
+    '7534294', '6782346'
+]
 
 async function createSleep() {
-    const bedTypes = ["king bed", "queen bed", "double bed", "single bed"]
-    const roomAmount = getRandomIntInclusive(1, 6)
-    let rooms = []
-    let maxCapacity = 0
-    for (var i = 0; i < roomAmount; i++) {
-        const bedType= getRandomItems(bedTypes, 1)
-        const imgUrl = await fetchRoomImg('bedroom')
+    const bedTypes = ["king bed", "queen bed", "double bed", "single bed"];
+    const roomAmount = getRandomIntInclusive(1, 6);
+    let rooms = [];
+    let maxCapacity = 0;
+
+    for (let i = 0; i < roomAmount; i++) {
+        const bedType = getRandomItems(bedTypes, 1);
+        let imgUrl;
+
+        // Generate room images based on bed type
+        if (bedType === "single bed") {
+            imgUrl = generateImgUrls(singleBedroomImgs)[0];
+        } else if (bedType === "double bed" || bedType === "queen bed" || bedType === "king bed") {
+            imgUrl = generateImgUrls(doubleBedroomImgs)[0];
+        } else {
+            imgUrl = generateImgUrls(livingRoomImgs)[0];
+        }
 
         const room = {
             roomType: 'bedroom',
             bedType: bedType,
-            imgUrl:  imgUrl || (bedType === 'single bed' 
+            imgUrl: imgUrl || (bedType === 'single bed' 
                 ? '../assets/imgs/beds/single-bed.svg' 
                 : './assets/imgs/beds/double-bed.svg')
-            }
+        };
 
-        rooms.push(room)
-        maxCapacity += room.bedType === 'single bed' ? 1 : 2
+        rooms.push(room);
+        maxCapacity += room.bedType === 'single bed' ? 1 : 2;
     }
 
-    //Add livingroom
-    const livingRoomImgUrl = await fetchRoomImg('living room')
-    const livingroom = {
-        roomType: 'living Room',
-        bedType: 'sofa bed',
-        imgUrl: livingRoomImgUrl || '../assets/imgs/beds/sofa-bed.svg'
-    }
-    const isLivingroom = !!Math.round(Math.random())
-    if (isLivingroom) {
-        rooms.push(livingroom)
-        maxCapacity += 1
+    // Optionally add a living room
+    if (Math.random() > 0.5) { // Randomly decide whether to add a living room
+        const livingRoomImgUrl = generateImgUrls(livingRoomImgs)[0];
+        rooms.push({
+            roomType: 'living room',
+            bedType: 'sofa bed',
+            imgUrl: livingRoomImgUrl || '../assets/imgs/beds/sofa-bed.svg'
+        });
+        maxCapacity += 1;
     }
 
     return {
@@ -293,10 +318,10 @@ async function createSleep() {
         bathrooms: getRandomIntInclusive(1, 3),
         beds: rooms.length,
         bedrooms: rooms.filter(room => room.roomType === 'bedroom').length
-    }
+    };
 }
 
-function generateImgUrls() {
+function generateImgUrls(imgs) {
     const imgIds = getRandomItems(imgs, getRandomIntInclusive(4, 10))
     return imgIds.map(imgId => {
         return `https://images.pexels.com/photos/${imgId}/pexels-photo-${imgId}.jpeg`
@@ -784,7 +809,7 @@ const fullnames = [
 const reviews = Array.from({ length: 10 }, () => ({
     _id: makeId(),
     txt: getRandomItems(reviewsTxts, 1),
-    rate: getRandomIntInclusive(1, 5),
+    rate: getRandomIntInclusive(4, 5),
     date: getRandomDate(),
     by: {
         _id: makeId(),
@@ -862,56 +887,3 @@ const cancellationPolicy = [
     { txt: "Changes made less than 48 hours after booking may incur additional fees, depending on the host’s policies." },
     { txt: "No refund will be issued for cancellations made less than 24 hours before check-in." }
 ]
-
-
-async function fetchRoomImg(type) {
-    const API_KEY = import.meta.env.VITE_PEXELS_API_KEY
-    const query = type
-    const url = `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=10`
-
-    // Static variable to track used image URLs
-    if (!fetchRoomImg.usedImages) {
-        fetchRoomImg.usedImages = new Set()
-    }
-
-    try {
-        const response = await fetch(url, {
-            headers: {
-                Authorization: API_KEY
-            }
-        })
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`)
-        }
-
-        const data = await response.json()
-
-        const availablePhotos = data.photos.filter(photo => !fetchRoomImg.usedImages.has(photo.src.medium))
-
-        if (availablePhotos.length === 0) {
-            fetchRoomImg.usedImages.clear() // Clear used images if all are exhausted
-            return await fetchRoomImg(type) // Retry with a fresh set
-        }
-
-        const selectedImage = availablePhotos[0].src.medium // Use the first available image
-        fetchRoomImg.usedImages.add(selectedImage) // Mark it as used
-
-        return selectedImage
-    } catch (error) {
-        console.error('Error fetching data from Pexels API:', error)
-        return '../assets/imgs/bed/double-bed.svg' // Return a default image in case of an error
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-

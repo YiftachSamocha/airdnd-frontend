@@ -1,36 +1,10 @@
 .stay-payment {
-    position: sticky;
-    // position: fixed;
-    // top: 90%;
-    // top: 20px;
-    top: 0;
-    right: 13%;
-    display: grid;
-    grid-template-columns: (1fr);
-    // min-width: 40px;
-    max-width: 23em;
-    // position: relative; /* Initially part of the flow */
-    // top: 0;
-    // right: 0;
-    width: 372px;
     padding: 20px;
     background-color: $clr3;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-    border: 1px solid rgb(210, 208, 208);
+    box-shadow:rgba(0, 0, 0, 0.12) 0px 6px 16px;
+
+    border: 1px solid rgb(221, 221, 221);
     border-radius: 10px;
-
-    .main-container {
-        position: relative;
-        height: 100%;
-    }
-    transition: all 0.3s ease-in-out; /* Smooth transition for sticky effect */
-
-    &.sticky {
-        position: fixed;
-        top: 0;
-        right: 0;
-    }
 
     .btn-container {
         grid-column: span 2;
@@ -165,6 +139,7 @@
         h3 {
             font-weight: 400;
             margin: 8px;
+            font-size: 1rem;
         }
 
         h3:last-of-type {
