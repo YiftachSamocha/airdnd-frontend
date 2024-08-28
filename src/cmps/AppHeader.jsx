@@ -19,6 +19,7 @@ export function AppHeader() {
     const [isFolded, setIsFolded] = useState(false)
     const [isExtaVisible, setIsExtraVisible] = useState(false)
     const [isTop, setIsTop] = useState(true)
+    const [isExtraBtnShown, setIsExtraBtnShown] = useState(false)
     const mainFilterRef = useRef(null)
     const labelsFilterRef = useRef(null)
     const userInitiatedOpen = useRef(false)
@@ -68,6 +69,16 @@ export function AppHeader() {
         }
     }, [isFolded, isTop])
 
+    useEffect(() => {
+        if (filterBy.where || filterBy.when.stratDate || filterBy.endDate || filterBy.label.label !== 'icons'
+            || filterBy.who.infants > 0 || filterBy.who.adults > 0 || filterBy.infants > 0) {
+            setIsExtraBtnShown(true)
+        }
+        else{
+            setIsExtraBtnShown(false)
+        }
+    }, [filterBy])
+
     const handleMainFilterFoldedClick = () => {
         setIsFolded(false)
         userInitiatedOpen.current = true
@@ -99,14 +110,14 @@ export function AppHeader() {
                     <MainFilter />
                 </div>
             )}
-            <hr />
-            <div ref={labelsFilterRef} className="labels-container" style={location.pathname !== '/stay' || '/' ? { display: "none" } : {}}>
+            <hr className="main-hr" />
+            <div ref={labelsFilterRef} className="labels-container" style={location.pathname === '/stay' || location.pathname === '/' ? {} : { display: "none" }}>
                 <LabelsFilter />
-                <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button">
+                {isExtraBtnShown && <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button">
                     <img src={filterImg} alt="" />
                     Filters
 
-                </button>
+                </button>}
             </div>
             {isExtaVisible && <div className="layout">
                 <OutsideClick onOutsideClick={() => setIsExtraVisible(prev => !prev)} >

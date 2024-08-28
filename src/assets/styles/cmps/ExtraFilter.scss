@@ -9,19 +9,14 @@
 }
 
 .extra-filter {
-    position: fixed;
     background-color: white;
     z-index: 101;
     width: 35.5em;
     height: 35em;
     margin: auto;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding-inline: 2em;
+   
+    margin-block: em(40px);
     border-radius: 25px;
-    overflow: scroll;
 
     .extra-header {
         display: flex;
@@ -29,8 +24,9 @@
         top: 0;
         background-color: white;
         z-index: 102;
-        padding-block: 2em;
+        padding: 1.5em;
         border-bottom: 1px solid $gray3;
+        border-radius: 25px 25px 0 0;
 
 
         h4 {
@@ -45,6 +41,14 @@
     }
 
     .extra-main {
+        position: relative;
+        overflow: scroll;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: em(480px);
+        padding-inline: 2em;
 
         h5 {
             font-size: em(18px);
@@ -216,6 +220,7 @@
 
         .standout {
             margin-bottom: 2em;
+
             div {
                 display: flex;
 
@@ -255,11 +260,15 @@
         display: flex;
         justify-content: space-between;
         position: sticky;
-        bottom: 0;
+        bottom: 40px;
         background-color: white;
         z-index: 102;
+        padding-inline: 1.5em;
         padding-block: 1em;
         border-top: 1px solid $gray3;
+        border-radius: 0 0 25px 25px;
+    
+        
 
         button:first-of-type {
             padding: 0.1em;

@@ -1,9 +1,11 @@
 import locationImg from '../../assets/imgs/location.png'
 import { getData } from '../../services/stay.data';
+import flexibleImg from '../../assets/imgs/countries/flexible.jpg';
 
 export function Where({ input, setInput }) {
     const locations = getData('locations')
     const countryLocations = locations.filter(location => location.img)
+    countryLocations.unshift({ country: 'Im flexible', city: '', lat: 0, lng: 0, img: flexibleImg })
 
 
     function getOptionalLocs(value) {
