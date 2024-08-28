@@ -92,4 +92,11 @@
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 10;
     }
+
+    hr {
+        margin-inline: -2.5em;
+        border: none;
+        height: 1px;
+        background-color: $gray2;
+    }
 }

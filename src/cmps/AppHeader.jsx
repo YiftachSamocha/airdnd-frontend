@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import logoImg from "../assets/imgs/logo.png"
 import languageImg from "../assets/imgs/language.png"
 import hamburgerImg from "../assets/imgs/hamburger.png"
@@ -22,14 +22,15 @@ export function AppHeader() {
     const mainFilterRef = useRef(null)
     const labelsFilterRef = useRef(null)
     const userInitiatedOpen = useRef(false)
+    const location = useLocation()
     const filterBy = useSelector(state => state.stayModule.filterBy)
 
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY === 0) {
-                setIsTop(true) // Set isTop to true when at the top
+                setIsTop(true)
             } else {
-                setIsTop(false) // Set isTop to false when scrolling down
+                setIsTop(false)
                 if (!isFolded && !userInitiatedOpen.current) {
                     setIsFolded(true)
                 }
@@ -99,7 +100,7 @@ export function AppHeader() {
                 </div>
             )}
             <hr />
-            <div ref={labelsFilterRef} className="labels-container">
+            <div ref={labelsFilterRef} className="labels-container" style={location.pathname !== '/stay' || '/' ? { display: "none" } : {}}>
                 <LabelsFilter />
                 <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button">
                     <img src={filterImg} alt="" />
