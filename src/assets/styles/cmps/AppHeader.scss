@@ -19,9 +19,13 @@
         }
 
         .logo {
-            padding-block: 40px;
+            padding-block-start: 20px;
             height: 100%;
             cursor: pointer;
+
+            img{
+                height: 40px;
+            }
         }
 
         .user-header {

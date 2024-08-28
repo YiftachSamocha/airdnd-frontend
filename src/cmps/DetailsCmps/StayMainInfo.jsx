@@ -9,29 +9,18 @@ export function StayMainInfo({ stay }) {
         ? stay.reviews.reduce((sum, review) => sum + review.rate, 0) / totalReviews
         : 0
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [isSticky, setIsSticky] = useState(false)
 
     function toggleModal() {
         setIsModalOpen(prevState => !prevState)
     }
 
-    function handleScroll() {
-        const offsetTop = document.querySelector('.stay-payment').offsetTop;
-        setIsSticky(window.scrollY > offsetTop);
-    }
+    
 
-    useEffect(() => {
-        window.addEventListener('scroll', handleScroll)
-        return () => {
-            window.removeEventListener('scroll', handleScroll)
-        }
-    }, [])
 
     return (
         <section className={`main-info ${isModalOpen ? 'modal-open' : 'modal-closed'}`}>
-            <StayPayment stay={stay} />
             <div className="initial-info">
-                <div>
+                <div className='first-block'>
                     <h2>
                         {stay.type !== 'room' && 'Entire'} <span className="type">{stay.type}</span> in {stay.location.city}, {stay.location.country}
                     </h2>
@@ -49,7 +38,7 @@ export function StayMainInfo({ stay }) {
                         <span className="reviews-number">{totalReviews} reviews</span>
                     </div>
                 </div>
-                <hr className="details-seperation-line"></hr>
+                {/* <hr className="details-seperation-line"></hr> */}
 
                 <div className="host-info">
                     {stay.host && (
@@ -59,7 +48,7 @@ export function StayMainInfo({ stay }) {
                         </>
                     )}
                 </div>
-                <hr className="details-seperation-line"></hr>
+                {/* <hr className="details-seperation-line"></hr> */}
 
 
                 <div className="highlights">
@@ -73,7 +62,7 @@ export function StayMainInfo({ stay }) {
                         </div>
                     ))}
                 </div>
-                <hr className="details-seperation-line"></hr>
+                {/* <hr className="details-seperation-line"></hr> */}
 
 
                 <div className="description">
@@ -86,11 +75,7 @@ export function StayMainInfo({ stay }) {
                         toggleModal={toggleModal}
                     />
                 </div>
-                <hr className="details-seperation-line"></hr>
-            </div>
-
-            <div>
-                <StayPayment stay={stay}/>
+                {/* <hr className="details-seperation-line"></hr> */}
             </div>
 
 

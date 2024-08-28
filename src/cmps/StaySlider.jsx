@@ -24,7 +24,8 @@ export function StaySlider({ images }) {
         <div className="slider-container">
             <Slider {...settings}>
                 {images.map((img, index) => (
-                    <div className="img-body" key={index}>
+                    <div className="img-body"
+                     key={index}>
                         <img src={img} alt={`slide-${index}`} />
                     </div>
                 ))}
@@ -39,7 +40,7 @@ const PrevArrow = ({ className, style, onClick }) => (
         className={className}
         style={{ 
             ...style, 
-            display: 'block', 
+            // display: 'block', 
             background:`url(${arrowLeft}) no-repeat center center`,
             // background
             width: '35px',
@@ -55,7 +56,7 @@ const NextArrow = ({ className, style, onClick }) => (
         className={className}
         style={{ 
             ...style, 
-            display: 'block', 
+            // display: 'block', 
             // background:`url(${arrowRight}) no-repeat center center`,
             width: '35px',
             height: '35px',
