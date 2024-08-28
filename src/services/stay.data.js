@@ -1,5 +1,4 @@
 import { getRandomIntInclusive, makeId } from "./util.service.js";
-import flexibleImg from '../assets/imgs/countries/flexible.jpg';
 import italyImg from '../assets/imgs/countries/italy.jpeg';
 import spainImg from '../assets/imgs/countries/spain.jpg';
 import portugalImg from '../assets/imgs/countries/portugal.jpg';
@@ -731,7 +730,6 @@ function generateAvailabilityRanges() {
 }
 
 const locations = [
-    { country: 'Im flexible', city: '', lat: 0, lng: 0, img: flexibleImg },
     { country: 'Greece', city: 'Athens', lat: 37.98, lng: 23.73, img: greeceImg },
     { country: 'Spain', city: 'Madrid', lat: 40.42, lng: -3.70, img: spainImg },
     { country: 'Portugal', city: 'Lisbon', lat: 38.72, lng: -9.14, img: portugalImg },

@@ -33,10 +33,11 @@
             justify-content: space-between;
             align-items: center;
             gap: 0.1em;
-
+            margin-block-start: 0.5em;
 
             img {
-                height: 1em;
+                height: 1.3em;
+                max-width: 1.3em;
             }
 
             div {
@@ -85,6 +86,9 @@
             margin-inline: 1em 0;
 
         }
+        .extra-button:hover{
+            background-color: $gray1;
+        }
     }
 
     .layout-main {
@@ -96,5 +100,12 @@
         position: absolute;
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 10;
+    }
+
+    .main-hr {
+        margin-inline: -2.5em;
+        border: none;
+        height: 1px;
+        background-color: $gray2;
     }
 }
