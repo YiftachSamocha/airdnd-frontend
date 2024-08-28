@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom"
-import logoImg from "../assets/imgs/logo.png"
+import logoImg from "../assets/imgs/logo.svg"
 import languageImg from "../assets/imgs/language.png"
 import hamburgerImg from "../assets/imgs/hamburger.png"
 import profileImg from "../assets/imgs/profile.png"
