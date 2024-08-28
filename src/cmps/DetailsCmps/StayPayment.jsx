@@ -60,7 +60,7 @@ export function StayPayment({ stay }) {
 
     return (
         <div className="main-container">
-            <section className="stay-payment sticky">
+            <section className="stay-payment">
                 <h2>${price} <span>night</span></h2>
                 <div className="btn-container">
                     <button className="btn-team" onClick={toggleWhen}>

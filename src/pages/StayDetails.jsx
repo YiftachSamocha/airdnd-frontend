@@ -31,14 +31,23 @@ export function StayDetails() {
       <AppHeader />
       <h1>{stay.name}</h1>
       <StayImage stay={stay} />
-      <StayMainInfo stay={stay} />
-      <StayAmenities stay={stay} />
-      <StayRooms stay={stay} />
-      <StayDate />
-      <StayReview />
-      <StayLocation />
-      <StayHost stay={stay}/>
-      <StayToKnow />
+      <div className="details-container">
+        <div className="content">
+          <StayMainInfo stay={stay} />
+          <StayRooms stay={stay} />
+          <StayAmenities stay={stay} />
+          <StayDate />
+          <StayReview />
+          <StayLocation />
+          <StayHost stay={stay} />
+          <StayToKnow />
+        </div>
+
+        <div className="payment-container">
+          <StayPayment stay={stay} />
+        </div>
+      </div>
+
     </section>
   )
 }

@@ -3,40 +3,44 @@ import leftArrow from '../../assets/imgs/icons/arrow-left.svg' // Adjust the pat
 import { useState } from 'react'
 
 export function StayRooms({ stay }) {
-    const [currentIndex, setCurrentIndex] = useState(0)
+    const [currPicIndex, setCurrPicIndex] = useState(0)
+    const [currPage, setCurrPage] = useState(1)
+
     const roomsPerPage = 2
+
     const totalRooms = stay.sleep.rooms.length
     const totalPages = Math.ceil(totalRooms / roomsPerPage); // Calculate total pages
 
     function onRightClick() {
-        const isLastTwo = currentIndex + roomsPerPage >= totalRooms - 1
+        if (currPage >= totalPages) return
+        const newPage = currPage + 1
+        setCurrPage(newPage)
+        
+        const isLastTwo = currPicIndex + roomsPerPage >= totalRooms - 1
         if (isLastTwo) {
-            setCurrentIndex(totalRooms - roomsPerPage)
+            setCurrPicIndex(totalRooms - roomsPerPage)
         } else {
-            setCurrentIndex(currentIndex + roomsPerPage)
+            setCurrPicIndex(currPicIndex + roomsPerPage)
         }
     }
-
     function onLeftClick() {
-        const isFirstTwo = currentIndex <= roomsPerPage
+        if (currPage <= 1) return // Stop if already on the first page
+        const newPage = currPage - 1
+        setCurrPage(newPage)
+
+        const isFirstTwo = currPicIndex - roomsPerPage < 0
         if (isFirstTwo) {
-            setCurrentIndex(0)
+            setCurrPicIndex(0)
         } else {
-            setCurrentIndex(currentIndex - roomsPerPage)
+            setCurrPicIndex(currPicIndex - roomsPerPage)
         }
     }
 
     function generateBedSummary(room) {
-        console.log('room', room)
         return `${room.bedType}`
     }
 
-    function getVisibleRooms() {
-        return stay.sleep.rooms.slice(currentIndex, currentIndex + roomsPerPage)
-    }
-
-    const visibleRooms = getVisibleRooms()
-    const currentPage = Math.floor(currentIndex / roomsPerPage) + 1
+    const visibleRooms = stay.sleep.rooms.slice(currPicIndex, currPicIndex + roomsPerPage)
 
     return (
         <section className="bedrooms">
@@ -44,14 +48,14 @@ export function StayRooms({ stay }) {
                 <h3>Where you'll sleep</h3>
                 {totalRooms > roomsPerPage && (
                     <div className="btn-container">
-                        <span>{currentPage} / {totalPages}</span>
+                        <span>{currPage} / {totalPages}</span>
                         <div className="back">
-                            <button onClick={onLeftClick} disabled={currentIndex === 0}>
+                            <button onClick={onLeftClick} disabled={currPicIndex === 0}>
                                 <img src={leftArrow} alt="back" />
                             </button>
                         </div>
                         <div className="forward">
-                            <button onClick={onRightClick} disabled={currentIndex >= totalRooms - roomsPerPage}>
+                            <button onClick={onRightClick} disabled={currPicIndex >= totalRooms - roomsPerPage}>
                                 <img src={rightArrow} alt="forward" />
                             </button>
                         </div>
@@ -63,7 +67,7 @@ export function StayRooms({ stay }) {
                 <div
                     className="rooms-list"
                     style={{
-                        transform: `translateX(-${currentIndex * (105 / roomsPerPage)}%)`,
+                        transform: `translateX(-${currPicIndex * (105 / roomsPerPage)}%)`,
                         transition: 'transform 0.5s ease-in-out',
                     }}
                 >
@@ -78,7 +82,6 @@ export function StayRooms({ stay }) {
                     ))}
                 </div>
             </div>
-            <hr className="details-seperation-line" />
         </section>
     )
 }
