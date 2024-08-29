@@ -18,7 +18,6 @@ export function StayPreview({ stay }) {
     const price = formatNumberWithCommas(stay.price.night)
     const freeDate = getDateRange(stay.reservedDates)
 
-
     return (
         <article className="stay-preview">
             <div>
@@ -26,16 +25,16 @@ export function StayPreview({ stay }) {
             </div>
             <div className="preview-details">
                 <div>
-                    <h3>{stay.location.city}, {stay.location.country}</h3>
+                    <h4>{stay.location.city}, {stay.location.country}</h4>
                     <div className="rating">
                         {formattedRating && (<>
                             <img src={starIcon} alt="Star Icon" className="star-icon" />
                             <span> {formattedRating}</span> </>
                         )} </div>
                 </div>
-                <h3 className="light"> {roundedDistance} kilometers away</h3>
-                <h3 className="light">{freeDate}</h3>
-                <h3>${price} <span>night</span></h3>
+                <h4 className="light"> {roundedDistance} kilometers away</h4>
+                <h4 className="light">{freeDate}</h4>
+                <h4>${price} <span>night</span></h4>
             </div>
         </article>
     )

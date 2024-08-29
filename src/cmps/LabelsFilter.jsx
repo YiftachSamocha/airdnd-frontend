@@ -15,14 +15,14 @@ export function LabelsFilter() {
     const max = allLabels.length
     const INDEX_SIZE = 10
 
-    useEffect(() => {
-        const newLabels = allLabels.slice(startLabel, startLabel + INDEX_SIZE)
-        setSlicedLabels(newLabels)
-    }, [startLabel])
+    // useEffect(() => {
+    //     const newLabels = allLabels.slice(startLabel, startLabel + INDEX_SIZE)
+    //     setSlicedLabels(newLabels)
+    // }, [startLabel])
 
-    useEffect(() => {
-        if (filterBy.label) setSelectedLabel(filterBy.label)
-    }, [filterBy.label])
+    // useEffect(() => {
+    //     if (filterBy.label) setSelectedLabel(filterBy.label)
+    // }, [filterBy.label])
 
     function changeIndex(leftRight) {
         let newStart

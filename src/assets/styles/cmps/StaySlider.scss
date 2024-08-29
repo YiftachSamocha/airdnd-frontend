@@ -12,60 +12,10 @@
     overflow: hidden;
 
 
-
-    // .slick-slide {
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: center;
-    //     position: relative;
-    // }
-
-    // .slick-prev,
-    // .slick-next {
-    //     width: 35px;
-    //     height: 35px;
-    //     background-color: transparent;
-    //     border: none;
-    //     z-index: 1000;
-    // }
-
-    // .slider-wrapper{
-    //     display: flex;
-    //     position: relative;
-    //     width: 100%;
-    //     max-width: 319px;
-    //     // aspect-ratio: 319px / 319px;
-    //     margin: 0;
-    //     padding: 0;
-    //     object-fit: cover;
-    // }
-
-
-    // .slick-track {
-    //     width: 319px;
-    //     // width: 100%;
-    //     display: flex;
-    //     align-items: center;
-    // }
-
-
-    // .img-body {
-    //     width: 100%;
-    //     height: 100%;
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: center;
-    //     object-fit: cover;
-    //     aspect-ratio: 1/1;
-    //     // border-radius: 10px;
-    //     // display: inline-block;
-    //     // background-color: aqua;
-
-    // }
     .img-body {
         position: relative;
     }
-    
+
 
     .img-body img {
         width: 100%;
@@ -73,15 +23,9 @@
         object-fit: cover;
         // border-radius: 10px;
         aspect-ratio: 1/1;
-    // position: relative;
-    // float: left;
-
+        position: relative;
+    
     }
-
-    // .slick-slide{
-    // position: relative;
-    // top:0;
-    // }
 
     .slick-dots {
         position: absolute;
@@ -89,14 +33,8 @@
         /* מיקום העיגולים למטה */
         left: 50%;
         transform: translateX(-50%);
-        /* מרכז את העיגולים */
-        // display: flex;
-        // align-items: center;
-        // justify-content: center;
         padding: 0;
         margin: 0;
-        z-index: 10;
-        /* וודא שהעיגולים מעל התמונה */
     }
 
 
@@ -107,57 +45,89 @@
 
 
     /* עיצוב לחיצים בצדדים */
-    // .slick-prev,
+    .slick-prev,
+    .slick-next {
+        width: 35px;
+        height: 35px;
+        // border-radius: 50%;
+        z-index: 1;
+    }
+
     // .slick-next {
-    //     width: 35px;
-    //     height: 35px;
-    //     border-radius: 50%;
-    //     z-index: 1000;
+    //     display: none;
+    //     z-index: 0;
     // }
 
-    .slick-next {
-        display: none;
-        z-index: 0;
+    // .hidden {
+    //     display: none;
+    // }
+
+    // .slick-prev,
+    // .slick-next {
+    //     // font-size: 9px;
+    //     background-color: white;
+    //     transition: all 0.3s ease;
+
+    // }
+
+
+    .custom-arrow {
+        background-color: white;
+        border: none;
+        color: black;
+        padding: 1em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-radius: 50%;
+        border: 1px solid $gray3;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin: 0;
+        height: 2em;
+        width: 2em;
+
+        // img {
+        //     max-width: 1em;
+        //     height: 1em;
+        // }
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
     }
 
-    .hidden {
-        display: none;
-    }
-
-    /* שינוי העיצוב של החיצים */
     .slick-prev::before,
     .slick-next::before {
-        opacity: 1;
-        color: rgb(246, 241, 241);
-        font-size: 30px;
+        opacity: 0;
     }
 
-    // .slick-prev img, .slick-next img {
-    //     width: 100%;
-    //     height: 100%;
-    //     color: red;
-    //   }
-
-    /* מיקום החיצים בצדדים */
+   
     .slick-prev {
-        left: 10px;
+        left: 13px;
+        // top: 151px;
     }
 
     .slick-next {
-        right: 10px;
+        right: 13px;
+        // top: 151px;
     }
 
 
-    ul.slick-dots{
+    ul.slick-dots {
         display: block;
     }
 
-    /* עיצוב לעיגולים למטה */
     .slick-dots li button {
-        z-index: 1000;
-        position: absolute; 
-        bottom: 17px; /* מיקום העיגולים בתחתית הקונטיינר */
-        // left: 50%;
+        transform: scale(0.5);
+        position: absolute;
+        bottom: 17px;
+    }
+
+     .btn-heart{
+        width: 20px;
+        height: 20px;
+        z-index: 10;
+        
     }
 
     .slick-dots li button:before {
@@ -169,30 +139,29 @@
         opacity: 0;
     }
 
-    .slick-dots li{
-        width: 13px;
+    .slick-dots li {
+        width: 11px;
         // bottom: 10p;
     }
 
     ul.slick-dots {
         // display: block;
         display: flex;
-        z-index: 1000;
-    }
-
-    .slick-dots li button:before{
-        opacity: 0;
     }
 
     /* עיצוב לעיגולים */
     .slick-dots li button {
-        // position: relative;
-        z-index: 1000;
+        position: relative;
         border-radius: 50%;
         width: 1px;
         height: 1px;
         background-color: #dddddd;
     }
+
+//     .custom-next-arrow.slick-arrow.slick-prev{
+// opacity: 1;
+
+//     }
 
     /* עיצוב לעיגול פעיל */
     .slick-dots .slick-active button {
@@ -200,12 +169,40 @@
         // opacity: 0;
         // .slick-prev,
     }
+
     .slick-dots li:nth-child(n+6) {
         display: none;
     }
 
-    .slick-dots li:nth-child(2) button, 
-.slick-dots li:nth-child(4) button {
-    width: 0.6px; /* גודל עיגולי צד */
-    height: 0.6px; /* גובה עיגולי צד */
-}}
+    .slick-dots li:nth-child(2) button,
+    .slick-dots li:nth-child(4) button {
+        width: 0.6px;
+        height: 0.6px;
+        /* גובה עיגולי צד */
+    }
+
+    // .slider-container {
+    //     position: relative;
+    // }
+    
+    // .img-container {
+    //     position: relative;
+    // }
+    
+    // .btn-heart {
+    //     position: absolute;
+    //     top: 10px; /* המרחק מהחלק העליון */
+    //     right: 10px; /* המרחק מהצד הימני */
+    //     background: transparent; /* הופך את הרקע לשקוף */
+    //     border: none; /* מסיר את הגבול */
+    //     cursor: pointer; /* משנה את הסמן לאצבע */
+    //     z-index: 10; /* מבטיח שהתמונה תהיה מעל התמונה של הסליידר */
+    // }
+    
+    // .btn-heart img {
+    //     width: 30px; /* גודל התמונה של הלב */
+    //     height: 30px; /* גובה התמונה של הלב */
+    // }
+
+
+}
