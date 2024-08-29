@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import instantImg from '../assets/imgs/Extra/instant.png'
 import petsImg from '../assets/imgs/Extra/pets.png'
 import selfImg from '../assets/imgs/Extra/self.png'
@@ -11,6 +11,7 @@ import { SET_FILTER_BY } from "../store/reducers/stay.reducer"
 import { useSelector } from "react-redux"
 import { stayService } from "../services/stay"
 import { store } from "../store/store"
+import { useSearchParams } from "react-router-dom"
 
 export function ExtraFilter({ closeExtra }) {
     const filterBy = useSelector(state => state.stayModule.filterBy)
@@ -22,9 +23,24 @@ export function ExtraFilter({ closeExtra }) {
     const [booking, setBooking] = useState({ instant: false, self: false, pets: false })
     const [standout, setStandout] = useState({ favorite: false, luxe: false })
     const [amenities, setAmenities] = useState(getData('mainAmenities'))
-    const [priceInput, setPriceInput] = useState(price);
+    const [priceInput, setPriceInput] = useState(price)
+    const [searchParams, setSearchParams] = useSearchParams()
+    const extraRef = useRef(null)
 
     useEffect(() => {
+        function handleClickOutside(event) {
+            if (extraRef.current && !extraRef.current.contains(event.target)) {
+                closeExtra()
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [])
+
+    useEffect(() => {
+        if (!filterBy.extra) return
         if (filterBy.extra.type) setType(filterBy.extra.type)
         if (filterBy.extra.rooms) setRooms(filterBy.extra.rooms)
         if (filterBy.extra.price) setPrice(filterBy.extra.price)
@@ -38,7 +54,7 @@ export function ExtraFilter({ closeExtra }) {
         setPrice(prevPrice => [
             Math.max(40, Math.min(prevPrice[0], maxPrice)),
             Math.min(prevPrice[1], maxPrice)
-        ]);
+        ])
     }, [maxPrice])
 
     useEffect(() => {
@@ -46,6 +62,39 @@ export function ExtraFilter({ closeExtra }) {
             setPriceInput(price)
         }
     }, [price])
+
+
+    useEffect(() => {
+        const params = Object.fromEntries([...searchParams]);
+
+        const extra = {
+            type: params.type || 'any',
+            price: [
+                Number(params.price_min) || 40,
+                Number(params.price_max) || maxPrice
+            ],
+            rooms: {
+                rooms: Number(params.rooms) || 0,
+                bedrooms: Number(params.bedrooms) || 0,
+                bathrooms: Number(params.bathrooms) || 0,
+            },
+            amenities: amenities.map(amenity => ({
+                ...amenity,
+                isSelected: params.amenities?.includes(amenity.name) || false
+            })),
+            booking: {
+                instant: params.instant_booking === 'true',
+                self: params.self_check_in === 'true',
+                pets: params.pets_allowed === 'true',
+            },
+            standout: {
+                favorite: params.favorite === 'true',
+                luxe: params.luxe === 'true',
+            }
+        }
+
+        store.dispatch({ type: SET_FILTER_BY, filterBy: { ...filterBy, extra } });
+    }, [searchParams])
 
 
     function changeRooms(type, size) {
@@ -93,11 +142,84 @@ export function ExtraFilter({ closeExtra }) {
             standout,
         }
         store.dispatch({ type: SET_FILTER_BY, filterBy: ({ ...filterBy, extra }) })
+        updateSearchParams()
         closeExtra()
     }
 
+    function updateSearchParams() {
+        const params = new URLSearchParams(searchParams)
 
-    return <div className="extra-filter">
+        if (type === 'any') params.delete('type')
+        else params.set('type', type)
+
+        if (price && Array.isArray(price)) {
+            if (price[0] === 40) params.delete('price_min')
+            else params.set('price_min', price[0])
+
+            if (price[1] === maxPrice) params.delete('price_max')
+            else params.set('price_max', price[1])
+        } else {
+            params.delete('price_min')
+            params.delete('price_max')
+        }
+
+        if (rooms) {
+            if (rooms.rooms === 0) params.delete('rooms')
+            else params.set('rooms', rooms.rooms)
+
+            if (rooms.bedrooms === 0) params.delete('bedrooms')
+            else params.set('bedrooms', rooms.bedrooms)
+
+            if (rooms.bathrooms === 0) params.delete('bathrooms')
+            else params.set('bathrooms', rooms.bathrooms)
+        } else {
+            params.delete('rooms')
+            params.delete('bedrooms')
+            params.delete('bathrooms')
+        }
+
+        if (amenities && Array.isArray(amenities)) {
+            params.delete('amenities')
+            amenities.forEach((amenity) => {
+                if (amenity.isSelected) {
+                    params.append('amenities', amenity.name)
+                }
+            })
+        } else {
+            params.delete('amenities')
+        }
+
+        if (booking) {
+            if (booking.instant) params.set('instant_booking', true)
+            else params.delete('instant_booking')
+
+            if (booking.self) params.set('self_check_in', true)
+            else params.delete('self_check_in')
+
+            if (booking.pets) params.set('pets_allowed', true)
+            else params.delete('pets_allowed')
+        } else {
+            params.delete('instant_booking')
+            params.delete('self_check_in')
+            params.delete('pets_allowed')
+        }
+
+        if (standout) {
+            if (standout.favorite) params.set('favorite', true)
+            else params.delete('favorite')
+
+            if (standout.luxe) params.set('luxe', true)
+            else params.delete('luxe')
+        } else {
+            params.delete('favorite')
+            params.delete('luxe')
+        }
+
+        setSearchParams(params)
+    }
+
+
+    return <div className="extra-filter" ref={extraRef}>
         <div className="extra-header">
             <button onClick={() => closeExtra()}>X</button>
             <h4>Filters</h4>

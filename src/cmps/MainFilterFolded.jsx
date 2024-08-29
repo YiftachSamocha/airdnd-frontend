@@ -7,7 +7,7 @@ export function MainFilterFolded({ filterBy }) {
 
     useEffect(() => {
         if (filterBy) {
-            const where = filterBy.where.city === '' ? filterBy.where.city : 'anywhere'
+            const where = filterBy.where.city === '' ? 'anywhere' : filterBy.where.city
             let when
             if (filterBy.when.startDate && filterBy.when.endDate) {
                 when = format(filterBy.when.startDate, 'MMMM d') + ' - ' + format(filterBy.when.endDate, 'MMMM d')

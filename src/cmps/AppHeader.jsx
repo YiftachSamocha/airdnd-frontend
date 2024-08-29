@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useSearchParams } from "react-router-dom"
 import logoImg from "../assets/imgs/logo.svg"
 import languageImg from "../assets/imgs/language.png"
 import hamburgerImg from "../assets/imgs/hamburger.png"
@@ -70,11 +70,11 @@ export function AppHeader() {
     }, [isFolded, isTop])
 
     useEffect(() => {
-        if (filterBy.where || filterBy.when.stratDate || filterBy.endDate || filterBy.label.label !== 'icons'
+        if (filterBy.where.city || filterBy.where.country || filterBy.when.startDate || filterBy.endDate || (filterBy.label && filterBy.label.label !== 'icons')
             || filterBy.who.infants > 0 || filterBy.who.adults > 0 || filterBy.infants > 0) {
             setIsExtraBtnShown(true)
         }
-        else{
+        else {
             setIsExtraBtnShown(false)
         }
     }, [filterBy])

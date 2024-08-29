@@ -19,7 +19,7 @@ _createData()
 async function query(filterBy = {}) {
     var stays = await storageService.query(STORAGE_KEY)
     const { where, when, who, label, extra } = filterBy
-    if (where && where.country !== 'Im flexible') {
+    if (where && where.city && where.country && where.country !== 'Im flexible') {
         stays = stays.filter(stay => stay.location.country === where.country && stay.location.city === where.city)
     }
     if (when && when.startDate && when.endDate) {
