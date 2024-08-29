@@ -341,7 +341,7 @@ export function ExtraFilter({ closeExtra }) {
                 <h5>Amenities</h5>
                 <div>
                     {amenities.map(amenity => {
-                        return <button className={amenity.isSelected ? 'selected' : ''} key={amenity.label}
+                        return <button className={amenity.isSelected ? 'selected' : ''} key={amenity.name}
                             onClick={() =>
                                 setAmenities(prev =>
                                     prev.map(am => am.name === amenity.name ? { ...am, isSelected: !am.isSelected } : am))}>

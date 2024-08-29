@@ -1,5 +1,6 @@
 import { Link, useLocation, useSearchParams } from "react-router-dom"
-import logoImg from "../assets/imgs/logo.svg"
+import bigLogoImg from "../assets/imgs/logo.svg"
+import smallLogoImg from "../assets/imgs/small-icon.png"
 import languageImg from "../assets/imgs/language.png"
 import hamburgerImg from "../assets/imgs/hamburger.png"
 import profileImg from "../assets/imgs/profile.png"
@@ -20,6 +21,7 @@ export function AppHeader() {
     const [isExtaVisible, setIsExtraVisible] = useState(false)
     const [isTop, setIsTop] = useState(true)
     const [isExtraBtnShown, setIsExtraBtnShown] = useState(false)
+    const [logoImg, setLogoImg] = useState(bigLogoImg)
     const mainFilterRef = useRef(null)
     const labelsFilterRef = useRef(null)
     const userInitiatedOpen = useRef(false)
@@ -46,7 +48,7 @@ export function AppHeader() {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (isTop) return // If isTop is true, do nothing
+            if (isTop) return
 
             if (
                 mainFilterRef.current &&
@@ -84,6 +86,23 @@ export function AppHeader() {
         userInitiatedOpen.current = true
     }
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 1130 && logoImg !== bigLogoImg) {
+                setLogoImg(bigLogoImg)
+            } else if (window.innerWidth <= 1130 && logoImg !== smallLogoImg) {
+                setLogoImg(smallLogoImg)
+            }
+        };
+
+        window.addEventListener("resize", handleResize)
+        handleResize()
+
+        return () => {
+            window.removeEventListener("resize", handleResize)
+        }
+    }, [logoImg])
+
     return (
         <section className="app-header">
             <div className="main-header">
@@ -110,7 +129,7 @@ export function AppHeader() {
                     <MainFilter />
                 </div>
             )}
-            <hr className="main-hr" />
+            {/* <hr className="main-hr" /> */}
             <div ref={labelsFilterRef} className="labels-container" style={location.pathname === '/stay' || location.pathname === '/' ? {} : { display: "none" }}>
                 <LabelsFilter />
                 {isExtraBtnShown && <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button">
