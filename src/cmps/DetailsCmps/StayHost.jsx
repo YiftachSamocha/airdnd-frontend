@@ -25,8 +25,11 @@ export function StayHost({ stay }) {
                                 <img src={securityIcon} className="security-icon" />
                             </div>
                         </div>
-                        <h2>{stay.host.fullname}</h2>
-                        <span>Host</span>
+                        <div className='host-name'>
+                            <h2>{stay.host.fullname}</h2>
+                            <span>Host</span>
+                        </div>
+
                     </div>
                     <div className="stats">
                         <div className="reviews">

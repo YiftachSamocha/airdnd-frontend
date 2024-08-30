@@ -17,7 +17,6 @@ export function StayAmenities({ stay }) {
             isModalOpen={isModalOpen}
             toggleModal={toggleModal}
         />
-                <hr className="details-seperation-line"></hr>
 
     </section>
 }

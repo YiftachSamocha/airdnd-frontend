@@ -1,12 +1,30 @@
 .amenities {
+    padding-block: 3rem;
+    box-shadow: 0 1px 0 0 #e1dede;
+    max-width: 653px;
+
     h3 {
         font-size: 1.5rem;
+        padding-block-end: 1.5rem;
     }
 
-    &.modal-closed .items {
-        display: grid;
-        grid-template-columns: 265px 70px 265px;
-        margin-block-end: 1.5rem;
+    &.modal-closed {
+        .items {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(290px, 334px));
+    
+            .item{
+                grid-column: span 1;
+                div {
+                    display: flex;
+                    gap: 10px;
+                    padding: 1rem;
+                }
+            }
+        }
+        button {
+            margin-block-start: 1.5rem;;
+        }
     }
 
     &.modal-open {
@@ -49,32 +67,33 @@
 
         }
     }
-
-
-
-
-
-    div {
-        .item {
-            display: flex;
-            gap: 1rem;
-            width: 265px;
-        }
-
-        .item:nth-of-type(even) {
-            grid-column: 3;
-        }
-
-        .item:nth-child(n+11) {
-            display: none; // Hide all amenities after the 7th one
-        }
-
-        .item:not(:last-child) {
-            margin-block-end: 1.25rem;
-        }
-
-    }
 }
+
+
+
+
+
+//     div {
+//         .item {
+//             display: flex;
+//             gap: 1rem;
+//             width: 265px;
+//         }
+
+//         .item:nth-of-type(even) {
+//             grid-column: 3;
+//         }
+
+//         .item:nth-child(n+11) {
+//             display: none; // Hide all amenities after the 7th one
+//         }
+
+//         .item:not(:last-child) {
+//             margin-block-end: 1.25rem;
+//         }
+
+//     }
+// }
 
 
 .show-more.amenities-style {

@@ -36,16 +36,19 @@ export function StayDetails() {
           <StayMainInfo stay={stay} />
           <StayRooms stay={stay} />
           <StayAmenities stay={stay} />
-          <StayDate />
-          <StayReview />
-          <StayLocation />
-          <StayHost stay={stay} />
-          <StayToKnow />
         </div>
 
         <div className="payment-container">
           <StayPayment stay={stay} />
         </div>
+      </div>
+
+      <div>
+      <StayDate />
+          <StayReview />
+          <StayLocation />
+          <StayHost stay={stay} />
+          <StayToKnow />
       </div>
 
     </section>

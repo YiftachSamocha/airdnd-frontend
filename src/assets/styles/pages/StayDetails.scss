@@ -13,6 +13,13 @@
     h6 {
         color: $gray5;
         font-weight: 500;
+        padding-block: 0;
+        margin-block: 0;
+    }
+
+    h3 {
+        font-size: 22px;
+
     }
 
     h1 {
@@ -21,27 +28,33 @@
         margin-block: 0.8em;
     }
 
+    p {
+        padding-block: 0;
+        margin-block: 0;
+    }
+
     .details-container {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
-        margin-block: 32px;
+        margin-block-start: 32px;
         max-width: 100%;
-        
+
 
         content {
             flex: 1;
-            max-width: 527px;
+            max-width: 653px;
             /* Adjust as needed */
         }
 
         .payment-container {
             /* 30% width for the payment container */
             position: sticky;
-            top: 150px;
+            top: 200px;
             right: 0;
-            max-width: 372px;
-            min-width: 210px;
+            width: 33.33333333333333% !important;
+            margin-left: 8.333333333333332% !important;
+            margin-right: 0% !important;
         }
     }
 
@@ -51,6 +64,7 @@
         object-fit: contain;
     }
 }
+
 
 @media (max-width: 743px) {
     .stay-details {
@@ -64,9 +78,10 @@
         margin-inline: 1.5rem;
     }
 }
+
 @media(max-width:743px) {
-    h1{
+    h1 {
         padding-block: 24px
     }
-    
+
 }

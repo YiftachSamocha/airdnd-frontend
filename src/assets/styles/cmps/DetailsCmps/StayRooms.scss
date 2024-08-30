@@ -1,17 +1,18 @@
 .bedrooms {
     box-shadow: 0px 1px 0 0 #e1dede;
     padding-block: 3rem;
+    max-width: 653px;
 
     .rooms-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        line-height: 100%;
+        padding-block-end: 1.5rem;
 
         .btn-container {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 12px;
 
             button {
                 background-color: transparent;
@@ -27,12 +28,15 @@
                     width: 16px;
                     padding: 0;
                     transition: transform 0.5s ease-in-out; // Slows down the transition on hover
-
                 }
 
                 &:hover {
                     transform: scale(1.05); // Example hover effect (zoom in slightly)
                     box-shadow: -1px 3px 15px 0 #dddddd;
+                }
+
+                span {
+                    padding-inline: 6px;
                 }
             }
         }
@@ -66,6 +70,14 @@
                 border-radius: 10px;
                 margin-bottom: 1rem;
                 transition: transform 0.5s ease-in-out;
+                aspect-ratio: 3 / 2;
+
+            }
+        }
+
+        .room-info {
+            h4{
+                padding-block-start: 1rem;
             }
         }
     }
