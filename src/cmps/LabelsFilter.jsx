@@ -5,6 +5,7 @@ import arrowLeft from '../assets/imgs/arrow-left.png'
 import { store } from "../store/store";
 import { SET_FILTER_BY } from "../store/reducers/stay.reducer";
 import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 
 export function LabelsFilter() {
     const filterBy = useSelector(state => state.stayModule.filterBy)
@@ -12,28 +13,58 @@ export function LabelsFilter() {
     const [slicedLabels, setSlicedLabels] = useState([])
     const [selectedLabel, setSelectedLabel] = useState(allLabels[0])
     const [startLabel, setStartLabel] = useState(0)
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [size, setSize] = useState(10)
     const max = allLabels.length
-    const INDEX_SIZE = 10
+    const LABEL_SIZE = 60
 
     useEffect(() => {
-        const newLabels = allLabels.slice(startLabel, startLabel + INDEX_SIZE)
+        const handleResize = () => {
+            let rightSize = Math.ceil(window.innerWidth / LABEL_SIZE)
+            if (size > rightSize || size < rightSize) {
+                setSize(rightSize)
+            }
+        }
+
+        window.addEventListener("resize", handleResize)
+        handleResize()
+
+        return () => {
+            window.removeEventListener("resize", handleResize)
+        }
+    }, [size])
+
+    useEffect(() => {
+        const newLabels = allLabels.slice(startLabel, startLabel + size)
         setSlicedLabels(newLabels)
-    }, [startLabel])
+    }, [startLabel, size])
 
     useEffect(() => {
         if (filterBy.label) setSelectedLabel(filterBy.label)
     }, [filterBy.label])
 
+    useEffect(() => {
+        updateSearchParams()
+    }, [filterBy])
+
+    useEffect(() => {
+        const labelParam = searchParams.get('label')
+        if (labelParam) {
+            const matchedLabel = allLabels.find(label => label.label === labelParam)
+            if (matchedLabel) selectLabel(matchedLabel)
+        }
+    }, [searchParams, allLabels])
+
     function changeIndex(leftRight) {
         let newStart
         if (leftRight === 'right') {
-            newStart = startLabel + INDEX_SIZE
-            if (newStart + INDEX_SIZE > max) {
-                newStart = max - INDEX_SIZE
+            newStart = startLabel + size
+            if (newStart + size > max) {
+                newStart = max - size
             }
         }
         else {
-            newStart = startLabel - INDEX_SIZE
+            newStart = startLabel - size
             if (newStart < 0) {
                 newStart = 0
             }
@@ -44,6 +75,20 @@ export function LabelsFilter() {
     function selectLabel(label) {
         setSelectedLabel(label)
         store.dispatch({ type: SET_FILTER_BY, filterBy: { ...filterBy, label } })
+        updateSearchParams()
+    }
+
+    function updateSearchParams() {
+        const params = new URLSearchParams(searchParams)
+        if (selectedLabel.label === 'icons') {
+            params.delete('label')
+            setSearchParams(params)
+            return
+        }
+
+        if (selectedLabel) params.set('label', selectedLabel.label)
+        else params.delete('label')
+        setSearchParams(params)
     }
 
     return <section className="labels-filter">
@@ -57,6 +102,6 @@ export function LabelsFilter() {
                 </div>
             })}
         </section>
-        {(startLabel + INDEX_SIZE) < allLabels.length && <button onClick={() => changeIndex('right')}> <img src={arrowRight} alt="" /> </button>}
+        {(startLabel + size) < allLabels.length && <button onClick={() => changeIndex('right')}> <img src={arrowRight} alt="" /> </button>}
     </section>
 }

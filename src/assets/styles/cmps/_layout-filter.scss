@@ -1,0 +1,29 @@
+@include for-mobile-layout {}
+
+@include for-normal-layout {
+    .main-filter {
+        max-width: 100%;
+
+        .when {
+            padding-inline: 7em;
+      left: -100%;
+            background-color: white;
+        }
+
+
+    }
+}
+
+@include for-wide-layout {
+    .main-filter {
+        max-width: em(850px);
+        .when{
+            padding-inline: 0;
+        }
+    }
+   
+
+}
+
+
+@include for-large-layout {}

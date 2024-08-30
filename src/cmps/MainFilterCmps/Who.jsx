@@ -19,7 +19,7 @@ export function Who({ filterCapacity, setFilterCapacity }) {
     }
     return <div className="who">
         {capacityInfo.map(type => {
-            return <div>
+            return <div key={type.name}>
                 <div>
                     <h5>{type.name}:</h5>
                     <p>{type.info}</p>
