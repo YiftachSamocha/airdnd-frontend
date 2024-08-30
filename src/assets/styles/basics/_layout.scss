@@ -13,8 +13,8 @@
 
     @include for-mobile-layout {
         // .stay-main-list {
-            grid-template-columns:
-                minmax(22px, 1fr) minmax(auto, $mobile-breakpoint) minmax(22px, 1fr);
+        grid-template-columns:
+            minmax(22px, 1fr) minmax(auto, $mobile-breakpoint) minmax(22px, 1fr);
         // }
 
         .stay-list {
@@ -24,8 +24,8 @@
 
     @include for-narrow-layout {
         // .stay-main-list {
-            grid-template-columns:
-                minmax(20px, 1fr) minmax(auto, $narrow-breakpoint) minmax(20px, 1fr);
+        grid-template-columns:
+            minmax(20px, 1fr) minmax(auto, $narrow-breakpoint) minmax(20px, 1fr);
         // }
 
         .stay-list {
@@ -39,11 +39,10 @@
     }
 
     @include for-normal-layout {
-
         // .stay-main-list,
         // .stay-main-order {
-            grid-template-columns:
-                minmax(20px, 1fr) minmax(auto, $normal-breakpoint) minmax(20px, 1fr);
+        grid-template-columns:
+            minmax(20px, 1fr) minmax(auto, $normal-breakpoint) minmax(20px, 1fr);
         // }
 
         .stay-list {
@@ -64,8 +63,8 @@
 
         // .stay-main-list,
         // .stay-main-order {
-            grid-template-columns:
-                minmax(40px, 1fr) minmax(auto, $wide-breakpoint) minmax(40px, 1fr);
+        grid-template-columns:
+            minmax(40px, 1fr) minmax(auto, $wide-breakpoint) minmax(40px, 1fr);
         // }
 
         .stay-list {
@@ -82,15 +81,14 @@
         }
     }
 
-
     @include for-large-layout {
         // .main-container {
         //     display: grid;
         //     grid-template-columns: 80px 1fr 80px;
 
         // .stay-main-list {
-            grid-template-columns:
-                minmax(40px, 1fr) minmax(auto, $large-breakpoint) minmax(40px, 1fr);
+        grid-template-columns:
+            minmax(40px, 1fr) minmax(auto, $large-breakpoint) minmax(40px, 1fr);
         // }
 
         .stay-list {
@@ -104,15 +102,19 @@
 
         .stay-main-order {
             grid-template-columns:
-                minmax(160px, 1fr) minmax(auto, $large-breakpoint) minmax(160px, 1fr);
+                minmax(140px, 1fr) minmax(auto, $large-breakpoint) minmax(140px, 1fr);
 
             .stay-order {
                 grid-column: 2;
             }
         }
-
-        // max-width: 400px;
-        // padding: 20px;
     }
-
 }
+    .order {
+        .main-container {
+            display: grid;
+            grid-template-columns: 0px 1fr 0px;
+
+        }
+
+    }
