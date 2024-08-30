@@ -12,9 +12,10 @@
         .items {
             display: grid;
             grid-template-columns: repeat(2, minmax(290px, 334px));
-    
-            .item{
+
+            .item {
                 grid-column: span 1;
+
                 div {
                     display: flex;
                     gap: 10px;
@@ -22,8 +23,10 @@
                 }
             }
         }
+
         button {
-            margin-block-start: 1.5rem;;
+            margin-block-start: 1.5rem;
+            ;
         }
     }
 
@@ -37,7 +40,7 @@
         .group {
             h3 {
                 font-size: 1.125rem;
-                padding:3rem 0;
+                padding: 3rem 0;
             }
 
             &:first-of-type h3 {
@@ -47,7 +50,7 @@
             .item {
                 display: flex;
                 flex-direction: column;
-                gap:0;
+                gap: 0;
                 width: 100%;
 
                 div {
@@ -61,77 +64,30 @@
                     margin: 1.5rem 0; // Add some margin above and below the line for spacing
                 }
             }
-
-
-
-
         }
     }
 }
 
-
-
-
-
-//     div {
-//         .item {
-//             display: flex;
-//             gap: 1rem;
-//             width: 265px;
-//         }
-
-//         .item:nth-of-type(even) {
-//             grid-column: 3;
-//         }
-
+// .show-more.amenities-style {
+//     .modal-content {
 //         .item:nth-child(n+11) {
-//             display: none; // Hide all amenities after the 7th one
+//             display: flex // Hide all amenities after the 7th one
 //         }
-
-//         .item:not(:last-child) {
-//             margin-block-end: 1.25rem;
-//         }
-
 //     }
 // }
 
-
-.show-more.amenities-style {
-
-
-    .modal-content {
-
-        .item:nth-child(n+11) {
-            display: flex // Hide all amenities after the 7th one
-        }
-    }
-}
-
 @media (max-width: $normal-breakpoint) {
-
-    // Replace $normal-breakpoint with your breakpoint, e.g., 768px
     .amenities {
-        .show-more div {
-            grid-column: 1;
+        .items {
+            display: block !important;
 
-            // .item:nth-child(n+8) {
-            //     display: none; // Hide all amenities after the 7th one
-            // }
-        }
-    }
-
-    @media (max-width:743px) {
-        .amenities {
-            button {
-                display: block;
-                width: 100%;
+            .item div{
+                padding: 0 0 16px 0 !important;
             }
         }
 
+        .show-more div {
+            grid-column: 1;
+        }
     }
-
-
-
-
-
 }

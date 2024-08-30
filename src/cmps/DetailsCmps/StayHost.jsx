@@ -60,7 +60,6 @@ export function StayHost({ stay }) {
                         <p>Response Rate: {stay.host.responceRate}%</p>
                         <p>Responds within a few hours</p>
                     </div>
-                    <hr className="details-seperation-line"></hr>
                     <p className="note">To protect your payment, never transfer money or communicate outside of the Airdnd website or app.</p>
                 </div>
             </div>

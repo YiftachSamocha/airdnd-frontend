@@ -8,7 +8,7 @@
 
     .host {
         display: grid;
-        grid-template-columns: 395px 1fr;
+        grid-template-columns: 380px 1fr;
         gap: 64px;
 
         .host-stats {
@@ -17,6 +17,9 @@
             border: 1px solid #f7f7f7;
             box-shadow: 0px 1px 20px 5px #e3e2e2;
             border-radius: 20px;
+            max-height: 230px;
+            max-width: 100vw;
+            padding-block: 12px;
 
             .personal {
                 display: flex;
@@ -95,6 +98,7 @@
                 display: flex;
                 flex-direction: column;
                 margin-block: 29px;
+                width:96px;
 
                 >* {
                     display: flex;
@@ -157,13 +161,19 @@
             padding-block-end: 32px;
         }
 
-        p,
-        hr {
-            max-width: 100vw;
-        }
-
         .note {
             font-size: 0.75rem;
+            padding-block: 8px;
+            box-shadow: 0px -1px 0 0 #e1dede;;
+        }
+    }
+}
+
+@media (max-width:$narrow-breakpoint) {
+
+    .host-details {
+        .details{
+            grid-column: 1;
         }
     }
 }
