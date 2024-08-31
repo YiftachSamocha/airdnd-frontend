@@ -130,7 +130,8 @@ export function AppHeader() {
                 </div>
             )}
             <hr className="main-hr" />
-            <div ref={labelsFilterRef} className="labels-container" style={location.pathname === '/stay' || location.pathname === '/' ? {} : { display: "none" }}>
+            <div ref={labelsFilterRef} className="labels-container" 
+            style={location.pathname === '/stay' || location.pathname === '/' || location.pathname==='/stay/' ? {} : { display: "none" }}>
                 <LabelsFilter />
                 {isExtraBtnShown && <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button">
                     <img src={filterImg} alt="" />

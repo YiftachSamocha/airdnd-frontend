@@ -16,7 +16,7 @@ export function LabelsFilter() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [size, setSize] = useState(10)
     const max = allLabels.length
-    const LABEL_SIZE = 60
+    const LABEL_SIZE = 125
 
     useEffect(() => {
         const handleResize = () => {
@@ -32,7 +32,7 @@ export function LabelsFilter() {
         return () => {
             window.removeEventListener("resize", handleResize)
         }
-    }, [size])
+    }, [size, window.innerWidth])
 
     useEffect(() => {
         const newLabels = allLabels.slice(startLabel, startLabel + size)

@@ -23,7 +23,7 @@
             height: 100%;
             cursor: pointer;
 
-            img{
+            img {
                 height: 40px;
             }
         }
@@ -86,17 +86,17 @@
             margin-inline: 1em 0;
 
         }
-        .extra-button:hover{
+
+        .extra-button:hover {
             background-color: $gray1;
         }
     }
 
     .layout-main {
-        top: 293px;
-        left: -40px;
-        bottom: 50px;
-        height: 120%;
-        width: 106%;
+        top: 100%;
+        left: calc((100vh - 100%)/ 4);
+        right: calc((100vh - 100%)/ 4);
+        bottom: -100vh;
         position: absolute;
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 10;
