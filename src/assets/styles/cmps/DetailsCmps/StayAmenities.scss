@@ -80,16 +80,33 @@
 
     // Replace $normal-breakpoint with your breakpoint, e.g., 768px
     .amenities {
+
+        h3 {
+            padding-block-end: 24px !important;
+        }
+
         .items {
+            >*:nth-child(n+8) {
+                display: none;
+            }
+
             display: block !important;
 
-            .item div{
+            .item div {
                 padding: 0 0 16px 0 !important;
             }
         }
 
         .show-more div {
             grid-column: 1;
+        }
+    }
+}
+
+@media (max-width: 743px) {
+    .amenities{
+        button {
+            width:100%
         }
     }
 }

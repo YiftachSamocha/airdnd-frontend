@@ -46,15 +46,27 @@
         overflow: hidden;
         width: 100%;
         position: relative;
+        // padding-inline: 10px;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+
+        .rooms-list-container::-webkit-scrollbar {
+            display: none;
+            /* Hide scrollbar in Chrome, Safari, and other WebKit browsers */
+        }
 
 
         .rooms-list {
             display: flex;
-            gap: 1em;
             max-width: 650px;
             width: 100%;
             padding-bottom: 1rem;
             transition: transform 0.5s ease-in-out;
+            gap:0.5rem;
 
         }
 
@@ -63,10 +75,13 @@
             width: 50%; // Adjust based on how many rooms per page
             flex-shrink: 0;
             box-sizing: border-box;
-            padding: 0;
+            // padding: 0;
 
             img {
-                width: 95%;
+                height:auto;
+                width:100%;
+                padding-inline: 5px;
+                // width: 95%;
                 border-radius: 10px;
                 margin-bottom: 1rem;
                 transition: transform 0.5s ease-in-out;
@@ -76,9 +91,16 @@
         }
 
         .room-info {
-            h4{
+            h4 {
                 padding-block-start: 1rem;
+                padding-inline-start: 8px;
+            }
+
+            p{
+                padding-inline-start: 8px;
+
             }
         }
+
     }
 }

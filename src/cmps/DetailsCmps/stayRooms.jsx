@@ -1,21 +1,24 @@
 import rightArrow from '../../assets/imgs/icons/arrow-right.svg' // Adjust the path based on your project structure
 import leftArrow from '../../assets/imgs/icons/arrow-left.svg' // Adjust the path based on your project structure
 import { useState } from 'react'
+import { useSwipeable } from 'react-swipeable';
 
 export function StayRooms({ stay }) {
     const [currPicIndex, setCurrPicIndex] = useState(0)
     const [currPage, setCurrPage] = useState(1)
+    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 743);
 
     const roomsPerPage = 2
-
     const totalRooms = stay.sleep.rooms.length
     const totalPages = Math.ceil(totalRooms / roomsPerPage); // Calculate total pages
 
+    
+    
     function onRightClick() {
         if (currPage >= totalPages) return
         const newPage = currPage + 1
         setCurrPage(newPage)
-        
+
         const isLastTwo = currPicIndex + roomsPerPage >= totalRooms - 1
         if (isLastTwo) {
             setCurrPicIndex(totalRooms - roomsPerPage)
@@ -67,7 +70,7 @@ export function StayRooms({ stay }) {
                 <div
                     className="rooms-list"
                     style={{
-                        transform: `translateX(-${currPicIndex * (105 / roomsPerPage)}%)`,
+                        transform: `translateX(-${currPicIndex * (103 / roomsPerPage)}%)`,
                         transition: 'transform 0.5s ease-in-out',
                     }}
                 >

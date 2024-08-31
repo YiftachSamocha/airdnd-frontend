@@ -1,8 +1,7 @@
-
 .stay-payment {
     padding: 24px;
     background-color: $clr3;
-    box-shadow:rgba(0, 0, 0, 0.12) 0px 6px 16px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
 
     border: 1px solid rgb(221, 221, 221);
     border-radius: 10px;
@@ -194,4 +193,35 @@
         display: none;
     }
 
+}
+
+@media(max-width: 743px) {
+    .stay-payment {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-block: 16px;
+
+        h2 {
+            font-size: 16px;
+            font-weight: bold !important;
+
+            span {
+                font-size: 14px;
+            }
+        }
+
+        >*:not(.button-container, h2) {
+            display: none;
+        }
+
+        .button-container {
+            width: 150px;
+
+            button {
+                margin-block: 0 !important;
+
+            }
+        }
+    }
 }

@@ -23,7 +23,7 @@ export function StayDetails() {
   const stay = useSelector(storeState => storeState.stayModule.stay)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalType, setModalType] = useState(null)
-  // const [modalContent, setModalContent] = useState(null);
+  const [modalContent, setModalContent] = useState(null);
 
   useEffect(() => {
     loadStay(stayId)
@@ -33,54 +33,60 @@ export function StayDetails() {
     setModalType(type)
     setIsModalOpen(prevState => !prevState)
     // setModalContent(type === 'description' ? stay.description : stay.amenities)
-}
+  }
 
   if (!stay) return <div>Loading...</div>
   return (
     <section className="stay-details">
-      <AppHeader />
-      <h1>{stay.name}</h1>
-      <StayImage stay={stay} />
-      <div className="details-container">
-        <div className="content">
-          <StayMainInfo stay={stay} toggleModal={toggleModal} isModalOpen={isModalOpen}/> 
-           <StayRooms stay={stay} /> 
-          <StayAmenities stay={stay} toggleModal={toggleModal} isModalOpen={isModalOpen}/>
-        </div>
-
-        <div className="payment-container">
-          <StayPayment stay={stay} />
-        </div>
+      <div className="app-header">
+        <AppHeader />
       </div>
 
-      <div>
-      <StayDate />
+      <div className="main-content">
+        <h1>{stay.name}</h1>
+        <StayImage stay={stay} />
+        <div className="details-container">
+          <div className="content">
+            <StayMainInfo stay={stay} toggleModal={toggleModal} isModalOpen={isModalOpen} />
+            <StayRooms stay={stay} />
+            <StayAmenities stay={stay} toggleModal={toggleModal} isModalOpen={isModalOpen} />
+          </div>
+
+          <div className="payment-container">
+            <StayPayment stay={stay} />
+          </div>
+        </div>
+
+        <div className="more-content">
+          <StayDate />
           <StayReview />
           <StayLocation />
           <StayHost stay={stay} />
           <StayToKnow />
+        </div>
+
+        {isModalOpen && (
+          <ModalCmp onClose={() => toggleModal(null)} modalType={modalType} stay={stay}>
+            {modalType === 'description' && (
+              <div>
+                <h2>About this place</h2>
+                <p>{stay.description}</p>
+              </div>
+            )}
+            {modalType === 'amenities' && (
+              <div>
+                <h2>What this place offers</h2>
+                <div className="amenities-list">
+                  {stay.amenities.map((amenity, index) => (
+                    <div key={index}>{amenity}</div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </ModalCmp>
+        )}
       </div>
 
-      {isModalOpen && (
-        <ModalCmp onClose={() => toggleModal(null)} modalType={modalType} stay={stay}>
-          {modalType === 'description' && (
-            <div>
-              <h2>About this place</h2>
-              <p>{stay.description}</p>
-            </div>
-          )}
-          {modalType === 'amenities' && (
-            <div>
-              <h2>What this place offers</h2>
-              <div className="amenities-list">
-                {stay.amenities.map((amenity, index) => (
-                  <div key={index}>{amenity}</div>
-                ))}
-              </div>
-            </div>
-          )}
-        </ModalCmp>
-      )}
     </section>
   )
 }

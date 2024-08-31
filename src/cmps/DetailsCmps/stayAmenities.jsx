@@ -36,7 +36,6 @@ export function StayAmenities({ stay, toggleModal, isModalOpen }) {
 
     // This function will render content based on the modal state
     function renderContent() {
-        debugger
         return isModalOpen
             ? renderGroupedAmenities(stay.amenities)
             : (
