@@ -2,7 +2,6 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
-    max-width: em(850px);
     margin-inline: auto;
     margin-bottom: em(24px);
     border-radius: 50px;
@@ -17,6 +16,8 @@
         border-radius: 50px;
         position: relative;
         display: flex;
+        flex-grow: 1;
+        width: 100%;
 
         label {
             color: $gray5;
@@ -29,6 +30,7 @@
             outline: 0;
             background: none;
             flex: 1;
+            width: 100%;
         }
 
         
@@ -70,22 +72,25 @@
 
     .where-input {
         padding-inline: 2em;
-        width: 17.5em;
-
     }
 
     .when-input {
         flex-direction: row;
         padding: 0;
+        width: 100%;
     }
 
     .when-input-start,
     .when-input-end {
         border-radius: 50px;
-        padding: em(14px) em(24px);
-        width: 10em;
+        padding: em(14px);
+        flex-grow: 1;
+        width: 100%;
+        label{
+            white-space: nowrap;
+        }
         input{
-            width: 5em;
+            width: 100%;
         }
 
     }
@@ -96,11 +101,11 @@
         position: relative;
         flex-direction: row;
         padding-block: em(9px);
-        width: 16em;
         justify-content: space-between;
+        width: 100%;
 
         input {
-            width: 10em;
+            width: 100%;
             cursor: pointer;
         }
         >div:first-of-type>div{
@@ -115,8 +120,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 3em;
-            height: 3em;
+            min-width: 3em;
+            min-height: 3em;
             border: 0;
 
             img {
@@ -133,7 +138,8 @@
 
     .who-input:hover,
     .where-input:hover,
-    .when-input>div:hover {
+    .when-input-start:hover,
+    .when-input-end:hover {
         background-color: $gray1;
     }
 

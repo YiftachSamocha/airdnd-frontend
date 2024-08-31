@@ -59,14 +59,16 @@ export function StayPayment({ stay }) {
     }
 
     return (
-        <div className="main-container">
-            <section className="stay-payment">
+        <div className="payment-cmp">
+            <section className="stay-payment sticky">
                 <h2>${price} <span>night</span></h2>
                 <div className="btn-container">
                     <button className="btn-team" onClick={toggleWhen}>
                         <div className="btn-side">
                             <h4>CHECK-IN</h4>
                             <p>Add date</p>
+                            {isWhenOpen && <When dates={dates} setDates={setDates} />}
+
                             {/* <p>{dates.startDate ? dates.startDate.toDateString() : 'Add date'}</p> */}
                         </div>
                     </button>
@@ -108,7 +110,6 @@ export function StayPayment({ stay }) {
                     <h3>Total</h3>
                     <h3>${total}</h3>
                 </div>
-                {isWhenOpen && <When dates={dates} setDates={setDates} />}
                 {isWhoOpen && <Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} />}
                 {/* {openType === 'who' && <Who filterCapacity={filterBy.who} setFilterCapacity={changeFilterWho} />} */}
 

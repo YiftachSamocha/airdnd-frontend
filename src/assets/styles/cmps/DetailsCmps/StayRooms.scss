@@ -1,17 +1,18 @@
 .bedrooms {
     box-shadow: 0px 1px 0 0 #e1dede;
     padding-block: 3rem;
+    max-width: 653px;
 
     .rooms-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        line-height: 100%;
+        padding-block-end: 1.5rem;
 
         .btn-container {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 12px;
 
             button {
                 background-color: transparent;
@@ -27,12 +28,15 @@
                     width: 16px;
                     padding: 0;
                     transition: transform 0.5s ease-in-out; // Slows down the transition on hover
-
                 }
 
                 &:hover {
                     transform: scale(1.05); // Example hover effect (zoom in slightly)
                     box-shadow: -1px 3px 15px 0 #dddddd;
+                }
+
+                span {
+                    padding-inline: 6px;
                 }
             }
         }
@@ -42,15 +46,27 @@
         overflow: hidden;
         width: 100%;
         position: relative;
+        // padding-inline: 10px;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+
+        .rooms-list-container::-webkit-scrollbar {
+            display: none;
+            /* Hide scrollbar in Chrome, Safari, and other WebKit browsers */
+        }
 
 
         .rooms-list {
             display: flex;
-            gap: 1em;
             max-width: 650px;
             width: 100%;
             padding-bottom: 1rem;
             transition: transform 0.5s ease-in-out;
+            gap:0.5rem;
 
         }
 
@@ -59,14 +75,32 @@
             width: 50%; // Adjust based on how many rooms per page
             flex-shrink: 0;
             box-sizing: border-box;
-            padding: 0;
+            // padding: 0;
 
             img {
-                width: 95%;
+                height:auto;
+                width:100%;
+                padding-inline: 5px;
+                // width: 95%;
                 border-radius: 10px;
                 margin-bottom: 1rem;
                 transition: transform 0.5s ease-in-out;
+                aspect-ratio: 3 / 2;
+
             }
         }
+
+        .room-info {
+            h4 {
+                padding-block-start: 1rem;
+                padding-inline-start: 8px;
+            }
+
+            p{
+                padding-inline-start: 8px;
+
+            }
+        }
+
     }
 }

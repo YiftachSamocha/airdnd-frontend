@@ -3,19 +3,11 @@ import starIcon from '../../assets/imgs/icons/star.svg'; // Adjust the path base
 import { ShowMoreCmp } from '../ShowMoreCmp.jsx';
 import { StayPayment } from './StayPayment.jsx';
 
-export function StayMainInfo({ stay }) {
+export function StayMainInfo({ stay, toggleModal, isModalOpen }) {
     const totalReviews = stay.reviews ? stay.reviews.length : 0
     const avgRating = totalReviews > 0
         ? stay.reviews.reduce((sum, review) => sum + review.rate, 0) / totalReviews
         : 0
-    const [isModalOpen, setIsModalOpen] = useState(false)
-
-    function toggleModal() {
-        setIsModalOpen(prevState => !prevState)
-    }
-
-    
-
 
     return (
         <section className={`main-info ${isModalOpen ? 'modal-open' : 'modal-closed'}`}>
@@ -69,7 +61,7 @@ export function StayMainInfo({ stay }) {
                     <ShowMoreCmp
                         content={stay.description}
                         limit={200}
-                        type="description"
+                        modalType="description"
                         stay={stay}
                         isModalOpen={isModalOpen}
                         toggleModal={toggleModal}

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -14,28 +14,50 @@ import { StayPayment } from '../cmps/DetailsCmps/StayPayment'
 import { AppHeader } from '../cmps/AppHeader'
 import { StayAmenities } from '../cmps/DetailsCmps/stayAmenities'
 import { StayRooms } from '../cmps/DetailsCmps/stayRooms'
+import { ModalCmp } from '../cmps/ModalCmp'
 
 
 export function StayDetails() {
 
   const { stayId } = useParams()
   const stay = useSelector(storeState => storeState.stayModule.stay)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [modalType, setModalType] = useState(null)
+  const [modalContent, setModalContent] = useState(null);
 
   useEffect(() => {
     loadStay(stayId)
   }, [stayId])
 
+  function toggleModal(type) {
+    setModalType(type)
+    setIsModalOpen(prevState => !prevState)
+    // setModalContent(type === 'description' ? stay.description : stay.amenities)
+  }
+
   if (!stay) return <div>Loading...</div>
   return (
     <section className="stay-details">
-      <AppHeader />
-      <h1>{stay.name}</h1>
-      <StayImage stay={stay} />
-      <div className="details-container">
-        <div className="content">
-          <StayMainInfo stay={stay} />
-          <StayRooms stay={stay} />
-          <StayAmenities stay={stay} />
+      <div className="app-header">
+        <AppHeader />
+      </div>
+
+      <div className="main-content">
+        <h1>{stay.name}</h1>
+        <StayImage stay={stay} />
+        <div className="details-container">
+          <div className="content">
+            <StayMainInfo stay={stay} toggleModal={toggleModal} isModalOpen={isModalOpen} />
+            <StayRooms stay={stay} />
+            <StayAmenities stay={stay} toggleModal={toggleModal} isModalOpen={isModalOpen} />
+          </div>
+
+          <div className="payment-container">
+            <StayPayment stay={stay} />
+          </div>
+        </div>
+
+        <div className="more-content">
           <StayDate />
           <StayReview />
           <StayLocation />
@@ -43,9 +65,26 @@ export function StayDetails() {
           <StayToKnow />
         </div>
 
-        <div className="payment-container">
-          <StayPayment stay={stay} />
-        </div>
+        {isModalOpen && (
+          <ModalCmp onClose={() => toggleModal(null)} modalType={modalType} stay={stay}>
+            {modalType === 'description' && (
+              <div>
+                <h2>About this place</h2>
+                <p>{stay.description}</p>
+              </div>
+            )}
+            {modalType === 'amenities' && (
+              <div>
+                <h2>What this place offers</h2>
+                <div className="amenities-list">
+                  {stay.amenities.map((amenity, index) => (
+                    <div key={index}>{amenity}</div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </ModalCmp>
+        )}
       </div>
 
     </section>
