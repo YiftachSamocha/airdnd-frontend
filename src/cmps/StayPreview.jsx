@@ -18,6 +18,7 @@ export function StayPreview({ stay }) {
     const price = formatNumberWithCommas(stay.price.night)
     const freeDate = getDateRange(stay.reservedDates)
 
+
     return (
         <article className="stay-preview">
             <div>

@@ -25,38 +25,38 @@ export function StaySlider({ images }) {
         alert("כפתור הלב נלחץ!");
     }
     
-//     return (
-//         <div className="slider-container">
-//              <img src={heart} alt={`btn-heart`} className="btn-heart"/>
-//             <Slider {...settings}>
-//                 {images.map((img, index) => (
-//                     <div className="img-body"
-//                         key={index}>
-//                         <img src={img} alt={`slide-${index}`} />
-//                     </div>
-//                 ))}
-//             </Slider>
-//         </div>
-//     )
-// }
-
-return (
-    <div className="slider-container">
-        <Slider {...settings}>
-            {images.map((img, index) => (
-                <div className="img-container" key={index}>
-                    <img src={img} alt={`image-${index}`} className="slider-image"/>
-                    {/* {index === 0 && (
-                        <button className="btn-heart" onClick={handleHeartClick}>
-                            <img src={heart} alt={`btn-heart`} />
-                        </button>
-                    )} */}
-                </div>
-            ))}
-        </Slider>
-    </div>
-)
+    return (
+        <div className="slider-container">
+             {/* <img src={heart} alt={`btn-heart`} className="btn-heart"/> */}
+            <Slider {...settings}>
+                {images.map((img, index) => (
+                    <div className="img-body"
+                        key={index}>
+                        <img src={img} alt={`slide-${index}`} />
+                    </div>
+                ))}
+            </Slider>
+        </div>
+    )
 }
+
+// return (
+//     <div className="slider-container">
+//         <Slider {...settings}>
+//             {images.map((img, index) => (
+//                 <div className="img-container" key={index}>
+//                     <img src={img} alt={`image-${index}`} className="slider-image"/>
+//                     {/* {index === 0 && (
+//                         <button className="btn-heart" onClick={handleHeartClick}>
+//                             <img src={heart} alt={`btn-heart`} />
+//                         </button>
+//                     )} */}
+//                 </div>
+//             ))}
+//         </Slider>
+//     </div>
+// )
+// }
 
 
 const PrevArrow = ({ className, style, onClick }) => (
