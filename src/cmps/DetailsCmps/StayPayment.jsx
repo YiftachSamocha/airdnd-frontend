@@ -89,7 +89,7 @@ export function StayPayment({ stay }) {
 
     function createOrderURLstr() {
         let urlStr = '?'
-        urlStr += `stay_id = ${stay._id}&`
+        urlStr += `stay_id=${stay._id}&`
         if (filterCapacity.adults) {
             urlStr += `adults=${filterCapacity.adults}&`;
         }
