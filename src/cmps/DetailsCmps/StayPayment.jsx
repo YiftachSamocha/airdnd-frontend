@@ -1,33 +1,39 @@
+import { useEffect, useState } from "react"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
+import { formatNumberWithCommas } from "../../services/util.service"
+import arrowDown from "../../assets/imgs/icons/arrowDown.svg"
+import { Who } from "../MainFilterCmps/Who.jsx"
+import { When } from "../MainFilterCmps/When.jsx"
+import { orderService } from "../../services/order/index.js"
+import { addOrder } from "../../store/actions/order.action.js"
+import { format, isValid } from "date-fns"
 
-import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { formatNumberWithCommas } from "../../services/util.service";
-import arrowDown from "../../assets/imgs/icons/arrowDown.svg";
-import { Who } from "../MainFilterCmps/Who.jsx";
-import { When } from "../MainFilterCmps/When.jsx";
-import { orderService } from "../../services/order/index.js";
-import { isValid } from "date-fns";  // Importing isValid function from date-fns
 
 export function StayPayment({ stay }) {
-    const [isWhoOpen, setIsWhoOpen] = useState(false);
-    const [isWhenOpen, setIsWhenOpen] = useState(false);
+    const [isWhoOpen, setIsWhoOpen] = useState(false)
+    const [isWhenOpen, setIsWhenOpen] = useState(false)
 
-    const [filterCapacity, setFilterCapacity] = useState({ adults: 1, children: 0, infants: 0, pets: 0 });
-    const [dates, setDates] = useState({ startDate: null, endDate: null });
+    const [orderToAdd, setOrderToAdd] = useState(orderService.getEmptyOrder())
 
-    const [searchParams, setSearchParams] = useSearchParams();
-    const navigate = useNavigate();
+    const [filterCapacity, setFilterCapacity] = useState({ adults: 0, children: 0, infants: 0, pets: 0 })
+    const [dates, setDates] = useState({ startDate: null, endDate: null })
+    const [isSelectingEndDate, setIsSelectingEndDate] = useState(false); // Track whether the user is selecting the end date
 
-    const price = formatNumberWithCommas(stay.price.night);
-    const total = formatNumberWithCommas(stay.price.night * 5);
-    const cleaningFee = formatNumberWithCommas(stay.price.cleaning);
+    const [orderURL, setOrderUrl] = useState('')
+    const [searchParams, setSearchParams] = useSearchParams()
+    const navigate = useNavigate()
 
-    const toggleWho = () => setIsWhoOpen(!isWhoOpen);
-    const toggleWhen = () => setIsWhenOpen(!isWhenOpen);
+    const price = formatNumberWithCommas(stay.price.night)
+    const total = formatNumberWithCommas(stay.price.night * 5)
+    const cleaningFee = formatNumberWithCommas(stay.price.cleaning)
+
+    const toggleWho = () => setIsWhoOpen(!isWhoOpen)
+    const toggleWhen = () => setIsWhenOpen(!isWhenOpen)
 
     useEffect(() => {
-        const checkin = searchParams.get('checkin') ? new Date(searchParams.get('checkin')) : null;
-        const checkout = searchParams.get('checkout') ? new Date(searchParams.get('checkout')) : null;
+        // Initialize dates and guests from search params
+        const checkin = searchParams.get('start_date') ? new Date(searchParams.get('start_date')) : null;
+        const checkout = searchParams.get('end_date') ? new Date(searchParams.get('end_date')) : null;
         const adults = Number(searchParams.get('adults')) || 1;
         const children = Number(searchParams.get('children')) || 0;
         const infants = Number(searchParams.get('infants')) || 0;
@@ -35,58 +41,102 @@ export function StayPayment({ stay }) {
 
         setDates({ startDate: checkin, endDate: checkout });
         setFilterCapacity({ adults, children, infants, pets });
-    }, [searchParams]);
+    }, [searchParams])
 
     useEffect(() => {
+        console.log('dates', dates)
         if (isValid(dates.startDate) && isValid(dates.endDate)) {
             setIsWhenOpen(false); // Close the modal when both dates are valid
         }
-    }, [dates]);
+    }, [dates])
 
-    function updateSearchParams(key, value) {
+    useEffect(() => {
+        createOrderURLstr()    
+    }, [dates, filterCapacity])
+
+    function updateSearchParams() {
         const params = new URLSearchParams(searchParams);
-        if (value) {
-            params.set(key, value);
+        if (dates.startDate) {
+            const formattedStartDate = format(dates.startDate, 'yyyy-MM-dd');
+            params.set('start_date', formattedStartDate);
         } else {
-            params.delete(key);
+            params.delete('start_date');
         }
+        if (dates.endDate) {
+            const formattedEndDate = format(dates.endDate, 'yyyy-MM-dd');
+            params.set('end_date', formattedEndDate);
+        } else {
+            params.delete('end_date');
+        }
+        if (filterCapacity.adults) params.set('adults', filterCapacity.adults);
+        else params.delete('adults');
+        if (filterCapacity.children) params.set('children', filterCapacity.children);
+        else params.delete('children');
+        if (filterCapacity.infants) params.set('infants', filterCapacity.infants);
+        else params.delete('infants');
+        if (filterCapacity.pets) params.set('pets', filterCapacity.pets);
+        else params.delete('pets');
         setSearchParams(params);
     }
 
     function handleDateChange(newDates) {
-        setDates(newDates);
-    
-        // Update the URL immediately after setting the dates
-        if (isValid(newDates.startDate)) {
-            updateSearchParams('checkin', newDates.startDate.toISOString().split('T')[0]);
+        if (!isSelectingEndDate) {
+            setDates({ startDate: newDates.startDate, endDate: null });
+            setIsSelectingEndDate(true);
+        } else {
+            setDates({ startDate: dates.startDate, endDate: newDates.endDate });
+            updateSearchParams(); // Update URL only after both dates are selected
+            setIsWhenOpen(false); // Close the date picker
         }
-        if (isValid(newDates.endDate)) {
-            updateSearchParams('checkout', newDates.endDate.toISOString().split('T')[0]);
-        }
-    
     }
-    
+
+    function createOrderURLstr() {
+        let urlStr = '?'
+        urlStr += `stay_id = ${stay._id}&`
+        if (filterCapacity.adults) {
+            urlStr += `adults=${filterBy.who.adults}&`;
+        }
+        if (filterCapacity.children) urlStr += `children=${filterCapacity.children}&`;
+        if (filterCapacity.infants) urlStr += `infants=${filterCapacity.infants}&`;
+        if (filterCapacity.pets) urlStr += `pets=${filterCapacity.pets}&`;
+
+        if (dates.startDate) urlStr += `start_date=${format(dates.startDate, 'yyyy-MM-dd')}&`;
+        if (dates.endDate) urlStr += `end_date=${format(dates.endDate, 'yyyy-MM-dd')}&`;
+
+        // Remove trailing '&' if present
+        urlStr = urlStr.endsWith('&') ? urlStr.slice(0, -1) : urlStr;
+        setOrderUrl(urlStr)
+    }
 
 
-    function displayDateInLocal(date) {
-        return date ? date.toLocaleDateString() : 'Add date';
+    function handleGuestsChange(capacity) {
+        setFilterCapacity(capacity);
+        updateSearchParams('adults', capacity.adults || 1);
+        updateSearchParams('children', capacity.children || 0);
+        updateSearchParams('infants', capacity.infants || 0);
+        updateSearchParams('pets', capacity.pets || 0);
     }
 
     async function handleReserve(stay) {
         try {
+            // Ensure all data is updated in the search params before navigating
             if (dates.startDate && dates.endDate) {
-                updateSearchParams('checkin', dates.startDate.toISOString().split('T')[0]);
-                updateSearchParams('checkout', dates.endDate.toISOString().split('T')[0]);
+                updateSearchParams('start_date', dates.startDate.toISOString().split('T')[0]);
+                updateSearchParams('end_date', dates.endDate.toISOString().split('T')[0]);
             }
             updateSearchParams('adults', filterCapacity.adults || 1);
             updateSearchParams('children', filterCapacity.children || 0);
             updateSearchParams('infants', filterCapacity.infants || 0);
             updateSearchParams('pets', filterCapacity.pets || 0);
 
-            navigate(`/book/stay/${stay._id}`);
+            navigate(`/book/stay/${stay._id + orderURL}`);
+
         } catch (error) {
             console.error("Error creating order:", error);
         }
+    }
+    function displayDateInLocal(date) {
+        return date ? format(date, 'MMM dd') : 'Add date';
     }
 
     return (
@@ -98,12 +148,15 @@ export function StayPayment({ stay }) {
                         <div className="btn-side">
                             <h4>CHECK-IN</h4>
                             <p>{displayDateInLocal(dates.startDate)}</p>
+                            {/* <p>{dates.startDate ? displayDateInLocal(dates.startDate) : 'Add date'}</p> */}
                         </div>
                     </button>
                     <button className="btn-team" onClick={toggleWhen}>
                         <div className="btn-side">
                             <h4>CHECKOUT</h4>
                             <p>{displayDateInLocal(dates.endDate)}</p>
+
+                            {/* <p>{dates.endDate ? displayDateInLocal(dates.endDate) : 'Add date'}</p> */}
                         </div>
                     </button>
                     {isWhenOpen && (
@@ -117,7 +170,9 @@ export function StayPayment({ stay }) {
                     <button className="btn-team full" onClick={toggleWho}>
                         <div className="btn-side">
                             <h4>GUESTS</h4>
+                            {/* <p>{stay.sleep.maxCapacity} guests</p> */}
                             <p>{`${filterCapacity.adults + filterCapacity.children + filterCapacity.infants} guests`}</p>
+
                         </div>
                         <div className="btn-side">
                             <img src={arrowDown} alt="ArrowDown Icon" className="arrow-down-icon" />
@@ -147,7 +202,9 @@ export function StayPayment({ stay }) {
                     <h3>${total}</h3>
                 </div>
                 {isWhoOpen && <Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} />}
-            </section>
-        </div>
-    );
+                {/* {openType === 'who' && <Who filterCapacity={filterBy.who} setFilterCapacity={changeFilterWho} />} */}
+
+            </section></div>
+    )
 }
+
