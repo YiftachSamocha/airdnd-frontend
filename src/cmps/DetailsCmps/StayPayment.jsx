@@ -45,9 +45,6 @@ export function StayPayment({ stay }) {
 
     useEffect(() => {
         console.log('dates', dates)
-        if (isValid(dates.startDate) && isValid(dates.endDate)) {
-            setIsWhenOpen(false); // Close the modal when both dates are valid
-        }
     }, [dates])
 
     useEffect(() => {
@@ -94,7 +91,7 @@ export function StayPayment({ stay }) {
         let urlStr = '?'
         urlStr += `stay_id = ${stay._id}&`
         if (filterCapacity.adults) {
-            urlStr += `adults=${filterBy.who.adults}&`;
+            urlStr += `adults=${filterCapacity.adults}&`;
         }
         if (filterCapacity.children) urlStr += `children=${filterCapacity.children}&`;
         if (filterCapacity.infants) urlStr += `infants=${filterCapacity.infants}&`;
@@ -109,17 +106,8 @@ export function StayPayment({ stay }) {
     }
 
 
-    function handleGuestsChange(capacity) {
-        setFilterCapacity(capacity);
-        updateSearchParams('adults', capacity.adults || 1);
-        updateSearchParams('children', capacity.children || 0);
-        updateSearchParams('infants', capacity.infants || 0);
-        updateSearchParams('pets', capacity.pets || 0);
-    }
-
     async function handleReserve(stay) {
         try {
-            // Ensure all data is updated in the search params before navigating
             if (dates.startDate && dates.endDate) {
                 updateSearchParams('start_date', dates.startDate.toISOString().split('T')[0]);
                 updateSearchParams('end_date', dates.endDate.toISOString().split('T')[0]);
@@ -180,7 +168,7 @@ export function StayPayment({ stay }) {
                     </button>
                 </div>
 
-                <div className="grid-item button-container">
+                <div className="reserve grid-item button-container">
                     <button className="color-change" onClick={() => handleReserve(stay)}>Reserve</button>
                 </div>
 
