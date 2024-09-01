@@ -1,60 +1,91 @@
-import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { formatNumberWithCommas } from "../../services/util.service"
-import arrowDown from "../../assets/imgs/icons/arrowDown.svg"
-import { Who } from "../MainFilterCmps/Who.jsx"
-import { When } from "../MainFilterCmps/When.jsx"
-import { orderService } from "../../services/order/index.js"
-import {addOrder} from "../../store/actions/order.action.js"
 
+import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { formatNumberWithCommas } from "../../services/util.service";
+import arrowDown from "../../assets/imgs/icons/arrowDown.svg";
+import { Who } from "../MainFilterCmps/Who.jsx";
+import { When } from "../MainFilterCmps/When.jsx";
+import { orderService } from "../../services/order/index.js";
+import { isValid } from "date-fns";  // Importing isValid function from date-fns
 
 export function StayPayment({ stay }) {
-    const [isWhoOpen, setWhoOpen] = useState(false)
-    const [isWhenOpen, setWhenOpen] = useState(false)
+    const [isWhoOpen, setIsWhoOpen] = useState(false);
+    const [isWhenOpen, setIsWhenOpen] = useState(false);
+
+    const [filterCapacity, setFilterCapacity] = useState({ adults: 1, children: 0, infants: 0, pets: 0 });
+    const [dates, setDates] = useState({ startDate: null, endDate: null });
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
+
+    const price = formatNumberWithCommas(stay.price.night);
+    const total = formatNumberWithCommas(stay.price.night * 5);
+    const cleaningFee = formatNumberWithCommas(stay.price.cleaning);
+
+    const toggleWho = () => setIsWhoOpen(!isWhoOpen);
+    const toggleWhen = () => setIsWhenOpen(!isWhenOpen);
+
+    useEffect(() => {
+        const checkin = searchParams.get('checkin') ? new Date(searchParams.get('checkin')) : null;
+        const checkout = searchParams.get('checkout') ? new Date(searchParams.get('checkout')) : null;
+        const adults = Number(searchParams.get('adults')) || 1;
+        const children = Number(searchParams.get('children')) || 0;
+        const infants = Number(searchParams.get('infants')) || 0;
+        const pets = Number(searchParams.get('pets')) || 0;
+
+        setDates({ startDate: checkin, endDate: checkout });
+        setFilterCapacity({ adults, children, infants, pets });
+    }, [searchParams]);
+
+    useEffect(() => {
+        if (isValid(dates.startDate) && isValid(dates.endDate)) {
+            setIsWhenOpen(false); // Close the modal when both dates are valid
+        }
+    }, [dates]);
+
+    function updateSearchParams(key, value) {
+        const params = new URLSearchParams(searchParams);
+        if (value) {
+            params.set(key, value);
+        } else {
+            params.delete(key);
+        }
+        setSearchParams(params);
+    }
+
+    function handleDateChange(newDates) {
+        setDates(newDates);
     
-    const [orderToAdd, setOrderToAdd] = useState(orderService.getEmptyOrder())
-
-    const [filterCapacity, setFilterCapacity] = useState({ adults: 0, children: 0, infants: 0, pets: 0 })
-    const [dates, setDates] = useState({ startDate: null, endDate: null })
-    const navigate = useNavigate()
-    // const formatDate = stay.date ? stay.date : Add date
-    const price = formatNumberWithCommas(stay.price.night)
-    const total = formatNumberWithCommas(stay.price.night * 5)
-    const cleaningFee = formatNumberWithCommas(stay.price.cleaning)
-
-    const toggleWho = () => setWhoOpen(!isWhoOpen)
-    const toggleWhen = () => setWhenOpen(!isWhenOpen)
-
-    // function changeFilterWhen(range) {
-    //     if (range.startDate !== filterBy.when.startDate) setOpenType('when-end')
-    //     setFilterBy(prev => ({ ...prev, when: range }))
-    // }
-
-    // function changeFilterWho(capacity) {
-    //     setFilterBy(prev => ({ ...prev, who: capacity }))
-    //     const guestsString = createGuestsString(capacity)
-    //     setWhoInput(guestsString)
-    // }
-
-    // function createGuestsString(capacity) {
-    //     const sum = capacity.adults + capacity.children + capacity.infants
-    //     if (sum < 1) return ''
-    //     return sum + ' guests'
-    // }
-
+        // Update the URL immediately after setting the dates
+        if (isValid(newDates.startDate)) {
+            updateSearchParams('checkin', newDates.startDate.toISOString().split('T')[0]);
+        }
+        if (isValid(newDates.endDate)) {
+            updateSearchParams('checkout', newDates.endDate.toISOString().split('T')[0]);
+        }
     
-    // function submitFilter() {
-    //     store.dispatch({ type: SET_FILTER_BY, filterBy })
-    //     setOpenType('')
-    // }
-    // { stay, dates, filterCapacity }
+    }
+    
 
 
-    async function handleReserve(stay){
+    function displayDateInLocal(date) {
+        return date ? date.toLocaleDateString() : 'Add date';
+    }
+
+    async function handleReserve(stay) {
         try {
-            navigate(`/book/stay/${stay._id}`)
+            if (dates.startDate && dates.endDate) {
+                updateSearchParams('checkin', dates.startDate.toISOString().split('T')[0]);
+                updateSearchParams('checkout', dates.endDate.toISOString().split('T')[0]);
+            }
+            updateSearchParams('adults', filterCapacity.adults || 1);
+            updateSearchParams('children', filterCapacity.children || 0);
+            updateSearchParams('infants', filterCapacity.infants || 0);
+            updateSearchParams('pets', filterCapacity.pets || 0);
+
+            navigate(`/book/stay/${stay._id}`);
         } catch (error) {
-            console.error("Error creating order:", error)
+            console.error("Error creating order:", error);
         }
     }
 
@@ -66,29 +97,34 @@ export function StayPayment({ stay }) {
                     <button className="btn-team" onClick={toggleWhen}>
                         <div className="btn-side">
                             <h4>CHECK-IN</h4>
-                            <p>Add date</p>
-                            {isWhenOpen && <When dates={dates} setDates={setDates} />}
-
-                            {/* <p>{dates.startDate ? dates.startDate.toDateString() : 'Add date'}</p> */}
+                            <p>{displayDateInLocal(dates.startDate)}</p>
                         </div>
                     </button>
                     <button className="btn-team" onClick={toggleWhen}>
                         <div className="btn-side">
                             <h4>CHECKOUT</h4>
-                            <p>Add date</p>
-                            {/* <p>{dates.endDate ? dates.endDate.toDateString() : 'Add date'}</p> */}
+                            <p>{displayDateInLocal(dates.endDate)}</p>
                         </div>
                     </button>
+                    {isWhenOpen && (
+                        <When
+                            dates={dates}
+                            setDates={handleDateChange}
+                            breakpoint={743}
+                        />
+                    )}
+
                     <button className="btn-team full" onClick={toggleWho}>
                         <div className="btn-side">
                             <h4>GUESTS</h4>
-                            <p>{stay.sleep.maxCapacity} guests</p>
+                            <p>{`${filterCapacity.adults + filterCapacity.children + filterCapacity.infants} guests`}</p>
                         </div>
                         <div className="btn-side">
                             <img src={arrowDown} alt="ArrowDown Icon" className="arrow-down-icon" />
                         </div>
                     </button>
                 </div>
+
                 <div className="grid-item button-container">
                     <button className="color-change" onClick={() => handleReserve(stay)}>Reserve</button>
                 </div>
@@ -111,9 +147,7 @@ export function StayPayment({ stay }) {
                     <h3>${total}</h3>
                 </div>
                 {isWhoOpen && <Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} />}
-                {/* {openType === 'who' && <Who filterCapacity={filterBy.who} setFilterCapacity={changeFilterWho} />} */}
-
-            </section></div>
-    )
+            </section>
+        </div>
+    );
 }
-

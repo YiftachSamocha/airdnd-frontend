@@ -53,10 +53,8 @@
         -ms-overflow-style: none;
         scrollbar-width: none;
 
-
-        .rooms-list-container::-webkit-scrollbar {
+        &::-webkit-scrollbar {
             display: none;
-            /* Hide scrollbar in Chrome, Safari, and other WebKit browsers */
         }
 
 
@@ -82,10 +80,11 @@
                 width:100%;
                 padding-inline: 5px;
                 // width: 95%;
-                border-radius: 10px;
+                border-radius: 8%;
                 margin-bottom: 1rem;
                 transition: transform 0.5s ease-in-out;
                 aspect-ratio: 3 / 2;
+                object-fit: cover;
 
             }
         }

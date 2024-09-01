@@ -1,6 +1,6 @@
 import rightArrow from '../../assets/imgs/icons/arrow-right.svg' // Adjust the path based on your project structure
 import leftArrow from '../../assets/imgs/icons/arrow-left.svg' // Adjust the path based on your project structure
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSwipeable } from 'react-swipeable';
 
 export function StayRooms({ stay }) {
@@ -12,8 +12,18 @@ export function StayRooms({ stay }) {
     const totalRooms = stay.sleep.rooms.length
     const totalPages = Math.ceil(totalRooms / roomsPerPage); // Calculate total pages
 
-    
-    
+    useEffect(() => {
+        const handleResize = () => {
+            setIsSmallScreen(window.innerWidth <= 743)
+        }
+
+        window.addEventListener('resize', handleResize)
+
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }, [])
+
     function onRightClick() {
         if (currPage >= totalPages) return
         const newPage = currPage + 1
@@ -70,21 +80,23 @@ export function StayRooms({ stay }) {
                 <div
                     className="rooms-list"
                     style={{
-                        transform: `translateX(-${currPicIndex * (103 / roomsPerPage)}%)`,
-                        transition: 'transform 0.5s ease-in-out',
+                        transform: isSmallScreen
+                        ? `translateX(-${currPicIndex * 10}%)`
+                        : `translateX(-${currPicIndex * (103 / roomsPerPage)}%)`,
+                transition: 'transform 0.5s ease-in-out',
                     }}
                 >
-                    {stay.sleep.rooms.map((room, index) => (
-                        <div key={index} className="room">
-                            <img src={room.imgUrl} alt={`${room.roomType}`} />
-                            <div className="room-info">
-                                <h4>{room.roomType}</h4>
-                                <p>{generateBedSummary(room)}</p>
-                            </div>
+                {stay.sleep.rooms.map((room, index) => (
+                    <div key={index} className="room">
+                        <img src={room.imgUrl} alt={`${room.roomType}`} />
+                        <div className="room-info">
+                            <h4>{room.roomType}</h4>
+                            <p>{generateBedSummary(room)}</p>
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
             </div>
-        </section>
+        </div>
+        </section >
     )
 }

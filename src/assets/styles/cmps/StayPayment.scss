@@ -106,7 +106,7 @@
         grid-column: span 2;
         margin-top: 5px;
         font-size: 22px;
-        padding-block-end: 24px;
+        margin-block-end: 24px !important;
 
         span {
             font-size: 16px;
@@ -204,7 +204,7 @@
 
         h2 {
             font-size: 16px;
-            font-weight: bold !important;
+            font-weight: bold;
 
             span {
                 font-size: 14px;
