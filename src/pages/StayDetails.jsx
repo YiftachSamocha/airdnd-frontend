@@ -18,7 +18,6 @@ import { ModalCmp } from '../cmps/ModalCmp'
 
 
 export function StayDetails() {
-
   const { stayId } = useParams()
   const stay = useSelector(storeState => storeState.stayModule.stay)
   const [isModalOpen, setIsModalOpen] = useState(false)

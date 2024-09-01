@@ -2,7 +2,6 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { AppHeader } from "../cmps/AppHeader";
 import arrowLeft from "../assets/imgs/icons/arrowLeft.svg"
 import diamond from "../assets/imgs/icons/diamond.svg"
 import superhost from "../assets/imgs/icons/superhost.svg"
@@ -13,9 +12,10 @@ import { Who } from "../cmps/MainFilterCmps/Who";
 import { When } from "../cmps/MainFilterCmps/When";
 import { loadStay } from '../store/actions/stay.actions';
 import { formatNumberWithCommas, getDateRange } from '../services/util.service';
+import { addOrder } from '../store/actions/order.action';
+import { parse } from 'date-fns';
 
 export function StayOrder() {
-
     const navigate = useNavigate()
     const { stayId } = useParams()
     const stay = useSelector(storeState => storeState.stayModule.stay)
@@ -56,13 +56,53 @@ export function StayOrder() {
         navigate(`/stay/${stay._id}`)
     }
 
+    function onAddOrder() {
+        const params = new URLSearchParams(searchParams)
+        if (!params.get('start_date') || !params.get('end_date')) return
+        const startDate = parse(params.get('start_date'), 'yyyy-MM-dd', new Date())
+        const endDate = parse(params.get('end_date'), 'yyyy-MM-dd', new Date())
+        let capacity = {
+            adults: Number(params.get('adults')) || 0,
+            children: Number(params.get('children')) || 0,
+            infants: Number(params.get('infants')) || 0,
+            pets: Number(params.get('pets')) || 0,
+        }
+        const total = capacity.adults + capacity.children + capacity.infants + capacity.pets
+        capacity = { ...capacity, total }
+        const stayToOrder = {
+            _id: stay._id,
+            name: stay.name,
+            price: stay.price,
+        }
+        const status = 'pending'
+        const totalPrice = total
+        const host = {
+            _id: stay.host._id,
+            fullname: stay.host.fullname
+        }
+        const guest = ''
+        const createdAt = new Date()
+        const order = {
+            startDate,
+            endDate,
+            capacity,
+            stay: stayToOrder,
+            totalPrice,
+            status,
+            host,
+            guest,
+            createdAt
+        }
+        addOrder(order)
+    }
+
     if (!stay) return <div>Loading...</div>
 
     return (
         <><div className="order">
             <img src={logoImg} className="logo" />
         </div>
-            <hr className='main-hr'/>
+            <hr className='main-hr' />
             <section className='stay-main-order'>
                 <section className='stay-order'>
                     <div className="header grid">
@@ -102,7 +142,7 @@ export function StayOrder() {
                         <h5>{' ₪753.18'} due today, {'₪3,012.70'} on {'Sep 20, 2024.'} No extra fees. More info</h5> */}
                     </div>
                     <div className='payment grid'>
-                        <button>Request to book</button>
+                        <button onClick={onAddOrder} >Request to book</button>
                     </div>
                     {/* </section> */}
                     <section className="price-details">
@@ -137,7 +177,7 @@ export function StayOrder() {
                             <h3>${total}</h3>
                         </div>
                     </section>
-                   
+
 
 
                 </section>
