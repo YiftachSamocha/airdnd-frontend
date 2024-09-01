@@ -14,6 +14,7 @@
         justify-content: space-between;
         padding: 1em 0;
         border-bottom: 1px solid $gray2;
+        align-items: center;
 
         &:last-child {
             border-bottom: none;
@@ -33,7 +34,7 @@
             color: $gray4;
         }
 
-        span{
+        span {
             margin: 1em;
         }
 
@@ -55,6 +56,12 @@
             &:hover {
                 background-color: $gray1;
             }
+
+            .icon-container svg{
+                width: 12px;
+                height: 12px;
+                fill: grey;
+            }
         }
 
         div:last-of-type {
@@ -63,6 +70,8 @@
         }
 
     }
+
+
 
 
 }
