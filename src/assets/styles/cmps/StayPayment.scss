@@ -102,6 +102,44 @@
         }
     }
 
+    .who {
+        width:100%;
+        position: absolute;
+        top: 42%;
+        left: unset;
+        right: 25px;
+        border-radius: 4px ;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px, rgba(0, 0, 0, 0.07) 0px 0px 0px 1px ;
+        box-sizing: border-box ;
+        margin-bottom: 16px ;
+        min-width: 280px ;
+        padding: 16px ;
+
+        >div button {
+            width: 32px;
+            height: 32px;
+        }
+
+        h5 {
+            justify-content: start;
+            font-size: 16px;
+            font-weight: 600;
+            padding-block-end: 4px ;
+        }
+
+        p{
+            font-size:14px;
+            color: #222222;
+
+        }
+
+        .btn-link{
+            width: 100%;
+            text-align: end;
+            padding: 10px;
+        }
+    }
+
     h2 {
         grid-column: span 2;
         margin-top: 5px;
@@ -116,7 +154,6 @@
 
     p {
         grid-column: span 2;
-        color: $gray5;
         font-weight: 400;
     }
 
@@ -125,7 +162,7 @@
         align-items: center;
         justify-content: center;
         grid-column: span 2;
-        color: $gray5;
+        // color: $gray5;
         font-size: 14px;
         font-weight: 400;
         margin-block-end: 24px;

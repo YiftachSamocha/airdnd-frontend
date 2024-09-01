@@ -30,6 +30,11 @@ export function StayPayment({ stay }) {
     const toggleWho = () => setIsWhoOpen(!isWhoOpen)
     const toggleWhen = () => setIsWhenOpen(!isWhenOpen)
 
+    function toggleWhenEnd() {
+        setIsWhenOpen(!isWhenOpen)
+        setIsSelectingEndDate(true)
+    }
+
     useEffect(() => {
         // Initialize dates and guests from search params
         const checkin = searchParams.get('start_date') ? new Date(searchParams.get('start_date')) : null;
@@ -48,7 +53,8 @@ export function StayPayment({ stay }) {
     }, [dates])
 
     useEffect(() => {
-        createOrderURLstr()    
+        createOrderURLstr() 
+        updateSearchParams()   
     }, [dates, filterCapacity])
 
     function updateSearchParams() {
@@ -77,6 +83,7 @@ export function StayPayment({ stay }) {
     }
 
     function handleDateChange(newDates) {
+        console.log('is selecting end date', isSelectingEndDate)
         if (!isSelectingEndDate) {
             setDates({ startDate: newDates.startDate, endDate: null });
             setIsSelectingEndDate(true);
@@ -84,6 +91,8 @@ export function StayPayment({ stay }) {
             setDates({ startDate: dates.startDate, endDate: newDates.endDate });
             updateSearchParams(); // Update URL only after both dates are selected
             setIsWhenOpen(false); // Close the date picker
+            setIsSelectingEndDate(false);
+
         }
     }
 
@@ -127,6 +136,10 @@ export function StayPayment({ stay }) {
         return date ? format(date, 'MMM dd') : 'Add date';
     }
 
+    function closeWho() {
+        setIsWhoOpen(false); // Only closes the dropdown
+    }
+
     return (
         <div className="payment-cmp">
             <section className="stay-payment sticky">
@@ -139,7 +152,7 @@ export function StayPayment({ stay }) {
                             {/* <p>{dates.startDate ? displayDateInLocal(dates.startDate) : 'Add date'}</p> */}
                         </div>
                     </button>
-                    <button className="btn-team" onClick={toggleWhen}>
+                    <button className="btn-team" onClick={toggleWhenEnd}>
                         <div className="btn-side">
                             <h4>CHECKOUT</h4>
                             <p>{displayDateInLocal(dates.endDate)}</p>
@@ -189,7 +202,7 @@ export function StayPayment({ stay }) {
                     <h3>Total</h3>
                     <h3>${total}</h3>
                 </div>
-                {isWhoOpen && <Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} />}
+                {isWhoOpen && <Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} onClose={closeWho} />}
                 {/* {openType === 'who' && <Who filterCapacity={filterBy.who} setFilterCapacity={changeFilterWho} />} */}
 
             </section></div>

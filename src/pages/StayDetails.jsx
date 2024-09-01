@@ -39,7 +39,7 @@ export function StayDetails() {
   return (
     <section className="stay-details">
       <div className="app-header">
-        {/* <AppHeader /> */}
+        <AppHeader />
       </div>
 
       <div className="main-content">
