@@ -1,8 +1,15 @@
+.stay-list,
+.stay-main-list,
+.stay-main-order,
+.stay-payment {
+    display: grid;
+}
+
 @include for-mobile-layout {
-    // // .stay-main-list {
+    // .stay-main-list {
     //     grid-template-columns:
     //         minmax(22px, 1fr) minmax(auto, $mobile-breakpoint) minmax(22px, 1fr);
-    // // }
+    // }
 
     .stay-list {
         grid-template-columns: repeat(1, 1fr);
@@ -10,10 +17,10 @@
 }
 
 @include for-narrow-layout {
-    // // .stay-main-list {
+    // .stay-main-list {
     //     grid-template-columns:
     //         minmax(20px, 1fr) minmax(auto, $narrow-breakpoint) minmax(20px, 1fr);
-    // // }
+    // }
 
     .stay-list {
         grid-template-columns: repeat(2, 1fr);
@@ -29,9 +36,10 @@
 
     // .stay-main-list,
     // .stay-main-order {
+    //     display: grid;
     //     grid-template-columns:
-    //         minmax(20px, 1fr) minmax(auto, $normal-breakpoint) minmax(20px, 1fr);
-    // // }
+    //         minmax(20px, 1fr) minmax(auto, $narrow-breakpoint) minmax(20px, 1fr);
+    // }
 
     .stay-list {
         grid-template-columns: repeat(3, 1fr);
@@ -53,7 +61,7 @@
     // .stay-main-order {
     //     grid-template-columns:
     //         minmax(40px, 1fr) minmax(auto, $wide-breakpoint) minmax(40px, 1fr);
-    // // }
+    // }
 
     .stay-list {
         grid-template-columns: repeat(4, 1fr);
@@ -71,14 +79,11 @@
 
 
 @include for-large-layout {
-    // .main-container {
-    //     display: grid;
-    //     grid-template-columns: 80px 1fr 80px;
 
     // .stay-main-list {
     //     grid-template-columns:
     //         minmax(30px, 1fr) minmax(auto, $large-breakpoint) minmax(30px, 1fr);
-    // // }
+    // }
 
     .stay-list {
         grid-template-columns: repeat(4, 1fr);

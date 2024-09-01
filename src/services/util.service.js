@@ -83,21 +83,51 @@ export function randomPastTime() {
     return Date.now() - pastTime
 }
 
-export function getDateRange(dates) {    
-    const randomIndex = Math.floor(Math.random() * dates.length)
-    const { start, end } = dates[randomIndex]
-    return formatDateRange(start, end)
-}
 
+export function getDateRange(datesBooked) {
 
-function formatDate(dateString) {
-    const date = new Date(dateString)
-    const options = { month: 'short', day: 'numeric' }
-    return date.toLocaleDateString('en-US', options)
+    const bookedPeriods = datesBooked.map(period => ({
+        start: new Date(period.start),
+        end: new Date(period.end)
+    }))
+
+    bookedPeriods.sort((a, b) => a.start - b.start)
+
+    bookedPeriods.unshift({ start: new Date(-8640000000000000), end: new Date(-8640000000000000) })
+    bookedPeriods.push({ start: new Date(8640000000000000), end: new Date(8640000000000000) })
+
+    for (let i = 0; i < bookedPeriods.length - 1; i++) {
+        const endCurrent = bookedPeriods[i].end
+        const startNext = bookedPeriods[i + 1].start
+
+        const gapDays = (startNext - endCurrent) / (1000 * 60 * 60 * 24);
+
+        if (gapDays >= 5) {
+            const startAvailable = endCurrent.getTime() + 24 * 60 * 60 * 1000;
+            const endAvailable = startNext.getTime();
+
+            const randomStartDate = new Date(startAvailable + Math.random() * (endAvailable - startAvailable));
+            const firstAvailableDate = randomStartDate;
+            const lastAvailableDate = new Date(firstAvailableDate.getTime() + 4 * 24 * 60 * 60 * 1000);
+
+            return formatDateRange(
+                firstAvailableDate.toISOString().split('T')[0], 
+                lastAvailableDate.toISOString().split('T')[0]
+            )
+        }
+    }    
 }
 
 
 function formatDateRange(start, end) {
+// console.log(start, end);
+
+    function formatDate(dateStr) {
+        const date = new Date(dateStr);
+        const options = { month: 'short', day: 'numeric' };
+        return date.toLocaleDateString('en-US', options);
+    }
+
     const startDate = new Date(start)
     const endDate = new Date(end)
 

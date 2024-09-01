@@ -725,7 +725,6 @@ function generateAvailabilityRanges() {
             availabilityRanges.push(getRandomDateRange(month.start, month.end))
         }
     })
-
     return availabilityRanges;
 }
 

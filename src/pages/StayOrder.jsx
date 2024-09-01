@@ -7,6 +7,7 @@ import arrowLeft from "../assets/imgs/icons/arrowLeft.svg"
 import diamond from "../assets/imgs/icons/diamond.svg"
 import superhost from "../assets/imgs/icons/superhost.svg"
 import starIcon from "../assets/imgs/icons/star.svg"
+import logoImg from "../assets/imgs/logo.svg"
 
 import { Who } from "../cmps/MainFilterCmps/Who";
 import { When } from "../cmps/MainFilterCmps/When";
@@ -52,17 +53,19 @@ export function StayOrder() {
 
 
     function onBack() {
-        // window.history.back()
         navigate(`/stay/${stay._id}`)
     }
 
     if (!stay) return <div>Loading...</div>
 
     return (
-        <><AppHeader />
+        <><div className="order">
+            <img src={logoImg} className="logo" />
+        </div>
+            <hr className='main-hr'/>
             <section className='stay-main-order'>
                 <section className='stay-order'>
-                    <div className="header">
+                    <div className="header grid">
                         <button onClick={onBack}> <img src={arrowLeft} alt="ArrowLeft Icon" className="arrow-left icon" /></button>
                         <h2>Request to book</h2>
                     </div>
@@ -86,10 +89,20 @@ export function StayOrder() {
                         </div>
                     </div>
                     <div className='order-pay grid'>
-                        <h3>Choose how to pay</h3>
+                        <h3>Pay with</h3>
+                        <h4>Credit or debit card</h4>
+                        <div className='card-details'>
+                            <h4>Card number</h4>
+                            <h4>Expiration</h4>
+                            <h4>CVV</h4>
+                            <h4>ZIP code</h4>
+                        </div>
                         {/* <h4>Pay{stay.sleep.maxCapacity} now</h4> */}
-                        <h4>Pay part now, part later</h4>
-                        <h5>{' ₪753.18'} due today, {'₪3,012.70'} on {'Sep 20, 2024.'} No extra fees. More info</h5>
+                        {/* <h4>Pay part now, part later</h4>
+                        <h5>{' ₪753.18'} due today, {'₪3,012.70'} on {'Sep 20, 2024.'} No extra fees. More info</h5> */}
+                    </div>
+                    <div className='payment grid'>
+                        <button>Request to book</button>
                     </div>
                     {/* </section> */}
                     <section className="price-details">
@@ -123,12 +136,10 @@ export function StayOrder() {
                             <h3>Total</h3>
                             <h3>${total}</h3>
                         </div>
-                           </section>
-                        <div className='payment grid'>
-                            <button>Request to book</button>
-                        </div>
+                    </section>
+                   
 
-                 
+
                 </section>
 
                 {isWhenOpen && <When dates={dates} setDates={setDates} />}

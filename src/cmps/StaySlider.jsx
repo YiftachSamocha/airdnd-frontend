@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import arrowRight from "../assets/imgs/icons/arrow-right.svg"
 import arrowLeft from "../assets/imgs/icons/arrowLeft.svg"
+import heart from "../assets/imgs/icons/heart.svg"
 
 
 export function StaySlider({ images }) {
@@ -16,59 +17,84 @@ export function StaySlider({ images }) {
         slidesToShow: 1,
         slidesToScroll: 1,
         arrows: true,
-        prevArrow: <PrevArrow />,
         nextArrow: <NextArrow />,
-    }    
-
+        prevArrow: <PrevArrow />
+    }
+    
+    const handleHeartClick = () => {
+        alert("כפתור הלב נלחץ!");
+    }
+    
     return (
         <div className="slider-container">
+             {/* <img src={heart} alt={`btn-heart`} className="btn-heart"/> */}
             <Slider {...settings}>
                 {images.map((img, index) => (
                     <div className="img-body"
-                     key={index}>
+                        key={index}>
                         <img src={img} alt={`slide-${index}`} />
                     </div>
                 ))}
             </Slider>
         </div>
-    );
+    )
 }
+
+// return (
+//     <div className="slider-container">
+//         <Slider {...settings}>
+//             {images.map((img, index) => (
+//                 <div className="img-container" key={index}>
+//                     <img src={img} alt={`image-${index}`} className="slider-image"/>
+//                     {/* {index === 0 && (
+//                         <button className="btn-heart" onClick={handleHeartClick}>
+//                             <img src={heart} alt={`btn-heart`} />
+//                         </button>
+//                     )} */}
+//                 </div>
+//             ))}
+//         </Slider>
+//     </div>
+// )
+// }
 
 
 const PrevArrow = ({ className, style, onClick }) => (
     <div
-        className={className}
-        style={{ 
-            ...style, 
-            // display: 'block', 
-            background:`url(${arrowLeft}) no-repeat center center`,
-            // background
-            width: '35px',
-            height: '35px',
-            backgroundSize: '15px', // גודל התמונה של החץ
+        className={`custom-arrow ${className}`}
+        style={{
+            ...style,
+            background: `url(${arrowLeft}) no-repeat center center`,
+            backgroundSize: 'contain',
+            backgroundSize: '13px',
+            backgroundColor: 'white',
+            width: '30px', height: '30px'
         }}
         onClick={onClick}
-    />
-);
+    >
+    </div>
+)
 
 const NextArrow = ({ className, style, onClick }) => (
     <div
-        className={className}
-        style={{ 
-            ...style, 
-            // display: 'block', 
-            // background:`url(${arrowRight}) no-repeat center center`,
-            width: '35px',
-            height: '35px',
-            // color: 'black',
-            opacity:1,
-            // backgroundColor:'black',
-            // backgroundSize:'2px',
-            backgroundSize: '5px', // גודל התמונה של החץ
+        className={`custom-arrow ${className}`}
+        style={{
+            ...style,
+            background: `url(${arrowRight}) no-repeat center center`,
+            backgroundSize: 'contain',
+            backgroundColor: 'white',
+            backgroundSize: '15px',
+            width: '30px', height: '30px',
+            transition: 'all 0.5s ease',
+            '&:hover': {
+                transform: 'translateY(-3px)',
+            }
         }}
         onClick={onClick}
-    />
-);
+    >
+    </div>
+)
+
 
 
 
