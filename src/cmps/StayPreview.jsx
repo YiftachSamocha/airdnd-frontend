@@ -16,7 +16,7 @@ export function StayPreview({ stay }) {
     const distance = calculateDistance(userLat, userLng, targetLat, targetLng)
     const roundedDistance = distance > 0 ? formatNumberWithCommas(Math.round(distance)) : '0'
     const price = formatNumberWithCommas(stay.price.night)
-    const freeDate = getDateRange(stay.reservedDates)
+    // const freeDate = getDateRange(stay.reservedDates)
 
 
     return (
@@ -34,7 +34,7 @@ export function StayPreview({ stay }) {
                         )} </div>
                 </div>
                 <h4 className="light"> {roundedDistance} kilometers away</h4>
-                <h4 className="light">{freeDate}</h4>
+                {/* <h4 className="light">{freeDate}</h4> */}
                 <h4>${price} <span>night</span></h4>
             </div>
         </article>

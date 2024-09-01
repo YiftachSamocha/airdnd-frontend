@@ -106,7 +106,7 @@ function _filterWhen(reservedDates, vacationRange) {
     return !reservedDates.some(({ start, end }) => {
         const reservedStart = new Date(start)
         const reservedEnd = new Date(end)
-        console.log(vacationStart, reservedStart, vacationStart <= reservedStart)
+        // console.log(vacationStart, reservedStart, vacationStart <= reservedStart)
 
 
         if (vacationStart >= reservedStart && vacationStart <= reservedEnd) return true
