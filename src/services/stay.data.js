@@ -323,7 +323,7 @@ async function createSleep() {
 function generateImgUrls(imgs) {
     const imgIds = getRandomItems(imgs, getRandomIntInclusive(4, 10))
     return imgIds.map(imgId => {
-        return `https://images.pexels.com/photos/${imgId}/pexels-photo-${imgId}.jpeg`
+        return `https://images.pexels.com/photos/${imgId}/pexels-photo-${imgId}.jpeg?width=400`
     })
 }
 
