@@ -35,11 +35,9 @@ export async function removeOrder(orderId) {
     }
 }
 
-export async function addOrder(order, stay) {
-    console.log('order',order);
-    
+export async function addOrder(order) {
     try {
-        const savedOrder = await orderService.save(order, stay)
+        const savedOrder = await orderService.save(order)
         store.dispatch(getCmdAddOrder(savedOrder))
         return savedOrder
     } catch (err) {

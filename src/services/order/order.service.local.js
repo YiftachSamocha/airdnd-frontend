@@ -13,8 +13,15 @@ export const orderService = {
 }
 
 
-function query(filterBy = {}) {
-    return storageService.query(STORAGE_KEY)
+async function query(filterBy = {}) {
+    let orders = await storageService.query(STORAGE_KEY)
+    if (filterBy.host) {
+        orders = orders.filter(order => order.host._id === filterBy.host)
+    }
+    if (filterBy.guest) {
+        orders = orders.filter(order => order.guest._id === filterBy.guest)
+    }
+    return orders
 }
 
 function getById(OrderId) {
@@ -26,34 +33,12 @@ function remove(OrderId) {
     return storageService.remove(STORAGE_KEY, OrderId)
 }
 
-async function save(order, stay) {
+async function save(order) {
     var savedOrder
     if (order._id) {
-        const orderToSave = {
-            _id: order._id,
-            startDate: order.startDate,
-            endDate: order.endDate,
-            guests: order.guests,
-        }
-        savedOrder = await storageService.put(STORAGE_KEY, orderToSave)
+        savedOrder = await storageService.put(STORAGE_KEY, order)
     } else {
-        const orderToSave = {
-            host: order.host,
-            guest: order.guest,
-            totalPrice: order.totalPrice,
-            startDate: order.startDate,
-            endDate: order.endDate,
-            guests: order.guests,
-            stay: {
-                // mini-stay
-                _id: stay._id,
-                name: stay.name,
-                price: stay.price,
-            },
-            msgs: order.msgs, // host - guest chat
-            status: order.status,
-        }
-        savedOrder = await storageService.post(STORAGE_KEY, orderToSave)
+        savedOrder = await storageService.post(STORAGE_KEY, order)
     }
     return savedOrder
 }

@@ -10,9 +10,9 @@ export function createOrder() {
         totalPrice: 160,
         startDate: '2025/10/15',
         endDate: '2025/10/17',
-        guests: {
+        capacity: {
             adults: 1,
-            kids: 2,
+            children: 2,
         },
         stay: {
             // mini-stay

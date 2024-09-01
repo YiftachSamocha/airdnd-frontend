@@ -1,16 +1,16 @@
 import { DateRangePicker } from 'react-date-range';
 import { addDays } from 'date-fns';
-import 'react-date-range/dist/styles.css'; 
-import 'react-date-range/dist/theme/default.css'; 
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 import { useEffect, useState } from 'react';
 
-export function When({dates, setDates}) {
+export function When({ dates, setDates, breakpoint = 950 }) {
     const [monthsAmount, setMonthsAmount] = useState(2)
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth > 950 && monthsAmount !== 2) {
+            if (window.innerWidth > breakpoint && monthsAmount !== 2) {
                 setMonthsAmount(2)
-            } else if (window.innerWidth <= 950 && monthsAmount !== 1) {
+            } else if (window.innerWidth <= breakpoint && monthsAmount !== 1) {
                 setMonthsAmount(1)
             }
         }
@@ -21,8 +21,8 @@ export function When({dates, setDates}) {
         return () => {
             window.removeEventListener("resize", handleResize);
         }
-    }, [monthsAmount])
-   
+    }, [breakpoint, monthsAmount])
+
     function handleDateChange(ranges) {
         const { selection } = ranges
         setDates({
@@ -30,9 +30,15 @@ export function When({dates, setDates}) {
             endDate: selection.endDate,
         })
     }
+
     return <div className="when">
         <DateRangePicker
-            ranges={[{ startDate: dates.startDate || new Date(), endDate: dates.endDate || new Date(), key: 'selection', color: '#f7f7f7' }]}
+            ranges={[{
+                startDate: dates.startDate || null,
+                endDate: dates.endDate || null,
+                key: 'selection',
+                color: '#f7f7f7'
+            }]}
             months={monthsAmount}
             direction="horizontal"
             showDateDisplay={false}
@@ -43,6 +49,6 @@ export function When({dates, setDates}) {
             staticRanges={[]}
             inputRanges={[]}
             onChange={handleDateChange}
-             />
+        />
     </div>
 }

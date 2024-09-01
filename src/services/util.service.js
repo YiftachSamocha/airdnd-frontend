@@ -46,6 +46,7 @@ export function formatNumberWithCommas(number) {
     return number.toLocaleString()
 }
 
+
 export function calculateDistance(lat1, lng1, lat2, lng2) {
     const R = 6371
     const toRad = angle => angle * (Math.PI / 180)

@@ -18,7 +18,6 @@ import { ModalCmp } from '../cmps/ModalCmp'
 
 
 export function StayDetails() {
-
   const { stayId } = useParams()
   const stay = useSelector(storeState => storeState.stayModule.stay)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -39,7 +38,7 @@ export function StayDetails() {
   return (
     <section className="stay-details">
       <div className="app-header">
-        {/* <AppHeader /> */}
+        <AppHeader />
       </div>
 
       <div className="main-content">
