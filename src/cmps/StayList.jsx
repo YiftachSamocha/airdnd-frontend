@@ -36,10 +36,9 @@ export function StayList() {
         if (filterBy.when.endDate) urlStr += `end_date=${format(filterBy.when.endDate, 'yyyy-MM-dd')}&`;
 
         // Remove trailing '&' if present
-        //   urlStr = urlStr.endsWith('&') ? urlStr.slice(0, -1) : urlStr;
+          urlStr = urlStr.endsWith('&') ? urlStr.slice(0, -1) : urlStr;
         setFilterUrl(urlStr)
     }
-
 
     return (
         <section className="stay-main-list">

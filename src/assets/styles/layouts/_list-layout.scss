@@ -6,25 +6,19 @@
 }
 
 @include for-mobile-layout {
-    // .stay-main-list {
-    //     grid-template-columns:
-    //         minmax(22px, 1fr) minmax(auto, $mobile-breakpoint) minmax(22px, 1fr);
-    // }
-
     .stay-list {
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: repeat(1fr);
+        grid-template-columns: repeat(auto-fill, minmax(490px, 1fr));
         max-width: 100%;
+        // height:500px X 475px;
     }
 }
 
 @include for-narrow-layout {
-    // .stay-main-list {
-    //     grid-template-columns:
-    //         minmax(20px, 1fr) minmax(auto, $narrow-breakpoint) minmax(20px, 1fr);
-    // }
-
     .stay-list {
         grid-template-columns: repeat(2, 1fr);
+        //  grid-template-columns: repeat (auto-fill, minmax(450px, 1fr));
+// height:420px X 400px;
     }
 
     .stay-payment {
@@ -35,16 +29,11 @@
 
 @include for-normal-layout {
 
-    // .stay-main-list,
-    // .stay-main-order {
-    //     display: grid;
-    //     grid-template-columns:
-    //         minmax(20px, 1fr) minmax(auto, $narrow-breakpoint) minmax(20px, 1fr);
-    // }
-
     .stay-list {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+        // grid-template-columns: repeat (auto-fill, minmax(331px, 1fr));
+        // height:332px X 315px;
     }
 
     .stay-payment {
@@ -58,16 +47,11 @@
 }
 
 @include for-wide-layout {
-
-    // .stay-main-list,
-    // .stay-main-order {
-    //     grid-template-columns:
-    //         minmax(40px, 1fr) minmax(auto, $wide-breakpoint) minmax(40px, 1fr);
-    // }
-
     .stay-list {
-        grid-template-columns: repeat(4, 1fr);
-            max-width: 100%;
+        grid-template-columns: repeat (auto-fill, minmax(420px, 1fr));
+        // grid-template-columns: repeat(4, minmax(0, 1fr));
+        // max-width: 100%;
+        // height: 320px X 304px;
     }
 
     .stay-payment {
@@ -82,14 +66,11 @@
 
 
 @include for-large-layout {
-
-    // .stay-main-list {
-    //     grid-template-columns:
-    //         minmax(30px, 1fr) minmax(auto, $large-breakpoint) minmax(30px, 1fr);
-    // }
-
     .stay-list {
+        // grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat (auto-fill, minmax(320px, 1fr));
         grid-template-columns: repeat(4, 1fr);
+ // height: 320px X 304px;
     }
 
     .stay-payment {
