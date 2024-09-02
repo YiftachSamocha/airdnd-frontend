@@ -69,9 +69,8 @@ import kitchenImg from '../assets/imgs/Extra/kitchen.png'
 import washingMashineImg from '../assets/imgs/Extra/washing-mashine.png'
 import wifiImg from '../assets/imgs/Extra/wifi.png'
 
-
 export async function createStay(host, location) {
-    const sleep = await createSleep();  // Await the asynchronous createSleep function
+    const sleep = await createSleep()
 
     return {
         _id: makeId(),
@@ -90,7 +89,7 @@ export async function createStay(host, location) {
         reservedDates: generateAvailabilityRanges(),
         host: {
             _id: host._id,
-            fullname: host.fullname,  // Corrected from 'fullName' to 'fullname' if necessary
+            fullname: host.fullname,
             imgUrl: host.imgUrl,
             reviews: host.reviews,
             rating: host.rating,
@@ -107,7 +106,7 @@ export async function createStay(host, location) {
     }
 }
 
-export async function createHosts( listingsPerHost = 2) {
+export async function createStayData(listingsPerHost = 2) {
     const hosts = []
     const stays = []
 
@@ -122,17 +121,17 @@ export async function createHosts( listingsPerHost = 2) {
             yearsHosting: getRandomIntInclusive(1, 15),
             responseRate: getRandomIntInclusive(80, 100),
             personalDetails: createPersonalDetails(location),
-            listings: [] // Array to hold the host's listings
+            listings: []
         }
 
         for (let j = 0; j < listingsPerHost; j++) {
-            const stay =  await createStay(host, location)
+            const stay = await createStay(host, location)
             host.listings.push(stay)
-            stays.push(stay) // Also push the stay into the stays array for storage
+            stays.push(stay)
         }
         hosts.push(host)
     }
-    return  { hosts, stays }
+    return stays
 }
 
 const workOptions = ["Software Engineer", "Artist", "Teacher", "Entrepreneur"]
@@ -254,18 +253,18 @@ const names = [
 
 const imgs = ['271624', '1918291', '6315808', '7045712', '6283965', '7214173', '279614', '5998117', '6283961', '5997959', '1457841', '6908367', '6758788', '6908368', '6492398', '6782567', '5997967', '4450337', '6775268', '6527069', '3315291', '2079249', '7018391', '7018824', '6903160', '5998120', '4099357', '3190541']
 const singleBedroomImgs = [
-     '4115551', '7587810', '19836795', 
+    '4115551', '7587810', '19836795',
     '26859033', '271618', '271695'
 ]
 
 const doubleBedroomImgs = [
-    '1454806', '90317', '262048', '1329711', '279746', 
-    '271743', '1743229', '775219', '1457845', '3773575', 
+    '1454806', '90317', '262048', '1329711', '279746',
+    '271743', '1743229', '775219', '1457845', '3773575',
     '5178070', '9130978', '9582420'
 ]
 
 const livingRoomImgs = [
-    '2747901', '1428348', '26859039', '6782353', '6908363', 
+    '2747901', '1428348', '26859039', '6782353', '6908363',
     '7534294', '6782346'
 ]
 
@@ -291,8 +290,8 @@ async function createSleep() {
         const room = {
             roomType: 'bedroom',
             bedType: bedType,
-            imgUrl: imgUrl || (bedType === 'single bed' 
-                ? '../assets/imgs/beds/single-bed.svg' 
+            imgUrl: imgUrl || (bedType === 'single bed'
+                ? '../assets/imgs/beds/single-bed.svg'
                 : './assets/imgs/beds/double-bed.svg')
         };
 

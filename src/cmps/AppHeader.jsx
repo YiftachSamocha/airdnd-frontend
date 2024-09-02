@@ -33,7 +33,7 @@ export function AppHeader() {
     const userInfoRef = useRef(null)
     const location = useLocation()
     const filterBy = useSelector(state => state.stayModule.filterBy)
-    const currUser = userService.getLoggedinUser()
+    const currUser = useSelector(state => state.userModule.currUser)
     const isStayPage = location.pathname.startsWith('/stay') || location.pathname === '/'
 
 
@@ -138,12 +138,12 @@ export function AppHeader() {
                     </div>
                 )}
 
-                <div className="user-header" onClick={() => setIsUserInfoOpen(prev => !prev)}>
+                <div className="user-header" >
                     <Link>Airdnd your home</Link>
                     <Link><img src={languageImg} /></Link>
-                    <div className="user-profile">
+                    <div className="user-profile" onClick={() => setIsUserInfoOpen(prev => !prev)}>
                         <img src={hamburgerImg} />
-                        <Link className="profile"><img src={profileImg} /></Link>
+                        {!currUser ? <img src={profileImg} className="profile" /> : <img src={currUser.imgUrl} />}
                     </div>
                     {isUserInfoOpen && <div className="user-modal" ref={userInfoRef} >
                         {currUser ? <div>
@@ -185,7 +185,7 @@ export function AppHeader() {
 
             {isLoginSignupOpen && <div className="layout">
                 <OutsideClick onOutsideClick={() => setIsLoginSignupOpen(prev => !prev)}>
-                    <LoginSignup closeLoginsignup={() => setIsLoginSignupOpen(prev => !prev)}  />
+                    <LoginSignup closeLoginsignup={() => setIsLoginSignupOpen(prev => !prev)} />
                 </OutsideClick>
 
             </div>}

@@ -35,6 +35,7 @@ function getDefaultFilter() {
 
 
 const service = VITE_LOCAL === 'true' ? local : remote
+console.log('VITE_LOCAL_STAY:' + VITE_LOCAL)
 export const stayService = { getEmptyStay, getDefaultFilter, ...service }
 
 // Easy access to this service from the dev tools console
