@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useParams } from "react-router-dom"
 import bigLogoImg from "../assets/imgs/logo.svg"
 import smallLogoImg from "../assets/imgs/small-icon.png"
 import languageImg from "../assets/imgs/language.png"
@@ -17,6 +17,7 @@ import { SET_FILTER_BY } from "../store/reducers/stay.reducer"
 import { useSelector } from "react-redux"
 import { userService } from "../services/user"
 import { LoginSignup } from "./LoginSignup"
+import { logout } from "../store/actions/user.actions"
 
 export function AppHeader() {
     const [isFolded, setIsFolded] = useState(false)
@@ -25,8 +26,7 @@ export function AppHeader() {
     const [isExtraBtnShown, setIsExtraBtnShown] = useState(false)
     const [logoImg, setLogoImg] = useState(bigLogoImg)
     const [isUserInfoOpen, setIsUserInfoOpen] = useState(false)
-    const [isLoginSignupOpen, setIsLoginSignupOpen] = useState(false)
-
+    const [loginSignup, setLoginSignup] = useState(null)
     const mainFilterRef = useRef(null)
     const labelsFilterRef = useRef(null)
     const userInitiatedOpen = useRef(false)
@@ -142,18 +142,18 @@ export function AppHeader() {
                     <Link><img src={languageImg} /></Link>
                     <div className="user-profile" onClick={() => setIsUserInfoOpen(prev => !prev)}>
                         <img src={hamburgerImg} />
-                        {!currUser ? <img src={profileImg} className="profile" /> : <img src={currUser.imgUrl} />}
+                        <div className="profile"> {!currUser ? <img src={profileImg} /> : <img src={currUser.imgUrl} />}</div>
                     </div>
                     {isUserInfoOpen && <div className="user-modal" ref={userInfoRef} >
                         {currUser ? <div>
-                            <p>Trips</p>
-                            <p>Reservations</p>
-                            <p>Log Out</p>
+                            <Link to={'/trip'}><p className="bolder">Trips</p></Link>
+                            <Link to={'/reservation'}><p className="bolder">Reservations</p></Link>
+                            <Link to="/stay"><p onClick={() => logout()} >Log Out</p></Link>
                         </div>
                             :
                             <div>
-                                <p onClick={() => setIsLoginSignupOpen(true)} >Log in</p>
-                                <p onClick={() => setIsLoginSignupOpen(true)}>Sign up</p>
+                                <p onClick={() => setLoginSignup('login')} >Log in</p>
+                                <p onClick={() => setLoginSignup('signup')}>Sign up</p>
                             </div>}
                     </div>}
 
@@ -182,11 +182,10 @@ export function AppHeader() {
             </div>}
             {(!isFolded && !isTop) && <div className="layout-main"></div>}
 
-            {isLoginSignupOpen && <div className="layout">
-                <OutsideClick onOutsideClick={() => setIsLoginSignupOpen(prev => !prev)}>
-                    <LoginSignup closeLoginsignup={() => setIsLoginSignupOpen(prev => !prev)} />
+            {loginSignup && <div className="layout">
+                <OutsideClick onOutsideClick={() => setLoginSignup(null)}>
+                    <LoginSignup closeLoginsignup={() => setLoginSignup(null)} initalType={loginSignup} />
                 </OutsideClick>
-
             </div>}
 
 

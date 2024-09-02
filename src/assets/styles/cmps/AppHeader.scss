@@ -47,13 +47,21 @@
                 border: 1px solid $gray1;
                 border-radius: 50px;
                 padding: 0.6em 1em;
-
                 transition: transform 0.3s ease, box-shadow 0.3s ease;
+                cursor: pointer;
 
                 .profile {
-                    font-size: 2em;
-                    padding-inline-start: 0.5em;
+                    height: 32px;
+                    width: 32px;
+                    margin-inline-start: 0.5em;
+                    
+                    
 
+                    img {
+                        height: 100%;
+                        max-width: 100%;
+                        border-radius: 50%;
+                    }
                 }
             }
 
@@ -83,28 +91,35 @@
             padding: 0;
             width: 80%;
             box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
-            div{
+
+            div {
                 display: flex;
                 flex-direction: column;
                 border-radius: 15px;
                 padding-block: 1em;
-                p{
+                cursor: pointer;
+
+                p {
                     margin: 0;
                     padding: 1em;
-                    font-weight: 500;
-                   
+                    
+
                 }
-             
+
                 p:hover {
                     background-color: $gray1;
                 }
+                .bolder{
+                    font-weight: 500;
+                }
             }
-            
+
             >*div {
                 z-index: 50;
             }
         }
-        .user-modal:hover{
+
+        .user-modal:hover {
             background-color: white;
         }
 

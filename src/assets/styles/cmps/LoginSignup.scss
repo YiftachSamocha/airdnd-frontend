@@ -1,73 +1,90 @@
 .loginsignup {
-    position: fixed;
-    top: 6%;
-    left: 30%;
+    position: relative;
     background-color: white;
     z-index: 51;
     border-radius: 15px;
+    padding-block-end: 1.5em;
 
-    .loginsignup-header {
-        display: flex;
-        border-bottom: 1px solid $gray3;
-        padding: 1em;
-        align-items: center;
 
-        p {
-            margin: 0 auto;
-            font-weight: 700;
+    .loginsignup-content {
+        width: em(570px);
+        height: em(430px);
+
+        .loginsignup-header {
+            display: flex;
+            border-bottom: 1px solid $gray3;
+            padding: 1em;
+            align-items: center;
+
+            p {
+                margin: 0 auto;
+                font-weight: 700;
+            }
+
+            button {
+                background-color: white;
+                border: 0;
+                padding: 0.5em;
+            }
+
+            button:hover {
+                background-color: $gray2;
+            }
         }
 
-        button {
-            background-color: white;
-            border: 0;
-            padding: 0.5em;
-        }
-        button:hover{
-            background-color: $gray2;
-        }
-    }
-
-    .loginsignup-main {
-        display: flex;
-        flex-direction: column;
-        padding: 1em;
-        h4{
-            font-size: em(22px);
-            font-weight: 600;
-            margin-block: 1em;
-        }
-
-        div {
+        .loginsignup-main {
             display: flex;
             flex-direction: column;
-        }
+            justify-content: space-between;
+            padding: 1em;
+            height: 90%;
 
-        .loginsignup-inputs {
-            margin-bottom: 1em;
-            border: 1px solid black;
-            border-bottom: 0;
-            border-radius: 15px;
-           
-            input{
-                margin-inline-start: 1.5em ;
+
+            h4 {
+                font-size: em(22px);
+                font-weight: 600;
+                margin-block: 0 1em;
             }
-            div{
-                border-radius: 15px;  
+
+            div {
+                display: flex;
+                flex-direction: column;
             }
-        }
 
-        button {
-            width: em(520px);
-            margin-bottom: 0.5em;
+            .loginsignup-inputs {
+                margin-bottom: 1em;
+                border: 1px solid black;
+                border-bottom: 0;
+                border-radius: 15px;
 
-        }
-        button:first-of-type{
-            background-color: $clr-red;
-            color: white;
-            border: 0;
-        }
-        button:last-of-type{
-            background-color: white;
+                input {
+                    margin-inline-start: 1.5em;
+                }
+
+                div {
+                    border-radius: 15px;
+                }
+            }
+
+            button {
+                width: 100%;
+                margin-bottom: 0.5em;
+
+            }
+
+            button:first-of-type {
+                background-color: $clr-red;
+                color: white;
+                border: 0;
+            }
+
+            button:last-of-type {
+                background-color: white;
+            }
+
+            button:last-of-type:hover {
+                background-color: $gray1;
+            }
         }
     }
 

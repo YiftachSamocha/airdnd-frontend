@@ -43,8 +43,8 @@ export function RootCmp() {
                     <Route path="stay" element={<StayIndex />} />
                     <Route path="stay/:stayId" element={<StayDetails />} />
                     <Route path="book/stay/:stayId" element={<StayOrder />} />
-                    <Route path="reservation/:hostId" element={<Reservations />} />
-                    <Route path="trip/:guestId" element={<Trips />} />
+                    <Route path="reservation" element={<Reservations />} />
+                    <Route path="trip" element={<Trips />} />
                 </Routes>
             </main>
             {showFooter && isFooter && <AppFooter />}

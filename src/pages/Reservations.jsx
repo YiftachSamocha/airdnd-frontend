@@ -1,4 +1,3 @@
-import { useParams } from "react-router";
 import { loadOrders } from "../store/actions/order.action";
 import { format } from "date-fns";
 import { useEffect } from "react";
@@ -6,8 +5,9 @@ import { useSelector } from "react-redux";
 import { AppHeader } from "../cmps/AppHeader";
 
 export function Reservations() {
-    const { hostId } = useParams()
     const reservations = useSelector(state => state.orderModule.orders)
+    const currUser = useSelector(state => state.userModule.currUser)
+    const hostId = currUser._id
 
     useEffect(() => {
         loadOrders({ host: hostId })
@@ -19,35 +19,37 @@ export function Reservations() {
 
     return <section className="reservations">
         <AppHeader />
-        <h2>Reservations</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Status</th>
-                    <th>Guests</th>
-                    <th>Check in</th>
-                    <th>Check out</th>
-                    <th>Booked</th>
-                    <th>Listing</th>
-                    <th>Total payout</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {reservations.map(reservation => {
-                    return <tr key={reservation._id}>
-                        <td className={`status ${reservation.status.toLowerCase()}`}>{reservation.status}</td>
-                        <th>{reservation.capacity.total}</th>
-                        <th>{formatDate(reservation.startDate)}</th>
-                        <th>{formatDate(reservation.endDate)}</th>
-                        <th>{formatDate(reservation.createdAt)}</th>
-                        <th>{reservation.stay.name}</th>
-                        <th>{reservation.totalPrice}</th>
-                        <th></th>
+        {reservations.length === 0 ? <div>No reservations yet</div> : <div>
+            <h2>Reservations</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Guests</th>
+                        <th>Check in</th>
+                        <th>Check out</th>
+                        <th>Booked</th>
+                        <th>Listing</th>
+                        <th>Total payout</th>
+                        <th>Action</th>
                     </tr>
-                })}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {reservations.map(reservation => {
+                        return <tr key={reservation._id}>
+                            <td className={`status ${reservation.status.toLowerCase()}`}>{reservation.status}</td>
+                            <th>{reservation.capacity.total}</th>
+                            <th>{formatDate(reservation.startDate)}</th>
+                            <th>{formatDate(reservation.endDate)}</th>
+                            <th>{formatDate(reservation.createdAt)}</th>
+                            <th>{reservation.stay.name}</th>
+                            <th>{reservation.totalPrice}</th>
+                            <th></th>
+                        </tr>
+                    })}
+                </tbody>
+            </table>
+        </div>}
     </section>
 
 }
