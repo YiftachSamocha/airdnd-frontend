@@ -14,7 +14,7 @@ export function LabelsFilter() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [size, setSize] = useState(10)
     const [translateX, setTranslateX] = useState(0)
-    const LABEL_SIZE = 104
+    const LABEL_SIZE = 85
 
     useEffect(() => {
         const handleResize = () => {
