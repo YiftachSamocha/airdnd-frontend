@@ -16,7 +16,8 @@ export function StayPreview({ stay }) {
     const distance = calculateDistance(userLat, userLng, targetLat, targetLng)
     const roundedDistance = distance > 0 ? formatNumberWithCommas(Math.round(distance)) : '0'
     const price = formatNumberWithCommas(stay.price.night)
-    // const freeDate = getDateRange(stay.reservedDates)
+//     const freeDate = getDateRange(stay.reservedDates)
+// console.log(stay.reservedDates);
 
 
     return (

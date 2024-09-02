@@ -107,14 +107,21 @@ export function getDateRange(datesBooked) {
             const startAvailable = endCurrent.getTime() + 24 * 60 * 60 * 1000;
             const endAvailable = startNext.getTime();
 
-            const randomStartDate = new Date(startAvailable + Math.random() * (endAvailable - startAvailable));
-            const firstAvailableDate = randomStartDate;
-            const lastAvailableDate = new Date(firstAvailableDate.getTime() + 4 * 24 * 60 * 60 * 1000);
+            const middlePoint = startAvailable + (endAvailable - startAvailable) / 2;
 
-            return formatDateRange(
-                firstAvailableDate.toISOString().split('T')[0], 
-                lastAvailableDate.toISOString().split('T')[0]
-            )
+            const availableDate = new Date(middlePoint);
+
+            console.log(availableDate.toISOString().split('T')[0]);
+            
+            return availableDate.toISOString().split('T')[0];
+            // const randomStartDate = new Date(startAvailable + Math.random() * (endAvailable - startAvailable));
+            // const firstAvailableDate = randomStartDate;
+            // const lastAvailableDate = new Date(firstAvailableDate.getTime() + 4 * 24 * 60 * 60 * 1000);
+
+            // return (
+            //     firstAvailableDate.toISOString().split('T')[0], 
+            //     lastAvailableDate.toISOString().split('T')[0]
+            // )
         }
     }    
 }

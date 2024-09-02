@@ -36,10 +36,9 @@ export function StayList() {
         if (filterBy.when.endDate) urlStr += `end_date=${format(filterBy.when.endDate, 'yyyy-MM-dd')}&`;
 
         // Remove trailing '&' if present
-        //   urlStr = urlStr.endsWith('&') ? urlStr.slice(0, -1) : urlStr;
+          urlStr = urlStr.endsWith('&') ? urlStr.slice(0, -1) : urlStr;
         setFilterUrl(urlStr)
     }
-
 
     return (
         <section className="stay-main-list">
@@ -47,7 +46,7 @@ export function StayList() {
             <ul className="stay-list">
                 {stays.map(stay => {
                     return (
-                        <Link to={`stay/${stay._id}${filterUrl}`} key={stay._id}>
+                        <Link to={`/stay/${stay._id}${filterUrl}`} key={stay._id}>
                             <li>
                                 <StayPreview stay={stay} />
                             </li>

@@ -74,15 +74,22 @@
 
     }
 
-    .labels-container {
+    .labels-wrap {
         display: flex;
         align-items: center;
+        width: calc(100vw - 100px);
+
 
         .extra-button {
             @include extra-btn();
             padding: 1em;
             border-radius: 15px;
             margin-inline: 1em 0;
+
+            img {
+                max-width: em(24px);
+            }
+
 
         }
 
