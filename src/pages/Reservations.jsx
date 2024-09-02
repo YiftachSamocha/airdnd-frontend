@@ -3,20 +3,22 @@ import { loadOrders } from "../store/actions/order.action";
 import { format } from "date-fns";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { AppHeader } from "../cmps/AppHeader";
 
 export function Reservations() {
     const { hostId } = useParams()
-    const reservations = useSelector(state=> state.orderModule.orders)
+    const reservations = useSelector(state => state.orderModule.orders)
 
-    useEffect(()=>{
+    useEffect(() => {
         loadOrders({ host: hostId })
-    },[])
+    }, [])
 
     function formatDate(date) {
         return format(date, 'yyyy-MM-dd')
     }
 
     return <section className="reservations">
+        <AppHeader />
         <h2>Reservations</h2>
         <table>
             <thead>

@@ -99,10 +99,11 @@ export async function createStay(host, location) {
         location,
         reviews: getRandomItems(reviews, getRandomIntInclusive(1, 15)),
         thingsToKnow: {
-            houseRules: getRandomItems(houseRules, getRandomIntInclusive(6 - 12)),
-            safetyProperty: getRandomItems(safetyProperty, 4 - 10),
+            houseRules: getRandomItems(houseRules, getRandomIntInclusive(6, 12)),
+            safetyProperty: getRandomItems(safetyProperty, getRandomIntInclusive(4, 10)),
             cancellationPolicy: getRandomItems(cancellationPolicy, 1)
         }
+        
     }
 }
 
@@ -816,70 +817,71 @@ const reviews = Array.from({ length: 10 }, () => ({
 
 const houseRules = [
     //  Checking In and Checking Out
-    { txt: "Check-in time is from 3:00 PM. Please let us know if you need to arrange a different time.", type: "checking in/checking out" },
-    { txt: "Check-out time is by 11:00 AM. If you need a later check-out, please ask us in advance.", type: "checking in/checking out" },
-    { txt: "You will receive instructions for key pickup or drop-off prior to your arrival.", type: "checking in/checking out" },
-    { txt: "Please dispose of trash and recyclables in the appropriate bins before leaving.", type: "checking in/checking out" },
-    { txt: "Return all keys to the designated spot before departing.", type: "checking in/checking out" },
-    { txt: "Ensure all doors and windows are locked before you leave.", type: "checking in/checking out" },
-    { txt: "Leave used towels in the bathroom and ensure the property is left in good condition.", type: "checking in/checking out" },
+    { txt: "Check-in time starts at 3:00 PM.", type: "checking in/checking out" },
+    { txt: "Check-out time is by 11:00 AM.", type: "checking in/checking out" },
+    { txt: "Instructions for key pickup are provided.", type: "checking in/checking out" },
+    { txt: "Dispose of trash in the appropriate bins.", type: "checking in/checking out" },
+    { txt: "Return all keys to the designated spot.", type: "checking in/checking out" },
+    { txt: "Ensure all windows are locked before leaving.", type: "checking in/checking out" },
+    { txt: "Leave used towels in the bathroom.", type: "checking in/checking out" },
 
     // During Your Stay
-    { txt: "No smoking inside the property. Please use the designated smoking area outside.", type: "during your stay" },
-    { txt: "No pets allowed unless you have received prior approval from us.", type: "during your stay" },
-    { txt: "Quiet hours are from 10:00 PM to 8:00 AM. Please be mindful of neighbors and other guests.", type: "during your stay" },
-    { txt: "Parties and events are not allowed on the premises.", type: "during your stay" },
-    { txt: "Report any damages or issues to us immediately so we can address them promptly.", type: "during your stay" },
-    { txt: "Only registered guests are allowed on the property. Unauthorized guests are not permitted.", type: "during your stay" },
-    { txt: "Please use coasters and placemats provided to protect furniture.", type: "during your stay" },
-    { txt: "Turn off all appliances and lights before leaving the property.", type: "during your stay" }
+    { txt: "No smoking inside. Use designated area outside.", type: "during your stay" },
+    { txt: "No pets allowed without prior approval.", type: "during your stay" },
+    { txt: "Quiet hours are from 10:00 PM.", type: "during your stay" },
+    { txt: "Parties and events are not allowed.", type: "during your stay" },
+    { txt: "Report damages immediately for prompt assistance.", type: "during your stay" },
+    { txt: "Only registered guests are allowed inside.", type: "during your stay" },
+    { txt: "Use coasters to protect furniture surfaces.", type: "during your stay" },
+    { txt: "Turn off lights and appliances when leaving.", type: "during your stay" }
 ]
 
 const safetyProperty = [
     // Safety Considerations
-    { txt: "In case of emergency, use the nearest exit and follow the evacuation plan located in the guest information booklet.", type: "Safety considerations" },
-    { txt: "Do not block or obstruct fire exits and emergency routes at any time.", type: "Safety considerations" },
-    { txt: "Ensure that all doors and windows are secured when you leave the property to prevent unauthorized access.", type: "Safety considerations" },
-    { txt: "Do not use candles or open flames inside the property. Use battery-operated lights instead.", type: "Safety considerations" },
-    { txt: "Avoid overloading electrical outlets and power strips to prevent fire hazards.", type: "Safety considerations" },
-    { txt: "Keep all hazardous materials, such as cleaning supplies and chemicals, out of reach of children.", type: "Safety considerations" },
-    { txt: "If you notice any electrical or plumbing issues, report them immediately. Do not attempt to fix them yourself.", type: "Safety considerations" },
-    { txt: "Ensure that all stairs and walkways are free of obstacles to prevent tripping hazards.", type: "Safety considerations" },
+    { txt: "In emergencies, follow the evacuation plan.", type: "Safety considerations" },
+    { txt: "Do not obstruct fire exits at any time.", type: "Safety considerations" },
+    { txt: "Secure all windows and doors when leaving.", type: "Safety considerations" },
+    { txt: "Avoid using candles inside the property.", type: "Safety considerations" },
+    { txt: "Do not overload electrical outlets and strips.", type: "Safety considerations" },
+    { txt: "Keep hazardous materials out of children's reach.", type: "Safety considerations" },
+    { txt: "Report any plumbing issues immediately.", type: "Safety considerations" },
+    { txt: "Keep stairs and walkways free of obstacles.", type: "Safety considerations" },
 
     // Safety Devices
-    { txt: "Smoke detectors are installed in all sleeping areas and common spaces. Do not tamper with or disable them.", type: "Safety devices" },
-    { txt: "A carbon monoxide detector is located near the sleeping areas. Make sure it is functioning during your stay.", type: "Safety devices" },
-    { txt: "Fire extinguishers are provided in the kitchen and near the entrance. Familiarize yourself with their locations and usage.", type: "Safety devices" },
-    { txt: "First aid kits are available in the kitchen and bathroom. Use them only for emergencies and check them for completeness upon arrival.", type: "Safety devices" },
-    { txt: "A fire blanket is located in the kitchen for use in case of small fires. Ensure you know how to use it.", type: "Safety devices" },
-    { txt: "The property is equipped with an alarm system. Instructions for setting and disarming will be provided upon arrival.", type: "Safety devices" },
-    { txt: "Security cameras are installed at the exterior of the property for monitoring. There are no cameras inside the property.", type: "Safety devices" },
+    { txt: "Smoke detectors are installed in all areas.", type: "Safety devices" },
+    { txt: "Carbon monoxide detector is near sleeping areas.", type: "Safety devices" },
+    { txt: "Fire extinguishers are located near the entrance.", type: "Safety devices" },
+    { txt: "First aid kits are available in the kitchen.", type: "Safety devices" },
+    { txt: "A fire blanket is located in the kitchen.", type: "Safety devices" },
+    { txt: "The alarm system instructions are provided.", type: "Safety devices" },
+    { txt: "Security cameras are installed at the exterior.", type: "Safety devices" },
 
     // Property Info
-    { txt: "The property is equipped with an alarm system. Follow the provided instructions for setting and disarming the system.", type: "Property info" },
-    { txt: "The property has a surveillance system at the entrance for security purposes. There are no cameras inside the property.", type: "Property info" },
-    { txt: "The water heater is set to a safe temperature to prevent scalding. Adjustments should be made with caution.", type: "Property info" },
-    { txt: "The heating and cooling systems are automated. Instructions for manual adjustments are provided in the guest information booklet.", type: "Property info" },
-    { txt: "The property includes a safe for storing valuables. Please use it to secure your personal items.", type: "Property info" },
-    { txt: "A smoke-free policy is enforced inside the property. Smoking is allowed only in designated outdoor areas.", type: "Property info" },
-    { txt: "The property includes a monitored security system. Please ensure all doors and windows are locked when you leave.", type: "Property info" },
-    { txt: "Guests are responsible for their own safety while using the pool or hot tub. Please follow all posted safety guidelines.", type: "Property info" },
-    { txt: "The property is equipped with a fire sprinkler system in all rooms for added safety.", type: "Property info" }
+    { txt: "Alarm system instructions are provided.", type: "Property info" },
+    { txt: "The surveillance system monitors the entrance.", type: "Property info" },
+    { txt: "Water heater is set to safe temperature.", type: "Property info" },
+    { txt: "Heating and cooling systems are automated.", type: "Property info" },
+    { txt: "Use the safe to secure valuables.", type: "Property info" },
+    { txt: "Smoking allowed in designated outdoor areas.", type: "Property info" },
+    { txt: "Ensure all doors and windows are locked.", type: "Property info" },
+    { txt: "Guests are responsible for hot tub safety.", type: "Property info" },
+    { txt: "Fire sprinklers are in all rooms.", type: "Property info" }
 ]
+
 const cancellationPolicy = [
-    { txt: "Cancellation made within 48 hours of booking receives a full refund, provided the cancellation is made at least 14 days before check-in." },
-    { txt: "If you cancel between 7 and 14 days before check-in, you'll receive a 50% refund of the total booking amount." },
-    { txt: "Cancellations made less than 7 days before check-in will not receive a refund." },
-    { txt: "If you cancel your booking after check-in, you will be charged for the entire stay." },
-    { txt: "Some properties offer more flexible cancellation policies. Check the specific listing details for the most accurate information." },
-    { txt: "If a booking is canceled due to a force majeure event, such as a natural disaster, a full refund will be issued regardless of the cancellation window." },
-    { txt: "Certain bookings may be non-refundable. Always check the cancellation policy before confirming your reservation." },
-    { txt: "For long-term stays (28 nights or more), cancellations must be made at least 30 days before check-in to receive a full refund." },
-    { txt: "If you cancel a long-term stay booking between 15 and 30 days before check-in, you'll receive a 50% refund of the total booking amount." },
-    { txt: "Cancellations made less than 15 days before check-in for long-term stays will not receive a refund." },
-    { txt: "Refunds for cancellations will be processed to the original payment method and may take up to 10 business days to appear." },
-    { txt: "In case of a cancellation, the service fees charged by Airbnb are non-refundable." },
-    { txt: "If you need to change your booking dates, you can do so within 48 hours of booking for no additional charge, subject to availability." },
-    { txt: "Changes made less than 48 hours after booking may incur additional fees, depending on the host’s policies." },
-    { txt: "No refund will be issued for cancellations made less than 24 hours before check-in." }
+    { txt: "Full refund if canceled within 48 hours.", type: "Cancellation Policy" },
+    { txt: "50% refund if canceled 7-14 days before.", type: "Cancellation Policy" },
+    { txt: "No refund if canceled within 7 days.", type: "Cancellation Policy" },
+    { txt: "Charged for entire stay if canceled after check-in.", type: "Cancellation Policy" },
+    { txt: "Check listing details for specific policies.", type: "Cancellation Policy" },
+    { txt: "Full refund for force majeure events.", type: "Cancellation Policy" },
+    { txt: "Some bookings may be non-refundable.", type: "Cancellation Policy" },
+    { txt: "Full refund if canceled 30 days before long-term stay.", type: "Cancellation Policy" },
+    { txt: "50% refund if canceled 15-30 days before long-term stay.", type: "Cancellation Policy" },
+    { txt: "No refund if canceled less than 15 days before.", type: "Cancellation Policy" },
+    { txt: "Refunds may take up to 10 business days.", type: "Cancellation Policy" },
+    { txt: "Service fees are non-refundable.", type: "Cancellation Policy" },
+    { txt: "Change booking dates within 48 hours.", type: "Cancellation Policy" },
+    { txt: "Additional fees for changes after 48 hours.", type: "Cancellation Policy" },
+    { txt: "No refund for cancellations within 24 hours before check-in.", type: "Cancellation Policy" }
 ]

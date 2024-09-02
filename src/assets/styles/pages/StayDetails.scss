@@ -82,7 +82,7 @@
 
 @media (max-width: 743px) {
     .stay-details {
-        grid-template-columns: 1fr;
+        grid-column: span 3 !important;
         max-width: 743px;
         margin-inline: 0;
 
@@ -95,8 +95,8 @@
             grid-row: 1;
             border-radius: 0;
 
-            .img-container {
-                grid-column: span 3;
+            img {
+                width: 100%;    
             }
         }
 
@@ -199,6 +199,7 @@
             grid-column: span 2 !important;
             width: 100vw !important;
             max-width: 100% !important;
+            z-index:100;
         }
 
         .more-content {

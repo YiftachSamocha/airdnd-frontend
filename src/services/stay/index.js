@@ -5,7 +5,6 @@ import { getRandomIntInclusive, makeId } from '../util.service'
 import iconsImg from '../../assets/imgs/labels/icons.webp'
 import { stayService as local } from './stay.service.local'
 import { stayService as remote } from './stay.service.remote'
-const MAX_PRICE_TO_PERSON = 500
 
 function getEmptyStay() {
     return {
@@ -17,7 +16,7 @@ function getEmptyStay() {
 
 function getDefaultFilter() {
     return {
-        where: '',
+        where: { country: '', city: '' },
         when: { startDate: null, endDate: null, },
         who: { adults: 0, children: 0, infants: 0, pets: 0 },
         label: { label: 'icons', img: iconsImg },

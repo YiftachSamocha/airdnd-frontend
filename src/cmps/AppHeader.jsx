@@ -1,4 +1,4 @@
-import { Link, useLocation, useSearchParams } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import bigLogoImg from "../assets/imgs/logo.svg"
 import smallLogoImg from "../assets/imgs/small-icon.png"
 import languageImg from "../assets/imgs/language.png"
@@ -35,7 +35,6 @@ export function AppHeader() {
     const filterBy = useSelector(state => state.stayModule.filterBy)
     const currUser = useSelector(state => state.userModule.currUser)
     const isStayPage = location.pathname.startsWith('/stay') || location.pathname === '/'
-
 
     useEffect(() => {
         const handleScroll = () => {

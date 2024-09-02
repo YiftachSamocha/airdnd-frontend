@@ -99,11 +99,11 @@ export function StayOrder() {
     if (!stay) return <div>Loading...</div>
 
     return (
-        <>
-       <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
-                    className="logo"><img src={logoImg} /></Link>
-        
-            <hr className='main-hr' />
+        <><div className="order">
+             {/* <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
+                    className="logo"><img src={logoImg} /></Link> */}
+            <img src={logoImg} className="logo" />
+            <hr className='main-hr' /> </div>
             <section className='stay-main-order'>
                 <section className='stay-order'>
                     <div className="header grid">
