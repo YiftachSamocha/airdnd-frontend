@@ -33,13 +33,14 @@
             align-items: center;
             gap: 0.1em;
             margin-block-start: 0.5em;
+            position: relative;
 
             img {
                 height: 1.3em;
                 max-width: 1.3em;
             }
 
-            div {
+            .user-profile {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
@@ -56,7 +57,7 @@
                 }
             }
 
-            div:hover {
+            .user-profile:hover {
                 background-color: inherit;
                 box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
 
@@ -70,6 +71,41 @@
 
         .user-header>:hover {
             background-color: $gray1;
+        }
+
+        .user-modal {
+            position: absolute;
+            right: 0;
+            top: 100%;
+            border-radius: 15px;
+            z-index: 50;
+            background-color: white;
+            padding: 0;
+            width: 80%;
+            box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+            div{
+                display: flex;
+                flex-direction: column;
+                border-radius: 15px;
+                padding-block: 1em;
+                p{
+                    margin: 0;
+                    padding: 1em;
+                    font-weight: 500;
+                   
+                }
+             
+                p:hover {
+                    background-color: $gray1;
+                }
+            }
+            
+            >*div {
+                z-index: 50;
+            }
+        }
+        .user-modal:hover{
+            background-color: white;
         }
 
     }
