@@ -17,7 +17,7 @@ export function StayPayment({ stay }) {
 
     const [filterCapacity, setFilterCapacity] = useState({ adults: 0, children: 0, infants: 0, pets: 0 })
     const [dates, setDates] = useState({ startDate: null, endDate: null })
-    const [isSelectingEndDate, setIsSelectingEndDate] = useState(false); // Track whether the user is selecting the end date
+    const [isSelectingEndDate, setIsSelectingEndDate] = useState(false) // Track whether the user is selecting the end date
 
     const [orderURL, setOrderUrl] = useState('')
     const [searchParams, setSearchParams] = useSearchParams()
@@ -37,20 +37,16 @@ export function StayPayment({ stay }) {
 
     useEffect(() => {
         // Initialize dates and guests from search params
-        const checkin = searchParams.get('start_date') ? new Date(searchParams.get('start_date')) : null;
-        const checkout = searchParams.get('end_date') ? new Date(searchParams.get('end_date')) : null;
-        const adults = Number(searchParams.get('adults')) || 1;
-        const children = Number(searchParams.get('children')) || 0;
-        const infants = Number(searchParams.get('infants')) || 0;
-        const pets = Number(searchParams.get('pets')) || 0;
+        const checkin = searchParams.get('start_date') ? new Date(searchParams.get('start_date')) : null
+        const checkout = searchParams.get('end_date') ? new Date(searchParams.get('end_date')) : null
+        const adults = Number(searchParams.get('adults')) || 1
+        const children = Number(searchParams.get('children')) || 0
+        const infants = Number(searchParams.get('infants')) || 0
+        const pets = Number(searchParams.get('pets')) || 0
 
-        setDates({ startDate: checkin, endDate: checkout });
-        setFilterCapacity({ adults, children, infants, pets });
-    }, [searchParams])
-
-    useEffect(() => {
-        console.log('dates', dates)
-    }, [dates])
+        setDates({ startDate: checkin, endDate: checkout })
+        setFilterCapacity({ adults, children, infants, pets })
+    }, [])
 
     useEffect(() => {
         createOrderURLstr() 
@@ -58,40 +54,40 @@ export function StayPayment({ stay }) {
     }, [dates, filterCapacity])
 
     function updateSearchParams() {
-        const params = new URLSearchParams(searchParams);
+        const params = new URLSearchParams(searchParams)
         if (dates.startDate) {
-            const formattedStartDate = format(dates.startDate, 'yyyy-MM-dd');
-            params.set('start_date', formattedStartDate);
+            const formattedStartDate = format(dates.startDate, 'yyyy-MM-dd')
+            params.set('start_date', formattedStartDate)
         } else {
-            params.delete('start_date');
+            params.delete('start_date')
         }
         if (dates.endDate) {
-            const formattedEndDate = format(dates.endDate, 'yyyy-MM-dd');
-            params.set('end_date', formattedEndDate);
+            const formattedEndDate = format(dates.endDate, 'yyyy-MM-dd')
+            params.set('end_date', formattedEndDate)
         } else {
-            params.delete('end_date');
+            params.delete('end_date')
         }
-        if (filterCapacity.adults) params.set('adults', filterCapacity.adults);
-        else params.delete('adults');
-        if (filterCapacity.children) params.set('children', filterCapacity.children);
-        else params.delete('children');
-        if (filterCapacity.infants) params.set('infants', filterCapacity.infants);
-        else params.delete('infants');
-        if (filterCapacity.pets) params.set('pets', filterCapacity.pets);
-        else params.delete('pets');
-        setSearchParams(params);
+        if (filterCapacity.adults) params.set('adults', filterCapacity.adults)
+        else params.delete('adults')
+        if (filterCapacity.children) params.set('children', filterCapacity.children)
+        else params.delete('children')
+        if (filterCapacity.infants) params.set('infants', filterCapacity.infants)
+        else params.delete('infants')
+        if (filterCapacity.pets) params.set('pets', filterCapacity.pets)
+        else params.delete('pets')
+        setSearchParams(params)
     }
 
     function handleDateChange(newDates) {
         console.log('is selecting end date', isSelectingEndDate)
         if (!isSelectingEndDate) {
-            setDates({ startDate: newDates.startDate, endDate: null });
-            setIsSelectingEndDate(true);
+            setDates({ startDate: newDates.startDate, endDate: null })
+            setIsSelectingEndDate(true)
         } else {
-            setDates({ startDate: dates.startDate, endDate: newDates.endDate });
-            updateSearchParams(); // Update URL only after both dates are selected
-            setIsWhenOpen(false); // Close the date picker
-            setIsSelectingEndDate(false);
+            setDates({ startDate: dates.startDate, endDate: newDates.endDate })
+            updateSearchParams() // Update URL only after both dates are selected
+            setIsWhenOpen(false) // Close the date picker
+            setIsSelectingEndDate(false)
 
         }
     }
@@ -100,17 +96,17 @@ export function StayPayment({ stay }) {
         let urlStr = '?'
         urlStr += `stay_id=${stay._id}&`
         if (filterCapacity.adults) {
-            urlStr += `adults=${filterCapacity.adults}&`;
+            urlStr += `adults=${filterCapacity.adults}&`
         }
-        if (filterCapacity.children) urlStr += `children=${filterCapacity.children}&`;
-        if (filterCapacity.infants) urlStr += `infants=${filterCapacity.infants}&`;
-        if (filterCapacity.pets) urlStr += `pets=${filterCapacity.pets}&`;
+        if (filterCapacity.children) urlStr += `children=${filterCapacity.children}&`
+        if (filterCapacity.infants) urlStr += `infants=${filterCapacity.infants}&`
+        if (filterCapacity.pets) urlStr += `pets=${filterCapacity.pets}&`
 
-        if (dates.startDate) urlStr += `start_date=${format(dates.startDate, 'yyyy-MM-dd')}&`;
-        if (dates.endDate) urlStr += `end_date=${format(dates.endDate, 'yyyy-MM-dd')}&`;
+        if (dates.startDate) urlStr += `start_date=${format(dates.startDate, 'yyyy-MM-dd')}&`
+        if (dates.endDate) urlStr += `end_date=${format(dates.endDate, 'yyyy-MM-dd')}&`
 
         // Remove trailing '&' if present
-        urlStr = urlStr.endsWith('&') ? urlStr.slice(0, -1) : urlStr;
+        urlStr = urlStr.endsWith('&') ? urlStr.slice(0, -1) : urlStr
         setOrderUrl(urlStr)
     }
 
@@ -118,32 +114,32 @@ export function StayPayment({ stay }) {
     async function handleReserve(stay) {
         try {
             if (dates.startDate && dates.endDate) {
-                updateSearchParams('start_date', dates.startDate.toISOString().split('T')[0]);
-                updateSearchParams('end_date', dates.endDate.toISOString().split('T')[0]);
+                updateSearchParams('start_date', dates.startDate.toISOString().split('T')[0])
+                updateSearchParams('end_date', dates.endDate.toISOString().split('T')[0])
             }
-            updateSearchParams('adults', filterCapacity.adults || 1);
-            updateSearchParams('children', filterCapacity.children || 0);
-            updateSearchParams('infants', filterCapacity.infants || 0);
-            updateSearchParams('pets', filterCapacity.pets || 0);
+            updateSearchParams('adults', filterCapacity.adults || 1)
+            updateSearchParams('children', filterCapacity.children || 0)
+            updateSearchParams('infants', filterCapacity.infants || 0)
+            updateSearchParams('pets', filterCapacity.pets || 0)
 
-            navigate(`/book/stay/${stay._id + orderURL}`);
+            navigate(`/book/stay/${stay._id + orderURL}`)
 
         } catch (error) {
-            console.error("Error creating order:", error);
+            console.error("Error creating order:", error)
         }
     }
     function displayDateInLocal(date) {
-        return date ? format(date, 'MMM dd') : 'Add date';
+        return date ? format(date, 'MMM dd') : 'Add date'
     }
 
     function closeWho() {
-        setIsWhoOpen(false); // Only closes the dropdown
+        setIsWhoOpen(false) // Only closes the dropdown
     }
 
     return (
         <div className="payment-cmp">
             <section className="stay-payment sticky">
-                <h2>${price} <span>night</span></h2>
+                <h3>${price} <span>night</span></h3>
                 <div className="btn-container">
                     <button className="btn-team" onClick={toggleWhen}>
                         <div className="btn-side">

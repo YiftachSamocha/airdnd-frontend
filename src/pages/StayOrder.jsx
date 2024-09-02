@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -100,6 +100,8 @@ export function StayOrder() {
 
     return (
         <><div className="order">
+             {/* <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
+                    className="logo"><img src={logoImg} /></Link> */}
             <img src={logoImg} className="logo" />
             <hr className='main-hr' /> </div>
             <section className='stay-main-order'>

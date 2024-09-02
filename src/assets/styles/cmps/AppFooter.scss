@@ -1,26 +1,43 @@
-.app-footer{
+.app-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 50;
     display: flex;
+    justify-content: space-around;
     align-items: center;
-    justify-content: space-between;
+    background-color: white;
+    height: em(60px);
+    border-top: 1px solid $gray2;
 
-    min-height: 3.5rem;
-
-    padding: rem(10px) 1rem;
-    background-color: $clr4;
-
-    p {
-        margin: 0;
+    a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        cursor: pointer;
+        color: $gray4;
+        text-decoration: none;
+        img{
+            height: em(24px);
+            width: em(24px);
+           
+         
+            
+           
+        }
+        p{
+            margin: 0;
+            font-size: 12px;
+        }
     }
-    
-    span {
-        font-size: .8em;
-        
-        &.local-services {
-            color: $clr3;
+    .selected{
+        color: $clr-light-red;
+        img {
+            fill: $clr-light-red;
+            stroke: $clr-light-red; // Ensure stroke color is applied
         }
+       
         
-        &.remote-services {
-            color: $clr4;
-        }
     }
 }

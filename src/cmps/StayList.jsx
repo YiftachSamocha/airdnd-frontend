@@ -46,7 +46,7 @@ export function StayList() {
             <ul className="stay-list">
                 {stays.map(stay => {
                     return (
-                        <Link to={`stay/${stay._id}${filterUrl}`} key={stay._id}>
+                        <Link to={`/stay/${stay._id}${filterUrl}`} key={stay._id}>
                             <li>
                                 <StayPreview stay={stay} />
                             </li>

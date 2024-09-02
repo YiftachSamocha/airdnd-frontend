@@ -103,17 +103,17 @@
     }
 
     .who {
-        width:100%;
+        width: 100%;
         position: absolute;
         top: 42%;
         left: unset;
         right: 25px;
-        border-radius: 4px ;
-        box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px, rgba(0, 0, 0, 0.07) 0px 0px 0px 1px ;
-        box-sizing: border-box ;
-        margin-bottom: 16px ;
-        min-width: 280px ;
-        padding: 16px ;
+        border-radius: 4px;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px, rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
+        box-sizing: border-box;
+        margin-bottom: 16px;
+        min-width: 280px;
+        padding: 16px;
 
         >div button {
             width: 32px;
@@ -124,27 +124,28 @@
             justify-content: start;
             font-size: 16px;
             font-weight: 600;
-            padding-block-end: 4px ;
+            padding-block-end: 4px;
         }
 
-        p{
-            font-size:14px;
+        p {
+            font-size: 14px;
             color: #222222;
 
         }
 
-        .btn-link{
+        .btn-link {
             width: 100%;
             text-align: end;
             padding: 10px;
         }
     }
 
-    h2 {
+
+    h3 {
         grid-column: span 2;
         margin-top: 5px;
         font-size: 22px;
-        margin-block-end: 24px !important;
+        margin-block-end: 24px !important ;
 
         span {
             font-size: 16px;
@@ -234,21 +235,24 @@
 
 @media(max-width: 743px) {
     .stay-payment {
-        display: flex;
+        grid-template-columns: 1fr !important;
+        grid-auto-flow: column;
         justify-content: space-between;
         align-items: center;
-        padding-block: 16px;
+        width: 100%;
 
-        h2 {
+        h3 {
             font-size: 16px;
             font-weight: bold;
+            margin-block-end: 0;
+            margin: 0 !important;
 
             span {
                 font-size: 14px;
             }
         }
 
-        >*:not(.button-container, h2) {
+        >*:not(.button-container, h3) {
             display: none;
         }
 

@@ -10,18 +10,16 @@ import { useSearchParams } from "react-router-dom";
 export function LabelsFilter() {
     const filterBy = useSelector(state => state.stayModule.filterBy)
     const allLabels = getData('labels')
-    const [slicedLabels, setSlicedLabels] = useState([])
     const [selectedLabel, setSelectedLabel] = useState(allLabels[0])
-    const [startLabel, setStartLabel] = useState(0)
     const [searchParams, setSearchParams] = useSearchParams()
     const [size, setSize] = useState(10)
-    const max = allLabels.length
-    const LABEL_SIZE = 125
+    const [translateX, setTranslateX] = useState(0)
+    const LABEL_SIZE = 85
 
     useEffect(() => {
         const handleResize = () => {
             let rightSize = Math.ceil(window.innerWidth / LABEL_SIZE)
-            if (size > rightSize || size < rightSize) {
+            if (size !== rightSize) {
                 setSize(rightSize)
             }
         }
@@ -33,11 +31,6 @@ export function LabelsFilter() {
             window.removeEventListener("resize", handleResize)
         }
     }, [size, window.innerWidth])
-
-    useEffect(() => {
-        const newLabels = allLabels.slice(startLabel, startLabel + size)
-        setSlicedLabels(newLabels)
-    }, [startLabel, size])
 
     useEffect(() => {
         if (filterBy.label) setSelectedLabel(filterBy.label)
@@ -55,21 +48,20 @@ export function LabelsFilter() {
         }
     }, [searchParams, allLabels])
 
-    function changeIndex(leftRight) {
-        let newStart
-        if (leftRight === 'right') {
-            newStart = startLabel + size
-            if (newStart + size > max) {
-                newStart = max - size
+    function changeIndex(direction) {
+        let newTranslateX = translateX
+        if (direction === 'right') {
+            newTranslateX -= LABEL_SIZE * size
+            if (newTranslateX < -(LABEL_SIZE * (allLabels.length - size))) {
+                newTranslateX = -(LABEL_SIZE * (allLabels.length - size))
+            }
+        } else {
+            newTranslateX += LABEL_SIZE * size
+            if (newTranslateX > 0) {
+                newTranslateX = 0
             }
         }
-        else {
-            newStart = startLabel - size
-            if (newStart < 0) {
-                newStart = 0
-            }
-        }
-        setStartLabel(newStart)
+        setTranslateX(newTranslateX)
     }
 
     function selectLabel(label) {
@@ -92,16 +84,18 @@ export function LabelsFilter() {
     }
 
     return <section className="labels-filter">
-        {(startLabel > 0) && <button onClick={() => changeIndex('left')} ><img src={arrowLeft} alt="" /></button>}
-        <section className="labels-container">
-            {slicedLabels.map(label => {
-                return <div key={label.label} onClick={() => selectLabel(label)}
-                    className={label.label === selectedLabel.label ? 'selected' : ''}>
-                    <img src={label.img} />
-                    <p>{label.label}</p>
-                </div>
-            })}
+        {(translateX < 0) && <button onClick={() => changeIndex('left')}><img src={arrowLeft} alt="" /></button>}
+        <section className="labels-container" >
+            <div className="main-labels-container" style={{ transform: `translateX(${translateX}px)` }}>
+                {allLabels.map(label => (
+                    <div key={label.label} onClick={() => selectLabel(label)}
+                        className={label.label === selectedLabel.label ? 'selected' : ''}>
+                        <img src={label.img} alt={label.label} />
+                        <p>{label.label}</p>
+                    </div>
+                ))}
+            </div>
         </section>
-        {(startLabel + size) < allLabels.length && <button onClick={() => changeIndex('right')}> <img src={arrowRight} alt="" /> </button>}
+        {(translateX > -(LABEL_SIZE * (allLabels.length - size))) && <button onClick={() => changeIndex('right')}><img src={arrowRight} alt="" /></button>}
     </section>
 }

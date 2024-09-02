@@ -1,0 +1,217 @@
+.when-static {
+    position: relative;
+    width: 100%;
+    margin: 48px auto !important;
+    background-color: white;
+    box-shadow: 0 1px 0 0 #e1dede !important;
+    color: #222222;
+
+    .custom-header div {
+        font-size: 14px;
+        padding-block-start: 8px;
+        color: $gray4;
+    }
+
+    .rdrCalendarWrapper {
+        border: none;
+        box-shadow: none;
+        border-radius: 25px;
+    }
+
+    .rdrDateDisplayWrapper {
+        display: none;
+    }
+
+    .rdrDefinedRangesWrapper {
+        display: none;
+    }
+
+    .rdrMonth {
+        padding: 40px 0 48px 0;
+        position: relative;
+    }
+
+    .rdrMonthPicker select,
+    .rdrYearPicker select {
+        display: none;
+    }
+
+    // .rdrMonthAndYearWrapper {
+    //     display: none;
+    // }
+
+    .rdrMonthAndYearPickers {
+        display: flex;
+        justify-content: center;
+        padding: 10px 0;
+        font-weight: bold;
+    }
+
+    .rdrNextPrevButton {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        color: black;
+        margin-block-start: 4.5em;
+    }
+
+    .rdrMonths {
+        display: flex;
+        gap: 28px;
+    }
+
+    .rdrMonthName{
+        color: #222222;
+        font-size: 16px;
+        text-align: center;  
+    }
+    .rdrMonthAndYearWrapper {
+            display: none;
+        }
+
+        .custom-month-year-header {
+            text-align: center;
+            padding: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+            position: absolute;
+            top: 0;
+            /* Position at the top of the month */
+            left: 0;
+            right: 0;
+            background-color: white;
+            /* Ensure it stands out against the background */
+            z-index: 2;
+            /* Ensure it appears above other content */
+        }
+
+        .custom-month-year-header h3 {
+            margin: 1.5em auto;
+            font-size: 16px;
+            padding: 0;
+            color: black;
+            width: 100%;
+            text-align: center;
+        }
+
+        .rdrDay {
+            font-size: initial;
+            font-weight: bold;
+
+            font span {
+                font-weight: 300;
+            }
+        }
+
+        .rdrDayNumber {
+            font-size: em(16px);
+        }
+
+        .rdrDayPassive .rdrDayNumber {
+            display: none;
+        }
+
+        .rdrDayPassive.rdrDayHovered {
+            border: 0;
+        }
+
+        .rdrDayHovered {
+            border: black 1px solid !important;
+            border-radius: 50%;
+
+            .rdrDayNumber {
+                border: 0;
+                padding: 0;
+            }
+        }
+
+        button:has(.rdrStartEdge),
+        button:has(.rdrEndEdge) {
+            background-color: black !important;
+            border-radius: 50% !important;
+        }
+
+        button:has(.rdrInRange) {
+            border: 0 !important
+        }
+
+        .rdrDayStartPreview,
+        .rdrDayEndPreview {
+            border: 0;
+        }
+
+        button:has(.rdrDayInPreview) {
+            background-color: $gray1;
+            border-radius: 0;
+        }
+
+
+
+        .rdrStartEdge,
+        .rdrEndEdge {
+            border: black 1px solid !important;
+            background-color: black !important;
+            border-radius: 50% !important;
+
+
+            .rdrDayNumber {
+                border: 0;
+                padding: 0;
+            }
+        }
+
+        .rdrDayToday:not(.rdrDayPassive) .rdrEndEdge~.rdrDayNumber span:after {
+            display: none;
+        }
+
+        .rdrDayToday .rdrDayNumber span:after {
+            display: none;
+        }
+
+        .rdrDayInactive {
+            visibility: hidden;
+        }
+
+        button:has(.rdrInRange) {
+            background-color: $gray1;
+            border-radius: 0;
+        }
+
+        .rdrDay:not(.rdrDayPassive) .rdrInRange~.rdrDayNumber span {
+            color: black;
+        }
+
+        .rdrInRange:hover {
+            border: 0;
+        }
+
+        .rdrDayToday .rdrDayNumber {
+            border: 0;
+        }
+
+        .rdrDayDisabled {
+            opacity: 0.5;
+            background-color: white;
+        }
+
+        
+    }
+
+@media(max-width: 743px) {
+.when-static{
+    padding-inline: 24px;
+}    
+}
+
+    @media screen {
+        .when-static {
+
+            .rdrCalendarWrapper,
+            .rdrDateDisplayWrapper,
+            .rdrDateRangePickerWrapper,
+            .rdrMonth {
+                flex-direction: column;
+            }
+        }
+    }
