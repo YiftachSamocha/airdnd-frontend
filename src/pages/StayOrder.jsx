@@ -101,8 +101,7 @@ export function StayOrder() {
     return (
         <><div className="order">
             <img src={logoImg} className="logo" />
-        </div>
-            <hr className='main-hr' />
+            <hr className='main-hr' /> </div>
             <section className='stay-main-order'>
                 <section className='stay-order'>
                     <div className="header grid">

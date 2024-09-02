@@ -40,9 +40,9 @@ export function StayList() {
         setFilterUrl(urlStr)
     }
 
-    return (
-        <section className="stay-main-list">
-            <div>{filterBy.where.country}</div>
+    return (<>
+         <section className="stay-main-list">
+            {/* <div>{filterBy.where.country}</div> */}
             <ul className="stay-list">
                 {stays.map(stay => {
                     return (
@@ -54,6 +54,6 @@ export function StayList() {
                     )
                 })}
             </ul>
-        </section>
+         </section></>
     )
 }
