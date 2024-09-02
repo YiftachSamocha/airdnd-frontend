@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { loadStay } from '../store/actions/stay.actions'
@@ -15,6 +15,7 @@ import { AppHeader } from '../cmps/AppHeader'
 import { StayAmenities } from '../cmps/DetailsCmps/stayAmenities'
 import { StayRooms } from '../cmps/DetailsCmps/stayRooms'
 import { ModalCmp } from '../cmps/ModalCmp'
+import { WhenDetails } from '../cmps/MainFilterCmps/WhenDetails'
 
 
 export function StayDetails() {
@@ -22,11 +23,24 @@ export function StayDetails() {
   const stay = useSelector(storeState => storeState.stayModule.stay)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalType, setModalType] = useState(null)
-  const [modalContent, setModalContent] = useState(null);
+  const [searchParams, setSearchParams] =useSearchParams()
+  const [dates, setDates] = useState({ startDate: null, endDate: null })
+  const [city, setCity] = useState('');
 
   useEffect(() => {
     loadStay(stayId)
   }, [stayId])
+
+  useEffect(() => {
+    // Initialize dates and guests from search params
+    const startDate = searchParams.get('start_date') ? new Date(searchParams.get('start_date')) : null;
+    const endDate = searchParams.get('end_date') ? new Date(searchParams.get('end_date')) : null;
+    const cityParam = searchParams.get('city') || ''
+
+    setDates({ startDate, endDate })
+    setCity(cityParam)
+
+  }, [searchParams])
 
   function toggleModal(type) {
     setModalType(type)
@@ -49,6 +63,7 @@ export function StayDetails() {
             <StayMainInfo stay={stay} toggleModal={toggleModal} isModalOpen={isModalOpen} />
             <StayRooms stay={stay} />
             <StayAmenities stay={stay} toggleModal={toggleModal} isModalOpen={isModalOpen} />
+            <WhenDetails dates={dates} setDates={setDates} stay={stay} breakpoint={1200} />
           </div>
 
           <div className="payment-container">
@@ -57,10 +72,9 @@ export function StayDetails() {
         </div>
 
         <div className="more-content">
-          <StayDate />
           <StayReview />
           <StayLocation />
-          {/* <StayHost stay={stay} /> */}
+          <StayHost stay={stay} />
           <StayToKnow />
         </div>
 
