@@ -27,6 +27,8 @@ export function AppHeader() {
     const userInitiatedOpen = useRef(false)
     const location = useLocation()
     const filterBy = useSelector(state => state.stayModule.filterBy)
+    const isStayPage = location.pathname.startsWith('/stay') || location.pathname === '/'
+
 
     useEffect(() => {
         const handleScroll = () => {
@@ -109,7 +111,7 @@ export function AppHeader() {
                 <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
                     className="logo"><img src={logoImg} /></Link>
                 {isFolded && (
-                    <div onClick={handleMainFilterFoldedClick}>
+                    <div onClick={handleMainFilterFoldedClick} style={isStayPage ? {} : { display: "none" }}>
                         <MainFilterFolded filterBy={filterBy} />
                     </div>
                 )}
@@ -124,14 +126,14 @@ export function AppHeader() {
                 </div>
             </div>
 
-            {!isFolded && (
+            {!isFolded && isStayPage && (
                 <div ref={mainFilterRef}>
                     <MainFilter />
                 </div>
             )}
             <hr className="main-hr" />
-            <div ref={labelsFilterRef} className="labels-wrap" 
-            style={location.pathname === '/stay' || location.pathname === '/' || location.pathname==='/stay/' ? {} : { display: "none" }}>
+            <div ref={labelsFilterRef} className="labels-wrap"
+                style={location.pathname === '/stay' || location.pathname === '/' ? {} : { display: "none" }}>
                 <LabelsFilter />
                 {isExtraBtnShown && <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button">
                     <img src={filterImg} alt="" />
