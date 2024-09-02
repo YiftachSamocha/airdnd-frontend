@@ -23,7 +23,7 @@ export function StayDetails() {
   const stay = useSelector(storeState => storeState.stayModule.stay)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalType, setModalType] = useState(null)
-  const [searchParams, setSearchParams] =useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const [dates, setDates] = useState({ startDate: null, endDate: null })
   const [city, setCity] = useState('');
 
@@ -51,10 +51,7 @@ export function StayDetails() {
   if (!stay) return <div>Loading...</div>
   return (
     <section className="stay-details">
-      <div className="app-header">
-        <AppHeader />
-      </div>
-
+      <AppHeader />
       <div className="main-content">
         <h1>{stay.name}</h1>
         <StayImage stay={stay} />
