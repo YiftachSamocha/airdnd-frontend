@@ -9,6 +9,7 @@
     .custom-header div {
         font-size: 14px;
         padding-block-start: 8px;
+        color: $gray4;
     }
 
     .rdrCalendarWrapper {
@@ -193,7 +194,15 @@
             opacity: 0.5;
             background-color: white;
         }
+
+        
     }
+
+@media(max-width: 743px) {
+.when-static{
+    padding-inline: 24px;
+}    
+}
 
     @media screen {
         .when-static {
@@ -202,7 +211,6 @@
             .rdrDateDisplayWrapper,
             .rdrDateRangePickerWrapper,
             .rdrMonth {
-                width: 100%;
                 flex-direction: column;
             }
         }

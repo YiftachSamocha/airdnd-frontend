@@ -52,7 +52,7 @@ export function StayDetails() {
   return (
     <section className="stay-details">
       <div className="app-header">
-        <AppHeader />
+        {/* <AppHeader /> */}
       </div>
 
       <div className="main-content">
@@ -75,7 +75,7 @@ export function StayDetails() {
           <StayReview />
           <StayLocation />
           <StayHost stay={stay} />
-          <StayToKnow />
+          <StayToKnow stay={stay} />
         </div>
 
         {isModalOpen && (

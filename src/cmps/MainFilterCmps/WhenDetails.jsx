@@ -6,7 +6,7 @@ import { addDays, addMonths, isBefore, isAfter, format } from 'date-fns';
 
 export function WhenDetails({ dates, setDates, stay, breakpoint = 1200 }) {
     const [monthsAmount, setMonthsAmount] = useState(2)
-    
+
     const { reservedDates } = stay
 
     useEffect(() => {
@@ -47,46 +47,46 @@ export function WhenDetails({ dates, setDates, stay, breakpoint = 1200 }) {
         const { selection } = ranges
         const startDate = selection.startDate
         const endDate = selection.endDate
-    
+
         // Update the state with the selected dates
         setDates({
             startDate,
             endDate,
         })
-    
+
         // Format the dates to a suitable format for the URL, e.g., 'YYYY-MM-DD'
         const formattedStartDate = format(startDate, 'yyyy-MM-dd')
         const formattedEndDate = format(endDate, 'yyyy-MM-dd')
-    
+
         // Get the current URL search parameters
         const searchParams = new URLSearchParams(window.location.search)
-    
+
         // Update the 'checkin' and 'checkout' search parameters
         searchParams.set('start_date', formattedStartDate)
         searchParams.set('end_date', formattedEndDate)
-    
+
         // Update the URL with the new search parameters
         const newUrl = `${window.location.pathname}?${searchParams.toString()}`
         window.history.replaceState(null, '', newUrl)
     }
 
-function updateMonthNames() {
-    // Select all elements with the class 'rdrMonthName'
-    const monthElements = document.querySelectorAll('.rdrMonthName')
+    function updateMonthNames() {
+        // Select all elements with the class 'rdrMonthName'
+        const monthElements = document.querySelectorAll('.rdrMonthName')
 
-    // Loop through each element and update the month name
-    monthElements.forEach((element, index) => {
-        // Get the current date based on the month element's index
-        const currentDate = new Date()
-        const monthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + index)
+        // Loop through each element and update the month name
+        monthElements.forEach((element, index) => {
+            // Get the current date based on the month element's index
+            const currentDate = new Date()
+            const monthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + index)
 
-        // Format the month name to full month name and year (e.g., 'September 2024')
-        const formattedMonth = format(monthDate, 'MMMM yyyy')
+            // Format the month name to full month name and year (e.g., 'September 2024')
+            const formattedMonth = format(monthDate, 'MMMM yyyy')
 
-        // Update the text content of the month element
-        element.textContent = formattedMonth
-    })
-}
+            // Update the text content of the month element
+            element.textContent = formattedMonth
+        })
+    }
 
     function getNightsCount(startDate, endDate) {
         const diffTime = Math.abs(endDate - startDate)
@@ -127,13 +127,22 @@ function updateMonthNames() {
     return (
         <div className="when-static">
             <div className="custom-header">
-                <h3>
-                    {nightsCount} nights in {stay.location.city}
+                {nightsCount > 0 ? (
                     <div>
-                        {dates.startDate ? dates.startDate.toDateString() : ''} -{' '}
-                        {dates.endDate ? dates.endDate.toDateString() : ''}
+                        <h3>
+                            {nightsCount} nights in {stay.location.city}
+                            <div>
+                                {dates.startDate ? dates.startDate.toDateString() : ''} -{' '}
+                                {dates.endDate ? dates.endDate.toDateString() : ''}
+                            </div>
+                        </h3>
                     </div>
-                </h3>
+                ) : (
+                    <div>
+                        <h3>Select checkout date</h3>
+                        <div>Minimum stay: 2 nights</div>
+                    </div>
+                )}
             </div>
 
             <DateRangePicker

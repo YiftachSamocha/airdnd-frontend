@@ -1,0 +1,30 @@
+.things-to-know{
+    padding-block: 48px;
+
+    h3{
+        padding-block-end: 24px !important;
+    }
+
+    .content {
+        display: grid;
+        grid-template-columns: 2fr minmax(48px, 1fr) 2fr minmax(48px, 1fr) 2fr;
+
+        .safety{
+            grid-column: 3;
+        }
+
+        .cancellation{
+            grid-column: 5;
+        }
+
+        ul{
+            display: grid;
+            gap: 1rem;
+        }
+    }
+
+    @media (max-width:743px) {
+        padding-inline: 24px;
+        
+    }
+}

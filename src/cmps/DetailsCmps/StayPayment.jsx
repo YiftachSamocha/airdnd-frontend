@@ -46,11 +46,7 @@ export function StayPayment({ stay }) {
 
         setDates({ startDate: checkin, endDate: checkout })
         setFilterCapacity({ adults, children, infants, pets })
-    }, [searchParams])
-
-    useEffect(() => {
-        console.log('Updated dates:', dates)
-    }, [dates])
+    }, [])
 
     useEffect(() => {
         createOrderURLstr() 
