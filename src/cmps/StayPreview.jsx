@@ -17,8 +17,8 @@ export function StayPreview({ stay }) {
     const roundedDistance = distance > 0 ? formatNumberWithCommas(Math.round(distance)) : '0'
     const price = formatNumberWithCommas(stay.price.night)
     // const freeDate = getDateRange(stay.reservedDates)
-    const AvailableDates = findFirstAvailableNights(stay.reservedDates, 5)
-    const freeDate = formatDateRange(AvailableDates)
+    const availableDates = findFirstAvailableNights(stay.reservedDates, 5)
+    const freeDate = formatDateRange(availableDates)
 
 
     return (

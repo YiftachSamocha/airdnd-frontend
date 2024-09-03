@@ -1,5 +1,6 @@
 .modal-booking {
     display: grid;
+    place-items: center;
     grid-template-columns: 1fr 1fr;
     column-gap: 1.5em;
     position: fixed;
@@ -10,33 +11,43 @@
     background: rgba(0, 0, 0, 0.5);
     z-index: 1000;
     padding-inline: 60px;
-    box-sizing: border-box;
-    // display: flex;
-    // align-items: center;
+    box-sizing: border-box; 
 
     h4 {
-        margin-bottom: 5px;
+        margin: 0;
+        margin-top: 5px;
     }
 
     .modal-header {
         grid-column: 1 /span 2;
         text-align: start;
         justify-content: center;
+        margin-top: 40px;
+        margin-right: 90px;
 
-        // margin-top: 20px;
         p {
             margin: 0;
+        }
+
+        .modal-success {
+            display: flex;
+        }
+
+        .success.icon {
+            height: 25px;
+            margin-right: 10px;
+            margin-top: 22px;
         }
     }
 
     .modal-details {
         grid-column: 1 /span 1;
-        margin-bottom: 20px;
         grid-row: 2;
-        width: 50% // display: grid;
-            // grid-template-columns: 1fr 1fr;
-            // gap: 20px;
-            // margin-top: 20px;
+        width: 80%; // display: grid;
+
+        h3 {
+            margin-top: 0;
+        }
     }
 
     .modal-img {
@@ -46,13 +57,13 @@
         border-radius: 10px;
         box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
         height: 85%;
+        width: 80%;
+        margin-left: 20px;
     }
 
     .modal-img img {
-        max-width: 100%;
+        // max-width: 100%;
         border-radius: 10px;
-
-        // height: auto;
     }
 
     .img-name {
@@ -68,9 +79,21 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        button{
-            margin-top: 0;
-            margin-bottom: 0;
+
+        button.back {
+            background-color: $gray4 !important;
+            background: none;
+            width: 9em;
+            height: 2.5em;
+            line-height: 0.5;
+            font-weight: 400;
+        }
+
+        button.confirm {
+            height: 2.5em;
+            width: 9em;
+            line-height: 0.5;
+            font-weight: 400;
         }
     }
 
@@ -85,9 +108,10 @@
         }
 
         h3 {
-            font-size: 16px;
+            font-size: 1em;
             font-weight: 400;
-            margin: 8px;
+            margin: 5px;
+            margin-left: 0;
             letter-spacing: -0.5px;
         }
 
@@ -134,10 +158,11 @@
     background-color: white;
     font-size: 1rem;
     border-radius: 10px;
-    max-width: 90%;
-    width: 950px;
-    top: 100px;
-    max-height: 70vh;
+    max-width: 80%;
+    width: 60em;
+    // top: 7em;
+    // left: 12em;
+    max-height: 80vh;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
     position: relative;
     margin: 0 auto;
@@ -145,8 +170,4 @@
 
 .hidden {
     display: none;
-}
-
-button.back {
-    background: gray;
 }

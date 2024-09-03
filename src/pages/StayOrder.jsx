@@ -45,9 +45,8 @@ export function StayOrder() {
     const price = formatNumberWithCommas(stay.price.night)
     const total = formatNumberWithCommas(stay.price.night * 5)
     const cleaningFee = formatNumberWithCommas(stay.price.cleaning)
-    // const freeDate = getDateRange(stay.reservedDates)
-    const AvailableDates = findFirstAvailableNights(stay.reservedDates, 5)
-    const freeDate = formatDateRange(AvailableDates)
+    const availableDates = findFirstAvailableNights(stay.reservedDates, 5)
+    const freeDate = formatDateRange(availableDates)
 
     const totalReviews = stay.reviews ? stay.reviews.length : 0
     const avgRating = totalReviews > 0
@@ -64,7 +63,6 @@ export function StayOrder() {
         setIsModalOpen(false)
     }
 
-   
     function onBack() {
         navigate(`/stay/${stay._id}`)
     }
@@ -112,9 +110,9 @@ export function StayOrder() {
 
     return (
         <><div className="order">
-             {/* <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
-                    className="logo"><img src={logoImg} /></Link> */}
-            <img src={logoImg} className="logo" />
+             <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
+                    className="logo"><img src={logoImg} /></Link>
+            {/* <img src={logoImg} className="logo" /> */}
             <hr className='main-hr' /> </div>
             <section className='stay-main-order'>
                 <section className='stay-order'>
@@ -151,9 +149,6 @@ export function StayOrder() {
                             <h4>CVV</h4>
                             <h4>ZIP code</h4>
                         </div>
-                        {/* <h4>Pay{stay.sleep.maxCapacity} now</h4> */}
-                        {/* <h4>Pay part now, part later</h4>
-                        <h5>{' ₪753.18'} due today, {'₪3,012.70'} on {'Sep 20, 2024.'} No extra fees. More info</h5> */}
                     </div>
                     <div className='payment grid'>
                         {/* <button onClick={onAddOrder} >Request to book</button> */}
