@@ -21,9 +21,6 @@ export function StayPreview({ stay }) {
     const freeDate = formatDateRange(AvailableDates)
 
 
-
-
-
     return (
         <article className="stay-preview">
             <div>

@@ -11,7 +11,7 @@ import logoImg from "../assets/imgs/logo.svg"
 import { Who } from "../cmps/MainFilterCmps/Who";
 import { When } from "../cmps/MainFilterCmps/When";
 import { loadStay } from '../store/actions/stay.actions';
-import { formatNumberWithCommas, getDateRange } from '../services/util.service';
+import { findFirstAvailableNights, formatDateRange, formatNumberWithCommas, getDateRange } from '../services/util.service';
 import { addOrder } from '../store/actions/order.action';
 import { parse } from 'date-fns';
 import { ModalBooking } from '../cmps/ModalBooking';
@@ -45,14 +45,14 @@ export function StayOrder() {
     const price = formatNumberWithCommas(stay.price.night)
     const total = formatNumberWithCommas(stay.price.night * 5)
     const cleaningFee = formatNumberWithCommas(stay.price.cleaning)
-    const freeDate = getDateRange(stay.reservedDates)
+    // const freeDate = getDateRange(stay.reservedDates)
+    const AvailableDates = findFirstAvailableNights(stay.reservedDates, 5)
+    const freeDate = formatDateRange(AvailableDates)
 
     const totalReviews = stay.reviews ? stay.reviews.length : 0
     const avgRating = totalReviews > 0
         ? stay.reviews.reduce((sum, review) => sum + review.rate, 0) / totalReviews
         : 0
-
-    // console.log('stay.price.night', stay.price.night);
 
     function handleClick(){
         onAddOrder()
