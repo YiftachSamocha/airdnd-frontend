@@ -6,6 +6,10 @@
 
 
 @include for-mobile-layout {
+.stay-list{
+      grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+}
+
     // .stay-list {
     //     grid-template-columns: repeat(1fr);
 
