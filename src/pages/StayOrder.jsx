@@ -64,14 +64,7 @@ export function StayOrder() {
         setIsModalOpen(false)
     }
 
-    // const closeModal = (confirmation = false) => {
-    //     if (confirmation) {
-    //         setShowConfirmation(true); // מראה את הודעת האישור אם ה-confirm נלחץ
-    //     } else {
-    //         setIsModalOpen(false); // סוגר את המודל
-    //     }
-    // };
-
+   
     function onBack() {
         navigate(`/stay/${stay._id}`)
     }
@@ -125,10 +118,11 @@ export function StayOrder() {
             <hr className='main-hr' /> </div>
             <section className='stay-main-order'>
                 <section className='stay-order'>
-                    <div className="header grid">
+                    <div className="header">
                         <button onClick={onBack}> <img src={arrowLeft} alt="ArrowLeft Icon" className="arrow-left icon" /></button>
                         <h2>Request to book</h2>
                     </div>
+                    
                     <div className='rare-find grid'>
                         <div>  <h5>This is a rare find.</h5>
                             <h5> Karen & Tal's place is usually booked.</h5></div>
