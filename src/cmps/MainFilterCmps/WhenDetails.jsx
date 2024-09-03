@@ -38,10 +38,10 @@ export function WhenDetails({ dates, setDates, stay, breakpoint = 1200 }) {
         }
     }, [reservedDates, dates, setDates])
 
-    useEffect(() => {
-        // Call updateMonthNames after the component mounts and after each render
-        updateMonthNames()
-    }, [monthsAmount, dates])
+    // useEffect(() => {
+    //     // Call updateMonthNames after the component mounts and after each render
+    //     updateMonthNames()
+    // }, [monthsAmount, dates])
 
     function handleDateChange(ranges) {
         const { selection } = ranges
@@ -70,23 +70,23 @@ export function WhenDetails({ dates, setDates, stay, breakpoint = 1200 }) {
         window.history.replaceState(null, '', newUrl)
     }
 
-    function updateMonthNames() {
-        // Select all elements with the class 'rdrMonthName'
-        const monthElements = document.querySelectorAll('.rdrMonthName')
+    // function updateMonthNames() {
+    //     // Select all elements with the class 'rdrMonthName'
+    //     const monthElements = document.querySelectorAll('.rdrMonthName')
 
-        // Loop through each element and update the month name
-        monthElements.forEach((element, index) => {
-            // Get the current date based on the month element's index
-            const currentDate = new Date()
-            const monthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + index)
+    //     // Loop through each element and update the month name
+    //     monthElements.forEach((element, index) => {
+    //         // Get the current date based on the month element's index
+    //         const currentDate = new Date()
+    //         const monthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + index)
 
-            // Format the month name to full month name and year (e.g., 'September 2024')
-            const formattedMonth = format(monthDate, 'MMMM yyyy')
+    //         // Format the month name to full month name and year (e.g., 'September 2024')
+    //         const formattedMonth = format(monthDate, 'MMMM yyyy')
 
-            // Update the text content of the month element
-            element.textContent = formattedMonth
-        })
-    }
+    //         // Update the text content of the month element
+    //         element.textContent = formattedMonth
+    //     })
+    // }
 
     function getNightsCount(startDate, endDate) {
         const diffTime = Math.abs(endDate - startDate)

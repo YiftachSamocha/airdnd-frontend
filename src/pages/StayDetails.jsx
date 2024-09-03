@@ -51,9 +51,6 @@ export function StayDetails() {
   if (!stay) return <div>Loading...</div>
   return (
     <section className="stay-details">
-      <div className="app-header">
-        <AppHeader />
-      </div>
 
       <div className="main-content">
         <h1>{stay.name}</h1>
