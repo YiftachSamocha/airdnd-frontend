@@ -14,6 +14,7 @@ import { loadStay } from '../store/actions/stay.actions';
 import { formatNumberWithCommas, getDateRange } from '../services/util.service';
 import { addOrder } from '../store/actions/order.action';
 import { parse } from 'date-fns';
+import { ModalBooking } from '../cmps/ModalBooking';
 
 export function StayOrder() {
     const navigate = useNavigate()
@@ -23,6 +24,7 @@ export function StayOrder() {
 
     const [isWhoOpen, setWhoOpen] = useState(false)
     const [isWhenOpen, setWhenOpen] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [filterCapacity, setFilterCapacity] = useState({ adults: 0, children: 0, infants: 0, pets: 0 })
     const [dates, setDates] = useState({ startDate: null, endDate: null })
@@ -51,6 +53,23 @@ export function StayOrder() {
 
     // console.log('stay.price.night', stay.price.night);
 
+    function handleClick(){
+        onAddOrder()
+        setIsModalOpen(true)
+        // setShowConfirmation(false)
+    }
+
+    function closeModal(){
+        setIsModalOpen(false)
+    }
+
+    // const closeModal = (confirmation = false) => {
+    //     if (confirmation) {
+    //         setShowConfirmation(true); // מראה את הודעת האישור אם ה-confirm נלחץ
+    //     } else {
+    //         setIsModalOpen(false); // סוגר את המודל
+    //     }
+    // };
 
     function onBack() {
         navigate(`/stay/${stay._id}`)
@@ -143,7 +162,9 @@ export function StayOrder() {
                         <h5>{' ₪753.18'} due today, {'₪3,012.70'} on {'Sep 20, 2024.'} No extra fees. More info</h5> */}
                     </div>
                     <div className='payment grid'>
-                        <button onClick={onAddOrder} >Request to book</button>
+                        {/* <button onClick={onAddOrder} >Request to book</button> */}
+                        <button onClick={handleClick}>Request to book</button>
+                        <ModalBooking isOpen={isModalOpen} onClose={closeModal} stay={stay}/>
                     </div>
                     {/* </section> */}
                     <section className="price-details">
