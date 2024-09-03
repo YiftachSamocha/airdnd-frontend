@@ -1,8 +1,8 @@
 .slider-container {
     position: relative;
     width: 100%;
-    max-width: 500px;
-    max-height: 475px;
+    // max-width: 500px;
+    // max-height: 475px;
     // 320px X 304px;
     // max-width: 280px;
     // max-height: 265px;
@@ -10,12 +10,10 @@
     margin: 0;
     padding: 0;
     object-fit: cover;
-    // aspect-ratio: 320 / 304;
-    aspect-ratio:500px / 475px;
+  
     aspect-ratio: 1 / 1;
     border-radius: 10px;
     overflow: hidden;
-
 
     .img-body {
         position: relative;
