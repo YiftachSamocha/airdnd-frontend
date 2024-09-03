@@ -4,6 +4,8 @@ import { StayIndex } from './pages/StayIndex.jsx'
 import { StayDetails } from './pages/StayDetails'
 import { StayOrder } from './pages/StayOrder.jsx'
 import { Reservations } from './pages/Reservations.jsx'
+import { BecomeHost } from './pages/BecomeHost.jsx'
+
 import { Trips } from './pages/Trips.jsx'
 import { AppFooter } from './cmps/AppFooter.jsx'
 
@@ -36,15 +38,18 @@ export function RootCmp() {
 
     return (
         <div className="main-container">
-         
+            {/* {showHeader && <AppHeader />} */}
             <main>
                 <Routes>
                     <Route path="/" element={<StayIndex />} />
                     <Route path="stay" element={<StayIndex />} />
                     <Route path="stay/:stayId" element={<StayDetails />} />
                     <Route path="book/stay/:stayId" element={<StayOrder />} />
-                    <Route path="reservation" element={<Reservations />} />
-                    <Route path="trip" element={<Trips />} />
+                    <Route path="reservation/:hostId" element={<Reservations />} />
+                    <Route path="trip/:guestId" element={<Trips />} />
+                    //
+                    <Route path="become-a-host/:guestId" element={<BecomeHost />} />
+
                 </Routes>
             </main>
             {showFooter && isFooter && <AppFooter />}

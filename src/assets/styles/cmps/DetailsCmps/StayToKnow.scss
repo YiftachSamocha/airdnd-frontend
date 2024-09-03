@@ -1,7 +1,7 @@
-.things-to-know{
+.things-to-know {
     padding-block: 48px;
 
-    h3{
+    h3 {
         padding-block-end: 24px !important;
     }
 
@@ -9,22 +9,54 @@
         display: grid;
         grid-template-columns: 2fr minmax(48px, 1fr) 2fr minmax(48px, 1fr) 2fr;
 
-        .safety{
+        .safety {
             grid-column: 3;
         }
 
-        .cancellation{
+        .cancellation {
             grid-column: 5;
         }
 
-        ul{
+        ul {
             display: grid;
             gap: 1rem;
         }
     }
 
     @media (max-width:743px) {
-        padding-inline: 24px;
-        
+        padding: 24px;
+
+        h3 {
+            display: none;
+        }
+
+        .content {
+            display: flex;
+            flex-direction: column;
+
+            >*:not(:last-child) {
+                box-shadow: 0px 1px 0 0 #e1dede;
+            }
+
+            .safety, .cancellation {
+                h4 {
+                    padding-block-start: 24px;
+                }
+            }
+
+            h4 {
+                font-size: 22px ;
+            }
+
+                ul {
+                    gap: 8px;
+                    margin-block: 24px;
+                }
+
+                li {
+                    font-size: 14px;
+                    color: $gray4
+                }
+            }
+        }
     }
-}

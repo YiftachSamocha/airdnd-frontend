@@ -67,7 +67,10 @@
         text-align: center;  
     }
     .rdrMonthAndYearWrapper {
-            display: none;
+            // display: none;
+            align-items: center;
+            height: 0;
+            padding-top: 0;
         }
 
         .custom-month-year-header {
