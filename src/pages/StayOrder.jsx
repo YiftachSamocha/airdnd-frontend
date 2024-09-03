@@ -78,7 +78,7 @@ export function StayOrder() {
 
     function onAddOrder() {
         const params = new URLSearchParams(searchParams)
-        if (!params.get('start_date') || !params.get('end_date')) return
+        // if (!params.get('start_date') || !params.get('end_date')) return
         const startDate = parse(params.get('start_date'), 'yyyy-MM-dd', new Date())
         const endDate = parse(params.get('end_date'), 'yyyy-MM-dd', new Date())
         let capacity = {
@@ -163,7 +163,7 @@ export function StayOrder() {
                     <div className='payment grid'>
                         {/* <button onClick={onAddOrder} >Request to book</button> */}
                         <button onClick={handleClick}>Request to book</button>
-                        <ModalBooking isOpen={isModalOpen} onClose={closeModal} stay={stay} />
+                        <ModalBooking isOpen={isModalOpen} onClose={closeModal} stay={stay} onAddOrder={onAddOrder} />
                     </div>
                     {/* </section> */}
                     <section className="price-details">
