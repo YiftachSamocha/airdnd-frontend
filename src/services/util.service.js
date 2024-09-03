@@ -1,3 +1,6 @@
+import { addDays, addMonths, isBefore, isAfter, format } from 'date-fns';
+
+
 export function makeId(length = 6) {
     var txt = ''
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -126,27 +129,54 @@ export function getDateRange(datesBooked) {
     }    
 }
 
+export function findFirstAvailableNights(reservedRanges, nightsNeeded) {
+    const today = new Date()
+    let currentDate = addDays(today, 1)
+    let foundNights = []
 
-function formatDateRange(start, end) {
-// console.log(start, end);
+    while (foundNights.length < nightsNeeded) {
+        const isReserved = reservedRanges.some(range =>
+            isBefore(currentDate, new Date(range.end)) && isAfter(currentDate, new Date(range.start))
+        )
 
-    function formatDate(dateStr) {
-        const date = new Date(dateStr);
+        if (!isReserved) {
+            foundNights.push(currentDate)
+        } else {
+            foundNights = [] // Reset if a reserved date is found within the needed range
+        }
+
+        currentDate = addDays(currentDate, 1)
+
+        if (foundNights.length === nightsNeeded) {
+            return {
+                startDate: foundNights[0],
+                endDate: foundNights[nightsNeeded - 1],
+            }
+        }
+    }
+    return null // Return null if no suitable range is found
+}
+
+
+export function formatDateRange(dateRange) {
+   
+    function formatDate(date) {        
         const options = { month: 'short', day: 'numeric' };
         return date.toLocaleDateString('en-US', options);
     }
+    
+    const startDate = new Date(dateRange.startDate);
+    const endDate = new Date(dateRange.endDate);
+    
+    const startMonthDay = formatDate(startDate);
+    const endMonthDay = formatDate(endDate);
 
-    const startDate = new Date(start)
-    const endDate = new Date(end)
-
-    const startMonthDay = formatDate(start)
-    const endMonthDay = formatDate(end)
     if (startDate.getMonth() === endDate.getMonth()) {
-        const startDay = startDate.toLocaleDateString('en-US', { day: 'numeric' })
-        const endDay = endDate.toLocaleDateString('en-US', { day: 'numeric' })
-        return `${startMonthDay.split(' ')[0]} ${startDay} – ${endDay}`
+        const startDay = startDate.toLocaleDateString('en-US', { day: 'numeric' });
+        const endDay = endDate.toLocaleDateString('en-US', { day: 'numeric' });
+        return `${startMonthDay.split(' ')[0]} ${startDay} – ${endDay}`;
     } else {
-        return `${startMonthDay} – ${endMonthDay}`
+        return `${startMonthDay} – ${endMonthDay}`;
     }
 }
 

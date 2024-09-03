@@ -1,4 +1,10 @@
-@include for-mobile-layout {}
+@include for-mobile-layout {
+    .loginsignup{
+        position: sticky;
+        bottom: 0;
+        width: 100%;
+    }
+}
 
 @include for-normal-layout {
     .main-filter {
@@ -6,9 +12,11 @@
 
         .when {
             padding-inline: 7em;
-      left: -100%;
+            left: -100%;
             background-color: white;
         }
+       
+
 
 
     }
@@ -17,11 +25,12 @@
 @include for-wide-layout {
     .main-filter {
         max-width: em(850px);
-        .when{
+
+        .when {
             padding-inline: 0;
         }
     }
-   
+
 
 }
 

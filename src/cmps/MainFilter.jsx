@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import searchImg from "../assets/imgs/search.png";
 import { SET_FILTER_BY } from "../store/reducers/stay.reducer";
 import { stayService } from "../services/stay";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export function MainFilter() {
@@ -18,6 +18,8 @@ export function MainFilter() {
     const [searchParams, setSearchParams] = useSearchParams()
     const gFilter = useSelector(state => state.stayModule.filterBy)
     const filterRef = useRef(null)
+    const navigate = useNavigate()
+    const location = useLocation()
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -118,6 +120,7 @@ export function MainFilter() {
         setTimeout(() => {
             setOpenType('')
         }, 100)
+        if (location.pathname !== '/' && location.pathname !== '/stay') navigate('/stay')
     }
 
     function deleteFilter(type) {

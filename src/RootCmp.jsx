@@ -8,7 +8,6 @@ import { BecomeHost } from './pages/BecomeHost.jsx'
 
 import { Trips } from './pages/Trips.jsx'
 import { AppFooter } from './cmps/AppFooter.jsx'
-import { AppHeader } from './cmps/AppHeader.jsx'
 
 export function RootCmp() {
     const location = useLocation()
@@ -36,7 +35,6 @@ export function RootCmp() {
         location.pathname === '/stay' ||
         location.pathname.startsWith('/reservation') ||
         location.pathname.startsWith('/trip')
-    const showHeader = !location.pathname.startsWith('/book')
 
     return (
         <div className="main-container">

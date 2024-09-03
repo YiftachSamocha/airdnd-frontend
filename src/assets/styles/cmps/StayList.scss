@@ -1,18 +1,22 @@
-.stay-list {
-
+.stay-list{
     display: grid;
-    // grid-template-columns: repeat(4, 1fr);
-    gap: 1.5em;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    column-gap: 1.5em;
+    row-gap: 2.5em;
+
 
     a {
         text-decoration: none;
+        color:$gray5;
         // width:  max-content;
     }
 
 
     .stay-list li {
-        // display: grid;
+        display: grid;
         margin-bottom: 10px;
         // width:  max-content;
     }
 }
+
+

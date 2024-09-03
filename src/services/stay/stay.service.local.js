@@ -1,9 +1,11 @@
 import { storageService } from '../async-storage.service'
 import { makeId } from '../util.service'
 import { userService } from '../user'
-import { createHosts } from '../stay.data'
+import { createStayData } from '../stay.data'
+import { createUsersData } from '../user.data'
 
-const STORAGE_KEY = 'stay'
+const STAY_STORAGE_KEY = 'stay'
+const USER_STORAGE_KEY = 'user'
 
 export const stayService = {
     query,
@@ -17,7 +19,7 @@ window.cs = stayService
 _createData()
 
 async function query(filterBy = {}) {
-    var stays = await storageService.query(STORAGE_KEY)
+    var stays = await storageService.query(STAY_STORAGE_KEY)
     const { where, when, who, label, extra } = filterBy
     if (where && where.city && where.country && where.country !== 'Im flexible') {
         stays = stays.filter(stay => stay.location.country === where.country && stay.location.city === where.city)
@@ -42,12 +44,12 @@ async function query(filterBy = {}) {
 }
 
 function getById(stayId) {
-    return storageService.get(STORAGE_KEY, stayId)
+    return storageService.get(STAY_STORAGE_KEY, stayId)
 }
 
 async function remove(stayId) {
     // throw new Error('Nope')
-    await storageService.remove(STORAGE_KEY, stayId)
+    await storageService.remove(STAY_STORAGE_KEY, stayId)
 }
 
 async function save(stay) {
@@ -58,23 +60,21 @@ async function save(stay) {
             price: stay.price,
             speed: stay.speed,
         }
-        savedStay = await storageService.put(STORAGE_KEY, stayToSave)
+        savedStay = await storageService.put(STAY_STORAGE_KEY, stayToSave)
     } else {
         const stayToSave = {
             vendor: stay.vendor,
             price: stay.price,
             speed: stay.speed,
-            // Later, owner is set by the backend
             owner: userService.getLoggedinUser(),
             msgs: []
         }
-        savedStay = await storageService.post(STORAGE_KEY, stayToSave)
+        savedStay = await storageService.post(STAY_STORAGE_KEY, stayToSave)
     }
     return savedStay
 }
 
 async function addStayMsg(stayId, txt) {
-    // Later, this is all done by the backend
     const stay = await getById(stayId)
 
     const msg = {
@@ -83,19 +83,25 @@ async function addStayMsg(stayId, txt) {
         txt
     }
     stay.msgs.push(msg)
-    await storageService.put(STORAGE_KEY, stay)
+    await storageService.put(STAY_STORAGE_KEY, stay)
 
     return msg
 }
 
 async function _createData(listingsPerHost = 2) {
-    const currData = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if (!currData || currData.length === 0) {
-        const { hosts, stays } = await createHosts(listingsPerHost);
+    const currStayData = JSON.parse(localStorage.getItem(STAY_STORAGE_KEY))
+    let newStays = []
+    if (!currStayData || currStayData.length === 0) {
+        newStays = await createStayData(listingsPerHost)
+        localStorage.setItem(STAY_STORAGE_KEY, JSON.stringify(newStays))
 
-        localStorage.setItem('hosts', JSON.stringify(hosts));
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(stays));
+        const currUserData = JSON.parse(localStorage.getItem(USER_STORAGE_KEY))
+        if (!currUserData || currUserData.length === 0) {
+            const users = await createUsersData(newStays)
+            localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(users))
+        }
     }
+
 }
 
 function _filterWhen(reservedDates, vacationRange) {
@@ -106,7 +112,6 @@ function _filterWhen(reservedDates, vacationRange) {
     return !reservedDates.some(({ start, end }) => {
         const reservedStart = new Date(start)
         const reservedEnd = new Date(end)
-        // console.log(vacationStart, reservedStart, vacationStart <= reservedStart)
 
 
         if (vacationStart >= reservedStart && vacationStart <= reservedEnd) return true

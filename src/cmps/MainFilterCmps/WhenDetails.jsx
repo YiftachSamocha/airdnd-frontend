@@ -3,6 +3,7 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { useEffect, useState } from 'react';
 import { addDays, addMonths, isBefore, isAfter, format } from 'date-fns';
+import { findFirstAvailableNights } from '../../services/util.service';
 
 export function WhenDetails({ dates, setDates, stay, breakpoint = 1200 }) {
     const [monthsAmount, setMonthsAmount] = useState(2)
@@ -96,33 +97,33 @@ export function WhenDetails({ dates, setDates, stay, breakpoint = 1200 }) {
 
     const nightsCount = dates.startDate && dates.endDate ? getNightsCount(dates.startDate, dates.endDate) : 0
 
-    function findFirstAvailableNights(reservedRanges, nightsNeeded) {
-        const today = new Date()
-        let currentDate = addDays(today, 1)
-        let foundNights = []
+    // function findFirstAvailableNights(reservedRanges, nightsNeeded) {
+    //     const today = new Date()
+    //     let currentDate = addDays(today, 1)
+    //     let foundNights = []
 
-        while (foundNights.length < nightsNeeded) {
-            const isReserved = reservedRanges.some(range =>
-                isBefore(currentDate, new Date(range.end)) && isAfter(currentDate, new Date(range.start))
-            )
+    //     while (foundNights.length < nightsNeeded) {
+    //         const isReserved = reservedRanges.some(range =>
+    //             isBefore(currentDate, new Date(range.end)) && isAfter(currentDate, new Date(range.start))
+    //         )
 
-            if (!isReserved) {
-                foundNights.push(currentDate)
-            } else {
-                foundNights = [] // Reset if a reserved date is found within the needed range
-            }
+    //         if (!isReserved) {
+    //             foundNights.push(currentDate)
+    //         } else {
+    //             foundNights = [] // Reset if a reserved date is found within the needed range
+    //         }
 
-            currentDate = addDays(currentDate, 1)
+    //         currentDate = addDays(currentDate, 1)
 
-            if (foundNights.length === nightsNeeded) {
-                return {
-                    startDate: foundNights[0],
-                    endDate: foundNights[nightsNeeded - 1],
-                }
-            }
-        }
-        return null // Return null if no suitable range is found
-    }
+    //         if (foundNights.length === nightsNeeded) {
+    //             return {
+    //                 startDate: foundNights[0],
+    //                 endDate: foundNights[nightsNeeded - 1],
+    //             }
+    //         }
+    //     }
+    //     return null // Return null if no suitable range is found
+    // }
 
     return (
         <div className="when-static">
