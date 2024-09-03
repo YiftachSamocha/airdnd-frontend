@@ -6,7 +6,6 @@ import { StayOrder } from './pages/StayOrder.jsx'
 import { Reservations } from './pages/Reservations.jsx'
 import { Trips } from './pages/Trips.jsx'
 import { AppFooter } from './cmps/AppFooter.jsx'
-import { AppHeader } from './cmps/AppHeader.jsx'
 
 export function RootCmp() {
     const location = useLocation()
@@ -34,19 +33,18 @@ export function RootCmp() {
         location.pathname === '/stay' ||
         location.pathname.startsWith('/reservation') ||
         location.pathname.startsWith('/trip')
-    const showHeader = !location.pathname.startsWith('/book')
 
     return (
         <div className="main-container">
-            {showHeader && <AppHeader />}
+         
             <main>
                 <Routes>
                     <Route path="/" element={<StayIndex />} />
                     <Route path="stay" element={<StayIndex />} />
                     <Route path="stay/:stayId" element={<StayDetails />} />
                     <Route path="book/stay/:stayId" element={<StayOrder />} />
-                    <Route path="reservation/:hostId" element={<Reservations />} />
-                    <Route path="trip/:guestId" element={<Trips />} />
+                    <Route path="reservation" element={<Reservations />} />
+                    <Route path="trip" element={<Trips />} />
                 </Routes>
             </main>
             {showFooter && isFooter && <AppFooter />}

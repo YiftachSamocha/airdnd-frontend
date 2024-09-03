@@ -10,7 +10,7 @@
     height: em(60px);
     border-top: 1px solid $gray2;
 
-    a {
+    a, div {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -20,17 +20,15 @@
         text-decoration: none;
         img{
             height: em(24px);
-            width: em(24px);
-           
-         
-            
-           
+            width: em(24px); 
         }
+        
         p{
             margin: 0;
             font-size: 12px;
         }
     }
+ 
     .selected{
         color: $clr-light-red;
         img {

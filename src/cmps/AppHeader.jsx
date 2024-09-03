@@ -1,4 +1,4 @@
-import { Link, useLocation, useSearchParams } from "react-router-dom"
+import { Link, useLocation, useParams } from "react-router-dom"
 import bigLogoImg from "../assets/imgs/logo.svg"
 import smallLogoImg from "../assets/imgs/small-icon.png"
 import languageImg from "../assets/imgs/language.png"
@@ -15,6 +15,9 @@ import { OutsideClick } from "./OutsideClick"
 import { store } from "../store/store"
 import { SET_FILTER_BY } from "../store/reducers/stay.reducer"
 import { useSelector } from "react-redux"
+import { userService } from "../services/user"
+import { LoginSignup } from "./LoginSignup"
+import { logout } from "../store/actions/user.actions"
 
 export function AppHeader() {
     const [isFolded, setIsFolded] = useState(false)
@@ -22,13 +25,16 @@ export function AppHeader() {
     const [isTop, setIsTop] = useState(true)
     const [isExtraBtnShown, setIsExtraBtnShown] = useState(false)
     const [logoImg, setLogoImg] = useState(bigLogoImg)
+    const [isUserInfoOpen, setIsUserInfoOpen] = useState(false)
+    const [loginSignup, setLoginSignup] = useState(null)
     const mainFilterRef = useRef(null)
     const labelsFilterRef = useRef(null)
     const userInitiatedOpen = useRef(false)
+    const userInfoRef = useRef(null)
     const location = useLocation()
     const filterBy = useSelector(state => state.stayModule.filterBy)
+    const currUser = useSelector(state => state.userModule.currUser)
     const isStayPage = location.pathname.startsWith('/stay') || location.pathname === '/'
-
 
     useEffect(() => {
         const handleScroll = () => {
@@ -74,6 +80,21 @@ export function AppHeader() {
     }, [isFolded, isTop])
 
     useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (
+                userInfoRef.current && !userInfoRef.current.contains(event.target)) {
+                setIsUserInfoOpen(false)
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside)
+
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside)
+        }
+    }, [isUserInfoOpen])
+
+    useEffect(() => {
         if (filterBy.where.city || filterBy.where.country || filterBy.when.startDate || filterBy.endDate || (filterBy.label && filterBy.label.label !== 'icons')
             || filterBy.who.infants > 0 || filterBy.who.adults > 0 || filterBy.infants > 0) {
             setIsExtraBtnShown(true)
@@ -116,13 +137,26 @@ export function AppHeader() {
                     </div>
                 )}
 
-                <div className="user-header">
+                <div className="user-header" >
                     <Link>Airdnd your home</Link>
                     <Link><img src={languageImg} /></Link>
-                    <div>
+                    <div className="user-profile" onClick={() => setIsUserInfoOpen(prev => !prev)}>
                         <img src={hamburgerImg} />
-                        <Link className="profile"><img src={profileImg} /></Link>
+                        <div className="profile"> {!currUser ? <img src={profileImg} /> : <img src={currUser.imgUrl} />}</div>
                     </div>
+                    {isUserInfoOpen && <div className="user-modal" ref={userInfoRef} >
+                        {currUser ? <div>
+                            <Link to={'/trip'}><p className="bolder">Trips</p></Link>
+                            <Link to={'/reservation'}><p className="bolder">Reservations</p></Link>
+                            <Link to="/stay"><p onClick={() => logout()} >Log Out</p></Link>
+                        </div>
+                            :
+                            <div>
+                                <p onClick={() => setLoginSignup('login')} >Log in</p>
+                                <p onClick={() => setLoginSignup('signup')}>Sign up</p>
+                            </div>}
+                    </div>}
+
                 </div>
             </div>
 
@@ -145,9 +179,15 @@ export function AppHeader() {
                 <OutsideClick onOutsideClick={() => setIsExtraVisible(prev => !prev)} >
                     <ExtraFilter closeExtra={() => setIsExtraVisible(prev => !prev)} />
                 </OutsideClick>
-
             </div>}
             {(!isFolded && !isTop) && <div className="layout-main"></div>} */}
+
+            {loginSignup && <div className="layout">
+                <OutsideClick onOutsideClick={() => setLoginSignup(null)}>
+                    <LoginSignup closeLoginsignup={() => setLoginSignup(null)} initalType={loginSignup} />
+                </OutsideClick>
+            </div>}
+
 
         </section>
     )
