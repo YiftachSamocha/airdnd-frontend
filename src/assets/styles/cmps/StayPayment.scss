@@ -102,10 +102,16 @@
         }
     }
 
+    .when{
+        top: 10%;
+        left: unset;
+        right: 0;
+    }
+
     .who {
         width: 100%;
         position: absolute;
-        top: 42%;
+        top: 42% ;
         left: unset;
         right: 25px;
         border-radius: 4px;
@@ -239,7 +245,11 @@
         grid-auto-flow: column;
         justify-content: space-between;
         align-items: center;
-        width: 100%;
+        width: 100vw;
+        min-width: 100vw;
+        border-radius: 0;
+        box-shadow: unset;
+        padding-block: 16px;
 
         h3 {
             font-size: 16px;

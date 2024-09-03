@@ -20,6 +20,7 @@ export function StayOrder() {
     const navigate = useNavigate()
     const { stayId } = useParams()
     const stay = useSelector(storeState => storeState.stayModule.stay)
+    const currUser= useSelector(state=> state.userModule.stay)
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [isWhoOpen, setWhoOpen] = useState(false)
@@ -28,7 +29,6 @@ export function StayOrder() {
 
     const [filterCapacity, setFilterCapacity] = useState({ adults: 0, children: 0, infants: 0, pets: 0 })
     const [dates, setDates] = useState({ startDate: null, endDate: null })
-
     const toggleWho = () => setWhoOpen(!isWhoOpen)
     const toggleWhen = () => setWhenOpen(!isWhenOpen)
 
@@ -59,7 +59,7 @@ export function StayOrder() {
         // setShowConfirmation(false)
     }
 
-    function closeModal(){
+    function closeModal() {
         setIsModalOpen(false)
     }
 
@@ -69,7 +69,7 @@ export function StayOrder() {
 
     function onAddOrder() {
         const params = new URLSearchParams(searchParams)
-        if (!params.get('start_date') || !params.get('end_date')) return
+        // if (!params.get('start_date') || !params.get('end_date')) return
         const startDate = parse(params.get('start_date'), 'yyyy-MM-dd', new Date())
         const endDate = parse(params.get('end_date'), 'yyyy-MM-dd', new Date())
         let capacity = {
@@ -91,7 +91,7 @@ export function StayOrder() {
             _id: stay.host._id,
             fullname: stay.host.fullname
         }
-        const guest = ''
+        const guest = currUser
         const createdAt = new Date()
         const order = {
             startDate,
@@ -153,7 +153,7 @@ export function StayOrder() {
                     <div className='payment grid'>
                         {/* <button onClick={onAddOrder} >Request to book</button> */}
                         <button onClick={handleClick}>Request to book</button>
-                        <ModalBooking isOpen={isModalOpen} onClose={closeModal} stay={stay}/>
+                        <ModalBooking isOpen={isModalOpen} onClose={closeModal} stay={stay} onAddOrder={onAddOrder} />
                     </div>
                     {/* </section> */}
                     <section className="price-details">

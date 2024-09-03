@@ -5,7 +5,7 @@ import { addOrder } from "../store/actions/order.action";
 import success from "../assets/imgs/icons/success.svg"
 
 
-export function ModalBooking({ isOpen, onClose, showConfirmation, stay }) {
+export function ModalBooking({ isOpen, onClose, stay, onAddOrder }) {
 
     const [isConfirmation, setIsConfirmation] = useState(false)
     const navigate = useNavigate()
@@ -29,6 +29,7 @@ export function ModalBooking({ isOpen, onClose, showConfirmation, stay }) {
 
     function handleConfirmClick() {
         setIsConfirmation(true)
+        // onAddOrder()
     }
 
     if (!isOpen) return null
@@ -71,7 +72,7 @@ export function ModalBooking({ isOpen, onClose, showConfirmation, stay }) {
                     </div>
                 </div>
                 <div className="modal-img">
-                    <img src={stay.imgs[0]} alt={`stay-img`} className="stay-img" />
+                    {/* <img src={stay.imgs[0]} alt={`stay-img`} className="stay-img" /> */}
                     <div className="img-name">
                         <h5>{stay.name}</h5>
                         <h5>{stay.location.city}, {stay.location.country}</h5>

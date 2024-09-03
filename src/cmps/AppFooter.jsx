@@ -1,5 +1,5 @@
 import tripsImg from '../assets/imgs/footer/trips.svg';
-import reservationsImg from '../assets/imgs/footer/reservations.svg';
+import hostImg from '../assets/imgs/footer/host.svg';
 import exploreImg from '../assets/imgs/footer/explore.svg';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -30,16 +30,16 @@ export function AppFooter() {
 				<p>Trips</p>
 			</Link>
 
-				<Link to={'/reservation'} onClick={() => setSelected('reservations')}
-					className={selected === 'reservations' ? 'selected' : ''}>
-					<img src={reservationsImg} />
-					<p>Reservations</p>
+				<Link to={'/host'} onClick={() => setSelected('host')}
+					className={selected === 'host' ? 'selected' : ''}>
+					<img src={hostImg} />
+					<p>Host</p>
 				</Link>
 			</>
 				:
-				<div to={'/reservation'} onClick={() => { setSelected('login'); setLoginSignup('login') }}
+				<div to={'/host'} onClick={() => { setSelected('login'); setLoginSignup('login') }}
 					className={selected === 'login' ? 'selected' : ''}>
-					<img src={reservationsImg} />
+					<img src={hostImg} />
 					<p>Log in</p>
 				</div>}
 				{loginSignup && <div className="layout">

@@ -1,0 +1,96 @@
+.become-host {
+    header {
+        padding: 32px 8px 0;
+
+        img {
+            width: 32px;
+            height: 32px;
+        }
+    }
+
+    .step-1 {
+        display: flex;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        height: 100%;
+
+        h1{
+            font-size: 48px;
+            font-weight: 600;
+            margin-block: 0;
+            padding-block: 16px 24px;
+        }
+
+        p{
+            margin-block: 0;
+        }
+
+        video {
+            max-height: min(calc(50vw* 0.8753246753246753), calc(calc(100vh - 88px - 86px)* 0.8753246753246753));
+            max-width: min(50vw, calc(100vh - 88px - 86px));
+            width: 770px;
+            height: 674px;
+        }
+
+        video::-webkit-media-controls {
+            display: none !important;
+            /* Hides controls in WebKit-based browsers */
+        }
+
+        video::-webkit-media-controls-play-button {
+            display: none !important;
+            /* Hides the play button */
+        }
+
+        video::-webkit-media-controls-start-playback-button {
+            display: none !important;
+            /* Hides the large play button in the center */
+        }
+    }
+
+    footer {
+        display: flex;
+        justify-content: space-between;
+        padding-block: 16px;
+    }
+
+}
+
+@media(max-width:1187px){
+    .become-host{
+        h1 {
+            display: flex;
+            flex-direction: column;
+            line-height: 100%;
+        }
+    }
+}
+
+@media(max-width:950px) {
+    .become-host{
+        .step-1{
+            flex-direction: column;
+            font-size: 16px;
+
+            h1{
+                font-size: 32px;
+                flex-direction: row;
+                gap: 10px;
+                padding-block: 8px;
+            }
+
+            .info{
+                order:1;
+            }
+
+            video{
+                order:0;
+                max-width: 110%;
+                max-height: 100%;
+                width: calc(100vw);
+                height: calc(100vw* 0.8753246753246753);
+            }
+        }
+    }
+}

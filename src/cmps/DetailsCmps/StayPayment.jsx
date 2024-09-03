@@ -7,6 +7,7 @@ import { When } from "../MainFilterCmps/When.jsx"
 import { orderService } from "../../services/order/index.js"
 import { addOrder } from "../../store/actions/order.action.js"
 import { format, isValid } from "date-fns"
+import { OutsideClick } from "../OutsideClick.jsx"
 
 
 export function StayPayment({ stay }) {
@@ -49,8 +50,8 @@ export function StayPayment({ stay }) {
     }, [])
 
     useEffect(() => {
-        createOrderURLstr() 
-        updateSearchParams()   
+        createOrderURLstr()
+        updateSearchParams()
     }, [dates, filterCapacity])
 
     function updateSearchParams() {
@@ -198,7 +199,12 @@ export function StayPayment({ stay }) {
                     <h3>Total</h3>
                     <h3>${total}</h3>
                 </div>
-                {isWhoOpen && <Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} onClose={closeWho} />}
+                {isWhoOpen &&
+                    <OutsideClick onOutsideClick={() => setIsWhoOpen(false)}>
+                        <Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} onClose={closeWho} />
+                    </OutsideClick>
+                }
+
                 {/* {openType === 'who' && <Who filterCapacity={filterBy.who} setFilterCapacity={changeFilterWho} />} */}
 
             </section></div>

@@ -1,0 +1,107 @@
+.reservations {
+    padding: 1.25em;
+
+    h2 {
+        margin-bottom: 1.25em;
+        font-size: 1.5em;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 1em;
+
+        th,
+        td {
+            padding: 0.75em 0.9375em;
+            text-align: left;
+        }
+
+        thead th {
+            font-weight: 700;
+            text-align: center;
+            border-bottom: 0.125em solid #e6e6e6;
+        }
+
+        tbody tr {
+            border-bottom: 0.0625em solid #e6e6e6;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: #f9f9f9;
+            }
+
+            .status {
+                font-weight: 700;
+
+                &.approved {
+                    color: green;
+                }
+
+                &.declined {
+                    color: red;
+                }
+
+                &.pending {
+                    color: orange;
+                }
+            }
+
+            .th-actions {
+                display: flex;
+                justify-content: space-between;
+
+                button {
+                    padding: 0.375em 0.75em; // Adjusted padding for table buttons
+                    border-radius: 0.375em;
+                    border: 0.0625em solid #ccc;
+                    color: white;
+                    cursor: pointer;
+                    box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+                    font-size: 0.875em; // Slightly smaller font for table buttons
+                    transition: background-color 0.3s, transform 0.2s;
+
+                    &:hover {
+                        background-color: darken(#ff385c, 10%);
+                        transform: translateY(-0.125em); // Slight lift on hover
+                        box-shadow: 0 0.375em 0.75em rgba(0, 0, 0, 0.2);
+                    }
+
+                    &:not(:last-child) {
+                        margin-right: 0.5em; // Space between buttons
+                    }
+                }
+
+                button:first-of-type {
+                    background-color: green;
+                }
+                button:last-of-type{
+                    background-color: red;
+                }
+            }
+        }
+    }
+
+    .reservations-filter {
+        margin-bottom: 1.25em;
+
+        button {
+            padding: 0.5em 1em;
+            margin-right: 0.5em;
+            border-radius: 0.375em;
+            border: none;
+            background-color: #e6e6e6;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+
+            &.selected {
+                background-color: #ff385c;
+                color: white;
+            }
+
+            &:hover {
+                transform: translateY(-0.125em);
+            }
+        }
+    }
+}
