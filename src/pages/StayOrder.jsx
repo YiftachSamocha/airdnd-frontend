@@ -20,6 +20,7 @@ export function StayOrder() {
     const navigate = useNavigate()
     const { stayId } = useParams()
     const stay = useSelector(storeState => storeState.stayModule.stay)
+    const currUser= useSelector(state=> state.userModule.stay)
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [isWhoOpen, setWhoOpen] = useState(false)
@@ -28,7 +29,6 @@ export function StayOrder() {
 
     const [filterCapacity, setFilterCapacity] = useState({ adults: 0, children: 0, infants: 0, pets: 0 })
     const [dates, setDates] = useState({ startDate: null, endDate: null })
-
     const toggleWho = () => setWhoOpen(!isWhoOpen)
     const toggleWhen = () => setWhenOpen(!isWhenOpen)
 
@@ -54,13 +54,13 @@ export function StayOrder() {
 
     // console.log('stay.price.night', stay.price.night);
 
-    function handleClick(){
+    function handleClick() {
         onAddOrder()
         setIsModalOpen(true)
         // setShowConfirmation(false)
     }
 
-    function closeModal(){
+    function closeModal() {
         setIsModalOpen(false)
     }
 
@@ -100,7 +100,7 @@ export function StayOrder() {
             _id: stay.host._id,
             fullname: stay.host.fullname
         }
-        const guest = ''
+        const guest = currUser
         const createdAt = new Date()
         const order = {
             startDate,
@@ -119,9 +119,8 @@ export function StayOrder() {
 
     return (
         <><div className="order">
-             {/* <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
-                    className="logo"><img src={logoImg} /></Link> */}
-            <img src={logoImg} className="logo" />
+            <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
+                className="logo"><img src={logoImg} /></Link>
             <hr className='main-hr' /> </div>
             <section className='stay-main-order'>
                 <section className='stay-order'>
@@ -164,7 +163,7 @@ export function StayOrder() {
                     <div className='payment grid'>
                         {/* <button onClick={onAddOrder} >Request to book</button> */}
                         <button onClick={handleClick}>Request to book</button>
-                        <ModalBooking isOpen={isModalOpen} onClose={closeModal} stay={stay}/>
+                        <ModalBooking isOpen={isModalOpen} onClose={closeModal} stay={stay} />
                     </div>
                     {/* </section> */}
                     <section className="price-details">
