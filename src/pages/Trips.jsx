@@ -22,7 +22,7 @@ export function Trips() {
         return format(date, 'yyyy-MM-dd')
     }
 
-    return <section className="reservations">
+    return <section className="trips">
         <AppHeader />
         {!currUser ? <div>Log in to watch your trips</div> : <div>
             <h2>Trips</h2>

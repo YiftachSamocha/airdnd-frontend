@@ -1,30 +1,22 @@
-import { loadOrders, updateOrder } from "../store/actions/order.action";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { AppHeader } from "../cmps/AppHeader";
 import { Link } from "react-router-dom";
+import { updateOrder } from "../../store/actions/order.action";
+import { useSelector } from "react-redux";
 
-export function Reservations() {
-    const allOrders = useSelector(state => state.orderModule.orders)
-    const currUser = useSelector(state => state.userModule.currUser)
+export function Reservations({orders}) {
     const [reservations, setReservations] = useState([])
     const [filterBy, setFilterBy] = useState({ type: 'all' })
-    let hostId = currUser ? currUser._id : ''
-
-
-    useEffect(() => {
-        loadOrders({ host: hostId });
-    }, [currUser])
+    const currUser = useSelector(state => state.userModule.currUser)
 
     useEffect(() => {
         if (filterBy.type !== 'all') {
-            const newRes = allOrders.filter(res => res.status === filterBy.type)
+            const newRes = orders.filter(res => res.status === filterBy.type)
             setReservations(newRes)
         } else {
-            setReservations(allOrders)
+            setReservations(orders)
         }
-    }, [filterBy, allOrders])
+    }, [filterBy, orders])
 
     function formatDate(date) {
         return format(date, 'yyyy-MM-dd')
@@ -35,7 +27,7 @@ export function Reservations() {
     }
 
     return <section className="reservations">
-        <AppHeader />
+
         {!currUser ? <div>Log in to watch your reservations</div> : <div>
             <h2>Reservations</h2>
             <div className="reservations-filter">
@@ -80,7 +72,7 @@ export function Reservations() {
                     })}
                 </tbody>
             </table>
-            {allOrders.length === 0 && <div>No reservations yet</div>}
+            {orders.length === 0 && <div>No reservations yet</div>}
         </div>}
     </section>
 
