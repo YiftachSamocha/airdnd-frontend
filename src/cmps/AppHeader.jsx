@@ -107,7 +107,7 @@ export function AppHeader() {
 
     return (
         <section className="app-header">
-            <div className="main-header">
+            {/* <div className="main-header">
                 <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
                     className="logo"><img src={logoImg} /></Link>
                 {isFolded && (
@@ -147,7 +147,7 @@ export function AppHeader() {
                 </OutsideClick>
 
             </div>}
-            {(!isFolded && !isTop) && <div className="layout-main"></div>}
+            {(!isFolded && !isTop) && <div className="layout-main"></div>} */}
 
         </section>
     )

@@ -40,6 +40,7 @@ export function StayOrder() {
 
     {/* <Link to="/foo" query={{ the: 'query' }}/> */ }
     // navigate('/stay/:id?a=2&b=3')
+    if (!stay) return <div>Loading...</div>
 
     const price = formatNumberWithCommas(stay.price.night)
     const total = formatNumberWithCommas(stay.price.night * 5)
@@ -115,7 +116,6 @@ export function StayOrder() {
         addOrder(order)
     }
 
-    if (!stay) return <div>Loading...</div>
 
     return (
         <><div className="order">

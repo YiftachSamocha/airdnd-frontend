@@ -1,4 +1,4 @@
-import { calculateAverageRating, formatRating, formatNumberWithCommas, calculateDistance, getDateRange } from '../services/util.service.js'
+import { calculateAverageRating, formatRating, formatNumberWithCommas, calculateDistance, getDateRange, findFirstAvailableNights, formatDateRange } from '../services/util.service.js'
 import starIcon from '../assets/imgs/icons/star.svg';
 import { StaySlider } from './StaySlider.jsx';
 
@@ -16,8 +16,12 @@ export function StayPreview({ stay }) {
     const distance = calculateDistance(userLat, userLng, targetLat, targetLng)
     const roundedDistance = distance > 0 ? formatNumberWithCommas(Math.round(distance)) : '0'
     const price = formatNumberWithCommas(stay.price.night)
-//     const freeDate = getDateRange(stay.reservedDates)
-// console.log(stay.reservedDates);
+    // const freeDate = getDateRange(stay.reservedDates)
+    const AvailableDates = findFirstAvailableNights(stay.reservedDates, 5)
+    const freeDate = formatDateRange(AvailableDates)
+
+
+
 
 
     return (
@@ -35,7 +39,7 @@ export function StayPreview({ stay }) {
                         )} </div>
                 </div>
                 <h4 className="light"> {roundedDistance} kilometers away</h4>
-                {/* <h4 className="light">{freeDate}</h4> */}
+                <h4 className="light">{freeDate}</h4>
                 <h4>${price} <span>night</span></h4>
             </div>
         </article>

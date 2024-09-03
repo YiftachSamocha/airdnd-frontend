@@ -1,8 +1,9 @@
-.stay-list {
-
+.stay-list{
     display: grid;
-    // grid-template-columns: repeat(4, 1fr);
-    gap: 1.5em;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    column-gap: 1.5em;
+    row-gap: 2.5em;
+
 
     a {
         text-decoration: none;
@@ -17,3 +18,5 @@
         // width:  max-content;
     }
 }
+
+
