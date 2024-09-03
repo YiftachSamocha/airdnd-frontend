@@ -6,8 +6,9 @@ import { AppHeader } from "../cmps/AppHeader";
 import { Link } from "react-router-dom";
 
 export function Reservations() {
-    const reservations = useSelector(state => state.orderModule.orders)
+    const allOrders = useSelector(state => state.orderModule.orders)
     const currUser = useSelector(state => state.userModule.currUser)
+    const [reservations, setReservations] = useState([])
     const [filterBy, setFilterBy] = useState({ type: 'all' })
     let hostId = currUser ? currUser._id : ''
 
@@ -15,6 +16,17 @@ export function Reservations() {
     useEffect(() => {
         loadOrders({ host: hostId })
     }, [currUser, reservations])
+
+    useEffect(() => {
+        if (filterBy.type !== 'all') {
+            const newRes = allOrders.filter(res => res.status === filterBy.type)
+            setReservations(newRes)
+        }
+        else {
+            setReservations(allOrders)
+        }
+
+    }, [filterBy])
 
     function formatDate(date) {
         return format(date, 'yyyy-MM-dd')
@@ -28,10 +40,16 @@ export function Reservations() {
         <AppHeader />
         {!currUser ? <div>Log in to watch your reservations</div> : <div>
             <h2>Reservations</h2>
-            <div>
-                <button>Aprroved</button>
-                <button>Declined</button>
-                <button>Pending</button>
+            <div className="reservations-filter">
+                <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'approved' }))}
+                    className={filterBy.type === 'approved' ? 'selected' : ''} >Aprroved</button>
+                <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'pending' }))}
+                    className={filterBy.type === 'pending' ? 'selected' : ''} >Pending</button>
+                <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'declined' }))}
+                    className={filterBy.type === 'declined' ? 'selected' : ''}>Declined</button>
+                <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'all' }))}
+                    className={filterBy.type === 'all' ? 'selected' : ''} >All</button>
+
             </div>
             <table>
                 <thead>
@@ -43,7 +61,7 @@ export function Reservations() {
                         <th>Booked</th>
                         <th>Listing</th>
                         <th>Total payout</th>
-                        <th>Action</th>
+                        {(filterBy.type === 'all' || filterBy.type === 'pending') && <th>Action</th>}
                     </tr>
                 </thead>
                 <tbody>
@@ -56,15 +74,15 @@ export function Reservations() {
                             <th>{formatDate(reservation.createdAt)}</th>
                             <th><Link to={'/stay/' + reservation.stay._id} >{reservation.stay.name}</Link></th>
                             <th>{reservation.totalPrice}</th>
-                            <th>
+                            {(filterBy.type === 'all' || filterBy.type === 'pending') && <th className="th-actions">
                                 {reservation.status === 'pending' && <><button onClick={() => changeStatus(reservation, 'approved')} >Approve</button>
                                     <button onClick={() => changeStatus(reservation, 'declined')} >Decline</button></>}
-                            </th>
+                            </th>}
                         </tr>
                     })}
                 </tbody>
             </table>
-            {reservations.length === 0 && <div>No reservations yet</div>}
+            {allOrders.length === 0 && <div>No reservations yet</div>}
         </div>}
     </section>
 
