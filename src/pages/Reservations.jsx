@@ -14,19 +14,17 @@ export function Reservations() {
 
 
     useEffect(() => {
-        loadOrders({ host: hostId })
-    }, [currUser, reservations])
+        loadOrders({ host: hostId });
+    }, [currUser])
 
     useEffect(() => {
         if (filterBy.type !== 'all') {
             const newRes = allOrders.filter(res => res.status === filterBy.type)
             setReservations(newRes)
-        }
-        else {
+        } else {
             setReservations(allOrders)
         }
-
-    }, [filterBy])
+    }, [filterBy, allOrders])
 
     function formatDate(date) {
         return format(date, 'yyyy-MM-dd')
