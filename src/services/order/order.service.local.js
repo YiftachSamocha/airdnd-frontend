@@ -2,7 +2,7 @@
 import { storageService } from "../async-storage.service.js"
 // import { utilService } from '../util.service.js'
 
-const STORAGE_KEY = 'orderDB'
+const STORAGE_KEY = 'order'
 // let orders = _createOrders()
 
 export const orderService = {

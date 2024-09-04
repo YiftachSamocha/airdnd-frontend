@@ -1,15 +1,11 @@
 import { useState } from "react";
 import { findFirstAvailableNights, formatDateRange, formatNumberWithCommas, getDateRange } from "../services/util.service";
-import { Link, useParams, useNavigate } from "react-router-dom"
-import { addOrder } from "../store/actions/order.action";
+import { useNavigate } from "react-router-dom"
 import success from "../assets/imgs/icons/success.svg"
 
-
 export function ModalBooking({ isOpen, onClose, stay, onAddOrder }) {
-
     const [isConfirmation, setIsConfirmation] = useState(false)
     const navigate = useNavigate()
-
     const price = formatNumberWithCommas(stay.price.night)
     const total = formatNumberWithCommas(stay.price.night * 5)
     const cleaningFee = formatNumberWithCommas(stay.price.cleaning)
@@ -21,15 +17,15 @@ export function ModalBooking({ isOpen, onClose, stay, onAddOrder }) {
         if (isConfirmation) {
             setIsConfirmation(false)
             // need addOrder 
-            navigate('/stay')     
-           } else {
+            navigate('/stay')
+        } else {
             onClose()
         }
     }
 
     function handleConfirmClick() {
         setIsConfirmation(true)
-        // onAddOrder()
+        onAddOrder()
     }
 
     if (!isOpen) return null
@@ -39,10 +35,10 @@ export function ModalBooking({ isOpen, onClose, stay, onAddOrder }) {
             <section className="modal-booking section">
                 <div className="modal-header"> {isConfirmation ? (
                     <><div className="modal-success">
-                    <img className="success icon" src={success} alt="success" />
+                        <img className="success icon" src={success} alt="success" />
                         <h2>Reserved successfully</h2></div>
                         <p>You can follow the order status in <a href="/trip" class="trip-link">My trip</a> page</p>
-                        </>
+                    </>
                 ) : (
                     <> <h2>One last step</h2>
                         <p>Dear Guest,</p>
@@ -68,7 +64,6 @@ export function ModalBooking({ isOpen, onClose, stay, onAddOrder }) {
                             <h3>Total</h3>
                             <h3>${total}</h3>
                         </div>
-
                     </div>
                 </div>
                 <div className="modal-img">
@@ -76,12 +71,12 @@ export function ModalBooking({ isOpen, onClose, stay, onAddOrder }) {
                     <div className="img-name">
                         <h5>{stay.name}</h5>
                         <h5>{stay.location.city}, {stay.location.country}</h5>
-                </div> </div>
+                    </div> </div>
                 <div className="modal-btn">
                     <button className="back" onClick={handleBackClick}>{isConfirmation ? 'Closed' : 'Back'}</button>
                     <button
                         onClick={handleConfirmClick}
-                        className= {isConfirmation ? 'hidden' : 'confirm'}
+                        className={isConfirmation ? 'hidden' : 'confirm'}
                     >
                         Confirm
                     </button></div>

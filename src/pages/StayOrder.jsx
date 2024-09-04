@@ -20,7 +20,7 @@ export function StayOrder() {
     const navigate = useNavigate()
     const { stayId } = useParams()
     const stay = useSelector(storeState => storeState.stayModule.stay)
-    const currUser= useSelector(state=> state.userModule.stay)
+    const currUser = useSelector(state => state.userModule.currUser)
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [isWhoOpen, setWhoOpen] = useState(false)
@@ -54,7 +54,6 @@ export function StayOrder() {
         : 0
 
     function handleClick(){
-        onAddOrder()
         setIsModalOpen(true)
         // setShowConfirmation(false)
     }

@@ -4,6 +4,7 @@ import { Listings } from "../cmps/HostCmps/Listings";
 import { Reservations } from "../cmps/HostCmps/Reservations";
 import { useEffect } from "react";
 import { loadOrders } from "../store/actions/order.action";
+import { Dashboard } from "../cmps/HostCmps/Dashboard";
 
 export function Host() {
     const orders = useSelector(state => state.orderModule.orders)
@@ -18,6 +19,7 @@ export function Host() {
         <AppHeader />
         <Reservations orders={orders} />
         <Listings orders={orders} />
+        <Dashboard orders={orders} />
 
     </section>
 }
