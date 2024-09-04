@@ -164,20 +164,21 @@ export function AppHeader() {
                     </div>
                     {isUserInfoOpen &&
                         <div className="user-modal" ref={userInfoRef} >
-                            {/* {currUser ? <div> */}
-                            <Link to={'/trip'}><p className="bolder">Trips</p></Link>
-                            {currUser.host ? (
-                                <Link to={`/host`}><p className="bolder">Host</p></Link>
-                            ) : (
-                                <p className="bolder" onClick={handleHostLinkClick}>Become a Host</p>
-                            )}
-                            <Link to="/stay"><p onClick={() => logout()} >Log Out</p></Link>
-                            {/* </div>
-                            : */}
-                            <div>
-                                <p onClick={() => setLoginSignup('login')} >Log in</p>
-                                <p onClick={() => setLoginSignup('signup')}>Sign up</p>
+                            {currUser ? <div>
+                                <Link to={'/trip'}><p className="bolder">Trips</p></Link>
+                                {currUser.host ? (
+                                    <Link to={`/host`}><p className="bolder">Host</p></Link>
+                                ) : (
+                                    <p className="bolder" onClick={handleHostLinkClick}>Become a Host</p>
+                                )}
+                                <Link to="/stay"><p onClick={() => logout()} >Log Out</p></Link>
                             </div>
+                                :
+                                <div>
+                                    <p onClick={() => setLoginSignup('login')} >Log in</p>
+                                    <p onClick={() => setLoginSignup('signup')}>Sign up</p>
+                                </div>
+                            }
                         </div>}
 
                 </div>
