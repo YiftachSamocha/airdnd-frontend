@@ -9,23 +9,25 @@ import { loadStays } from "../store/actions/stay.actions";
 
 export function Host() {
     const orders = useSelector(state => state.orderModule.orders)
-    const [stays, setStays]= useState([])
+    const [stays, setStays] = useState([])
     const currUser = useSelector(state => state.userModule.currUser)
     let hostId = currUser ? currUser._id : ''
 
     useEffect(() => {
-        loadOrders({ host: hostId });
-    }, [currUser])
+        if (currUser) {
+            loadOrders({ host: hostId })
+        }
+    }, [currUser, stays])
 
     useEffect(() => {
-        if (orders && orders.length > 0) {
+        if (currUser) {
             loadStays({})
                 .then(stays => {
                     const newStays = stays.filter(stay => stay.host._id === currUser._id)
                     setStays(newStays)
                 })
         }
-    }, [orders])
+    }, [currUser, orders])
 
     return <section>
         <AppHeader />

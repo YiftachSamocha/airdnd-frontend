@@ -703,8 +703,8 @@ function getRandomDateRange(startDate, endDate) {
     const randomEnd = new Date(minEnd.getTime() + Math.random() * (end.getTime() - minEnd.getTime()))
 
     return {
-        start: randomStart.toISOString().split('T')[0],
-        end: randomEnd.toISOString().split('T')[0],
+        startDate: randomStart.toISOString().split('T')[0],
+        endDate: randomEnd.toISOString().split('T')[0],
     }
 }
 

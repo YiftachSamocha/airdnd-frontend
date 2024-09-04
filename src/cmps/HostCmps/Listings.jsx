@@ -18,6 +18,7 @@ export function Listings({ listings }) {
                                     <p>{listing.name}</p>
                                     <p>{listing.location.country}, {listing.location.city}</p>
                                     <p>{listing.sleep.maxCapacity} guests</p>
+                                    <p>{listing.price.night}$ night</p>
                                 </div>
                             </div>
                         ))}
