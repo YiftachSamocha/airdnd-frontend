@@ -124,10 +124,10 @@ export function StayPayment({ stay }) {
     }
 
     async function handleReserve(stay) {
-        if (!isFormReady) {
-            setIsWhenOpen(true)
-            return
-        }
+        // if (!isFormReady) {
+        //     setIsWhenOpen(true)
+        //     return
+        // }
 
         try {
             if (dates.startDate && dates.endDate) {

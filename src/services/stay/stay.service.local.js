@@ -3,9 +3,11 @@ import { makeId } from '../util.service'
 import { userService } from '../user'
 import { createStayData } from '../data/stay.data'
 import { createUserData } from '../data/user.data'
+import { createOrderData } from '../data/order.data'
 
 const STAY_STORAGE_KEY = 'stay'
 const USER_STORAGE_KEY = 'user'
+const ORDER_STORAGE_KEY = 'order'
 
 export const stayService = {
     query,
@@ -85,14 +87,21 @@ async function addStayMsg(stayId, txt) {
 async function _createData() {
     const currStayData = JSON.parse(localStorage.getItem(STAY_STORAGE_KEY))
     const currUserData = JSON.parse(localStorage.getItem(USER_STORAGE_KEY))
+    const currOrderData = JSON.parse(localStorage.getItem(ORDER_STORAGE_KEY))
 
-    if (!currUserData || currUserData.length == 0 || !currStayData || currStayData.length === 0) {
+    if (!currUserData || currUserData.length == 0 ||
+        !currStayData || currStayData.length === 0 ||
+        !currOrderData || currOrderData.length === 0) {
 
         const newUsers = await createUserData()
         localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(newUsers))
 
         const newStays = await createStayData(newUsers)
         localStorage.setItem(STAY_STORAGE_KEY, JSON.stringify(newStays))
+
+
+        const newOrders = await createOrderData(newStays, newUsers)
+        localStorage.setItem(ORDER_STORAGE_KEY, JSON.stringify(newOrders))
     }
 
 }

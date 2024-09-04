@@ -95,10 +95,8 @@ function createPersonalDetails(location) {
 
 function getRandomItems(arr, numItems) {
     if (arr.length === 0 || numItems <= 0) return numItems === 1 ? null : []
-
     const shuffled = [...arr].sort(() => 0.5 - Math.random())
     const result = shuffled.slice(0, Math.min(numItems, arr.length))
-
     return numItems === 1 ? result[0] : result
 }
 
