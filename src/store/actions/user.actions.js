@@ -2,7 +2,8 @@ import { userService } from '../../services/user/user.service.local'
 //import { socketService } from '../../services/socket.service'
 import { store } from '../store'
 import { showErrorMsg } from '../../services/event-bus.service'
-import { REMOVE_USER, SET_CURR_USER, SET_USERS, SET_WATCHED_USER } from '../reducers/user.reducer'
+import { REMOVE_USER, SET_CURR_USER, SET_USERS, SET_WATCHED_USER, ADD_HOST_INFO_TO_USER } from '../reducers/user.reducer'
+import { makeId } from '../../services/util.service'
 
 export async function loadUsers() {
     try {
@@ -73,5 +74,24 @@ export async function loadUser(userId) {
     } catch (err) {
         showErrorMsg('Cannot load user')
         console.log('Cannot load user', err)
+    }
+}
+
+export function addHostInfoToUser(user) {
+    const hostDetails = {
+        _id: makeId(),
+        fullname: user.fullname,
+        imgUrl: user.imgUrl,
+        reviews: [],
+        rating: 0,
+        yearsHosting: [],
+        responseRate: 100,
+        listings: [],
+        createdAt: new Date(),  // Store the current date when the user becomes a host
+    }
+    
+    return {
+        type: ADD_HOST_INFO_TO_USER,
+        hostDetails,
     }
 }

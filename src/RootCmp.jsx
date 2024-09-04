@@ -3,7 +3,9 @@ import { Routes, Route, useLocation } from 'react-router'
 import { StayIndex } from './pages/StayIndex.jsx'
 import { StayDetails } from './pages/StayDetails'
 import { StayOrder } from './pages/StayOrder.jsx'
-import { BecomeHost } from './pages/BecomeHost.jsx'
+import { BecomeHost } from './pages/hostPages/BecomeHost.jsx'
+import { AboutYourPlace } from './pages/hostPages/AboutYourPlace.jsx'
+
 
 import { Trips } from './pages/Trips.jsx'
 import { AppFooter } from './cmps/AppFooter.jsx'
@@ -47,7 +49,9 @@ export function RootCmp() {
                     <Route path="book/stay/:stayId" element={<StayOrder />} />
                     <Route path="host" element={<Host />} />
                     <Route path="trip" element={<Trips />} />
-                    <Route path="become-a-host/:guestId" element={<BecomeHost />} />
+                    <Route path="become-a-host/:userId" element={<BecomeHost />} />
+                    <Route path="/become-a-host/:userId/about-your-place" element={<AboutYourPlace />} />
+
 
                 </Routes>
             </main>

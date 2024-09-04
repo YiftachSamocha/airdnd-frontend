@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams } from "react-router-dom"
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 import bigLogoImg from "../assets/imgs/logo.svg"
 import smallLogoImg from "../assets/imgs/small-icon.png"
 import languageImg from "../assets/imgs/language.png"
@@ -17,7 +17,7 @@ import { SET_FILTER_BY } from "../store/reducers/stay.reducer"
 import { useSelector } from "react-redux"
 import { userService } from "../services/user"
 import { LoginSignup } from "./LoginSignup"
-import { logout } from "../store/actions/user.actions"
+import { addHostInfoToUser, logout } from "../store/actions/user.actions"
 
 export function AppHeader() {
     const [isFolded, setIsFolded] = useState(false)
@@ -32,6 +32,7 @@ export function AppHeader() {
     const userInitiatedOpen = useRef(false)
     const userInfoRef = useRef(null)
     const location = useLocation()
+    const navigate = useNavigate()
     const filterBy = useSelector(state => state.stayModule.filterBy)
     const currUser = useSelector(state => state.userModule.currUser)
     const isStayPage = location.pathname.startsWith('/stay') || location.pathname === '/'
@@ -126,6 +127,23 @@ export function AppHeader() {
         }
     }, [logoImg])
 
+    const handleHostLinkClick = async () => {
+        if (!currUser.host) {
+            const hostDetails = addHostInfoToUser(currUser)
+            console.log('host-detals', hostDetails)
+
+            if (hostDetails) {
+                // Navigate to the host page with the new host ID
+                navigate(`/become-a-host/${currUser._id}`);
+            } else {
+                console.error('Failed to create host profile');
+            }
+        } else {
+            // Navigate to the host's add listing page
+            navigate(`/become-a-host/${currUser._id}/about-your-place`);
+        }
+    }
+
     return (
         <section className="app-header">
             <div className="main-header">
@@ -144,18 +162,23 @@ export function AppHeader() {
                         <img src={hamburgerImg} />
                         <div className="profile"> {!currUser ? <img src={profileImg} /> : <img src={currUser.imgUrl} />}</div>
                     </div>
-                    {isUserInfoOpen && <div className="user-modal" ref={userInfoRef} >
-                        {currUser ? <div>
+                    {isUserInfoOpen &&
+                        <div className="user-modal" ref={userInfoRef} >
+                            {/* {currUser ? <div> */}
                             <Link to={'/trip'}><p className="bolder">Trips</p></Link>
-                            <Link to={'/host'}><p className="bolder">Host</p></Link>
+                            {currUser.host ? (
+                                <Link to={`/host`}><p className="bolder">Host</p></Link>
+                            ) : (
+                                <p className="bolder" onClick={handleHostLinkClick}>Become a Host</p>
+                            )}
                             <Link to="/stay"><p onClick={() => logout()} >Log Out</p></Link>
-                        </div>
-                            :
+                            {/* </div>
+                            : */}
                             <div>
                                 <p onClick={() => setLoginSignup('login')} >Log in</p>
                                 <p onClick={() => setLoginSignup('signup')}>Sign up</p>
-                            </div>}
-                    </div>}
+                            </div>
+                        </div>}
 
                 </div>
             </div>

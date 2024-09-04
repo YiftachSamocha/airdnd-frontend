@@ -94,18 +94,17 @@ export async function createStay(host, location) {
             reviews: host.reviews,
             rating: host.rating,
             yearsHosting: host.yearsHosting,
-            responceRate: host.responseRate,
-            listings: host.listings
+            responceRate: host.responseRate
         },
         location,
         reviews: getRandomItems(reviews, getRandomIntInclusive(1, 15)),
         thingsToKnow: {
             houseRules: getRandomItems(houseRules, getRandomIntInclusive(6, 12)),
             safetyProperty: getRandomItems(safetyProperty, getRandomIntInclusive(4, 10)),
-            cancellationPolicy: getRandomItems(cancellationPolicy, 1),
+            cancellationPolicy: getRandomItems(cancellationPolicy, 1)
         },
         status: 'published'
-        
+   
     }
 }
 
@@ -323,7 +322,7 @@ async function createSleep() {
 }
 
 function generateImgUrls(imgs) {
-    const imgIds = getRandomItems(imgs, getRandomIntInclusive(5, 10))
+    const imgIds = getRandomItems(imgs, getRandomIntInclusive(4, 10))
     return imgIds.map(imgId => {
         return `https://images.pexels.com/photos/${imgId}/pexels-photo-${imgId}.jpeg?width=400`
     })
