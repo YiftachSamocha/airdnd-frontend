@@ -86,7 +86,7 @@ export function Host() {
             </div>
             <Dashboard orders={orders} stays={stays} />
         </div>
-        <Reservations orders={orders} />
+        <Reservations orders={orders} listings={stays} />
         <Listings listings={stays} />
 
 
