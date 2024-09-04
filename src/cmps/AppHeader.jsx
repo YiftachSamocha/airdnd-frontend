@@ -147,7 +147,7 @@ export function AppHeader() {
                     {isUserInfoOpen && <div className="user-modal" ref={userInfoRef} >
                         {currUser ? <div>
                             <Link to={'/trip'}><p className="bolder">Trips</p></Link>
-                            <Link to={'/reservation'}><p className="bolder">Reservations</p></Link>
+                            <Link to={'/host'}><p className="bolder">Host</p></Link>
                             <Link to="/stay"><p onClick={() => logout()} >Log Out</p></Link>
                         </div>
                             :

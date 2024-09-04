@@ -2,7 +2,7 @@
     .logo {
         height: 40px;
         margin: 24px 30px 0 0;
-        margin-inline: -2em;
+        margin-inline: -1em;
     }
 
     .main-hr {
@@ -45,7 +45,6 @@
         .header {
             display: flex;
             grid-column: 1 /span 2;
-
             align-content: flex-start;
             justify-content: flex-start;
 
@@ -65,10 +64,6 @@
             background-color: white;
             border: none;
 
-        }
-
-        .grid {
-            grid-column: 1 / span 1;
         }
 
         .rare-find {
@@ -371,6 +366,10 @@
             }
         }
     }
+}
+
+.grid {
+    grid-column: 1 / span 1;
 }
 
 // }

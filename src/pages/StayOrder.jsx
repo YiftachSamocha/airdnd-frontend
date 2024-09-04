@@ -11,7 +11,7 @@ import logoImg from "../assets/imgs/logo.svg"
 import { Who } from "../cmps/MainFilterCmps/Who";
 import { When } from "../cmps/MainFilterCmps/When";
 import { loadStay } from '../store/actions/stay.actions';
-import { formatNumberWithCommas, getDateRange } from '../services/util.service';
+import { findFirstAvailableNights, formatDateRange, formatNumberWithCommas, getDateRange } from '../services/util.service';
 import { addOrder } from '../store/actions/order.action';
 import { parse } from 'date-fns';
 import { ModalBooking } from '../cmps/ModalBooking';
@@ -20,7 +20,7 @@ export function StayOrder() {
     const navigate = useNavigate()
     const { stayId } = useParams()
     const stay = useSelector(storeState => storeState.stayModule.stay)
-    const currUser= useSelector(state=> state.userModule.stay)
+    const currUser = useSelector(state => state.userModule.currUser)
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [isWhoOpen, setWhoOpen] = useState(false)
@@ -45,17 +45,15 @@ export function StayOrder() {
     const price = formatNumberWithCommas(stay.price.night)
     const total = formatNumberWithCommas(stay.price.night * 5)
     const cleaningFee = formatNumberWithCommas(stay.price.cleaning)
-    const freeDate = getDateRange(stay.reservedDates)
+    const availableDates = findFirstAvailableNights(stay.reservedDates, 5)
+    const freeDate = formatDateRange(availableDates)
 
     const totalReviews = stay.reviews ? stay.reviews.length : 0
     const avgRating = totalReviews > 0
         ? stay.reviews.reduce((sum, review) => sum + review.rate, 0) / totalReviews
         : 0
 
-    // console.log('stay.price.night', stay.price.night);
-
-    function handleClick() {
-        onAddOrder()
+    function handleClick(){
         setIsModalOpen(true)
         // setShowConfirmation(false)
     }
@@ -64,21 +62,13 @@ export function StayOrder() {
         setIsModalOpen(false)
     }
 
-    // const closeModal = (confirmation = false) => {
-    //     if (confirmation) {
-    //         setShowConfirmation(true); // מראה את הודעת האישור אם ה-confirm נלחץ
-    //     } else {
-    //         setIsModalOpen(false); // סוגר את המודל
-    //     }
-    // };
-
     function onBack() {
         navigate(`/stay/${stay._id}`)
     }
 
     function onAddOrder() {
         const params = new URLSearchParams(searchParams)
-        if (!params.get('start_date') || !params.get('end_date')) return
+        // if (!params.get('start_date') || !params.get('end_date')) return
         const startDate = parse(params.get('start_date'), 'yyyy-MM-dd', new Date())
         const endDate = parse(params.get('end_date'), 'yyyy-MM-dd', new Date())
         let capacity = {
@@ -119,15 +109,17 @@ export function StayOrder() {
 
     return (
         <><div className="order">
-            <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
-                className="logo"><img src={logoImg} /></Link>
+             <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
+                    className="logo"><img src={logoImg} /></Link>
+            {/* <img src={logoImg} className="logo" /> */}
             <hr className='main-hr' /> </div>
             <section className='stay-main-order'>
                 <section className='stay-order'>
-                    <div className="header grid">
+                    <div className="header">
                         <button onClick={onBack}> <img src={arrowLeft} alt="ArrowLeft Icon" className="arrow-left icon" /></button>
                         <h2>Request to book</h2>
                     </div>
+                    
                     <div className='rare-find grid'>
                         <div>  <h5>This is a rare find.</h5>
                             <h5> Karen & Tal's place is usually booked.</h5></div>
@@ -156,14 +148,11 @@ export function StayOrder() {
                             <h4>CVV</h4>
                             <h4>ZIP code</h4>
                         </div>
-                        {/* <h4>Pay{stay.sleep.maxCapacity} now</h4> */}
-                        {/* <h4>Pay part now, part later</h4>
-                        <h5>{' ₪753.18'} due today, {'₪3,012.70'} on {'Sep 20, 2024.'} No extra fees. More info</h5> */}
                     </div>
                     <div className='payment grid'>
                         {/* <button onClick={onAddOrder} >Request to book</button> */}
                         <button onClick={handleClick}>Request to book</button>
-                        <ModalBooking isOpen={isModalOpen} onClose={closeModal} stay={stay} />
+                        <ModalBooking isOpen={isModalOpen} onClose={closeModal} stay={stay} onAddOrder={onAddOrder} />
                     </div>
                     {/* </section> */}
                     <section className="price-details">

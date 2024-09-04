@@ -1,0 +1,60 @@
+.listings {
+    padding: 2em;
+    width: 100%;
+
+    h2 {
+        font-size: 1.5em;
+        margin-bottom: 1em;
+        color: #333;
+    }
+
+    .listings-main {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5em;
+        width: 100%;
+        height: 500px;
+    }
+
+    .listing-item {
+        background-color: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        overflow: hidden;
+        width: calc(33.333% - 1em);
+        cursor: pointer;
+        transition: box-shadow 0.3s ease;
+        display: flex;
+        justify-content: space-between;
+        
+
+        &:hover {
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            max-width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        div {
+            padding: 1em;
+            display: flex;
+            flex-direction: column;
+
+
+            p {
+                margin: 0.5em 0;
+                font-size: 0.9em;
+                color: #555;
+
+                &:first-child {
+                    font-weight: bold;
+                    color: #333;
+                }
+            }
+        }
+    }
+}

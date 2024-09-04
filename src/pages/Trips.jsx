@@ -2,27 +2,28 @@ import { useSelector } from "react-redux";
 import { AppHeader } from "../cmps/AppHeader";
 import { useEffect, useState } from "react";
 import { loadOrders } from "../store/actions/order.action";
+import { Link } from "react-router-dom";
+import { format } from "date-fns";
 
 export function Trips() {
-    const allOrders = useSelector(state => state.orderModule.orders)
     const currUser = useSelector(state => state.userModule.currUser)
     const [trips, setTrips] = useState([])
     let guestId = currUser ? currUser._id : ''
 
 
     useEffect(() => {
-        loadOrders({ guest: guestId });
-    }, [currUser])
+        loadOrders({ guest: guestId })
+            .then(newOrders => {
+                setTrips(newOrders)
+            })
 
-    useEffect(() => {
-        setTrips(allOrders)
-    }, [allOrders])
+    }, [currUser])
 
     function formatDate(date) {
         return format(date, 'yyyy-MM-dd')
     }
 
-    return <section className="reservations">
+    return <section className="trips">
         <AppHeader />
         {!currUser ? <div>Log in to watch your trips</div> : <div>
             <h2>Trips</h2>
@@ -41,16 +42,16 @@ export function Trips() {
                     {trips.map(trip => {
                         return <tr key={trip._id}>
                             <th><Link to={'/stay/' + trip.stay._id} >{trip.stay.name}</Link></th>
-                            <th>{trips.host.fullname}</th>
+                            <th>{trip.host.fullname}</th>
                             <th>{formatDate(trip.startDate)}</th>
                             <th>{formatDate(trip.endDate)}</th>
                             <th>{trip.totalPrice}</th>
-                            <td className={`status ${trip.status.toLowerCase()}`}>{trip.status}</td>
+                            <th className={`status ${trip.status.toLowerCase()}`}>{trip.status}</th>
                         </tr>
                     })}
                 </tbody>
             </table>
-            {allOrders.length === 0 && <div>No trips yet</div>}
+            {trips.length === 0 && <div>No trips yet</div>}
         </div>}
     </section>
 

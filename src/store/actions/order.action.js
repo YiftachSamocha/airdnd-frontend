@@ -8,6 +8,7 @@ export async function loadOrders(filterBy={}) {
     try {
         const orders = await orderService.query(filterBy)
         store.dispatch(getCmdSetOrders(orders))
+        return orders
     } catch (err) {
         console.log('Cannot load orders', err)
         throw err

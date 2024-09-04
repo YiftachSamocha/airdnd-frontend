@@ -7,7 +7,9 @@ import { When } from "../MainFilterCmps/When.jsx"
 import { orderService } from "../../services/order/index.js"
 import { addOrder } from "../../store/actions/order.action.js"
 import { format, isValid } from "date-fns"
+import { OutsideClick } from "../OutsideClick.jsx"
 import { useSelector } from "react-redux"
+
 
 
 export function StayPayment({ stay }) {
@@ -211,8 +213,13 @@ export function StayPayment({ stay }) {
                 <div className="total">
                     <h3>Total</h3>
                     <h3>${total}</h3>
-                </div>
-                {isWhoOpen && <Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} onClose={closeWho} />}
+                </div>  
+                {isWhoOpen &&
+                <OutsideClick onOutsideClick={() => setIsWhoOpen(false)}>
+                        <Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} onClose={closeWho} />
+                    </OutsideClick>
+                }
+
 
             </section></div>
     )
