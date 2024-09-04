@@ -55,19 +55,13 @@ async function remove(stayId) {
 async function save(stay) {
     var savedStay
     if (stay._id) {
-        const stayToSave = {
-            _id: stay._id,
-            price: stay.price,
-            speed: stay.speed,
-        }
-        savedStay = await storageService.put(STAY_STORAGE_KEY, stayToSave)
+        savedStay = await storageService.put(STAY_STORAGE_KEY, stay);
     } else {
         const stayToSave = {
-            vendor: stay.vendor,
-            price: stay.price,
-            speed: stay.speed,
+            ...stay,
+            status: 'draft',  // Save new stays as draft by default
             owner: userService.getLoggedinUser(),
-            msgs: []
+            msgs: stay.msgs || []
         }
         savedStay = await storageService.post(STAY_STORAGE_KEY, stayToSave)
     }

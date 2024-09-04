@@ -102,8 +102,9 @@ export async function createStay(host, location) {
             houseRules: getRandomItems(houseRules, getRandomIntInclusive(6, 12)),
             safetyProperty: getRandomItems(safetyProperty, getRandomIntInclusive(4, 10)),
             cancellationPolicy: getRandomItems(cancellationPolicy, 1)
-        }
-        
+        },
+        status: 'published'
+   
     }
 }
 

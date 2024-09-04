@@ -39,7 +39,9 @@ export async function removeStay(stayId) {
 
 export async function addStay(stay) {
     try {
-        const savedStay = await stayService.save(stay)
+        const stayToSave = { ...stay, status: 'draft' }
+
+        const savedStay = await stayService.save(stayToSave)
         store.dispatch(getCmdAddStay(savedStay))
         return savedStay
     } catch (err) {
@@ -50,12 +52,24 @@ export async function addStay(stay) {
 
 export async function updateStay(stay) {
     try {
-        const savedStay = await stayService.save(stay)
+        const stayToSave = {...stay}   
+        const savedStay = await stayService.save(stayToSave)
         store.dispatch(getCmdUpdateStay(savedStay))
         return savedStay
     } catch (err) {
         console.log('Cannot save stay', err)
         throw err
+    }
+}
+export async function publishStay(stay) {
+    try {
+        const stayToSave = { ...stay, status: 'published' }  // Change status to published
+        const savedStay = await stayService.save(stayToSave)
+        store.dispatch(getCmdUpdateStay(savedStay))
+        return savedStay
+    } catch (err) {
+        console.log('Cannot publish stay', err)
+        throw err;
     }
 }
 
