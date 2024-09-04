@@ -9,26 +9,26 @@ import { makeId } from '../services/util.service.js';
 
 
 export function StayIndex() {
-    const dispatch = useDispatch();
-    const currUser = useSelector(state => state.userModule.currUser);
+    const dispatch = useDispatch()
+    const currUser = useSelector(state => state.userModule.currUser)
 
-    useEffect(() => {
-        const initialize = async () => {
-            const loadedUsers = await userService.getUsers();
-            dispatch({ type: SET_USERS, users: loadedUsers });
+    // useEffect(() => {
+    //     const initialize = async () => {
+    //         const loadedUsers = await userService.getUsers()
+    //         dispatch({ type: SET_USERS, users: loadedUsers })
 
-            if (!currUser && loadedUsers.length > 0) {
-                const loggedInUser = await userService.signup({
-                    username: makeId(6),
-                    password: makeId(6),
-                })
+    //         if (!currUser && loadedUsers.length > 0) {
+    //             const loggedInUser = await userService.signup({
+    //                 username: makeId(6),
+    //                 password: makeId(6),
+    //             })
 
-                dispatch({ type: SET_CURR_USER, user: loggedInUser })
-            }
-        };
+    //             dispatch({ type: SET_CURR_USER, user: loggedInUser })
+    //         }
+    //     };
 
-        initialize();
-    }, [currUser, dispatch]);
+    //     initialize()
+    // }, [currUser, dispatch])
    
 
 

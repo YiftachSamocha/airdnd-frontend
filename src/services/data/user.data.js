@@ -1,35 +1,48 @@
 import { getData } from "./stay.data"
-import { makeId } from "../util.service"
+import { getRandomIntInclusive, makeId } from "../util.service"
 
-export function createUsersData(length = 20) {
-    for (var i = 0; i < length; i++) {
-        const isFemale = Math.random() < 0.5
-        const isHost = Math.random() < 0.5
-        const fullname = isFemale ? getRandomItems(menNames, 1) : getRandomItems(womenNames, 1)
-        const imgUrl = is
-        const user = {
-            _id: makeId(),
-            fullname,
-            imgUrl: getRandomItems(profileimgs, 1),
-            username: getRandomItems(usernames, 1),
-            password: getRandomItems(passwords, 1),
+export function createUserData(hostsPerLoc = 1, additionalUsersAmount = 20) {
+    const usersToSave = []
+    //CREATE HOSTS
+    for (var i = 0; i < locations.length; i++) {
+        for (var j = 0; j < hostsPerLoc; j++) {
+            const user = createUser()
+            user.host = createHost()
+            usersToSave.push(user)
         }
+    }
+
+    //CREATE NORMAL USERS
+    for (var i = 0; i < additionalUsersAmount; i++) {
+        const user = createUser()
         usersToSave.push(user)
     }
     return usersToSave
 }
 
+function createUser() {
+    const isFemale = Math.random() < 0.5
+    const fullname = isFemale ? getRandomItems(womenNames, 1) : getRandomItems(menNames, 1)
+    const imgUrl = isFemale ? getRandomItems(womanImgs, 1) : getRandomItems(menImgs, 1)
+    return {
+        _id: makeId(),
+        fullname,
+        imgUrl,
+        username: getRandomItems(usernames, 1),
+        password: getRandomItems(passwords, 1),
+    }
+
+}
+
 function createHost() {
     const location = getRandomItems(locations, 1)
     return {
-        fullname: getRandomItems(fullnames, 1),
-        imgUrl: getRandomItems(hostImages, 1),
         reviews: getRandomIntInclusive(3, 100),
         rating: Math.round((Math.random() * 4 + 1) * 100) / 100,
         yearsHosting: getRandomIntInclusive(1, 15),
         responseRate: getRandomIntInclusive(80, 100),
         personalDetails: createPersonalDetails(location),
-        listings: []
+        location,
     }
 }
 
@@ -101,7 +114,7 @@ const menNames = [
     'William Anderson', 'Liam Walker', 'Benjamin Hall', 'Lucas Allen', 'Henry Baker',
     'Alexander Gonzalez', 'Sebastian Lopez', 'Jackson Hill', 'Mateo Wright', 'Elijah Martin',
     'Owen Evans', 'Gabriel Robinson', 'Carter Torres', 'Jayden Reed', 'Dylan Rivera'
-];
+]
 
 
 const usernames = [
@@ -121,6 +134,29 @@ const passwords = [
     "C0sm!cD@wn", "L!ghtN1ng", "B1ackH0le", "R3dSun", "V!perStrik3",
     "Cyb3rT3mp3st", "FrostB1t3", "SteelW!ng", "BlazeRunner", "SilentN1ght"
 ]
+const womanImgs = [
+    'https://randomuser.me/api/portraits/women/44.jpg',
+    'https://randomuser.me/api/portraits/women/65.jpg',
+    'https://randomuser.me/api/portraits/women/29.jpg',
+    'https://randomuser.me/api/portraits/women/82.jpg',
+    'https://randomuser.me/api/portraits/women/62.jpg',
+    'https://randomuser.me/api/portraits/women/42.jpg',
+    'https://randomuser.me/api/portraits/women/26.jpg',
+    'https://randomuser.me/api/portraits/women/38.jpg',
+    'https://randomuser.me/api/portraits/women/47.jpg',
+]
+
+const menImgs = [
+    'https://randomuser.me/api/portraits/men/32.jpg',
+    'https://randomuser.me/api/portraits/men/75.jpg',
+    'https://randomuser.me/api/portraits/men/81.jpg',
+    'https://randomuser.me/api/portraits/men/11.jpg',
+    'https://randomuser.me/api/portraits/men/27.jpg',
+    'https://randomuser.me/api/portraits/men/41.jpg',
+    'https://randomuser.me/api/portraits/men/52.jpg',
+    'https://randomuser.me/api/portraits/men/63.jpg',
+    'https://randomuser.me/api/portraits/men/22.jpg',
+]
 
 const workOptions = ["Software Engineer", "Artist", "Teacher", "Entrepreneur"]
 const favoriteSongs = ["Bohemian Rhapsody", "Stairway to Heaven", "Imagine", "Hotel California"]
@@ -131,14 +167,4 @@ const homeUniqueOptions = ["Beautiful garden", "Cozy fireplace", "Stunning views
 const breakfastOptions = ["Continental", "Local delicacies", "Vegan options"]
 const languages = ["English", "French", "German", "Japanese"]
 
-const profileimgs = [
-    'https://randomuser.me/api/portraits/men/32.jpg',
-    'https://randomuser.me/api/portraits/women/44.jpg',
-    'https://randomuser.me/api/portraits/men/75.jpg',
-    'https://randomuser.me/api/portraits/women/65.jpg',
-    'https://randomuser.me/api/portraits/men/81.jpg',
-    'https://randomuser.me/api/portraits/women/29.jpg',
-    'https://randomuser.me/api/portraits/men/11.jpg',
-    'https://randomuser.me/api/portraits/women/82.jpg'
-]
 const locations = getData('locations')

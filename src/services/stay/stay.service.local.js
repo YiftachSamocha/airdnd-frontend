@@ -1,8 +1,8 @@
 import { storageService } from '../async-storage.service'
 import { makeId } from '../util.service'
 import { userService } from '../user'
-import { createStayData } from '../stay.data'
-import { createUsersData } from '../user.data'
+import { createStayData } from '../data/stay.data'
+import { createUserData } from '../data/user.data'
 
 const STAY_STORAGE_KEY = 'stay'
 const USER_STORAGE_KEY = 'user'
@@ -82,18 +82,17 @@ async function addStayMsg(stayId, txt) {
     return msg
 }
 
-async function _createData(listingsPerHost = 2) {
+async function _createData() {
     const currStayData = JSON.parse(localStorage.getItem(STAY_STORAGE_KEY))
-    let newStays = []
-    if (!currStayData || currStayData.length === 0) {
-        newStays = await createStayData(listingsPerHost)
-        localStorage.setItem(STAY_STORAGE_KEY, JSON.stringify(newStays))
+    const currUserData = JSON.parse(localStorage.getItem(USER_STORAGE_KEY))
 
-        const currUserData = JSON.parse(localStorage.getItem(USER_STORAGE_KEY))
-        if (!currUserData || currUserData.length === 0) {
-            const users = await createUsersData(newStays)
-            localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(users))
-        }
+    if (!currUserData || currUserData.length == 0 || !currStayData || currStayData.length === 0) {
+
+        const newUsers = await createUserData()
+        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(newUsers))
+
+        const newStays = await createStayData(newUsers)
+        localStorage.setItem(STAY_STORAGE_KEY, JSON.stringify(newStays))
     }
 
 }
