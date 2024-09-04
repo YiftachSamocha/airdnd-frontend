@@ -29,7 +29,7 @@ export function Reservations({orders}) {
     return <section className="reservations">
 
         {!currUser ? <div>Log in to watch your reservations</div> : <div>
-            <h2>Reservations</h2>
+            <h2>Your Reservations</h2>
             <div className="reservations-filter">
                 <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'approved' }))}
                     className={filterBy.type === 'approved' ? 'selected' : ''} >Aprroved</button>
