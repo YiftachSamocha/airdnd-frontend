@@ -4,7 +4,7 @@ import petsImg from '../assets/imgs/Extra/pets.png'
 import selfImg from '../assets/imgs/Extra/self.png'
 import favoriteImg from '../assets/imgs/Extra/favorite.png'
 import luxeImg from '../assets/imgs/Extra/luxe.png'
-import { getData } from "../services/stay.data"
+
 import { Range, getTrackBackground } from 'react-range';
 import { BarChart } from "./LibariesCmps/BarChart"
 import { SET_FILTER_BY } from "../store/reducers/stay.reducer"
@@ -12,6 +12,7 @@ import { useSelector } from "react-redux"
 import { stayService } from "../services/stay"
 import { store } from "../store/store"
 import { useSearchParams } from "react-router-dom"
+import { getData } from "../services/data/stay.data"
 
 export function ExtraFilter({ closeExtra }) {
     const filterBy = useSelector(state => state.stayModule.filterBy)

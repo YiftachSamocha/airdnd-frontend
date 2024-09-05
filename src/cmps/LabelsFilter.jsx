@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getData } from "../services/stay.data";
+import { getData } from "../services/data/stay.data";
 import arrowRight from '../assets/imgs/arrow-right.png'
 import arrowLeft from '../assets/imgs/arrow-left.png'
 import { store } from "../store/store";

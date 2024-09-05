@@ -2,8 +2,6 @@ import securityIcon from '../../assets/imgs/icons/security.svg'
 import starIcon from '../../assets/imgs/icons/star.svg'
 
 export function StayHost({ stay }) {
-    console.log('stay host stay', stay)
-
     return (
         <section className="host-details">
             <h3>Meet your Host</h3>

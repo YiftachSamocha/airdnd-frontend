@@ -8,6 +8,7 @@ export async function loadStays(filterBy) {
     try {
         const stays = await stayService.query(filterBy)
         store.dispatch(getCmdSetStays(stays))
+        return stays
     } catch (err) {
         console.log('Cannot load stays', err)
         throw err
