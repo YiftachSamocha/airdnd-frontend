@@ -6,11 +6,13 @@
     // 320px X 304px;
     // max-width: 280px;
     // max-height: 265px;
+    // 240X228 min
+    // 500x475 max
     height: auto;
     margin: 0;
     padding: 0;
     object-fit: cover;
-  
+
     aspect-ratio: 1 / 1;
     border-radius: 10px;
     overflow: hidden;
@@ -22,11 +24,12 @@
 
     .img-body img {
         width: 100%;
+        // height:95% ;
         height: auto;
         // object-fit: cover;
         aspect-ratio: 1/1;
         position: relative;
-    
+
     }
 
     .slick-dots {
@@ -74,20 +77,19 @@
 
 
     .custom-arrow {
-        // opacity: 0;
         background-color: white;
         border: none;
         color: black;
         padding: 1em;
-        cursor: pointer;
-        transition: all 0.3s ease;
+        // transition: all 0.3s ease;
         border-radius: 50%;
         border: 1px solid $gray3;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         margin: 0;
         height: 2em;
         width: 2em;
-        transition: opacity 0.3s ease;
+        // transition: opacity 0.3s ease;
+        // transition: transform 0.3s ease, opacity 0.3s ease;
 
         // img {
         //     max-width: 1em;
@@ -96,9 +98,19 @@
 
         &:hover {
             opacity: 1;
-            transform: translateY(-3px);
+            // transform: translateY(-3px);
             box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+            // transform: scale(1);
+
+            width: 40px;
+            height: 40px;
+            background-color: white;
+
         }
+
+        // .custom-arrow:hover {
+        //     transform: scale(1.1); /* הגדלת הכפתור בזמן hover */
+        // }
     }
 
     // .stay-preview button:hover .custom-arrow {
@@ -110,7 +122,7 @@
         opacity: 0;
     }
 
-   
+
     .slick-prev {
         left: 13px;
         // top: 151px;
@@ -124,19 +136,20 @@
 
     ul.slick-dots {
         display: block;
+        height: 18px
     }
 
     .slick-dots li button {
         transform: scale(0.5);
         position: absolute;
-        bottom: 17px;
+        bottom: 9px;
     }
 
     //  .btn-heart{
     //     width: 20px;
     //     height: 20px;
     //     z-index: 10;
-        
+
     // }
 
     .slick-dots li button:before {
@@ -167,10 +180,6 @@
         background-color: #dddddd;
     }
 
-//     .custom-next-arrow.slick-arrow.slick-prev{
-// opacity: 1;
-
-//     }
 
     /* עיצוב לעיגול פעיל */
     .slick-dots .slick-active button {
@@ -190,27 +199,53 @@
         /* גובה עיגולי צד */
     }
 
-    // .slider-container {
-    //     position: relative;
-    // }
-    
-    // .img-container {
-    //     position: relative;
-    // }
-    
-    // .btn-heart {
+    .slider-container {
+        position: relative;
+    }
+
+    // .custom-arrow {
     //     position: absolute;
-    //     top: 10px; 
-    //     right: 10px; 
-    //     background: transparent; 
+    //     top: 50%;
+    //     // transform: translateY(-50%);
+    //     background-color: white;
     //     border: none;
-    //     z-index: 10; 
-    // }
-    
-    // .btn-heart img {
-    //     width: 30px; 
-    //     height: 30px; 
+    //     cursor: pointer;
+    //     transition: transform 0.3s ease, opacity 0.3s ease;
     // }
 
+    // .custom-arrow:hover {
+    //     transform: scale(1.1); /* הגדלת הכפתור בזמן hover */
+    // }
 
 }
+
+.custom-arrow.slick-arrow {
+    opacity: 0;
+}
+
+.stay-list a:hover .custom-arrow.slick-arrow.slick-next {
+    opacity: 1;
+}
+
+//     .slider-container {
+//         position: relative;
+//     }
+
+//     .img-container {
+//         position: relative;
+//     }
+
+//     .btn-heart {
+//         position: absolute;
+//         top: 0; 
+//         right: -7px; 
+//         background: transparent; 
+//         border: none;
+//         z-index: 10; 
+//         height: 20px;
+//     }
+// button .btn-heart{
+//     border: none;
+//     font-size: none;
+//     font-weight: none;
+// }
