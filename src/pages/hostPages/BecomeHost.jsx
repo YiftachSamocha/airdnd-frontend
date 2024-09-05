@@ -1,11 +1,20 @@
-import logoBlack from '../assets/imgs/icons/logo-black.svg';
+import { useNavigate, useParams } from 'react-router';
+import logoBlack from '../../assets/imgs/icons/logo-black.svg';
 
 
 export function BecomeHost() {
     const videoSrc = 'https://stream.media.muscache.com/zFaydEaihX6LP01x8TSCl76WHblb01Z01RrFELxyCXoNek.mp4?v_q=high'
-    return <section className="become-host">
+    const navigate= useNavigate()
+    const {userId} = useParams()
+
+    function handleNext() {
+        navigate(`/become-a-host/${userId}/about-your-place`); // Correct navigation
+    }
+
+    return <section className="add-listing">
         <header>
             <img src={logoBlack}></img>
+            <button>Save & Exit</button>
         </header>
         <div className='main'>
             <div className="step-1">
@@ -32,7 +41,7 @@ export function BecomeHost() {
 
         <footer>
             <button className='btn-link'>Back</button>
-            <button className='black'>Next</button>
+            <button className='black' onClick={handleNext}>Next</button>
         </footer>
 
     </section>

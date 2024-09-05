@@ -1,26 +1,51 @@
-// import logoBlack from '../assets/imgs/icons/logo-black.svg'
+import logoBlack from '../../assets/imgs/icons/logo-black.svg'
+
+import { useNavigate, useParams } from "react-router";
+import { UploadImgs } from '../../cmps/HostCmps/UploadImgs';
+import { ListingLocation } from '../../cmps/HostCmps/ListingLocation';
+import { useState } from 'react';
 
 export function AboutYourPlace() {
-    const videoSrc = 'https://stream.media.muscache.com/zFaydEaihX6LP01x8TSCl76WHblb01Z01RrFELxyCXoNek.mp4?v_q=high'
+    const navigate = useNavigate()
+    const { userId } = useParams()
+    const [formData, setFormData] = useState({
+        location: '',
+        images: []
+    })
 
-    return <div className="step-1">
-        <div className='info'>
-            <span>step 1</span>
-            <h1>Tell us about <span> your place</span></h1>
-            <p>In this step, we'll ask you which type of property you have and if guests will book the entire place or just a room. Then let us know the location and how many guests can stay.
-            </p>
-        </div>
-        <video
-            data-testid="video-player"
-            className="v6iu1id dir dir-ltr"
-            autoPlay
-            crossOrigin="anonymous"
-            muted
-            playsInline
-            preload="auto"
-            src={videoSrc}
-            controls
-        >
-        </video>
-    </div>
+    function handleNext() {
+        navigate(`/become-a-host/${userId}/about-your-place`); // Correct navigation
+    }
+
+    function handleInputChange(key, value) {
+        setFormData({
+            ...formData,
+            [key]: value
+        })
+    }
+
+    return <section className="add-listing about">
+        <header>
+            <img src={logoBlack}></img>
+            <button>Save & Exit</button>
+        </header>
+        <form onSubmit={handleNext}>
+            <div className='main'>
+                <span>Step 2</span>
+                <ListingLocation
+                    location={formData.location}
+                    onLocationChange={(value) => handleInputChange('location', value)} />
+                <UploadImgs
+                    images={formData.images}
+                    onImagesChange={(value) => handleInputChange('images', value)}
+                />
+            </div>
+        </form>
+
+        <footer>
+            <button className='btn-link'>Back</button>
+            <button className='black' type='submit'>Next</button>
+        </footer>
+
+    </section>
 }

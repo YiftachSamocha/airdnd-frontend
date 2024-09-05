@@ -1,6 +1,6 @@
 import locationImg from '../../assets/imgs/location.png'
-import { getData } from '../../services/stay.data';
 import flexibleImg from '../../assets/imgs/countries/flexible.jpg';
+import { getData } from '../../services/data/stay.data';
 
 export function Where({ input, setInput }) {
     const locations = getData('locations')

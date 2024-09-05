@@ -15,6 +15,11 @@
         td {
             padding: 0.75em 0.9375em;
             text-align: left;
+
+            a {
+                text-decoration: none;
+                color: black;
+            }
         }
 
         thead th {
@@ -52,30 +57,31 @@
                 justify-content: space-between;
 
                 button {
-                    padding: 0.375em 0.75em; // Adjusted padding for table buttons
+                    padding: 0.375em 0.75em;
                     border-radius: 0.375em;
                     border: 0.0625em solid #ccc;
                     color: white;
                     cursor: pointer;
                     box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
-                    font-size: 0.875em; // Slightly smaller font for table buttons
+                    font-size: 0.875em;
                     transition: background-color 0.3s, transform 0.2s;
 
                     &:hover {
-                        background-color: darken(#ff385c, 10%);
-                        transform: translateY(-0.125em); // Slight lift on hover
+                        background-color: darken($clr-light-red, 10%);
+                        transform: translateY(-0.125em);
                         box-shadow: 0 0.375em 0.75em rgba(0, 0, 0, 0.2);
                     }
 
                     &:not(:last-child) {
-                        margin-right: 0.5em; // Space between buttons
+                        margin-right: 0.5em;
                     }
                 }
 
                 button:first-of-type {
                     background-color: green;
                 }
-                button:last-of-type{
+
+                button:last-of-type {
                     background-color: red;
                 }
             }
@@ -84,23 +90,103 @@
 
     .reservations-filter {
         margin-bottom: 1.25em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-        button {
-            padding: 0.5em 1em;
-            margin-right: 0.5em;
-            border-radius: 0.375em;
-            border: none;
-            background-color: #e6e6e6;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
+        .filter-type {
+            display: flex;
 
-            &.selected {
-                background-color: #ff385c;
-                color: white;
+            button {
+                padding: 0.5em 1em;
+                margin-right: 0.5em;
+                border-radius: 0.375em;
+                border: none;
+                background-color: #e6e6e6;
+                cursor: pointer;
+                transition: background-color 0.3s, transform 0.3s;
+
+                &.selected {
+                    background-color: #ff385c;
+                    color: white;
+                }
+
+                &:hover {
+                    transform: translateY(-0.125em);
+                }
+            }
+        }
+
+        .filter-listing {
+            label {
+                font-size: 1.25em; // Larger label for the listing filter
+                font-weight: 600;
+                margin-right: 0.5em;
             }
 
-            &:hover {
-                transform: translateY(-0.125em);
+            select {
+                padding: 0.5em 1em;
+                border-radius: 0.75em; // Improved border radius
+                border: 0.125em solid #ccc;
+                cursor: pointer;
+                transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
+
+                &:hover {
+                    background-color: #f7f7f7;
+                    border-color: darken(#ccc, 10%);
+                    transform: translateY(-0.125em);
+                }
+
+                option {
+                    padding: 0.5em;
+                    transition: background-color 0.3s;
+
+                    &:hover {
+                        background-color: #ff385c;
+                        color: white;
+                    }
+                }
+            }
+
+        }
+
+        .filter-page {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+
+            button {
+                background-color: white;
+                border: none;
+                color: black;
+                padding: 1em;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                border-radius: 50%;
+                border: 1px solid $gray3;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                margin: 0;
+                height: 2em;
+                width: 2em;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                img {
+                    max-width: 1em;
+                    height: 1em;
+                }
+
+                &:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+                }
+            }
+
+            span {
+                font-size: 1.2em;
+                font-weight: bold;
+                padding: 0 0.5em;
             }
         }
     }

@@ -1,8 +1,9 @@
 
 import { storageService } from "../async-storage.service.js"
+import { makeId } from "../util.service.js"
 // import { utilService } from '../util.service.js'
 
-const STORAGE_KEY = 'orderDB'
+const STORAGE_KEY = 'order'
 // let orders = _createOrders()
 
 export const orderService = {
@@ -38,6 +39,7 @@ async function save(order) {
     if (order._id) {
         savedOrder = await storageService.put(STORAGE_KEY, order)
     } else {
+        order._id= makeId()
         savedOrder = await storageService.post(STORAGE_KEY, order)
     }
     return savedOrder

@@ -1,18 +1,11 @@
 const { DEV, VITE_LOCAL } = import.meta.env
 
-import { getData } from '../stay.data'
-import { getRandomIntInclusive, makeId } from '../util.service'
+
 import iconsImg from '../../assets/imgs/labels/icons.webp'
+import { getData } from '../data/stay.data'
 import { stayService as local } from './stay.service.local'
 import { stayService as remote } from './stay.service.remote'
 
-function getEmptyStay() {
-    return {
-        vendor: makeId(),
-        speed: getRandomIntInclusive(80, 240),
-        msgs: [],
-    }
-}
 
 function getDefaultFilter() {
     return {
@@ -34,8 +27,7 @@ function getDefaultFilter() {
 
 
 const service = VITE_LOCAL === 'true' ? local : remote
-console.log('VITE_LOCAL_STAY:' + VITE_LOCAL)
-export const stayService = { getEmptyStay, getDefaultFilter, ...service }
+export const stayService = { getDefaultFilter, ...service }
 
 // Easy access to this service from the dev tools console
 // when using script - dev / dev:local

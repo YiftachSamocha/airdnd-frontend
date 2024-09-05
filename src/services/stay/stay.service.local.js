@@ -1,11 +1,13 @@
 import { storageService } from '../async-storage.service'
 import { makeId } from '../util.service'
 import { userService } from '../user'
-import { createStayData } from '../stay.data'
-import { createUsersData } from '../user.data'
+import { createStayData } from '../data/stay.data'
+import { createUserData } from '../data/user.data'
+import { createOrderData } from '../data/order.data'
 
 const STAY_STORAGE_KEY = 'stay'
 const USER_STORAGE_KEY = 'user'
+const ORDER_STORAGE_KEY = 'order'
 
 export const stayService = {
     query,
@@ -55,19 +57,13 @@ async function remove(stayId) {
 async function save(stay) {
     var savedStay
     if (stay._id) {
-        const stayToSave = {
-            _id: stay._id,
-            price: stay.price,
-            speed: stay.speed,
-        }
-        savedStay = await storageService.put(STAY_STORAGE_KEY, stayToSave)
+        savedStay = await storageService.put(STAY_STORAGE_KEY, stay);
     } else {
         const stayToSave = {
-            vendor: stay.vendor,
-            price: stay.price,
-            speed: stay.speed,
+            ...stay,
+            status: 'draft',  // Save new stays as draft by default
             owner: userService.getLoggedinUser(),
-            msgs: []
+            msgs: stay.msgs || []
         }
         savedStay = await storageService.post(STAY_STORAGE_KEY, stayToSave)
     }
@@ -88,18 +84,24 @@ async function addStayMsg(stayId, txt) {
     return msg
 }
 
-async function _createData(listingsPerHost = 2) {
+async function _createData() {
     const currStayData = JSON.parse(localStorage.getItem(STAY_STORAGE_KEY))
-    let newStays = []
-    if (!currStayData || currStayData.length === 0) {
-        newStays = await createStayData(listingsPerHost)
+    const currUserData = JSON.parse(localStorage.getItem(USER_STORAGE_KEY))
+    const currOrderData = JSON.parse(localStorage.getItem(ORDER_STORAGE_KEY))
+
+    if (!currUserData || currUserData.length == 0 ||
+        !currStayData || currStayData.length === 0 ||
+        !currOrderData || currOrderData.length === 0) {
+
+        const newUsers = await createUserData()
+        localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(newUsers))
+
+        const newStays = await createStayData(newUsers)
         localStorage.setItem(STAY_STORAGE_KEY, JSON.stringify(newStays))
 
-        const currUserData = JSON.parse(localStorage.getItem(USER_STORAGE_KEY))
-        if (!currUserData || currUserData.length === 0) {
-            const users = await createUsersData(newStays)
-            localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(users))
-        }
+
+        const newOrders = await createOrderData(newStays, newUsers)
+        localStorage.setItem(ORDER_STORAGE_KEY, JSON.stringify(newOrders))
     }
 
 }

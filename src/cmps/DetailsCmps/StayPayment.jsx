@@ -8,6 +8,8 @@ import { orderService } from "../../services/order/index.js"
 import { addOrder } from "../../store/actions/order.action.js"
 import { format, isValid } from "date-fns"
 import { OutsideClick } from "../OutsideClick.jsx"
+import { useSelector } from "react-redux"
+
 
 
 export function StayPayment({ stay }) {
@@ -20,8 +22,12 @@ export function StayPayment({ stay }) {
     const [dates, setDates] = useState({ startDate: null, endDate: null })
     const [isSelectingEndDate, setIsSelectingEndDate] = useState(false) // Track whether the user is selecting the end date
 
+    const [isFormReady, setIsFormReady] = useState()
     const [orderURL, setOrderUrl] = useState('')
     const [searchParams, setSearchParams] = useSearchParams()
+
+    const currUser = useSelector(state => state.user?.currUser)
+
     const navigate = useNavigate()
 
     const price = formatNumberWithCommas(stay.price.night)
@@ -52,7 +58,9 @@ export function StayPayment({ stay }) {
     useEffect(() => {
         createOrderURLstr()
         updateSearchParams()
-    }, [dates, filterCapacity])
+
+        setIsFormReady(currUser && dates.startDate && dates.endDate && filterCapacity.adults > 0)
+    }, [currUser, dates, filterCapacity])
 
     function updateSearchParams() {
         const params = new URLSearchParams(searchParams)
@@ -62,25 +70,30 @@ export function StayPayment({ stay }) {
         } else {
             params.delete('start_date')
         }
+
         if (dates.endDate) {
             const formattedEndDate = format(dates.endDate, 'yyyy-MM-dd')
             params.set('end_date', formattedEndDate)
         } else {
             params.delete('end_date')
         }
+
         if (filterCapacity.adults) params.set('adults', filterCapacity.adults)
         else params.delete('adults')
+
         if (filterCapacity.children) params.set('children', filterCapacity.children)
         else params.delete('children')
+
         if (filterCapacity.infants) params.set('infants', filterCapacity.infants)
         else params.delete('infants')
+
         if (filterCapacity.pets) params.set('pets', filterCapacity.pets)
         else params.delete('pets')
+
         setSearchParams(params)
     }
 
     function handleDateChange(newDates) {
-        console.log('is selecting end date', isSelectingEndDate)
         if (!isSelectingEndDate) {
             setDates({ startDate: newDates.startDate, endDate: null })
             setIsSelectingEndDate(true)
@@ -89,7 +102,6 @@ export function StayPayment({ stay }) {
             updateSearchParams() // Update URL only after both dates are selected
             setIsWhenOpen(false) // Close the date picker
             setIsSelectingEndDate(false)
-
         }
     }
 
@@ -111,8 +123,12 @@ export function StayPayment({ stay }) {
         setOrderUrl(urlStr)
     }
 
-
     async function handleReserve(stay) {
+        // if (!isFormReady) {
+        //     setIsWhenOpen(true)
+        //     return
+        // }
+
         try {
             if (dates.startDate && dates.endDate) {
                 updateSearchParams('start_date', dates.startDate.toISOString().split('T')[0])
@@ -124,11 +140,11 @@ export function StayPayment({ stay }) {
             updateSearchParams('pets', filterCapacity.pets || 0)
 
             navigate(`/book/stay/${stay._id + orderURL}`)
-
         } catch (error) {
             console.error("Error creating order:", error)
         }
     }
+
     function displayDateInLocal(date) {
         return date ? format(date, 'MMM dd') : 'Add date'
     }
@@ -146,15 +162,12 @@ export function StayPayment({ stay }) {
                         <div className="btn-side">
                             <h4>CHECK-IN</h4>
                             <p>{displayDateInLocal(dates.startDate)}</p>
-                            {/* <p>{dates.startDate ? displayDateInLocal(dates.startDate) : 'Add date'}</p> */}
                         </div>
                     </button>
                     <button className="btn-team" onClick={toggleWhenEnd}>
                         <div className="btn-side">
                             <h4>CHECKOUT</h4>
                             <p>{displayDateInLocal(dates.endDate)}</p>
-
-                            {/* <p>{dates.endDate ? displayDateInLocal(dates.endDate) : 'Add date'}</p> */}
                         </div>
                     </button>
                     {isWhenOpen && (
@@ -168,7 +181,6 @@ export function StayPayment({ stay }) {
                     <button className="btn-team full" onClick={toggleWho}>
                         <div className="btn-side">
                             <h4>GUESTS</h4>
-                            {/* <p>{stay.sleep.maxCapacity} guests</p> */}
                             <p>{`${filterCapacity.adults + filterCapacity.children + filterCapacity.infants} guests`}</p>
 
                         </div>
@@ -179,7 +191,10 @@ export function StayPayment({ stay }) {
                 </div>
 
                 <div className="reserve grid-item button-container">
-                    <button className="color-change" onClick={() => handleReserve(stay)}>Reserve</button>
+                    <button className="color-change" onClick={() => handleReserve(stay)}>
+                    {isFormReady ? 'Reserve' : 'Check availability'}
+
+                    </button>
                 </div>
 
                 <div className="grid-item add-grid">
@@ -198,14 +213,13 @@ export function StayPayment({ stay }) {
                 <div className="total">
                     <h3>Total</h3>
                     <h3>${total}</h3>
-                </div>
+                </div>  
                 {isWhoOpen &&
-                    <OutsideClick onOutsideClick={() => setIsWhoOpen(false)}>
+                <OutsideClick onOutsideClick={() => setIsWhoOpen(false)}>
                         <Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} onClose={closeWho} />
                     </OutsideClick>
                 }
 
-                {/* {openType === 'who' && <Who filterCapacity={filterBy.who} setFilterCapacity={changeFilterWho} />} */}
 
             </section></div>
     )

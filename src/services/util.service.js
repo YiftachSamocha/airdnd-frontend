@@ -1,4 +1,5 @@
 import { addDays, addMonths, isBefore, isAfter, format } from 'date-fns';
+import { uploadService } from './upload.service';
 
 
 export function makeId(length = 6) {
@@ -116,7 +117,7 @@ export function getDateRange(datesBooked) {
             // console.log(availableDate.toISOString().split('T')[0]);
             return availableDate.toISOString().split('T')[0];
         }
-    }    
+    }
 }
 
 export function findFirstAvailableNights(reservedRanges, nightsNeeded) {
@@ -149,15 +150,15 @@ export function findFirstAvailableNights(reservedRanges, nightsNeeded) {
 
 
 export function formatDateRange(dateRange) {
-   
-    function formatDate(date) {        
+
+    function formatDate(date) {
         const options = { month: 'short', day: 'numeric' };
         return date.toLocaleDateString('en-US', options);
     }
-    
+
     const startDate = new Date(dateRange.startDate);
     const endDate = new Date(dateRange.endDate);
-    
+
     const startMonthDay = formatDate(startDate);
     const endMonthDay = formatDate(endDate);
 
@@ -186,4 +187,15 @@ export function saveToStorage(key, value) {
 export function loadFromStorage(key) {
     const data = localStorage.getItem(key)
     return (data) ? JSON.parse(data) : undefined
+}
+
+export function getRandomColor() {
+    return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+}
+
+export async function onHandleFile(ev){
+    console.log('hi ')
+    let res = await uploadService.uploadImg(ev)
+    console.log(res, 'res')
+    return res
 }

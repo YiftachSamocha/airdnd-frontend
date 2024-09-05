@@ -1,76 +1,89 @@
-import { getRandomIntInclusive, makeId } from "./util.service.js";
-import italyImg from '../assets/imgs/countries/italy.jpeg';
-import spainImg from '../assets/imgs/countries/spain.jpg';
-import portugalImg from '../assets/imgs/countries/portugal.jpg';
-import usaImg from '../assets/imgs/countries/united-states.jpg';
-import greeceImg from '../assets/imgs/countries/greece.jpg';
+import { getRandomIntInclusive, makeId } from "../util.service.js";
+import italyImg from '../../assets/imgs/countries/italy.jpeg';
+import spainImg from '../../assets/imgs/countries/spain.jpg';
+import portugalImg from '../../assets/imgs/countries/portugal.jpg';
+import usaImg from '../../assets/imgs/countries/united-states.jpg';
+import greeceImg from '../../assets/imgs/countries/greece.jpg';
 
-import iconsImg from '../assets/imgs/labels/icons.webp'
-import barnsImg from '../assets/imgs/labels/barns.jpeg';
-import beachImg from '../assets/imgs/labels/beach.jpeg';
-import beachfrontImg from '../assets/imgs/labels/beachfront.jpeg';
-import bedAndBreakfastImg from '../assets/imgs/labels/bed&breakfast.jpeg';
-import boatsImg from '../assets/imgs/labels/boats.jpeg';
-import cabinsImg from '../assets/imgs/labels/cabins.jpeg';
-import campersImg from '../assets/imgs/labels/campers.jpeg';
-import campingImg from '../assets/imgs/labels/camping.jpeg';
-import casasParticularesImg from '../assets/imgs/labels/casas-particulares.jpeg';
-import castelsImg from '../assets/imgs/labels/castels.jpeg';
-import cavesImg from '../assets/imgs/labels/caves.jpeg';
-import chefsKitchensImg from '../assets/imgs/labels/chefs-kitchens.jpeg';
-import containersImg from '../assets/imgs/labels/containers.jpeg';
-import countrysideImg from '../assets/imgs/labels/countryside.jpeg';
-import creativeSpacesImg from '../assets/imgs/labels/creative-spaces.jpeg';
-import cycladicHomesImg from '../assets/imgs/labels/cycladic-homes.jpeg';
-import dammusiImg from '../assets/imgs/labels/dammusi.jpeg';
-import desertImg from '../assets/imgs/labels/desert.jpeg';
-import designImg from '../assets/imgs/labels/design.jpeg';
-import domesImg from '../assets/imgs/labels/domes.jpeg';
-import earthHomesImg from '../assets/imgs/labels/earth-homes.jpeg';
-import farmsImg from '../assets/imgs/labels/farms.jpeg';
-import golfingImg from '../assets/imgs/labels/golfing.jpeg';
-import grandPianosImg from '../assets/imgs/labels/grand-pianos.jpeg';
-import hanoksImg from '../assets/imgs/labels/hanoks.jpeg';
-import historicalHomesImg from '../assets/imgs/labels/historical-homes.jpeg';
-import houseboatsImg from '../assets/imgs/labels/houseboats.jpeg';
-import islandsImg from '../assets/imgs/labels/islands.jpeg';
-import lakefrontImg from '../assets/imgs/labels/lakefront.jpeg';
-import luxeImg from '../assets/imgs/labels/luxe.jpeg';
-import mansionsImg from '../assets/imgs/labels/mansions.jpeg';
-import minsusImg from '../assets/imgs/labels/minsus.jpeg';
-import nationalParksImg from '../assets/imgs/labels/national-parks.jpeg';
-import newImg from '../assets/imgs/labels/new.jpeg';
-import offTheGridImg from '../assets/imgs/labels/off-the-grid.jpeg';
-import omgImg from '../assets/imgs/labels/omg.jpeg';
-import playImg from '../assets/imgs/labels/play.jpeg';
-import riadsImg from '../assets/imgs/labels/riads.jpeg';
-import roomsImg from '../assets/imgs/labels/rooms.jpeg';
-import ryokansImg from '../assets/imgs/labels/ryokans.jpeg';
-import shepardsHutsImg from '../assets/imgs/labels/shepards-huts.jpeg';
-import skiInOutImg from '../assets/imgs/labels/ski-in-out.jpeg';
-import skiingImg from '../assets/imgs/labels/skiing.jpeg';
-import surfingImg from '../assets/imgs/labels/surfing.jpeg';
-import tinyHomesImg from '../assets/imgs/labels/tinyhomes.jpeg';
-import topCitiesImg from '../assets/imgs/labels/top-cities.jpeg';
-import topOfTheWorldImg from '../assets/imgs/labels/top-of-the-world.jpeg';
-import towersImg from '../assets/imgs/labels/towers.jpeg';
-import treehousesImg from '../assets/imgs/labels/treehouses.jpeg';
-import trendingImg from '../assets/imgs/labels/trending.jpeg';
-import tropicalImg from '../assets/imgs/labels/tropical.jpeg';
-import trulliImg from '../assets/imgs/labels/trulli.jpeg';
-import vineyardsImg from '../assets/imgs/labels/vineyards.jpeg';
-import windmillsImg from '../assets/imgs/labels/windmills.jpeg';
-import yurtsImg from '../assets/imgs/labels/yurts.jpeg';
+import iconsImg from '../../assets/imgs/labels/icons.webp'
+import barnsImg from '../../assets/imgs/labels/barns.jpeg';
+import beachImg from '../../assets/imgs/labels/beach.jpeg';
+import beachfrontImg from '../../assets/imgs/labels/beachfront.jpeg';
+import bedAndBreakfastImg from '../../assets/imgs/labels/bed&breakfast.jpeg';
+import boatsImg from '../../assets/imgs/labels/boats.jpeg';
+import cabinsImg from '../../assets/imgs/labels/cabins.jpeg';
+import campersImg from '../../assets/imgs/labels/campers.jpeg';
+import campingImg from '../../assets/imgs/labels/camping.jpeg';
+import casasParticularesImg from '../../assets/imgs/labels/casas-particulares.jpeg';
+import castelsImg from '../../assets/imgs/labels/castels.jpeg';
+import cavesImg from '../../assets/imgs/labels/caves.jpeg';
+import chefsKitchensImg from '../../assets/imgs/labels/chefs-kitchens.jpeg';
+import containersImg from '../../assets/imgs/labels/containers.jpeg';
+import countrysideImg from '../../assets/imgs/labels/countryside.jpeg';
+import creativeSpacesImg from '../../assets/imgs/labels/creative-spaces.jpeg';
+import cycladicHomesImg from '../../assets/imgs/labels/cycladic-homes.jpeg';
+import dammusiImg from '../../assets/imgs/labels/dammusi.jpeg';
+import desertImg from '../../assets/imgs/labels/desert.jpeg';
+import designImg from '../../assets/imgs/labels/design.jpeg';
+import domesImg from '../../assets/imgs/labels/domes.jpeg';
+import earthHomesImg from '../../assets/imgs/labels/earth-homes.jpeg';
+import farmsImg from '../../assets/imgs/labels/farms.jpeg';
+import golfingImg from '../../assets/imgs/labels/golfing.jpeg';
+import grandPianosImg from '../../assets/imgs/labels/grand-pianos.jpeg';
+import hanoksImg from '../../assets/imgs/labels/hanoks.jpeg';
+import historicalHomesImg from '../../assets/imgs/labels/historical-homes.jpeg';
+import houseboatsImg from '../../assets/imgs/labels/houseboats.jpeg';
+import islandsImg from '../../assets/imgs/labels/islands.jpeg';
+import lakefrontImg from '../../assets/imgs/labels/lakefront.jpeg';
+import luxeImg from '../../assets/imgs/labels/luxe.jpeg';
+import mansionsImg from '../../assets/imgs/labels/mansions.jpeg';
+import minsusImg from '../../assets/imgs/labels/minsus.jpeg';
+import nationalParksImg from '../../assets/imgs/labels/national-parks.jpeg';
+import newImg from '../../assets/imgs/labels/new.jpeg';
+import offTheGridImg from '../../assets/imgs/labels/off-the-grid.jpeg';
+import omgImg from '../../assets/imgs/labels/omg.jpeg';
+import playImg from '../../assets/imgs/labels/play.jpeg';
+import riadsImg from '../../assets/imgs/labels/riads.jpeg';
+import roomsImg from '../../assets/imgs/labels/rooms.jpeg';
+import ryokansImg from '../../assets/imgs/labels/ryokans.jpeg';
+import shepardsHutsImg from '../../assets/imgs/labels/shepards-huts.jpeg';
+import skiInOutImg from '../../assets/imgs/labels/ski-in-out.jpeg';
+import skiingImg from '../../assets/imgs/labels/skiing.jpeg';
+import surfingImg from '../../assets/imgs/labels/surfing.jpeg';
+import tinyHomesImg from '../../assets/imgs/labels/tinyhomes.jpeg';
+import topCitiesImg from '../../assets/imgs/labels/top-cities.jpeg';
+import topOfTheWorldImg from '../../assets/imgs/labels/top-of-the-world.jpeg';
+import towersImg from '../../assets/imgs/labels/towers.jpeg';
+import treehousesImg from '../../assets/imgs/labels/treehouses.jpeg';
+import trendingImg from '../../assets/imgs/labels/trending.jpeg';
+import tropicalImg from '../../assets/imgs/labels/tropical.jpeg';
+import trulliImg from '../../assets/imgs/labels/trulli.jpeg';
+import vineyardsImg from '../../assets/imgs/labels/vineyards.jpeg';
+import windmillsImg from '../../assets/imgs/labels/windmills.jpeg';
+import yurtsImg from '../../assets/imgs/labels/yurts.jpeg';
 
-import parkingImg from '../assets/imgs/Extra/parking.png'
-import tvImg from '../assets/imgs/Extra/tv.png'
-import acImg from '../assets/imgs/Extra/ac.png'
-import kitchenImg from '../assets/imgs/Extra/kitchen.png'
-import washingMashineImg from '../assets/imgs/Extra/washing-mashine.png'
-import wifiImg from '../assets/imgs/Extra/wifi.png'
+import parkingImg from '../../assets/imgs/Extra/parking.png'
+import tvImg from '../../assets/imgs/Extra/tv.png'
+import acImg from '../../assets/imgs/Extra/ac.png'
+import kitchenImg from '../../assets/imgs/Extra/kitchen.png'
+import washingMashineImg from '../../assets/imgs/Extra/washing-mashine.png'
+import wifiImg from '../../assets/imgs/Extra/wifi.png'
 
-export async function createStay(host, location) {
+export async function createStayData(users, listingsPerHost = 3) {
+    const stays = []
+    const hosts = users.filter(user => user.host)
+    for (let i = 0; i < hosts.length; i++) {
+        for (let j = 0; j < listingsPerHost; j++) {
+            const stay = await createStay(hosts[i])
+            stays.push(stay)
+        }
+    }
+    return stays
+}
+
+export async function createStay(host) {
     const sleep = await createSleep()
+    const location = host.host.location
 
     return {
         _id: makeId(),
@@ -80,7 +93,7 @@ export async function createStay(host, location) {
         description: getRandomItems(descriptions, 1),
         highlights: getRandomItems(highlights, 3),
         price: {
-            night: getRandomIntInclusive(200, 2000),
+            night: getRandomIntInclusive(500, 2000),
             cleaning: getRandomIntInclusive(200, 1000)
         },
         type: getRandomItems(types, 1),
@@ -91,10 +104,11 @@ export async function createStay(host, location) {
             _id: host._id,
             fullname: host.fullname,
             imgUrl: host.imgUrl,
-            reviews: host.reviews,
-            rating: host.rating,
-            yearsHosting: host.yearsHosting,
-            responceRate: host.responseRate
+            reviews: host.host.reviews,
+            rating: host.host.rating,
+            yearsHosting: host.host.yearsHosting,
+            responceRate: host.host.responseRate,
+            personalDetails: host.host.personalDetails
         },
         location,
         reviews: getRandomItems(reviews, getRandomIntInclusive(1, 15)),
@@ -102,94 +116,10 @@ export async function createStay(host, location) {
             houseRules: getRandomItems(houseRules, getRandomIntInclusive(6, 12)),
             safetyProperty: getRandomItems(safetyProperty, getRandomIntInclusive(4, 10)),
             cancellationPolicy: getRandomItems(cancellationPolicy, 1)
-        }
-        
+        },
+        status: 'published'
     }
 }
-
-export async function createStayData(listingsPerHost = 2) {
-    const hosts = []
-    const stays = []
-
-    for (let i = 1; i < locations.length; i++) {
-        const location = getRandomItems(locations, 1)
-        const host = {
-            _id: makeId(),
-            fullname: getRandomItems(fullnames, 1),
-            imgUrl: getRandomItems(hostImages, 1),
-            reviews: getRandomIntInclusive(3, 100),
-            rating: Math.round((Math.random() * 4 + 1) * 100) / 100,
-            yearsHosting: getRandomIntInclusive(1, 15),
-            responseRate: getRandomIntInclusive(80, 100),
-            personalDetails: createPersonalDetails(location),
-            listings: []
-        }
-
-        for (let j = 0; j < listingsPerHost; j++) {
-            const stay = await createStay(host, location)
-            host.listings.push(stay)
-            stays.push(stay)
-        }
-        hosts.push(host)
-    }
-    return stays
-}
-
-const workOptions = ["Software Engineer", "Artist", "Teacher", "Entrepreneur"]
-const favoriteSongs = ["Bohemian Rhapsody", "Stairway to Heaven", "Imagine", "Hotel California"]
-const forGuestsOptions = ["Always available to help", "Loves to share local tips", "Enjoys meeting new people"]
-const petOptions = ["Dog", "Cat", "None"]
-const spendTimeOptions = ["Hiking", "Reading", "Cooking", "Traveling"]
-const homeUniqueOptions = ["Beautiful garden", "Cozy fireplace", "Stunning views"]
-const breakfastOptions = ["Continental", "Local delicacies", "Vegan options"]
-const languages = ["English", "French", "German", "Japanese"]
-
-function createPersonalDetails(location) {
-    return {
-        work: {
-            name: getRandomItems(workOptions, 1),
-            imgUrl: '../assets/imgs/icons/work.svg' // Replace with actual icon path
-        },
-        favoriteSong: {
-            name: getRandomItems(favoriteSongs, 1),
-            imgUrl: '../assets/imgs/icons/song.svg' // Replace with actual icon path
-        },
-        forGuests: {
-            name: getRandomItems(forGuestsOptions, 1),
-            imgUrl: '../assets/imgs/amenities/host-greets-you.svg' // Replace with actual icon path
-        },
-        pets: {
-            name: getRandomItems(petOptions, 1),
-            imgUrl: '../assets/imgs/icons/pets.svg' // Replace with actual icon path
-        },
-        bornIn: {
-            name: getRandomItems(["80s", "90s", "2000s"], 1),
-            imgUrl: '../assets/imgs/icons/birth-decade.svg' // Replace with actual icon path
-        },
-        spendsMuchTime: {
-            name: getRandomItems(spendTimeOptions, 1),
-            imgUrl: '../assets/imgs/icons/hoby.svg' // Replace with actual icon path
-        },
-        speaks: {
-            name: location.language,
-            imgUrl: '../assets/imgs/icons/language.svg' // Replace with actual icon path
-        },
-        whatMakesHomeUnique: {
-            name: getRandomItems(homeUniqueOptions, 1),
-            imgUrl: '../assets/imgs/icons/uniqueness.svg' // Replace with actual icon path
-        },
-        whatsForBreakfast: {
-            name: getRandomItems(breakfastOptions, 1),
-            imgUrl: '../assets/imgs/amenities/breakfast.svg' // Replace with actual icon path
-        },
-        livesIn: {
-            name: `${location.city}, ${location.country}`,
-            imgUrl: '../assets/imgs/icons/location.svg' // Replace with actual icon path
-
-        }
-    }
-}
-
 
 export function getData(type) {
     switch (type) {
@@ -200,8 +130,6 @@ export function getData(type) {
         case 'labels': return labels;
         case 'highlights': return highlights;
         case 'locations': return locations;
-        case 'hostImages': return hostImages;
-        case 'fullnames': return fullnames;
         case 'reviewTxts': return reviewsTxts;
         case 'mainAmenities': return mainAmenities
         default: return null;
@@ -703,8 +631,8 @@ function getRandomDateRange(startDate, endDate) {
     const randomEnd = new Date(minEnd.getTime() + Math.random() * (end.getTime() - minEnd.getTime()))
 
     return {
-        start: randomStart.toISOString().split('T')[0],
-        end: randomEnd.toISOString().split('T')[0],
+        startDate: randomStart.toISOString().split('T')[0],
+        endDate: randomEnd.toISOString().split('T')[0],
     }
 }
 
@@ -765,20 +693,8 @@ const locations = [
     { country: 'New Zealand', city: 'Auckland', lat: -36.85, lng: 174.76 },
     { country: 'Chile', city: 'Santiago', lat: -33.46, lng: -70.65 },
     { country: 'Colombia', city: 'Bogotá', lat: 4.61, lng: -74.08 },
-
-
 ]
 
-const hostImages = [
-    'https://randomuser.me/api/portraits/men/32.jpg',
-    'https://randomuser.me/api/portraits/women/44.jpg',
-    'https://randomuser.me/api/portraits/men/75.jpg',
-    'https://randomuser.me/api/portraits/women/65.jpg',
-    'https://randomuser.me/api/portraits/men/81.jpg',
-    'https://randomuser.me/api/portraits/women/29.jpg',
-    'https://randomuser.me/api/portraits/men/11.jpg',
-    'https://randomuser.me/api/portraits/women/82.jpg'
-]
 
 function getRandomDate() {
     const year = getRandomIntInclusive(new Date().getFullYear() - 10, new Date().getFullYear());

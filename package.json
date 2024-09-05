@@ -19,6 +19,7 @@
     "axios": "^1.5.0",
     "chart.js": "^4.4.4",
     "date-fns": "^3.6.0",
+    "google-map-react": "^2.2.1",
     "nouislider-react": "^3.4.2",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
