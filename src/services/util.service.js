@@ -194,8 +194,6 @@ export function getRandomColor() {
 }
 
 export async function onHandleFile(ev){
-    console.log('hi ')
     let res = await uploadService.uploadImg(ev)
-    console.log(res, 'res')
     return res
 }

@@ -2,6 +2,7 @@
     &.about {
         .main {
             text-align: center;
+            color: $gray5;
 
             span {
                 font-size: 18px;
@@ -11,13 +12,14 @@
                 flex-direction: column;
                 height: unset;
 
-                h1 {
+                h2 {
                     font-size: 32px;
                     padding-block-start: 0;
                 }
 
                 p {
                     margin-block-end: 24px;
+                    color: $gray4;
                 }
             }
 
@@ -61,7 +63,7 @@
                     aspect-ratio: 1/1;
                     margin: 0 auto;
                 }
-                
+
                 button {
                     margin: 0 auto;
 
@@ -78,6 +80,13 @@
                 .map {
                     margin: 0 auto;
                     padding-block: 24px;
+                    width: 80vw;
+                    height: 70vh;
+                    max-width: 630px;
+
+                    div div{
+                        border-radius:20px;
+                    }
 
                     .custom-marker {
                         position: relative;
@@ -86,9 +95,115 @@
                         width: 100px;
                         height: 100px;
                     }
+                }
+            }
 
-                    img {
-                        // transform: translate(-50%, -80%);
+            .listing-rooms{
+                margin-block-end: 32px;
+
+            }
+
+            .room-info {
+                width: 100%;
+                max-width: 60vw;
+                color: $gray4;
+
+                .number-input {
+                    display: flex;
+                    justify-content: space-between;
+                    padding-block: 24px;
+                    box-shadow: 0px 1px 0 0 #e1dede;
+
+                    input {
+                        color: $gray4; // Text color when input is focused
+
+                        border: none;
+                        width: 45px;
+                        font-size: 16px;
+                        text-align: center;
+                        padding-inline-start: 12px;
+                        
+
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+
+                    button {
+                        width: unset;
+                        padding: 10px;
+                        border-radius: 50%;
+                        border-color: $gray3;
+
+                        &:hover{
+                            border-color: $gray5;
+                            background-color: transparent;
+
+                            svg{
+                                fill: $gray5;
+                            }
+                        }
+
+                        svg {
+                            display: block;
+                            height: 12px;
+                            width: 12px;
+                            fill: gray;
+                        }
+                    }
+                }
+            }
+
+            .selection {
+                padding-block: 12px 32px;
+
+                .selection-grid {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                }
+
+                h3 {
+                    margin-block: 0 4px;
+                    font-size: 18px;
+                }
+
+                .option-item {
+                    display: flex;
+                    align-items: center;
+                    padding: 20px;
+                    border: 2px solid; // Default border
+                    border-color: $gray2;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    transition: border-color 0.3s, background-color 0.3s;
+                    max-width: 630px;
+                    text-align: start;
+
+
+                    // Hide the actual radio input
+                    input[type="radio"] {
+                        display: none;
+                    }
+
+                    .option-content {
+                        flex-grow: 1;
+
+                        p {
+                            margin: 0;
+                            font-size: 14px;
+                            color: $gray4;
+                        }
+                    }
+
+                    // Change border color on hover
+                    &:hover {
+                        border-color: black;
+                    }
+
+                    &.selected {
+                        border-color: black;
+                        background-color: $gray1; // Background color when selected
                     }
                 }
             }
