@@ -1,4 +1,5 @@
 import { addDays, addMonths, isBefore, isAfter, format } from 'date-fns';
+import { uploadService } from './upload.service';
 
 
 export function makeId(length = 6) {
@@ -186,4 +187,11 @@ export function saveToStorage(key, value) {
 export function loadFromStorage(key) {
     const data = localStorage.getItem(key)
     return (data) ? JSON.parse(data) : undefined
+}
+
+export async function onHandleFile(ev){
+    console.log('hi ')
+    let res = await uploadService.uploadImg(ev)
+    console.log(res, 'res')
+    return res
 }

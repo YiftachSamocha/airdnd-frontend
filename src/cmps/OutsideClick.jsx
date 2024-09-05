@@ -9,14 +9,14 @@ export function OutsideClick({ onOutsideClick, children }) {
                 onOutsideClick();
             }
         }
-        document.addEventListener('mousedown', handleClickOutside);
+        document.addEventListener('mousedown', handleClickOutside)
 
         return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
     }, [onOutsideClick]);
 
-    return <div ref={ref}>{children}</div>;
-};
+    return <div ref={ref}>{children}</div>
+}
 
 

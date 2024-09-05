@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router';
-// import logoBlack from '../assets/imgs/icons/logo-black.svg';
+import logoBlack from '../../assets/imgs/icons/logo-black.svg';
 
 
 export function BecomeHost() {
@@ -13,7 +13,8 @@ export function BecomeHost() {
 
     return <section className="add-listing">
         <header>
-            {/* <img src={logoBlack}></img> */}
+            <img src={logoBlack}></img>
+            <button>Save & Exit</button>
         </header>
         <div className='main'>
             <div className="step-1">

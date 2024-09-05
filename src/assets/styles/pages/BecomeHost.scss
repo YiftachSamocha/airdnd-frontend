@@ -1,14 +1,28 @@
 .add-listing {
     header {
+        display: flex;
+        justify-content: space-between;
         padding: 32px 8px 0;
+        margin-block-end: 24px;
 
         img {
             width: 32px;
             height: 32px;
         }
+
+        button {
+            border-color: $gray2;
+            border-radius: 30px;
+
+            &:hover {
+                border-color: black;
+                background-color: transparent;
+            }
+            
+        }
     }
 
-    .step-1 {
+    .step-1, .info {
         display: flex;
         font-size: 18px;
         display: flex;
@@ -53,6 +67,18 @@
         display: flex;
         justify-content: space-between;
         padding-block: 16px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 10px 17px;
+        background-color: white;
+        color: $gray5;
+        width: 120px;
+
+        &:hover {
+            background-color: $gray1;
+        }
     }
 
 }
