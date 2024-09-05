@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 // import { PrevArrow, NextArrow } from 'react-slick/lib/slide';
 // import Dots from 'react-slick/lib/dots';
@@ -6,10 +6,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import arrowRight from "../assets/imgs/icons/arrow-right.svg"
 import arrowLeft from "../assets/imgs/icons/arrowLeft.svg"
-import heart from "../assets/imgs/icons/heart.svg"
 
 
 export function StaySlider({ images }) {
+    const [showArrows, setShowArrows] = useState(false);
+    const [isAtStart, setIsAtStart] = useState(false);
+    const [isAtEnd, setIsAtEnd] = useState(false);
+
     const settings = {
         dots: true,
         infinite: true,
@@ -18,45 +21,41 @@ export function StaySlider({ images }) {
         slidesToScroll: 1,
         arrows: true,
         nextArrow: <NextArrow />,
-        prevArrow: <PrevArrow />
+        prevArrow: <PrevArrow />,
+        // arrows: false, // Set to false to use custom arrows
+        beforeChange: (current, next) => {
+            setIsAtStart(next === 0);
+            setIsAtEnd(next === settings.slidesToShow - 1);
+        },
+        afterChange: (index) => {
+            setIsAtStart(index === 0);
+            setIsAtEnd(index === images.length - 1);
+        }
     }
-    
-    const handleHeartClick = () => {
-        alert("כפתור הלב נלחץ!");
-    }
-    
+
+
+
     return (
         <div className="slider-container">
-             {/* <img src={heart} alt={`btn-heart`} className="btn-heart"/> */}
+            {/* onMouseEnter={() => setShowArrows(true)} onMouseLeave={() => setShowArrows(false)}> */}
             <Slider {...settings}>
                 {images.map((img, index) => (
-                    <div className="img-body"
+                    <><div className="img-body"
                         key={index}>
                         <img src={img} alt={`slide-${index}`} />
-                    </div>
+                        </div>
+                    </>
                 ))}
-            </Slider>
+            </Slider >
+            {/* {showArrows && (
+                <>
+                    <PrevArrow />
+                    <NextArrow />
+                </>
+            )} */}
         </div>
     )
 }
-
-// return (
-//     <div className="slider-container">
-//         <Slider {...settings}>
-//             {images.map((img, index) => (
-//                 <div className="img-container" key={index}>
-//                     <img src={img} alt={`image-${index}`} className="slider-image"/>
-//                     {/* {index === 0 && (
-//                         <button className="btn-heart" onClick={handleHeartClick}>
-//                             <img src={heart} alt={`btn-heart`} />
-//                         </button>
-//                     )} */}
-//                 </div>
-//             ))}
-//         </Slider>
-//     </div>
-// )
-// }
 
 
 const PrevArrow = ({ className, style, onClick }) => (
@@ -67,8 +66,14 @@ const PrevArrow = ({ className, style, onClick }) => (
             background: `url(${arrowLeft}) no-repeat center center`,
             backgroundSize: 'contain',
             backgroundSize: '13px',
-            backgroundColor: 'white',
-            width: '30px', height: '30px'
+            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+            width: '30px', height: '30px',
+            '&:hover':{
+                width: '40px', height: '40px', 
+                backgroundColor: 'white',
+            }
+            // opacity: 'isAtStart' ? 0 : 1,
+            // transition: 'opacity 0.3s ease'
         }}
         onClick={onClick}
     >
@@ -82,13 +87,19 @@ const NextArrow = ({ className, style, onClick }) => (
             ...style,
             background: `url(${arrowRight}) no-repeat center center`,
             backgroundSize: 'contain',
-            backgroundColor: 'white',
+            backgroundColor: 'rgba(255, 255, 255, 0.8)',
             backgroundSize: '15px',
             width: '30px', height: '30px',
-            transition: 'all 0.5s ease',
-            '&:hover': {
-                transform: 'translateY(-3px)',
+            '&:hover':{
+                width: '40px', height: '40px', 
+                backgroundColor: 'white',
             }
+            // opacity: 'isAtEnd' ? 0 : 1,
+            // transition: 'opacity 0.3s ease'
+            // transition: 'all 0.5s ease',
+            // '&:hover': {
+            //     width: '40px', height: '40px',
+            // }
         }}
         onClick={onClick}
     >
