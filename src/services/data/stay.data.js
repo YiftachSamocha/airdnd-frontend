@@ -561,7 +561,7 @@ const mainAmenities = [
     { name: 'washing mashine', imgUrl: washingMashineImg, isSelected: false },
 ]
 
-const labels = [
+export const labels = [
     { label: 'icons', img: iconsImg },
     { label: 'barns', img: barnsImg },
     { label: 'beach', img: beachImg },

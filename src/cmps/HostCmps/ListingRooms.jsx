@@ -1,8 +1,8 @@
 import { NumberInput } from "../StarterCmps/NumberInput";
 
-export function ListingRooms({ formData, onFormDataChange }) {
+export function ListingRooms({ formData, onRoomsChange }) {
     const handleInputChange = (key, value) => {
-        onFormDataChange(key, value); // Since formData.sleep is already passed as a prop
+        onRoomsChange(key, value); // Since formData.sleep is already passed as a prop
     }
 
     return (

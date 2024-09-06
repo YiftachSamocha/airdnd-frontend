@@ -11,6 +11,7 @@ import icon from '../../assets/imgs/icons/language.svg'
 import { ListingAmenities } from '../../cmps/HostCmps/ListingAmenities';
 import { ListingDescription } from '../../cmps/HostCmps/ListingDescription';
 import { ListingTitle } from '../../cmps/HostCmps/ListingTitle';
+import { ListingPrice } from '../../cmps/HostCmps/ListingPrice';
 
 export function AboutYourPlace() {
     const navigate = useNavigate()
@@ -26,8 +27,12 @@ export function AboutYourPlace() {
             maxCapacity: 2,
         },
         amenities: [],
-        title: '',
+        name: '',
         description: '',
+        price: {
+            night: 128, 
+            cleaning: 5, 
+        },
     })
 
     useEffect(() => {
@@ -49,10 +54,10 @@ export function AboutYourPlace() {
                 },
             });
         } else {
-            setFormData({
-                ...formData,
+            setFormData((prevData) => ({
+                ...prevData,
                 [key]: value,
-            });
+            }));
         }
     }
 
@@ -111,13 +116,17 @@ export function AboutYourPlace() {
                     onAmenityChange={handleAmenityChange} // Handle change
                 />
                 <ListingTitle
-                    title={formData.title}
-                    onTitleChange={(value) => handleInputChange('title', value)}
+                    name={formData.name}
+                    onNameChange={(value) => handleInputChange('name', value)}
                 />
                 <ListingDescription
                     description={formData.description}
                     onDescriptionChange={(value) => handleInputChange('description', value)}
                 />
+                 <ListingPrice
+                        price={formData.price}
+                        onPriceChange={(value) => handleInputChange('price', value, key)} // Use handleInputChange for price
+                    />
             </div>
         </form>
 

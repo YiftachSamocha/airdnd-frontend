@@ -4,7 +4,8 @@ import { debounce } from '../../services/util.service'
 export function ListingDescription({ description, onDescriptionChange }) {
     const [count, setCount] = useState(description.length)
     const [localDesc, setLocalDesc] = useState(description) 
-    const [typing, setTyping] = useState(false) 
+    const [firstFocus, setFirstFocus] = useState(true) // Flag to track first focus
+
     const defaultText = "You'll always remember your time at this unique place to stay." 
 
     const debouncedChange = useCallback(
@@ -28,11 +29,16 @@ export function ListingDescription({ description, onDescriptionChange }) {
         debouncedChange(newDesc) // Use debounced version of onDescriptionChange
     }
 
-    function handleFocus ()  {
-        if (!typing && !localDesc) {
-            setLocalDesc(defaultText) // Set the default description on first focus
-            setCount(defaultText.length) // Update count for default description
-            setTyping(true) // Ensure this only happens once
+    function handleFocus() {
+        if (firstFocus && (!localDesc || localDesc === defaultText)) {
+            setLocalDesc('') // Clear the field if it's the first focus and contains the default text
+            setFirstFocus(false) // Ensure this only happens once
+        }
+    }
+
+    function handleBlur() {
+        if (!localDesc.trim()) {
+            setLocalDesc('') // Keep it empty on blur if the user has deleted everything
         }
     }
 
@@ -41,11 +47,12 @@ export function ListingDescription({ description, onDescriptionChange }) {
             <h2>Create your description</h2>
             <p>Share what makes your place special.</p>
             <textarea
-                value={localDesc}
+                value={localDesc} 
                 onChange={handleChange}
                 onFocus={handleFocus}
                 maxLength="500"
-                placeholder={defaultText}
+                onBlur={handleBlur}
+                placeholder={firstFocus ? defaultText : ''}
             />
             <p className="char-limit">{count}/500</p>
         </div>

@@ -57,6 +57,7 @@ export function ListingAmenities({ amenities = [], onAmenityChange }) {
         'Fire extinguisher': fireExtinguisherImg,
         'Carbon monoxide alarm': carbonAlarmImg
     }
+    
     // Helper function to check if an amenity is selected based on its name
     function isAmenitySelected(amenityName)  {
         return amenities.some(a => a.name === amenityName)

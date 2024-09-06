@@ -1,43 +1,86 @@
-.add-listing {
+.become-host {
     header {
         display: flex;
         justify-content: space-between;
-        padding: 32px 8px 0;
+        padding-top: 32px;
         margin-block-end: 24px;
 
         img {
             width: 32px;
             height: 32px;
         }
-
-        button {
-            border-color: $gray2;
-            border-radius: 30px;
-
-            &:hover {
-                border-color: black;
-                background-color: transparent;
-            }
-            
-        }
     }
 
-    .step-1, .info {
-        display: flex;
-        font-size: 18px;
-        display: flex;
-        align-items: center;
-        height: 100%;
+        footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 0 !important;
 
-        h1{
+        button {
+            font-size: 14px;
+            padding: 10px 17px;
+            background-color: white;
+            color: $gray5;
+            width: 120px;
+
+            &:hover {
+                background-color: $gray1;
+            }
+
+            &.btn-link {
+                text-align: start !important;
+            }
+        }
+    
+    }
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 16px;
+}
+
+button {
+    font-size: 14px;
+    padding: 10px 17px;
+    background-color: white;
+    color: $gray5;
+    width: 120px;
+
+    &:hover {
+        background-color: $gray1;
+    }
+}
+
+
+.become-host {
+
+    .main {
+        padding-inline: 40px;
+
+        .step-1 {
+            display: flex;
+            font-size: 18px;
+            align-items: center;
+            height: 100%;
+        }
+
+        .info {
+            flex-direction: column;
+            align-items: start;
+        }
+
+        h1 {
             font-size: 48px;
             font-weight: 600;
             margin-block: 0;
             padding-block: 16px 24px;
         }
 
-        p{
-            margin-block: 0;
+        p {
+            margin-block: 0 40px;
+            line-height: 2rem;
         }
 
         video {
@@ -63,60 +106,73 @@
         }
     }
 
-    footer {
-        display: flex;
-        justify-content: space-between;
-        padding-block: 16px;
-    }
-
-    button {
-        font-size: 14px;
-        padding: 10px 17px;
-        background-color: white;
-        color: $gray5;
-        width: 120px;
-
-        &:hover {
-            background-color: $gray1;
-        }
-    }
-
 }
 
-@media(max-width:1187px){
-    .become-host{
-        h1 {
-            display: flex;
-            flex-direction: column;
-            line-height: 100%;
+
+@media(max-width:1187px) {
+    .become-host {
+        .main {
+            padding-inline: 0;
+
+            .step-1 h1 {
+                display: flex;
+                flex-direction: column;
+                line-height: 100%;
+            }
         }
+
     }
 }
 
 @media(max-width:950px) {
-    .become-host{
-        .step-1{
+    .become-host {
+        // footer{
+        //     padding-inline: 20px;
+        // }
+        .step-1 {
             flex-direction: column;
             font-size: 16px;
 
-            h1{
+            h1 {
                 font-size: 32px;
                 flex-direction: row;
                 gap: 10px;
                 padding-block: 8px;
             }
 
-            .info{
-                order:1;
+            .info {
+                order: 1;
+
+                p {
+                    line-height: 1.5rem;
+                }
             }
 
-            video{
-                order:0;
-                max-width: 110%;
-                max-height: 100%;
-                width: calc(100vw);
-                height: calc(100vw* 0.8753246753246753);
+            .video-container {
+                margin-right: 10px;
+
+                video {
+                    order: 0;
+                    max-width: 110%;
+                    max-height: 100%;
+                    width: calc(100vw);
+                    height: calc(100vw* 0.8753246753246753);
+                }
             }
+
+
         }
     }
+}
+
+@media (max-width:743px){
+.become-host{
+    
+        padding-inline: 20px;
+        
+        .step-1 .info{
+            margin-inline: 0;
+        }
+    
+}
 }

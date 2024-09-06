@@ -197,3 +197,163 @@ export async function onHandleFile(ev){
     let res = await uploadService.uploadImg(ev)
     return res
 }
+
+const highlightOptions = [
+    {
+        main: 'Great communication',
+        sub: '95% of recent guests gave the host a 5-star rating for communication.',
+        amenity: 'Communication'
+    },
+    {
+        main: 'Flexible cancellation policy',
+        sub: 'Get a full refund if you cancel within 48 hours of booking.',
+        amenity: 'Cancellation'
+    },
+    {
+        main: 'Superhost',
+        sub: 'This host is highly rated for their outstanding hospitality.',
+        amenity: 'Superhost'
+    },
+    {
+        main: 'Self check-in',
+        sub: 'Check yourself in with the smart lock for added convenience.',
+        amenity: 'Self check-in'
+    },
+    {
+        main: 'Sparkling clean',
+        sub: 'Recent guests said this place was sparkling clean.',
+        amenity: 'Cleanliness'
+    },
+    {
+        main: 'Fast wifi',
+        sub: 'Guests often compliment the fast and reliable wifi.',
+        amenity: 'Wifi'
+    },
+    {
+        main: 'Highly rated location',
+        sub: '100% of recent guests gave the location a 5-star rating.',
+        amenity: 'Location'
+    },
+    {
+        main: 'Well-equipped for long stays',
+        sub: 'Guests who stayed a month or longer rated this place 5 stars.',
+        amenity: 'Long stay'
+    },
+    {
+        main: 'Safe and secure',
+        sub: 'Guests appreciated the safety features and felt secure.',
+        amenity: 'Safety'
+    },
+    {
+        main: 'Pet-friendly',
+        sub: 'Previous guests loved bringing their pets to this home.',
+        amenity: 'Pet-friendly'
+    },
+    {
+        main: 'Dedicated workspace',
+        sub: 'Perfect for remote work, with a comfortable desk and fast wifi.',
+        amenity: 'Dedicated workspace'
+    },
+    {
+        main: 'Excellent amenities',
+        sub: 'Guests praised the range of amenities offered here.',
+        amenity: 'Amenities'
+    },
+    {
+        main: 'Great for families',
+        sub: 'Families rated this home 5 stars for kid-friendly amenities.',
+        amenity: 'Family-friendly'
+    },
+    {
+        main: 'Great check-in experience',
+        sub: '100% of recent guests gave the check-in process a 5-star rating.',
+        amenity: 'Check-in'
+    },
+    {
+        main: 'Stylish space',
+        sub: 'Guests loved the stylish decor and comfortable layout.',
+        amenity: 'Style'
+    },
+    {
+        main: 'Free parking on premises',
+        sub: 'This place offers free parking for added convenience.',
+        amenity: 'Free parking on premises'
+    },
+    {
+        main: 'Comfortable beds',
+        sub: 'Guests consistently mention the comfortable and cozy beds.',
+        amenity: 'Comfort'
+    },
+    {
+        main: 'Highly rated host',
+        sub: 'This host has received great reviews for their hospitality.',
+        amenity: 'Hospitality'
+    },
+    {
+        main: 'Quiet neighborhood',
+        sub: 'Guests praised the peaceful and quiet surroundings.',
+        amenity: 'Quiet'
+    },
+    {
+        main: 'Fully equipped kitchen',
+        sub: 'Guests appreciated the well-stocked kitchen for home-cooked meals.',
+        amenity: 'Kitchen'
+    },
+    {
+        main: 'Fast response time',
+        sub: 'This host is known for responding quickly to guest inquiries.',
+        amenity: 'Response time'
+    },
+    {
+        main: 'Great value',
+        sub: 'Recent guests rated this place 5 stars for value.',
+        amenity: 'Value'
+    },
+    {
+        main: 'Thoughtful touches',
+        sub: 'Guests loved the small details and thoughtful touches.',
+        amenity: 'Thoughtful touches'
+    },
+    {
+        main: 'Private entrance',
+        sub: 'Enjoy the privacy of a separate entrance to the property.',
+        amenity: 'Private entrance'
+    },
+    {
+        main: 'Close to public transport',
+        sub: 'Guests found the location convenient for public transportation.',
+        amenity: 'Public transport'
+    },
+    {
+        main: 'Walkable area',
+        sub: 'Guests loved the walkability of the neighborhood.',
+        amenity: 'Walkability'
+    },
+    {
+        main: 'Effortless check-in',
+        sub: 'Check-in is easy with the host\'s detailed instructions.',
+        amenity: 'Check-in'
+    }
+];
+
+// The function to match 3 highlights to the given amenity and imgUrl
+export function getHighlights(amenity, imgUrl) {
+    // Find highlights that match the provided amenity
+    const matchingHighlights = highlightOptions.filter(
+        (highlight) => highlight.amenity === amenity
+    );
+
+    // If there are less than 3, add additional random highlights
+    while (matchingHighlights.length < 3) {
+        const randomHighlight = highlightOptions[Math.floor(Math.random() * highlightOptions.length)];
+        if (!matchingHighlights.includes(randomHighlight)) {
+            matchingHighlights.push(randomHighlight);
+        }
+    }
+
+    // Add the provided imgUrl to the first 3 highlights
+    return matchingHighlights.slice(0, 3).map((highlight) => ({
+        ...highlight,
+        imgUrl
+    }));
+}
