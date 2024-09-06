@@ -3,7 +3,7 @@ import { NumberInput } from "../StarterCmps/NumberInput";
 export function ListingRooms({ formData, onFormDataChange }) {
     const handleInputChange = (key, value) => {
         onFormDataChange(key, value); // Since formData.sleep is already passed as a prop
-    };
+    }
 
     return (
         <div className="listing-rooms info">
@@ -32,5 +32,5 @@ export function ListingRooms({ formData, onFormDataChange }) {
                 />
             </div>
         </div>
-    );
+    )
 }

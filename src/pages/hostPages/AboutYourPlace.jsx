@@ -7,6 +7,11 @@ import { useEffect, useState } from 'react';
 import { ListingType } from '../../cmps/HostCmps/ListingType';
 import { ListingRooms } from '../../cmps/HostCmps/ListingRooms';
 
+import icon from '../../assets/imgs/icons/language.svg'
+import { ListingAmenities } from '../../cmps/HostCmps/ListingAmenities';
+import { ListingDescription } from '../../cmps/HostCmps/ListingDescription';
+import { ListingTitle } from '../../cmps/HostCmps/ListingTitle';
+
 export function AboutYourPlace() {
     const navigate = useNavigate()
     const { userId } = useParams()
@@ -20,7 +25,14 @@ export function AboutYourPlace() {
             beds: 1,
             maxCapacity: 2,
         },
+        amenities: [],
+        title: '',
+        description: '',
     })
+
+    useEffect(() => {
+        console.log('changes', formData)
+    }, [formData])
 
 
     function handleNext() {
@@ -52,6 +64,23 @@ export function AboutYourPlace() {
         }));
     }
 
+    function handleAmenityChange(amenity) {
+        setFormData((prevData) => {
+            const existingAmenity = prevData.amenities.find(a => a.name === amenity.name);
+            let updatedAmenities;
+
+            if (existingAmenity) {
+                // If already selected, remove it (toggle behavior)
+                updatedAmenities = prevData.amenities.filter(a => a.name !== amenity.name);
+            } else {
+                // If not selected, add the new amenity
+                updatedAmenities = [...prevData.amenities, amenity];
+            }
+
+            return { ...prevData, amenities: updatedAmenities };
+        })
+    }
+
 
     return <section className="add-listing about">
         <header>
@@ -76,6 +105,18 @@ export function AboutYourPlace() {
                 <UploadImgs
                     images={formData.images}
                     onImagesChange={handleImagesChange}
+                />
+                <ListingAmenities
+                    amenities={formData.amenities} // Pass the current amenities object
+                    onAmenityChange={handleAmenityChange} // Handle change
+                />
+                <ListingTitle
+                    title={formData.title}
+                    onTitleChange={(value) => handleInputChange('title', value)}
+                />
+                <ListingDescription
+                    description={formData.description}
+                    onDescriptionChange={(value) => handleInputChange('description', value)}
                 />
             </div>
         </form>

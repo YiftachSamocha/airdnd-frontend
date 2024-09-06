@@ -17,9 +17,38 @@
                     padding-block-start: 0;
                 }
 
+                h3 {
+                    margin-block-end: 24px;
+                }
+
                 p {
                     margin-block-end: 24px;
                     color: $gray4;
+                }
+
+                .selection {
+                    margin: 0 auto;
+                }
+
+                textarea {
+                    width: 100%;
+                    max-width: 630px;
+                    min-height: 144px;
+                    resize: none;
+                    border-radius: 10px;
+                    padding: 16px;
+                    text-overflow: ellipsis;
+                    font-size: 18px;
+                    line-height: 1.75rem;
+                    overflow-y: auto;
+                    font-family: sans-serif;
+                    color: rgb(34, 34, 34);
+
+                    &::placeholder {
+                        color: rgb(34, 34, 34);
+                        opacity: 1;
+                        /* Ensure placeholder opacity is not reduced */
+                    }
                 }
             }
 
@@ -84,8 +113,8 @@
                     height: 70vh;
                     max-width: 630px;
 
-                    div div{
-                        border-radius:20px;
+                    div div {
+                        border-radius: 20px;
                     }
 
                     .custom-marker {
@@ -98,14 +127,14 @@
                 }
             }
 
-            .listing-rooms{
+            .listing-rooms {
                 margin-block-end: 32px;
 
             }
 
             .room-info {
                 width: 100%;
-                max-width: 60vw;
+                max-width: 50vw;
                 color: $gray4;
 
                 .number-input {
@@ -122,7 +151,7 @@
                         font-size: 16px;
                         text-align: center;
                         padding-inline-start: 12px;
-                        
+
 
                         &:focus {
                             outline: none;
@@ -135,11 +164,11 @@
                         border-radius: 50%;
                         border-color: $gray3;
 
-                        &:hover{
+                        &:hover {
                             border-color: $gray5;
                             background-color: transparent;
 
-                            svg{
+                            svg {
                                 fill: $gray5;
                             }
                         }
@@ -161,6 +190,8 @@
                     display: flex;
                     flex-direction: column;
                     gap: 20px;
+
+
                 }
 
                 h3 {
@@ -172,7 +203,7 @@
                     display: flex;
                     align-items: center;
                     padding: 20px;
-                    border: 2px solid; // Default border
+                    border: 1px solid; // Default border
                     border-color: $gray2;
                     border-radius: 8px;
                     cursor: pointer;
@@ -199,12 +230,116 @@
                     // Change border color on hover
                     &:hover {
                         border-color: black;
+                        border: 2px solid; // Default border
+
                     }
 
                     &.selected {
                         border-color: black;
                         background-color: $gray1; // Background color when selected
+                        border: 2px solid; // Default border
+
                     }
+                }
+            }
+
+            .listing-amenities {
+                p {
+                    margin-block-end: unset;
+                }
+
+                section h3 {
+                    margin-block: 48px !important;
+                }
+
+                .selection-grid {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    max-width: 630px;
+                    margin: 0 auto;
+
+                    .option-item {
+                        width: 180px;
+                        height: 99px;
+
+                        &:active {
+                            transform: scale(1.2s); // Shrink the selected item when clicked
+                        }
+
+                        &.selected {
+                            transform: scale(0.8);
+                            /* Shrinks the item initially */
+                            animation: scaleUp 0.3s ease-in-out forwards;
+                            /* Animation to scale back up */
+                        }
+
+                        input[type='checkbox'] {
+                            display: none;
+
+                        }
+
+                        p {
+                            font-size: 16px;
+                            color: $gray5;
+                            font-weight: bolder;
+                        }
+
+                        img{
+                            padding-block-end: 8px;
+                        }
+                    }
+                }
+            }
+
+            .txt-area {
+
+                &.description{
+                    position: relative;
+                }
+                .char-limit {
+                    color: rgb(106, 106, 106) !important;
+                    font-size: 12px;
+                    font-weight: 700;
+                    line-height: 16px;
+                    padding: 10px;
+                    margin-inline-end: 20px;
+                    text-align: end;
+                }
+            }
+
+        }
+    }
+}
+
+.add-listing {
+    @media (max-width: 743px) {
+        grid-column: span 3 !important;
+
+        .info {
+            margin-inline: 20px;
+
+            section {
+                width: 100%;
+            }
+        }
+
+        .location .map {
+            width: 100% !important;
+        }
+
+        .cloudinary {
+            margin: 0 !important;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        .listing-amenities {
+            .selection-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+
+                .option-item {
+                    width: unset !important;
+                    height: unset !important;
                 }
             }
 
