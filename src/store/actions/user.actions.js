@@ -1,4 +1,4 @@
-import { userService } from '../../services/user/user.service.local'
+import { userService } from '../../services/user/user.service.remote'
 //import { socketService } from '../../services/socket.service'
 import { store } from '../store'
 import { showErrorMsg } from '../../services/event-bus.service'
@@ -87,7 +87,7 @@ export function addHostInfoToUser(user) {
         yearsHosting: [],
         responseRate: 100,
         listings: [],
-        createdAt: new Date(),  // Store the current date when the user becomes a host
+        createdAt: new Date(),  
     }
     
     return {

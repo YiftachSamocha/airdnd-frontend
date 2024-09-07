@@ -1,4 +1,4 @@
-import { stayService } from '../../services/stay/stay.service.local'
+import { stayService } from '../../services/stay/stay.service.remote'
 import { store } from '../store'
 import { ADD_STAY, REMOVE_STAY, SET_STAYS, SET_STAY, UPDATE_STAY } from '../reducers/stay.reducer.js'
 

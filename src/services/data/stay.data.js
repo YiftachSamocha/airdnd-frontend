@@ -69,7 +69,7 @@ import kitchenImg from '../../assets/imgs/Extra/kitchen.png'
 import washingMashineImg from '../../assets/imgs/Extra/washing-mashine.png'
 import wifiImg from '../../assets/imgs/Extra/wifi.png'
 
-export function createStayData(users, listingsPerHost = 3) {
+export function createStayData(users, listingsPerHost = 4) {
     const stays = []
     const hosts = users.filter(user => user.host)
     for (let i = 0; i < hosts.length; i++) {
