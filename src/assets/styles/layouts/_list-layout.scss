@@ -68,13 +68,19 @@
     }
 }
 
-@media(min-width:1640px) {
+@media(min-width:1440px) {
     .stay-list {
-        padding: 80px;
+        padding: 40px;
     }
 }
-@media(min-width:1880px) {
-    .stay-list {
-        padding: 80px;
-    }
-}
+
+// @media(min-width:1640px) {
+//     .stay-list {
+//         padding: 80px;
+//     }
+// }
+// @media(min-width:1880px) {
+//     .stay-list {
+//         padding: 80px;
+//     }
+// }

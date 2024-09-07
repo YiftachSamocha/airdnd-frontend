@@ -451,7 +451,7 @@ const highlights = [
 
     }
 ]
-const types = ['home', 'room', 'apartment', 'villa',]
+const types = ['shared-room', 'room', 'entire-place',]
 const amenities = [
     { type: 'main', name: 'wifi', imgUrl: wifiImg },
     { type: 'main', name: 'Air conditioning', imgUrl: acImg },
@@ -495,25 +495,25 @@ const amenities = [
     { type: 'livingRoom', name: 'Coffee table', imgUrl: '/src/assets/imgs/amenities/breskfast.svg' },
     { type: 'livingRoom', name: 'Books and reading material', imgUrl: '/src/assets/imgs/amenities/host-greets-you.svg' },
 
-    { type: 'outdoor', name: 'Patio or balcony', imgUrl: '/src/assets/imgs/amenities/backyard.svg' },
+    { type: 'outdoor', name: 'Patio or balcony', imgUrl: '/src/assets/imgs/amenities/patio.svg' },
     { type: 'outdoor', name: 'Garden', imgUrl: '/src/assets/imgs/amenities/backyard.svg' },
-    { type: 'outdoor', name: 'BBQ grill', imgUrl: '/src/assets/imgs/amenities/backyard.svg' },
-    { type: 'outdoor', name: 'Outdoor furniture', imgUrl: '/src/assets/imgs/amenities/backyard.svg' },
-    { type: 'outdoor', name: 'Fire pit', imgUrl: '/src/assets/imgs/amenities/backyard.svg' },
-    { type: 'outdoor', name: 'Pool', imgUrl: '/src/assets/imgs/amenities/backyard.svg' },
-    { type: 'outdoor', name: 'Hot tub', imgUrl: '/src/assets/imgs/amenities/backyard.svg' },
+    { type: 'outdoor', name: 'BBQ grill', imgUrl: '/src/assets/imgs/amenities/bbq-gril.svg' },
+    { type: 'outdoor', name: 'Outdoor furniture', imgUrl: '/src/assets/imgs/amenities/outdoor-dining.svg' },
+    { type: 'outdoor', name: 'Fire pit', imgUrl: '/src/assets/imgs/amenities/fire-pit.svg' },
+    { type: 'outdoor', name: 'Pool', imgUrl: '/src/assets/imgs/amenities/pool.svg' },
+    { type: 'outdoor', name: 'Hot tub', imgUrl: '/src/assets/imgs/amenities/hot-tub.svg' },
 
     { type: 'safety', name: 'Smoke alarm', imgUrl: '/src/assets/imgs/amenities/smoke-alarm.svg' },
-    { type: 'safety', name: 'Carbon monoxide alarm', imgUrl: '/src/assets/imgs/amenities/carbon-monoxide-alarm.svg' },
+    { type: 'safety', name: 'Carbon monoxide alarm', imgUrl: '/src/assets/imgs/amenities/carbon-alarm.svg' },
     { type: 'safety', name: 'First aid kit', imgUrl: '/src/assets/imgs/amenities/first-aid-kit.svg' },
-    { type: 'safety', name: 'Fire extinguisher', imgUrl: '/src/assets/imgs/amenities/indoor-fireplace.svg' },
+    { type: 'safety', name: 'Fire extinguisher', imgUrl: '/src/assets/imgs/amenities/fire-extinguisher.svg' },
     { type: 'safety', name: 'Lock on bedroom door', imgUrl: '/src/assets/imgs/amenities/queen-bed.svg' },
 
-    { type: 'workspace', name: 'Desk', imgUrl: '/src/assets/imgs/amenities/extra-pillows.svg' },
-    { type: 'workspace', name: 'Laptop - friendly workspace', imgUrl: '/src/assets/imgs/amenities/extra-pillows.svg' },
-    { type: 'workspace', name: 'Office chair', imgUrl: '/src/assets/imgs/amenities/extra-pillows.svg' },
-    { type: 'workspace', name: 'Printer', imgUrl: '/src/assets/imgs/amenities/extra-pillows.svg' },
-    { type: 'workspace', name: 'High-speed internet', imgUrl: '/src/assets/imgs/amenities/extra-pillows.svg' },
+    { type: 'workspace', name: 'Desk', imgUrl: '/src/assets/imgs/amenities/workspace.svg' },
+    { type: 'workspace', name: 'Laptop - friendly workspace', imgUrl: '/src/assets/imgs/amenities/workspace.svg' },
+    { type: 'workspace', name: 'Office chair', imgUrl: '/src/assets/imgs/amenities/workspace.svg' },
+    { type: 'workspace', name: 'Printer', imgUrl: '/src/assets/imgs/amenities/workspace.svg' },
+    { type: 'workspace', name: 'High-speed internet', imgUrl: '/src/assets/imgs/amenities/workspace.svg' },
 
     { type: 'accessibility', name: 'Wheelchair accessible', imgUrl: '/src/assets/imgs/amenities/free-parking.svg' },
     { type: 'accessibility', name: 'Elevator', imgUrl: '/src/assets/imgs/amenities/free-parking.svg' },
@@ -561,7 +561,7 @@ const mainAmenities = [
     { name: 'washing mashine', imgUrl: washingMashineImg, isSelected: false },
 ]
 
-const labels = [
+export const labels = [
     { label: 'icons', img: iconsImg },
     { label: 'barns', img: barnsImg },
     { label: 'beach', img: beachImg },

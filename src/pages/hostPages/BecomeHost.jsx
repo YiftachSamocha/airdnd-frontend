@@ -11,19 +11,20 @@ export function BecomeHost() {
         navigate(`/become-a-host/${userId}/about-your-place`); // Correct navigation
     }
 
-    return <section className="add-listing">
+    return <section className="become-host">
         <header>
             <img src={logoBlack}></img>
-            <button>Save & Exit</button>
         </header>
         <div className='main'>
             <div className="step-1">
+
                 <div className='info'>
                     <span>step 1</span>
                     <h1>Tell us about <span> your place</span></h1>
                     <p>In this step, we'll ask you which type of property you have and if guests will book the entire place or just a room. Then let us know the location and how many guests can stay.
                     </p>
                 </div>
+                <div className='video-container'>
                 <video
                     data-testid="video-player"
                     className="v6iu1id dir dir-ltr"
@@ -36,6 +37,8 @@ export function BecomeHost() {
                     controls
                 >
                 </video>
+                </div>
+               
             </div>
         </div>
 

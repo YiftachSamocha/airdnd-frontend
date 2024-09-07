@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { onHandleFile } from "../../services/util.service";
 
-export function UploadImgs() {
-    const [images, setImages] = useState([])
+export function UploadImgs({images, onImagesChange}) {
+    // const [images, setImages] = useState([])
     const [uploadClicked, setUploadClicked] = useState(false)
 
     function handleButtonClick(event) {
@@ -13,8 +13,8 @@ export function UploadImgs() {
 
     async function uploadImg(ev) {
         ev.preventDefault()
-        const uploadedImgs = await onHandleFile(ev, setImages)
-        setImages(uploadedImgs)
+        const uploadedImgs = await onHandleFile(ev)
+        onImagesChange(uploadedImgs)
 
         if (uploadedImgs.length === 0) {
             setUploadClicked(false)
@@ -25,7 +25,7 @@ export function UploadImgs() {
     return (
         <section className="imgs">
             <div className='info'>
-                <h1>Add some photos of your place</h1>
+                <h2>Add some photos of your place</h2>
                 <p>You'll need 5 photos to get started. You can add more or make changes later.</p>
             </div>
             <div className={`cloudinary ${uploadClicked ? 'gallery-display' : ''}`}>
