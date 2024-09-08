@@ -91,8 +91,8 @@ export function addHostInfoToUser(user) {
 
     try {
         userService.update({ userToUpdate: updatedUser });
-        store.dispatch({type: ADD_HOST_INFO_TO_USER, hostDetails})
-    } 
+        store.dispatch({ type: ADD_HOST_INFO_TO_USER, hostDetails })
+    }
     catch (err) {
         showErrorMsg('Cannot turn user to host')
         console.log('Cannot turn user to host', err)
@@ -127,4 +127,11 @@ export function addStayToHost(stayId) {
         showErrorMsg('Cannot add stay to host listings');
         console.log('Cannot add stay to host listings', err);
     }
+}
+
+export function updateHost(stayId) {
+    store.dispatch({
+        type: ADD_STAY_TO_HOST,
+        stayId // Use the saved stay's ID
+    });
 }

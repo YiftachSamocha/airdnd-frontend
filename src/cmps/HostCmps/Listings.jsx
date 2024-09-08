@@ -9,15 +9,17 @@ export function Listings({ currUser, stays }) {
 
     // Function to fetch listings using the loadStay function
     const fetchListings = async (currUser) => {
-        debugger
+        
         if (currUser && currUser.host && currUser.host.listings) {
             const listingsArr = []
-            
+
             // Iterate over each listingId and fetch the stay details using loadStay
             for (let listingId of currUser.host.listings) {
                 try {
                     const stay = await loadStay(listingId) // Fetch the stay using loadStay
-                    listingsArr.push(stay) // Add the fetched stay to the array
+                    if (stay.status === 'published') {
+                        listingsArr.push(stay) // Add the fetched stay to the array if it is published
+                    }
                 } catch (err) {
                     console.log('Error fetching stay:', err)
                 }

@@ -16,7 +16,7 @@ export function BecomeHost() {
     const stay = {
         name: '',
         imgs: '',
-        sleep: { bedroom: '', bathrooms: '', beds: '', maxCapacity: '' },
+        sleep: { bedroom: 1, bathrooms: 1 , beds: 1, maxCapacity: 2 },
         description: `You'll always remember your time at this unique place to stay.`,
         highlights: '',
         price: { night: 128, cleaning: 5 },

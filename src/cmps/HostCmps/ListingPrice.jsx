@@ -45,14 +45,13 @@ export function ListingPrice({ price, onPriceChange }) {
         resizeInput(value);
     }
 
-
     function handleBlur() {
         if (localPrice === '' || localPrice < 10 || localPrice > 10000) {
             setError('Please enter a price between $10 and $10,000');
             showErrorMsg('Oops, there is an issue with your price'); // Display toast message
         } else {
             setError('');
-            debouncedChange({ night: localPrice, cleaning: 5 });
+            debouncedChange({ night: localPrice.night, cleaning: 5 });
         }
     }
 

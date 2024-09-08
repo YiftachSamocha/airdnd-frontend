@@ -12,14 +12,18 @@ import { ListingAmenities } from '../../cmps/HostCmps/ListingAmenities';
 import { ListingDescription } from '../../cmps/HostCmps/ListingDescription';
 import { ListingTitle } from '../../cmps/HostCmps/ListingTitle';
 import { ListingPrice } from '../../cmps/HostCmps/ListingPrice';
-import { generateHighlights, getRandomItems, getRandomRoomData } from '../../services/util.service';
+import { getRandomItems, getRandomRoomData } from '../../services/util.service';
 import { cancellationPolicy, highlights, houseRules, labels, safetyProperty } from '../../services/data/stay.data';
-import { loadStay, publishStay, updateStay } from '../../store/actions/stay.actions';
+import { loadStay, updateStay } from '../../store/actions/stay.actions';
+import { useDispatch } from 'react-redux';
+import { updateHost } from '../../store/actions/user.actions';
 
 export function AboutYourPlace() {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const { userId } = useParams()
     const { stayId } = useParams()
+
     const [formData, setFormData] = useState({
 
         location: { country: '', city: '', lat: '', lng: '' },
@@ -55,11 +59,11 @@ export function AboutYourPlace() {
         }
     }, [stayId])
 
-    function handleNext(event) {
+    function handleBtn(event, btnType) {
         event.preventDefault()
         // Generate rooms based on the number of bedrooms
         const rooms = Array.from({ length: formData.sleep.bedrooms }, () => getRandomRoomData());
-
+        const status = btnType === 'next' ? 'published' : 'draft';
         // Update formData with the generated highlights and status
         const updatedStay = {
             ...formData,
@@ -67,25 +71,25 @@ export function AboutYourPlace() {
                 ...formData.sleep,
                 rooms  // Add the generated rooms to the sleep data
             },
-            status: 'published',
+            status,
             imgs: formData.secureUrls,
-            labels: getRandomItems(labels, 3),
-            thingsToKnow: {
+            status,
+            labels: formData.labels.length ? formData.labels : getRandomItems(labels, 3),  // Keep existing labels unless empty
+            thingsToKnow: formData.thingsToKnow ? formData.thingsToKnow : {
                 houseRules: getRandomItems(houseRules, 3),
                 safetyProperty: getRandomItems(safetyProperty, 3),
                 cancellationPolicy: getRandomItems(cancellationPolicy, 1)
             },
-            highlights: getRandomItems(highlights, 3)
+            highlights: formData.highlights.length ? formData.highlights : getRandomItems(highlights, 3)
         }
-        debugger
 
         // Publish the stay by calling publishStay
         updateStay(updatedStay)
             .then(savedStay => {
                 console.log('Stay successfully published:', savedStay);
+                updateHost(savedStay._id)
                 // Navigate to the next page after publishing
-                navigate(`/`);
-            })
+                navigate('/host', { replace: true });            })
             .catch(err => {
                 console.error('Failed to publish stay:', err);
             });
@@ -110,10 +114,8 @@ export function AboutYourPlace() {
 
 
     function handleImgsChange(imgs) {
-        // Store the full image objects for rendering and also keep secure_urls separately for submission
-        const secureUrls = imgs.map(img => img.secure_url);  // Extract only the secure_url
+        const secureUrls = imgs.map(img => img.secure_url);  
 
-        // Update formData with both the full image objects for rendering and secure_urls for submission
         setFormData(prevData => ({
             ...prevData,
             imgs: imgs, // Store full image objects for rendering
@@ -127,13 +129,10 @@ export function AboutYourPlace() {
             let updatedAmenities;
 
             if (existingAmenity) {
-                // If already selected, remove it (toggle behavior)
                 updatedAmenities = prevData.amenities.filter(a => a.name !== amenity.name);
             } else {
-                // If not selected, add the new amenity
                 updatedAmenities = [...prevData.amenities, amenity];
             }
-
             return { ...prevData, amenities: updatedAmenities };
         })
     }
@@ -142,9 +141,9 @@ export function AboutYourPlace() {
     return <section className="add-listing about">
         <header>
             <img src={logoBlack}></img>
-            <button>Save & Exit</button>
+            <button onClick={(ev) => handleBtn(ev, 'save')}>Save & Exit</button>
         </header>
-        <form onSubmit={handleNext}>
+        <form > 
             <div className='main'>
                 <span>Step 2</span>
                 <ListingType
@@ -184,7 +183,7 @@ export function AboutYourPlace() {
 
         <footer>
             <button className='btn-link'>Back</button>
-            <button className='black' onClick={handleNext} type='submit'>Next</button>
+            <button className='black' type='submit' onClick={(ev) => handleBtn(ev, 'next')}>Next</button>
         </footer>
 
     </section>

@@ -1,9 +1,13 @@
+import { useEffect } from "react";
 import { NumberInput } from "../StarterCmps/NumberInput";
 
 export function ListingRooms({ formData, onRoomsChange }) {
     const handleInputChange = (key, value) => {
         onRoomsChange(key, value); // Since formData.sleep is already passed as a prop
     }
+
+    // useEffect(() => {
+    // }, [])
 
     return (
         <div className="listing-rooms info">
