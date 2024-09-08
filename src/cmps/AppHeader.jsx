@@ -148,7 +148,7 @@ export function AppHeader() {
                 )}
 
                 <div className="user-header" >
-                    <Link>Airdnd your home</Link>
+                    {currUser && <p onClick={handleHostLinkClick}>Airdnd your home</p>}
                     <Link><img src={languageImg} /></Link>
                     <div className="user-profile" onClick={() => setIsUserInfoOpen(prev => !prev)}>
                         <img src={hamburgerImg} />

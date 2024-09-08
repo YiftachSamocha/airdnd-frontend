@@ -12,10 +12,10 @@ export function BecomeHost() {
     const dispatch = useDispatch()
 
     const loggedinUser = useSelector((state) => state.userModule.currUser)
-
+    const hostToAdd = { ...loggedinUser.host, fullname: loggedinUser.fullname, _id: loggedinUser._id, imgUrl: loggedinUser.imgUrl }
     const stay = {
         name: '',
-        imgs: '',
+        imgs: [],
         sleep: { bedroom: '', bathrooms: '', beds: '', maxCapacity: '' },
         description: `You'll always remember your time at this unique place to stay.`,
         highlights: '',
@@ -23,18 +23,20 @@ export function BecomeHost() {
         type: '',
         amenities: [],
         labels: [],
-        location: '',
+        reservedDates: [],
+        host: hostToAdd,
+        location: { country: '', city: '', lat: '', lng: '' },
         reviews: [],
-        thingsToKnow: '',
+        thingsToKnow: {},
         status: 'draft',
-    };
+    }
 
     async function handleNext() {
         try {
             if (!loggedinUser.host) addHostInfoToUser(loggedinUser) // No need to recreate hostDetails, just use the function
-           
+
             const savedStay = await addStay(stay)
-            addStayToHost(savedStay._id)
+            await addStayToHost(savedStay._id)
             navigate(`/become-a-host/${userId}/about-your-place/${savedStay._id}`)
 
         } catch (err) {

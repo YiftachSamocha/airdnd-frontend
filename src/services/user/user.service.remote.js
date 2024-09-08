@@ -29,7 +29,7 @@ function remove(userId) {
 
 async function update(user) {
 	const updatedUser = await httpService.put(`user`, user)
-	return updatedUser
+	return saveLoggedinUser(updatedUser)
 }
 
 async function login(userCred) {

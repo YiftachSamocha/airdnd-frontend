@@ -3,34 +3,9 @@ import { useNavigate } from "react-router-dom"
 import { loadStay } from "../../store/actions/stay.actions"
 
 
-export function Listings({ currUser, stays }) {
-    const [listings, setListings] = useState([])
+export function Listings({ stays }) {
+    const [listings, setListings] = useState(stays)
     const navigate = useNavigate()
-
-    // Function to fetch listings using the loadStay function
-    const fetchListings = async (currUser) => {
-        debugger
-        if (currUser && currUser.host && currUser.host.listings) {
-            const listingsArr = []
-            
-            // Iterate over each listingId and fetch the stay details using loadStay
-            for (let listingId of currUser.host.listings) {
-                try {
-                    const stay = await loadStay(listingId) // Fetch the stay using loadStay
-                    listingsArr.push(stay) // Add the fetched stay to the array
-                } catch (err) {
-                    console.log('Error fetching stay:', err)
-                }
-            }
-
-            setListings(listingsArr) // Update state with all fetched listings
-        }
-    }
-
-    useEffect(() => {
-        fetchListings(currUser)
-    }, [currUser]) // Only runs when currUser changes
-
 
     return (
         <section className="listings">

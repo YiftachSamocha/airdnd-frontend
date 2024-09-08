@@ -77,29 +77,29 @@ export async function loadUser(userId) {
     }
 }
 
-export function addHostInfoToUser(user) {
+export async function addHostInfoToUser(user) {
     const hostDetails = {
         reviews: [],
         rating: 0,
         yearsHosting: [],
         responseRate: 100,
         listings: [],
-        createdAt: new Date(),  
+        createdAt: new Date(),
     }
-    const updatedUser = { ...user, host: hostDetails };
+    const updatedUser = { ...user, host: hostDetails }
 
 
     try {
-        userService.update({ userToUpdate: updatedUser });
-        store.dispatch({type: ADD_HOST_INFO_TO_USER, hostDetails})
-    } 
+        await userService.update(updatedUser)
+        store.dispatch({ type: ADD_HOST_INFO_TO_USER, hostDetails })
+    }
     catch (err) {
         showErrorMsg('Cannot turn user to host')
         console.log('Cannot turn user to host', err)
     }
 }
 
-export function addStayToHost(stayId) {
+export async function addStayToHost(stayId) {
     // Get the current logged-in user
     const loggedinUser = userService.getLoggedinUser();
 
@@ -120,7 +120,7 @@ export function addStayToHost(stayId) {
         });
 
         // Update the user in the storage to persist the change
-        userService.update({ userToUpdate: updatedUser });
+        await userService.update(updatedUser);
 
         // No need to manually save to session storage as update handles it
     } catch (err) {
