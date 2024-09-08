@@ -16,7 +16,7 @@ async function query(filterBy = {}) {
         queryStr += `city=${where.city}&country=${where.country}&`
     }
     if (when && when.startDate && when.endDate) {
-        queryStr += `startDate=${format(when.startDate, 'yyyy-MM-dd')}&endDate=${format(when.startDate, 'yyyy-MM-dd')}&`
+        queryStr += `startDate=${format(when.startDate, 'yyyy-MM-dd')}&endDate=${format(when.endDate, 'yyyy-MM-dd')}&`
     }
     if (who) {
         if (who.adults) {
