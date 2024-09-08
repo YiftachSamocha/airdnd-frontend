@@ -83,6 +83,8 @@ export function StayOrder() {
             _id: stay._id,
             name: stay.name,
             price: stay.price,
+            img: stay.imgs[0],
+            location: stay.location.city,
         }
         const status = 'pending'
         const totalPrice = total
