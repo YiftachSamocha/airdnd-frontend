@@ -64,6 +64,7 @@ export function AboutYourPlace() {
         // Generate rooms based on the number of bedrooms
         const rooms = Array.from({ length: formData.sleep.bedrooms }, () => getRandomRoomData());
         const status = btnType === 'next' ? 'published' : 'draft';
+        formData.price.night = Number(formData.price.night)
         // Update formData with the generated highlights and status
         const updatedStay = {
             ...formData,
@@ -83,16 +84,13 @@ export function AboutYourPlace() {
             highlights: formData.highlights.length ? formData.highlights : getRandomItems(highlights, 3)
         }
 
-        // Publish the stay by calling publishStay
         updateStay(updatedStay)
-            .then(savedStay => {
-                console.log('Stay successfully published:', savedStay);
-                updateHost(savedStay._id)
-                // Navigate to the next page after publishing
-                navigate('/host', { replace: true });            })
+            .then(() => {
+                navigate('/host', { replace: true });
+            })
             .catch(err => {
                 console.error('Failed to publish stay:', err);
-            });
+            })
     }
 
     function handleInputChange(key, value, subKey = null) {
@@ -114,7 +112,7 @@ export function AboutYourPlace() {
 
 
     function handleImgsChange(imgs) {
-        const secureUrls = imgs.map(img => img.secure_url);  
+        const secureUrls = imgs.map(img => img.secure_url);
 
         setFormData(prevData => ({
             ...prevData,
@@ -143,7 +141,7 @@ export function AboutYourPlace() {
             <img src={logoBlack}></img>
             <button onClick={(ev) => handleBtn(ev, 'save')}>Save & Exit</button>
         </header>
-        <form > 
+        <form >
             <div className='main'>
                 <span>Step 2</span>
                 <ListingType

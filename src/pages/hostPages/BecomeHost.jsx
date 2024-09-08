@@ -1,23 +1,27 @@
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate } from 'react-router';
 import logoBlack from '../../assets/imgs/icons/logo-black.svg';
-import { useDispatch, useSelector } from 'react-redux';
+import {  useSelector } from 'react-redux';
 import { addStay } from '../../store/actions/stay.actions';
-import { addHostInfoToUser, addStayToHost } from '../../store/actions/user.actions';
+import { addHostInfoToUser } from '../../store/actions/user.actions';
+
 
 
 
 export function BecomeHost() {
     const videoSrc = 'https://stream.media.muscache.com/zFaydEaihX6LP01x8TSCl76WHblb01Z01RrFELxyCXoNek.mp4?v_q=high'
     const navigate = useNavigate()
-    const { userId } = useParams()
-    const dispatch = useDispatch()
 
     const loggedinUser = useSelector((state) => state.userModule.currUser)
-    const hostToAdd = { ...loggedinUser.host, fullname: loggedinUser.fullname, _id: loggedinUser._id, imgUrl: loggedinUser.imgUrl }
+    const hostToAdd = {
+        _id: loggedinUser._id,
+        fullname: loggedinUser.fullname,
+        imgUrl: loggedinUser.imgUrl,
+        ...loggedinUser.host,
+    }
     const stay = {
         name: '',
         imgs: [],
-        sleep: { bedroom: 1, bathrooms: 1, beds: 1, maxCapacity: 2, rooms: [] },
+        sleep: { bedrooms: 1, bathrooms: 1, beds: 1, maxCapacity: 2, rooms: [] },
         description: `You'll always remember your time at this unique place to stay.`,
         highlights: '',
         price: { night: 128, cleaning: 5 },
@@ -38,11 +42,9 @@ export function BecomeHost() {
 
     async function handleNext() {
         try {
-            if (!loggedinUser.host) addHostInfoToUser(loggedinUser) // No need to recreate hostDetails, just use the function
-
+            if (!loggedinUser.host) addHostInfoToUser(loggedinUser)
             const savedStay = await addStay(stay)
-            await addStayToHost(savedStay._id)
-            navigate(`/become-a-host/${userId}/about-your-place/${savedStay._id}`)
+            navigate(`/become-a-host/${loggedinUser._id}/about-your-place/${savedStay._id}`)
 
         } catch (err) {
             console.error('Error during Next flow:', err)
