@@ -5,6 +5,7 @@ import { addStay } from '../../store/actions/stay.actions';
 import { addHostInfoToUser, addStayToHost } from '../../store/actions/user.actions';
 
 
+
 export function BecomeHost() {
     const videoSrc = 'https://stream.media.muscache.com/zFaydEaihX6LP01x8TSCl76WHblb01Z01RrFELxyCXoNek.mp4?v_q=high'
     const navigate = useNavigate()
@@ -16,7 +17,7 @@ export function BecomeHost() {
     const stay = {
         name: '',
         imgs: [],
-        sleep:  { bedroom: 1, bathrooms: 1 , beds: 1, maxCapacity: 2 },
+        sleep: { bedroom: 1, bathrooms: 1, beds: 1, maxCapacity: 2, rooms: [] },
         description: `You'll always remember your time at this unique place to stay.`,
         highlights: '',
         price: { night: 128, cleaning: 5 },
@@ -27,7 +28,11 @@ export function BecomeHost() {
         host: hostToAdd,
         location: { country: '', city: '', lat: '', lng: '' },
         reviews: [],
-        thingsToKnow: {},
+        thingsToKnow: {
+            houseRules: [],
+            safetyProperty: [],
+            cancellationPolicy: [],
+        },
         status: 'draft',
     }
 

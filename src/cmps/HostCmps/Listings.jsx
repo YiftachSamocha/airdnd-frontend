@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom"
 import { loadStay } from "../../store/actions/stay.actions"
 
 
-export function Listings({ stays }) {
-    const [listings, setListings] = useState(stays)
+export function Listings({ listings }) {
     const navigate = useNavigate()
 
     return (
         <section className="listings">
+            <button>Airdnd your home</button>
             <h2>Your Listings</h2>
             <div className="listings-main">
                 {(!listings || listings.length === 0) ? (
