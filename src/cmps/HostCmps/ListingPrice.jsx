@@ -3,7 +3,7 @@ import { debounce } from '../../services/util.service';
 import { showErrorMsg } from '../../services/event-bus.service';
 
 export function ListingPrice({ price, onPriceChange }) {
-    const [localPrice, setLocalPrice] = useState(price.night);
+    const [localPrice, setLocalPrice] = useState({ night: price.night, cleaning: price.cleaning || 5 });
     const [error, setError] = useState(''); // Error message state
     const inputRef = useRef(null);
 
@@ -16,7 +16,7 @@ export function ListingPrice({ price, onPriceChange }) {
 
     // Sync localPrice with the prop when it changes
     useEffect(() => {
-        setLocalPrice(price.night);
+        setLocalPrice({ night: price.night, cleaning: price.cleaning || 5 });
         resizeInput(price.night);
     }, [price]);
 
@@ -37,10 +37,12 @@ export function ListingPrice({ price, onPriceChange }) {
     }, [])
 
     function handleChange(ev) {
-        let newPrice = ev.target.value;
-
-        setLocalPrice(newPrice);
-        resizeInput(newPrice);
+        const { name, value } = ev.target; // Use name to identify the input field ('night' or 'cleaning')
+        setLocalPrice(prevPrice => ({
+            ...prevPrice,
+            [name]: value
+        }));
+        resizeInput(value);
     }
 
 
@@ -71,9 +73,9 @@ export function ListingPrice({ price, onPriceChange }) {
                 <span>$</span>
                 <input
                     ref={inputRef} // Attach ref to the input
-
+                    name="night"
                     type="number"
-                    value={localPrice}
+                    value={localPrice.night}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     min="10"
@@ -84,7 +86,7 @@ export function ListingPrice({ price, onPriceChange }) {
                 />
             </div>
             {error && <p className="error-msg">{error}</p>} {/* Show error if present */}
-            <p className="char-limit">Guest Price: ${+localPrice + +price.cleaning}</p>
+            <p className="char-limit">Guest Price: ${+localPrice.night + +localPrice.cleaning}</p>
 
             {/* <button type="button" className="edit-button">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-label="Edit" role="img" className="edit-icon">

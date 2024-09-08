@@ -43,6 +43,7 @@ function createHost() {
         responseRate: getRandomIntInclusive(80, 100),
         personalDetails: createPersonalDetails(location),
         location,
+        listings: []
     }
 }
 

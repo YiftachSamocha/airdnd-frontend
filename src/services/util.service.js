@@ -1,5 +1,6 @@
 import { addDays, addMonths, isBefore, isAfter, format } from 'date-fns';
 import { uploadService } from './upload.service';
+import { bedTypes, doubleBedroomImgs, highlightOptions, livingRoomImgs, singleBedroomImgs } from './data/stay.data';
 
 
 export function makeId(length = 6) {
@@ -121,7 +122,20 @@ export function getDateRange(datesBooked) {
 }
 
 export function findFirstAvailableNights(reservedRanges, nightsNeeded) {
-    const today = new Date()
+    const today = new Date();
+
+    // If there are no reserved ranges, return the next 5 days starting from tomorrow
+    if (!reservedRanges || reservedRanges.length === 0) {
+        const nextFiveDays = [];
+        for (let i = 1; i <= nightsNeeded; i++) {
+            nextFiveDays.push(addDays(today, i))
+        }
+        return {
+            startDate: nextFiveDays[0],
+            endDate: nextFiveDays[nightsNeeded - 1],
+        }
+    } 
+
     let currentDate = addDays(today, 1)
     let foundNights = []
 
@@ -198,162 +212,76 @@ export async function onHandleFile(ev){
     return res
 }
 
-const highlightOptions = [
-    {
-        main: 'Great communication',
-        sub: '95% of recent guests gave the host a 5-star rating for communication.',
-        amenity: 'Communication'
-    },
-    {
-        main: 'Flexible cancellation policy',
-        sub: 'Get a full refund if you cancel within 48 hours of booking.',
-        amenity: 'Cancellation'
-    },
-    {
-        main: 'Superhost',
-        sub: 'This host is highly rated for their outstanding hospitality.',
-        amenity: 'Superhost'
-    },
-    {
-        main: 'Self check-in',
-        sub: 'Check yourself in with the smart lock for added convenience.',
-        amenity: 'Self check-in'
-    },
-    {
-        main: 'Sparkling clean',
-        sub: 'Recent guests said this place was sparkling clean.',
-        amenity: 'Cleanliness'
-    },
-    {
-        main: 'Fast wifi',
-        sub: 'Guests often compliment the fast and reliable wifi.',
-        amenity: 'Wifi'
-    },
-    {
-        main: 'Highly rated location',
-        sub: '100% of recent guests gave the location a 5-star rating.',
-        amenity: 'Location'
-    },
-    {
-        main: 'Well-equipped for long stays',
-        sub: 'Guests who stayed a month or longer rated this place 5 stars.',
-        amenity: 'Long stay'
-    },
-    {
-        main: 'Safe and secure',
-        sub: 'Guests appreciated the safety features and felt secure.',
-        amenity: 'Safety'
-    },
-    {
-        main: 'Pet-friendly',
-        sub: 'Previous guests loved bringing their pets to this home.',
-        amenity: 'Pet-friendly'
-    },
-    {
-        main: 'Dedicated workspace',
-        sub: 'Perfect for remote work, with a comfortable desk and fast wifi.',
-        amenity: 'Dedicated workspace'
-    },
-    {
-        main: 'Excellent amenities',
-        sub: 'Guests praised the range of amenities offered here.',
-        amenity: 'Amenities'
-    },
-    {
-        main: 'Great for families',
-        sub: 'Families rated this home 5 stars for kid-friendly amenities.',
-        amenity: 'Family-friendly'
-    },
-    {
-        main: 'Great check-in experience',
-        sub: '100% of recent guests gave the check-in process a 5-star rating.',
-        amenity: 'Check-in'
-    },
-    {
-        main: 'Stylish space',
-        sub: 'Guests loved the stylish decor and comfortable layout.',
-        amenity: 'Style'
-    },
-    {
-        main: 'Free parking on premises',
-        sub: 'This place offers free parking for added convenience.',
-        amenity: 'Free parking on premises'
-    },
-    {
-        main: 'Comfortable beds',
-        sub: 'Guests consistently mention the comfortable and cozy beds.',
-        amenity: 'Comfort'
-    },
-    {
-        main: 'Highly rated host',
-        sub: 'This host has received great reviews for their hospitality.',
-        amenity: 'Hospitality'
-    },
-    {
-        main: 'Quiet neighborhood',
-        sub: 'Guests praised the peaceful and quiet surroundings.',
-        amenity: 'Quiet'
-    },
-    {
-        main: 'Fully equipped kitchen',
-        sub: 'Guests appreciated the well-stocked kitchen for home-cooked meals.',
-        amenity: 'Kitchen'
-    },
-    {
-        main: 'Fast response time',
-        sub: 'This host is known for responding quickly to guest inquiries.',
-        amenity: 'Response time'
-    },
-    {
-        main: 'Great value',
-        sub: 'Recent guests rated this place 5 stars for value.',
-        amenity: 'Value'
-    },
-    {
-        main: 'Thoughtful touches',
-        sub: 'Guests loved the small details and thoughtful touches.',
-        amenity: 'Thoughtful touches'
-    },
-    {
-        main: 'Private entrance',
-        sub: 'Enjoy the privacy of a separate entrance to the property.',
-        amenity: 'Private entrance'
-    },
-    {
-        main: 'Close to public transport',
-        sub: 'Guests found the location convenient for public transportation.',
-        amenity: 'Public transport'
-    },
-    {
-        main: 'Walkable area',
-        sub: 'Guests loved the walkability of the neighborhood.',
-        amenity: 'Walkability'
-    },
-    {
-        main: 'Effortless check-in',
-        sub: 'Check-in is easy with the host\'s detailed instructions.',
-        amenity: 'Check-in'
-    }
-];
+;
+export function generateHighlights(selectedAmenities) {
+    let highlights = [];
 
-// The function to match 3 highlights to the given amenity and imgUrl
-export function getHighlights(amenity, imgUrl) {
-    // Find highlights that match the provided amenity
-    const matchingHighlights = highlightOptions.filter(
-        (highlight) => highlight.amenity === amenity
-    );
+    // Iterate through each selected amenity
+    selectedAmenities.forEach(amenity => {
+        const matchingHighlight = highlightOptions.find(
+            (highlight) => highlight.amenity.toLowerCase() === amenity.name.toLowerCase()
+        );
 
-    // If there are less than 3, add additional random highlights
-    while (matchingHighlights.length < 3) {
+        if (matchingHighlight) {
+            // Add the amenity's imgUrl to the highlight
+            highlights.push({
+                ...matchingHighlight,
+                imgUrl: amenity.imgUrl,  // Add imgUrl from amenity
+            });
+        }
+    });
+    debugger
+
+    // Add random highlights if less than 3
+    while (highlights.length < 3) {
         const randomHighlight = highlightOptions[Math.floor(Math.random() * highlightOptions.length)];
-        if (!matchingHighlights.includes(randomHighlight)) {
-            matchingHighlights.push(randomHighlight);
+
+        // Ensure no duplicates and add random highlights
+        if (!highlights.some(h => h.amenity === randomHighlight.amenity)) {
+            highlights.push({
+                ...randomHighlight,
+                imgUrl: randomHighlight.imgUrl || ''  // Assign an empty imgUrl if no match
+            });
         }
     }
 
-    // Add the provided imgUrl to the first 3 highlights
-    return matchingHighlights.slice(0, 3).map((highlight) => ({
-        ...highlight,
+    return highlights.slice(0, 3);
+}
+
+export function getRandomItems(arr, numItems) {
+    if (arr.length === 0 || numItems <= 0) return numItems === 1 ? null : []
+
+    const shuffled = [...arr].sort(() => 0.5 - Math.random())
+    const result = shuffled.slice(0, Math.min(numItems, arr.length))
+
+    return numItems === 1 ? result[0] : result
+}
+export function  getRandomRoomData() {
+    const bedType = getRandomItems(bedTypes , 1)
+    let imgUrl= ''
+
+    if (bedType === "single bed") {
+        imgUrl = generateImgUrls(singleBedroomImgs)[0];
+    } else if (bedType === "double bed" || bedType === "queen bed" || bedType === "king bed") {
+        imgUrl = generateImgUrls(doubleBedroomImgs)[0];
+    } else {
+        imgUrl = generateImgUrls(livingRoomImgs)[0];
+    }
+    return {
+        roomType: 'bedroom',
+        bedType,
         imgUrl
-    }));
+    }; // Default case if needed
+}
+
+export function generateImgUrls(imgs) {
+    const imgIds = getRandomItems(imgs, getRandomIntInclusive(5, 10))
+    return imgIds.map(imgId => {
+        return `https://images.pexels.com/photos/${imgId}/pexels-photo-${imgId}.jpeg?width=400`
+    })
+}
+
+export function generateImgUrl(imgs) {
+    const imgId = getRandomItems(imgs, 1)[0]; // Select one random image ID
+    return `https://images.pexels.com/photos/${imgId}/pexels-photo-${imgId}.jpeg?width=400`;
 }

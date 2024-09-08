@@ -39,12 +39,15 @@ export function StayList() {
         urlStr = urlStr.endsWith('&') ? urlStr.slice(0, -1) : urlStr;
         setFilterUrl(urlStr)
     }
-    console.log(stays.length)
+
+    const publishedStays = stays.filter(stay => stay.status === 'published');
+
+
     return (<>
         <section className="stay-main-list">
             {/* <div>{filterBy.where.country}</div> */}
             <ul className="stay-list">
-                {stays.map(stay => {
+            {publishedStays.map(stay => {
                     return (
                         <Link to={`/stay/${stay._id}${filterUrl}`} key={stay._id}>
                             <li>

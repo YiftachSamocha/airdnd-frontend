@@ -9,6 +9,7 @@ export const REMOVE_USER = 'REMOVE_USER'
 export const SET_USERS = 'SET_USERS'
 export const SET_SCORE = 'SET_SCORE'
 export const ADD_HOST_INFO_TO_USER = 'ADD_HOST_INFO_TO_USER'
+export const ADD_STAY_TO_HOST = 'ADD_STAY_TO_HOST_'
 
 const initialState = {
     currUser: userService.getLoggedinUser(),
@@ -34,20 +35,33 @@ export function userReducer(state = initialState, action) {
         case SET_USERS:
             newState = { ...state, users: action.users }
             break
-        case ADD_HOST_INFO_TO_USER:
+        case ADD_HOST_INFO_TO_USER:// Add host property with empty listings if not already present
             return {
                 ...state,
                 currUser: {
                     ...state.currUser,
-                    isHost: true,
-                    hostDetails: action.hostDetails,
+                    host: {
+                        ...action.hostDetails,
+                        listings: []
+                    }
                 }
             }
+            case ADD_STAY_TO_HOST:  // Add the stay to the host's listings
+            return {
+                ...state,
+                currUser: {
+                    ...state.currUser,
+                    host: {
+                        ...state.currUser.host,
+                        listings: [...state.currUser.host.listings, action.stayId] // Append new stay to listings
+                    }
+                }
+            };
 
         default:
     }
-    // For debug:
-    // window.userState = newState
-    // console.log('State:', newState)
-    return newState
-}
+            // For debug:
+            // window.userState = newState
+            // console.log('State:', newState)
+            return newState
+    }

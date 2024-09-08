@@ -1,6 +1,6 @@
 import { stayService } from '../../services/stay/stay.service.remote'
 import { store } from '../store'
-import { ADD_STAY, REMOVE_STAY, SET_STAYS, SET_STAY, UPDATE_STAY } from '../reducers/stay.reducer.js'
+import { ADD_STAY, REMOVE_STAY, SET_STAYS, SET_STAY, UPDATE_STAY, } from '../reducers/stay.reducer.js'
 
 
 
@@ -61,6 +61,7 @@ export async function updateStay(stay) {
         throw err
     }
 }
+
 export async function publishStay(stay) {
     try {
         const stayToSave = { ...stay, status: 'published' }  // Change status to published
@@ -115,6 +116,13 @@ function getCmdUpdateStay(stay) {
         stay
     }
 }
+
+export function addStayToHost(stay) {
+    return {
+        type:ADD_STAY_TO_HOST,
+        stay
+    }
+} 
 
 // unitTestActions()
 async function unitTestActions() {

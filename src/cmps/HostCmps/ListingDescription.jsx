@@ -4,7 +4,7 @@ import { debounce } from '../../services/util.service'
 export function ListingDescription({ description, onDescriptionChange }) {
     const [count, setCount] = useState(description.length)
     const [localDesc, setLocalDesc] = useState(description) 
-    const [firstFocus, setFirstFocus] = useState(true) // Flag to track first focus
+    const [isFirstFocus, setIsFirstFocus] = useState(true) // Flag to track first focus
 
     const defaultText = "You'll always remember your time at this unique place to stay." 
 
@@ -30,10 +30,11 @@ export function ListingDescription({ description, onDescriptionChange }) {
     }
 
     function handleFocus() {
-        if (firstFocus && (!localDesc || localDesc === defaultText)) {
-            setLocalDesc('') // Clear the field if it's the first focus and contains the default text
-            setFirstFocus(false) // Ensure this only happens once
+        if (isFirstFocus) {
+            setIsFirstFocus(false)
+            return
         }
+        defaultText === ''
     }
 
     function handleBlur() {
@@ -52,7 +53,7 @@ export function ListingDescription({ description, onDescriptionChange }) {
                 onFocus={handleFocus}
                 maxLength="500"
                 onBlur={handleBlur}
-                placeholder={firstFocus ? defaultText : ''}
+                placeholder={isFirstFocus ? defaultText : ''}
             />
             <p className="char-limit">{count}/500</p>
         </div>

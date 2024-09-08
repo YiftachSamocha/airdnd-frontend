@@ -49,6 +49,7 @@ function getById(stayId) {
     return storageService.get(STAY_STORAGE_KEY, stayId)
 }
 
+
 async function remove(stayId) {
     // throw new Error('Nope')
     await storageService.remove(STAY_STORAGE_KEY, stayId)
@@ -61,8 +62,7 @@ async function save(stay) {
     } else {
         const stayToSave = {
             ...stay,
-            status: 'draft',  // Save new stays as draft by default
-            owner: userService.getLoggedinUser(),
+            host: userService.getLoggedinUser(),
             msgs: stay.msgs || []
         }
         savedStay = await storageService.post(STAY_STORAGE_KEY, stayToSave)
