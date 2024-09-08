@@ -187,7 +187,7 @@ export const livingRoomImgs = [
 ]
 export const bedTypes = ["king bed", "queen bed", "double bed", "single bed"];
 
-async function createSleep() {
+ function createSleep() {
     const roomAmount = getRandomIntInclusive(1, 6);
     let rooms = [];
     let maxCapacity = 0;
