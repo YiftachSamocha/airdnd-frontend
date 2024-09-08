@@ -230,7 +230,6 @@ export function generateHighlights(selectedAmenities) {
             });
         }
     });
-    debugger
 
     // Add random highlights if less than 3
     while (highlights.length < 3) {

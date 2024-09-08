@@ -2,7 +2,7 @@ import plusIcon from '../../assets/imgs/icons/plus.svg'
 import minusIcon from '../../assets/imgs/icons/minus.svg'
 
 
-export function NumberInput({ label, value, min = 1, max = 99, onChange }) {
+export function NumberInput({ label, value=1, min = 1, max = 99, onChange }) {
     const handleIncrement = () => {
         if (value < max) {
             onChange(value + 1);

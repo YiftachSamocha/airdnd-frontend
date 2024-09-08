@@ -56,7 +56,7 @@ export function userReducer(state = initialState, action) {
                         listings: [...state.currUser.host.listings, action.stayId] // Append new stay to listings
                     }
                 }
-            };
+            }
 
         default:
     }
