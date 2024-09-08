@@ -12,26 +12,32 @@ import { ListingAmenities } from '../../cmps/HostCmps/ListingAmenities';
 import { ListingDescription } from '../../cmps/HostCmps/ListingDescription';
 import { ListingTitle } from '../../cmps/HostCmps/ListingTitle';
 import { ListingPrice } from '../../cmps/HostCmps/ListingPrice';
+import { generateHighlights, getRandomItems, getRandomRoomData } from '../../services/util.service';
+import { cancellationPolicy, highlights, houseRules, labels, safetyProperty } from '../../services/data/stay.data';
+import { loadStay, publishStay, updateStay } from '../../store/actions/stay.actions';
 
 export function AboutYourPlace() {
     const navigate = useNavigate()
     const { userId } = useParams()
+    const { stayId } = useParams()
     const [formData, setFormData] = useState({
+
         location: { country: '', city: '', lat: '', lng: '' },
-        images: [],
+        imgs: [],
         type: '',
         sleep: {
             bedrooms: 1,
             bathrooms: 1,
             beds: 1,
             maxCapacity: 2,
+            rooms: []
         },
         amenities: [],
         name: '',
-        description: '',
+        description: `You'll always remember your time at this unique place to stay.`,
         price: {
-            night: 128, 
-            cleaning: 5, 
+            night: 128,
+            cleaning: 5,
         },
     })
 
@@ -39,9 +45,50 @@ export function AboutYourPlace() {
         console.log('changes', formData)
     }, [formData])
 
+    useEffect(() => {
+        if (stayId) {
+            loadStay(stayId).then(loadedStay => {
+                setFormData(loadedStay);  // Populate the form with the loaded stay data
+            }).catch(err => {
+                console.error('Error loading stay:', err);
+            });
+        }
+    }, [stayId])
 
-    function handleNext() {
-        navigate(`/become-a-host/${userId}/about-your-place`); // Correct navigation
+    function handleNext(event) {
+        event.preventDefault()
+        // Generate rooms based on the number of bedrooms
+        const rooms = Array.from({ length: formData.sleep.bedrooms }, () => getRandomRoomData());
+
+        // Update formData with the generated highlights and status
+        const updatedStay = {
+            ...formData,
+            sleep: {
+                ...formData.sleep,
+                rooms  // Add the generated rooms to the sleep data
+            },
+            status: 'published',
+            imgs: formData.secureUrls,
+            labels: getRandomItems(labels, 3),
+            thingsToKnow: {
+                houseRules: getRandomItems(houseRules, 3),
+                safetyProperty: getRandomItems(safetyProperty, 3),
+                cancellationPolicy: getRandomItems(cancellationPolicy, 1)
+            },
+            highlights: getRandomItems(highlights, 3)
+        }
+        debugger
+
+        // Publish the stay by calling publishStay
+        updateStay(updatedStay)
+            .then(savedStay => {
+                console.log('Stay successfully published:', savedStay);
+                // Navigate to the next page after publishing
+                navigate(`/`);
+            })
+            .catch(err => {
+                console.error('Failed to publish stay:', err);
+            });
     }
 
     function handleInputChange(key, value, subKey = null) {
@@ -62,10 +109,15 @@ export function AboutYourPlace() {
     }
 
 
-    function handleImagesChange(images) {
+    function handleImgsChange(imgs) {
+        // Store the full image objects for rendering and also keep secure_urls separately for submission
+        const secureUrls = imgs.map(img => img.secure_url);  // Extract only the secure_url
+
+        // Update formData with both the full image objects for rendering and secure_urls for submission
         setFormData(prevData => ({
             ...prevData,
-            images
+            imgs: imgs, // Store full image objects for rendering
+            secureUrls  // Store secure_url for submission later when needed
         }));
     }
 
@@ -108,8 +160,8 @@ export function AboutYourPlace() {
                     onRoomsChange={(key, value) => handleInputChange('sleep', value, key)}
                 />
                 <UploadImgs
-                    images={formData.images}
-                    onImagesChange={handleImagesChange}
+                    imgs={formData.imgs}
+                    onImgsChange={handleImgsChange}
                 />
                 <ListingAmenities
                     amenities={formData.amenities} // Pass the current amenities object
@@ -123,16 +175,16 @@ export function AboutYourPlace() {
                     description={formData.description}
                     onDescriptionChange={(value) => handleInputChange('description', value)}
                 />
-                 <ListingPrice
-                        price={formData.price}
-                        onPriceChange={(value) => handleInputChange('price', value, key)} // Use handleInputChange for price
-                    />
+                <ListingPrice
+                    price={formData.price}
+                    onPriceChange={(value, subKey) => handleInputChange('price', value, subKey)} // Use handleInputChange for price
+                />
             </div>
         </form>
 
         <footer>
             <button className='btn-link'>Back</button>
-            <button className='black' type='submit'>Next</button>
+            <button className='black' onClick={handleNext} type='submit'>Next</button>
         </footer>
 
     </section>

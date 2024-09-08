@@ -3,7 +3,7 @@ import { GoogleMap } from "./GoogleMap";
 import mapIcon from '../../assets/imgs/icons/map-pink.svg';
 
 export function ListingLocation({ location, onLocationChange }) {
-    const inputRef = useRef(null);
+    const inputRef = useRef(null)
 
     useEffect(() => {
         if (!window.google || !window.google.maps || !window.google.maps.places) return;
@@ -29,7 +29,6 @@ export function ListingLocation({ location, onLocationChange }) {
                     city: getAddressComponent('locality') || getAddressComponent('administrative_area_level_1'),
                     country: getAddressComponent('country'),
                 };
-                console.log('updated location', updatedLocation)
                 // Immediately update the location in the parent component
                 onLocationChange(updatedLocation);
             }
@@ -43,10 +42,15 @@ export function ListingLocation({ location, onLocationChange }) {
             }
         };
 
-        inputRef.current.addEventListener('keydown', handleKeyDown);
+        if (inputRef.current) {
+            inputRef.current.addEventListener('keydown', handleKeyDown);
+        }
 
+        // Cleanup: Remove event listener
         return () => {
-            inputRef.current.removeEventListener('keydown', handleKeyDown);
+            if (inputRef.current) {
+                inputRef.current.removeEventListener('keydown', handleKeyDown);
+            }
         };
     }, [location]);
 

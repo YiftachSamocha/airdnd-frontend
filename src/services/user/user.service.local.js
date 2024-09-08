@@ -38,9 +38,9 @@ async function update({ userToUpdate }) {
 
     // When admin updates other user's details, do not update loggedinUser
     const loggedinUser = getLoggedinUser()
-    if (loggedinUser._id === user._id) saveLoggedinUser(user)
+    if (loggedinUser._id === userToUpdate._id) saveLoggedinUser(userToUpdate)
 
-    return user
+    return userToUpdate
 }
 
 async function login(userCred) {

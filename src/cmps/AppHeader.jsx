@@ -129,18 +129,10 @@ export function AppHeader() {
 
     const handleHostLinkClick = async () => {
         if (!currUser.host) {
-            const hostDetails = addHostInfoToUser(currUser)
-            console.log('host-detals', hostDetails)
-
-            if (hostDetails) {
-                // Navigate to the host page with the new host ID
-                navigate(`/become-a-host/${currUser._id}`);
-            } else {
-                console.error('Failed to create host profile');
-            }
+            navigate(`/become-a-host/${currUser._id}`);
         } else {
             // Navigate to the host's add listing page
-            navigate(`/become-a-host/${currUser._id}/about-your-place`);
+            navigate(`/become-a-host/host`);
         }
     }
 

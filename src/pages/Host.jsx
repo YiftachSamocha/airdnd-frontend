@@ -17,9 +17,11 @@ export function Host() {
 
     useEffect(() => {
         if (currUser) {
+
             loadOrders({ host: hostId })
         }
-    }, [currUser, stays])
+    }, [currUser])
+    // }, [currUser, stays])
 
     useEffect(() => {
         if (currUser) {
@@ -29,7 +31,9 @@ export function Host() {
                     setStays(newStays)
                 })
         }
-    }, [currUser, orders])
+    }, [currUser])
+    //    }, [currUser, orders])
+
 
     return <section className="host">
         <AppHeader />
@@ -87,7 +91,7 @@ export function Host() {
             <Dashboard orders={orders} stays={stays} />
         </div>
         <Reservations orders={orders} listings={stays} />
-        <Listings listings={stays} />
+        <Listings currUser={currUser} stays={stays} />
 
 
     </section>

@@ -1,4 +1,4 @@
-import { getRandomIntInclusive, makeId } from "../util.service.js";
+import { getRandomIntInclusive, getRandomItems, makeId, generateImgUrls} from "../util.service.js";
 import italyImg from '../../assets/imgs/countries/italy.jpeg';
 import spainImg from '../../assets/imgs/countries/spain.jpg';
 import portugalImg from '../../assets/imgs/countries/portugal.jpg';
@@ -98,7 +98,6 @@ export async function createStay(host) {
         },
         type: getRandomItems(types, 1),
         amenities: getRandomItems(amenities, getRandomIntInclusive(10, 35)),
-        labels: getRandomItems(labels, 3),
         reservedDates: generateAvailabilityRanges(),
         host: {
             _id: host._id,
@@ -112,6 +111,7 @@ export async function createStay(host) {
         },
         location,
         reviews: getRandomItems(reviews, getRandomIntInclusive(1, 15)),
+        labels: getRandomItems(labels, 3),
         thingsToKnow: {
             houseRules: getRandomItems(houseRules, getRandomIntInclusive(6, 12)),
             safetyProperty: getRandomItems(safetyProperty, getRandomIntInclusive(4, 10)),
@@ -135,17 +135,6 @@ export function getData(type) {
         default: return null;
     }
 }
-
-
-function getRandomItems(arr, numItems) {
-    if (arr.length === 0 || numItems <= 0) return numItems === 1 ? null : []
-
-    const shuffled = [...arr].sort(() => 0.5 - Math.random())
-    const result = shuffled.slice(0, Math.min(numItems, arr.length))
-
-    return numItems === 1 ? result[0] : result
-}
-
 
 const names = [
     "A Beautiful Apartment in the Center of the City!",
@@ -181,24 +170,24 @@ const names = [
 ]
 
 const imgs = ['271624', '1918291', '6315808', '7045712', '6283965', '7214173', '279614', '5998117', '6283961', '5997959', '1457841', '6908367', '6758788', '6908368', '6492398', '6782567', '5997967', '4450337', '6775268', '6527069', '3315291', '2079249', '7018391', '7018824', '6903160', '5998120', '4099357', '3190541']
-const singleBedroomImgs = [
+export const singleBedroomImgs = [
     '4115551', '7587810', '19836795',
     '26859033', '271618', '271695'
 ]
 
-const doubleBedroomImgs = [
+export const doubleBedroomImgs = [
     '1454806', '90317', '262048', '1329711', '279746',
     '271743', '1743229', '775219', '1457845', '3773575',
     '5178070', '9130978', '9582420'
 ]
 
-const livingRoomImgs = [
+export const livingRoomImgs = [
     '2747901', '1428348', '26859039', '6782353', '6908363',
     '7534294', '6782346'
 ]
+export const bedTypes = ["king bed", "queen bed", "double bed", "single bed"];
 
 async function createSleep() {
-    const bedTypes = ["king bed", "queen bed", "double bed", "single bed"];
     const roomAmount = getRandomIntInclusive(1, 6);
     let rooms = [];
     let maxCapacity = 0;
@@ -248,12 +237,6 @@ async function createSleep() {
     };
 }
 
-function generateImgUrls(imgs) {
-    const imgIds = getRandomItems(imgs, getRandomIntInclusive(4, 10))
-    return imgIds.map(imgId => {
-        return `https://images.pexels.com/photos/${imgId}/pexels-photo-${imgId}.jpeg?width=400`
-    })
-}
 
 const descriptions = [
     "This stylish loft offers an open layout with industrial charm, featuring exposed brick walls and high ceilings. Perfectly sized for comfort, it includes modern furnishings and a spacious living area. The location provides easy access to everything you need.",
@@ -288,7 +271,7 @@ const descriptions = [
     "A charming and elegant apartment, with tasteful decor and comfortable furniture. The layout is spacious and bright, making it a perfect retreat. The location offers convenient access to all the local amenities."
 ]
 
-const highlights = [
+export const highlights = [
     {
         main: 'Great communication',
         sub: '95% of recent guests gave the host a 5-star rating for communication.',
@@ -731,7 +714,7 @@ const reviews = Array.from({ length: 10 }, () => ({
     }
 }))
 
-const houseRules = [
+export const houseRules = [
     //  Checking In and Checking Out
     { txt: "Check-in time starts at 3:00 PM.", type: "checking in/checking out" },
     { txt: "Check-out time is by 11:00 AM.", type: "checking in/checking out" },
@@ -752,7 +735,7 @@ const houseRules = [
     { txt: "Turn off lights and appliances when leaving.", type: "during your stay" }
 ]
 
-const safetyProperty = [
+export const safetyProperty = [
     // Safety Considerations
     { txt: "In emergencies, follow the evacuation plan.", type: "Safety considerations" },
     { txt: "Do not obstruct fire exits at any time.", type: "Safety considerations" },
@@ -784,7 +767,7 @@ const safetyProperty = [
     { txt: "Fire sprinklers are in all rooms.", type: "Property info" }
 ]
 
-const cancellationPolicy = [
+export const cancellationPolicy = [
     { txt: "Full refund if canceled within 48 hours.", type: "Cancellation Policy" },
     { txt: "50% refund if canceled 7-14 days before.", type: "Cancellation Policy" },
     { txt: "No refund if canceled within 7 days.", type: "Cancellation Policy" },
@@ -800,4 +783,142 @@ const cancellationPolicy = [
     { txt: "Change booking dates within 48 hours.", type: "Cancellation Policy" },
     { txt: "Additional fees for changes after 48 hours.", type: "Cancellation Policy" },
     { txt: "No refund for cancellations within 24 hours before check-in.", type: "Cancellation Policy" }
+]
+
+export const highlightOptions = [
+    {
+        main: 'Great communication',
+        sub: '95% of recent guests gave the host a 5-star rating for communication.',
+        amenity: 'Communication'
+    },
+    {
+        main: 'Flexible cancellation policy',
+        sub: 'Get a full refund if you cancel within 48 hours of booking.',
+        amenity: 'Cancellation'
+    },
+    {
+        main: 'Superhost',
+        sub: 'This host is highly rated for their outstanding hospitality.',
+        amenity: 'Superhost'
+    },
+    {
+        main: 'Self check-in',
+        sub: 'Check yourself in with the smart lock for added convenience.',
+        amenity: 'Self check-in'
+    },
+    {
+        main: 'Sparkling clean',
+        sub: 'Recent guests said this place was sparkling clean.',
+        amenity: 'Cleanliness'
+    },
+    {
+        main: 'Fast wifi',
+        sub: 'Guests often compliment the fast and reliable wifi.',
+        amenity: 'Wifi'
+    },
+    {
+        main: 'Highly rated location',
+        sub: '100% of recent guests gave the location a 5-star rating.',
+        amenity: 'Location'
+    },
+    {
+        main: 'Well-equipped for long stays',
+        sub: 'Guests who stayed a month or longer rated this place 5 stars.',
+        amenity: 'Long stay'
+    },
+    {
+        main: 'Safe and secure',
+        sub: 'Guests appreciated the safety features and felt secure.',
+        amenity: 'Safety'
+    },
+    {
+        main: 'Pet-friendly',
+        sub: 'Previous guests loved bringing their pets to this home.',
+        amenity: 'Pet-friendly'
+    },
+    {
+        main: 'Dedicated workspace',
+        sub: 'Perfect for remote work, with a comfortable desk and fast wifi.',
+        amenity: 'Dedicated workspace'
+    },
+    {
+        main: 'Excellent amenities',
+        sub: 'Guests praised the range of amenities offered here.',
+        amenity: 'Amenities'
+    },
+    {
+        main: 'Great for families',
+        sub: 'Families rated this home 5 stars for kid-friendly amenities.',
+        amenity: 'Family-friendly'
+    },
+    {
+        main: 'Great check-in experience',
+        sub: '100% of recent guests gave the check-in process a 5-star rating.',
+        amenity: 'Check-in'
+    },
+    {
+        main: 'Stylish space',
+        sub: 'Guests loved the stylish decor and comfortable layout.',
+        amenity: 'Style'
+    },
+    {
+        main: 'Free parking on premises',
+        sub: 'This place offers free parking for added convenience.',
+        amenity: 'Free parking on premises'
+    },
+    {
+        main: 'Comfortable beds',
+        sub: 'Guests consistently mention the comfortable and cozy beds.',
+        amenity: 'Comfort'
+    },
+    {
+        main: 'Highly rated host',
+        sub: 'This host has received great reviews for their hospitality.',
+        amenity: 'Hospitality'
+    },
+    {
+        main: 'Quiet neighborhood',
+        sub: 'Guests praised the peaceful and quiet surroundings.',
+        amenity: 'Quiet'
+    },
+    {
+        main: 'Fully equipped kitchen',
+        sub: 'Guests appreciated the well-stocked kitchen for home-cooked meals.',
+        amenity: 'Kitchen'
+    },
+    {
+        main: 'Fast response time',
+        sub: 'This host is known for responding quickly to guest inquiries.',
+        amenity: 'Response time'
+    },
+    {
+        main: 'Great value',
+        sub: 'Recent guests rated this place 5 stars for value.',
+        amenity: 'Value'
+    },
+    {
+        main: 'Thoughtful touches',
+        sub: 'Guests loved the small details and thoughtful touches.',
+        amenity: 'Thoughtful touches'
+    },
+    {
+        main: 'Private entrance',
+        sub: 'Enjoy the privacy of a separate entrance to the property.',
+        amenity: 'Private entrance'
+    },
+    {
+        main: 'Close to public transport',
+        sub: 'Guests found the location convenient for public transportation.',
+        amenity: 'Public transport'
+    },
+    {
+        main: 'Walkable area',
+        sub: 'Guests loved the walkability of the neighborhood.',
+        amenity: 'Walkability'
+    },
+    {
+        main: 'Effortless check-in',
+        sub: 'Check-in is easy with the host\'s detailed instructions.',
+        amenity: 'Check-in'
+    }
 ]

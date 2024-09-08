@@ -2,7 +2,7 @@ import { userService } from '../../services/user/user.service.local'
 //import { socketService } from '../../services/socket.service'
 import { store } from '../store'
 import { showErrorMsg } from '../../services/event-bus.service'
-import { REMOVE_USER, SET_CURR_USER, SET_USERS, SET_WATCHED_USER, ADD_HOST_INFO_TO_USER } from '../reducers/user.reducer'
+import { REMOVE_USER, SET_CURR_USER, SET_USERS, SET_WATCHED_USER, ADD_HOST_INFO_TO_USER, ADD_STAY_TO_HOST } from '../reducers/user.reducer'
 import { makeId } from '../../services/util.service'
 
 export async function loadUsers() {
@@ -79,9 +79,6 @@ export async function loadUser(userId) {
 
 export function addHostInfoToUser(user) {
     const hostDetails = {
-        _id: makeId(),
-        fullname: user.fullname,
-        imgUrl: user.imgUrl,
         reviews: [],
         rating: 0,
         yearsHosting: [],
@@ -89,9 +86,45 @@ export function addHostInfoToUser(user) {
         listings: [],
         createdAt: new Date(),  // Store the current date when the user becomes a host
     }
-    
-    return {
-        type: ADD_HOST_INFO_TO_USER,
-        hostDetails,
+    const updatedUser = { ...user, host: hostDetails };
+
+
+    try {
+        userService.update({ userToUpdate: updatedUser });
+        store.dispatch({type: ADD_HOST_INFO_TO_USER, hostDetails})
+    } 
+    catch (err) {
+        showErrorMsg('Cannot turn user to host')
+        console.log('Cannot turn user to host', err)
+    }
+}
+
+export function addStayToHost(stayId) {
+    // Get the current logged-in user
+    const loggedinUser = userService.getLoggedinUser();
+
+    // Add the stay to the user's listings
+    const updatedUser = {
+        ...loggedinUser,
+        host: {
+            ...loggedinUser.host,
+            listings: [...loggedinUser.host.listings, stayId]  // Add new stay to listings
+        }
+    };
+
+    try {
+        // Dispatch the action to update the Redux store
+        store.dispatch({
+            type: 'ADD_STAY_TO_HOST',
+            stayId
+        });
+
+        // Update the user in the storage to persist the change
+        userService.update({ userToUpdate: updatedUser });
+
+        // No need to manually save to session storage as update handles it
+    } catch (err) {
+        showErrorMsg('Cannot add stay to host listings');
+        console.log('Cannot add stay to host listings', err);
     }
 }
