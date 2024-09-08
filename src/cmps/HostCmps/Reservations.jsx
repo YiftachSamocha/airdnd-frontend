@@ -31,8 +31,8 @@ export function Reservations({ orders, listings }) {
         return format(date, 'yyyy-MM-dd')
     }
 
-    function changeStatus(stay, newStatus) {
-        updateOrder({ ...stay, status: newStatus })
+    function changeStatus(order, newStatus) {
+        updateOrder({ ...order, status: newStatus })
     }
 
     function onChangeListing({ target }) {

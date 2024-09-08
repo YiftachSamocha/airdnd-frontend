@@ -36,12 +36,12 @@ export function StayList() {
         if (filterBy.when.endDate) urlStr += `end_date=${format(filterBy.when.endDate, 'yyyy-MM-dd')}&`;
 
         // Remove trailing '&' if present
-          urlStr = urlStr.endsWith('&') ? urlStr.slice(0, -1) : urlStr;
+        urlStr = urlStr.endsWith('&') ? urlStr.slice(0, -1) : urlStr;
         setFilterUrl(urlStr)
     }
-
+    console.log(stays.length)
     return (<>
-         <section className="stay-main-list">
+        <section className="stay-main-list">
             {/* <div>{filterBy.where.country}</div> */}
             <ul className="stay-list">
                 {stays.map(stay => {
@@ -54,6 +54,6 @@ export function StayList() {
                     )
                 })}
             </ul>
-         </section></>
+        </section></>
     )
 }
