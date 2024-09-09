@@ -40,7 +40,7 @@
     .modal-details {
         grid-column: 1 /span 1;
         grid-row: 2;
-        width: 100%; 
+        width: 100%;
 
         h3 {
             margin-top: 0;
@@ -190,9 +190,11 @@
         margin-bottom: 30px;
         margin-right: 22%;
 
-        h2{
+        h2 {
+            padding: 0;
             font-weight: 500;
-            font-size: 1.6em
+            font-size: 1.6em;
+            margin-top: 12px;
         }
     }
 
@@ -207,7 +209,6 @@
     .modal-booking {
         .modal-img {
             margin-bottom: 30px;
-            margin-top: 15px;
             height: 18%;
             box-shadow: none;
             display: flex;
@@ -226,14 +227,19 @@
         order: 2;
         border: none;
     }
-        h3 {
-            margin-top: 20px;
-            font-weight: 500;
-            font-size: 1.4em;
-        }
-       
 
-        .modal-btn {
-            order: 3;
-        }
+    h3 {
+        margin-top: 20px;
+        font-weight: 500;
+        font-size: 1.4em;
     }
+
+
+    .modal-btn {
+        order: 3;
+    }
+
+    .modal-booking .modal-btn button.back {
+        margin-right: 0;
+    }
+}

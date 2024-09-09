@@ -436,7 +436,7 @@
                 }
 
                 button {
-                    margin-left:  30px;
+                    margin-left: 30px;
                     padding: 0 0 20px 0;
                 }
 
@@ -534,14 +534,13 @@
             .payment {
                 order: 7;
                 margin-bottom: 10px;
-                width: 100%;
-            }
-
-            .stay-main-order.stay-order .payment.btn-pay {
-                width: 100%;
-
+                max-width: 100%;
             }
         }
+    }
+
+    .stay-main-order .stay-order .payment button {
+        width: 100%;
     }
 }
 
