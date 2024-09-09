@@ -34,7 +34,8 @@
     "react-swipeable": "^7.0.1",
     "redux": "^4.2.1",
     "slick-carousel": "^1.8.1",
-    "socket.io-client": "^4.7.2"
+    "socket.io-client": "^4.7.2",
+    "sweetalert": "^2.1.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

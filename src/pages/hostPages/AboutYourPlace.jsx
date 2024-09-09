@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import { ListingType } from '../../cmps/HostCmps/ListingType';
 import { ListingRooms } from '../../cmps/HostCmps/ListingRooms';
 
-import icon from '../../assets/imgs/icons/language.svg'
 import { ListingAmenities } from '../../cmps/HostCmps/ListingAmenities';
 import { ListingDescription } from '../../cmps/HostCmps/ListingDescription';
 import { ListingTitle } from '../../cmps/HostCmps/ListingTitle';
@@ -15,15 +14,13 @@ import { ListingPrice } from '../../cmps/HostCmps/ListingPrice';
 import { getRandomItems, getRandomRoomData } from '../../services/util.service';
 import { cancellationPolicy, highlights, houseRules, labels, safetyProperty } from '../../services/data/stay.data';
 import { loadStay, updateStay } from '../../store/actions/stay.actions';
-import { useDispatch } from 'react-redux';
-import { updateHost } from '../../store/actions/user.actions';
+import swal from 'sweetalert';
 
 export function AboutYourPlace() {
     const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const { userId } = useParams()
     const { stayId } = useParams()
-
+    // const [isFormComplete, setIsFormComplete] = useState(false);
+    // const [missingFields, setMissingFields] = useState([])
     const [formData, setFormData] = useState({
 
         location: { country: '', city: '', lat: '', lng: '' },
@@ -45,8 +42,44 @@ export function AboutYourPlace() {
         },
     })
 
+    const [validationStatus, setValidationStatus] = useState({
+        type: false,
+        location: false,
+        sleep: true,
+        imgs: false,
+        amenities: false,
+        name: false,
+        description: true,
+        price: true
+    })
+
+    useEffect(() => {
+        console.log('validation status', validationStatus)
+    }, [validationStatus])
+
+    const [isFormComplete, setIsFormComplete] = useState(false)
+
+    useEffect(() => {
+        // Recalculate form completion status whenever validationStatus changes
+        setIsFormComplete(Object.values(validationStatus).every(status => status === true))
+    }, [validationStatus])
+
+
+    const handleValidationUpdate = (field, isValid) => {
+        setValidationStatus(prevStatus => ({
+            ...prevStatus,
+            [field]: isValid
+        }));
+    };
+
+    // useEffect(() => {
+    //     console.log('changes', formData)
+    // }, [formData])
+
     useEffect(() => {
         console.log('changes', formData)
+
+        // checkFormCompletion()
     }, [formData])
 
     useEffect(() => {
@@ -59,8 +92,26 @@ export function AboutYourPlace() {
         }
     }, [stayId])
 
+    // function checkFormCompletion() {
+    //     const requiredFields = ['type', 'location.country', 'location.city', 'imgs', 'name', 'description', 'price.night'];
+    //     const missing = requiredFields.filter(field => {
+    //         const value = field.split('.').reduce((o, i) => o[i], formData);
+    //         return !value || (Array.isArray(value) && value.length === 0);
+    //     });
+
+    //     setMissingFields(missing);
+    //     setIsFormComplete(missing.length === 0);
+    // }
+
     function handleBtn(event, btnType) {
         event.preventDefault()
+
+        // if (!isFormComplete && btnType === 'next') {
+        //     swal("Oops!",
+        //          "You forgot to fill the following fields: ${missingFields.join(', ')}`",
+        //           "error")
+        //     return;
+        // }
         // Generate rooms based on the number of bedrooms
         const rooms = Array.from({ length: formData.sleep.bedrooms }, () => getRandomRoomData());
         const status = btnType === 'next' ? 'published' : 'draft';
@@ -147,41 +198,59 @@ export function AboutYourPlace() {
                 <ListingType
                     type={formData.type}
                     onPlaceTypeChange={(value) => handleInputChange('type', value)}
+                    onValidate={(isValid) => handleValidationUpdate('type', isValid)}  // Pass validation callback
                 />
                 <ListingLocation
                     location={formData.location}
                     onLocationChange={(value) => handleInputChange('location', value)}
+                    onValidate={(isValid) => handleValidationUpdate('location', isValid)}  // Pass validation callback
+
                 />
                 <ListingRooms
                     formData={formData.sleep}
                     onRoomsChange={(key, value) => handleInputChange('sleep', value, key)}
+                    onValidate={(isValid) => handleValidationUpdate('sleep', isValid)}  // Pass validation callback
+
                 />
                 <UploadImgs
                     imgs={formData.imgs}
                     onImgsChange={handleImgsChange}
+                    onValidate={(isValid) => handleValidationUpdate('imgs', isValid)}  // Pass validation callback
+
                 />
                 <ListingAmenities
                     amenities={formData.amenities} // Pass the current amenities object
                     onAmenityChange={handleAmenityChange} // Handle change
+                    onValidate={(isValid) => handleValidationUpdate('amenities', isValid)}  // Pass validation callback
+
                 />
                 <ListingTitle
                     name={formData.name}
                     onNameChange={(value) => handleInputChange('name', value)}
+                    onValidate={(isValid) => handleValidationUpdate('name', isValid)}  // Pass validation callback
+
                 />
                 <ListingDescription
                     description={formData.description}
                     onDescriptionChange={(value) => handleInputChange('description', value)}
+                    onValidate={(isValid) => handleValidationUpdate('description', isValid)}  // Pass validation callback
+
                 />
                 <ListingPrice
                     price={formData.price}
                     onPriceChange={(value, subKey) => handleInputChange('price', value, subKey)} // Use handleInputChange for price
-                />
+                    onValidate={(isValid) => handleValidationUpdate('price', isValid)}  // Pass validation callback
+
+               />
             </div>
         </form>
 
         <footer>
-            <button className='btn-link'>Back</button>
-            <button className='black' type='submit' onClick={(ev) => handleBtn(ev, 'next')}>Next</button>
+            <button className='btn-link' onClick={() => navigate('/')}>Back</button>
+            <button
+                className={isFormComplete ? 'black' : 'disabled'}
+                type='submit'
+                onClick={(ev) => handleBtn(ev, 'next')}>Next</button>
         </footer>
 
     </section>

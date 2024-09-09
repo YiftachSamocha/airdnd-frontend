@@ -54,12 +54,14 @@ export function StayDetails() {
       <AppHeader />
       <div className="main-content">
         <h1>{stay.name}</h1>
-        <StayImage stay={stay} />
+        {stay.imgs && <StayImage stay={stay} />}
         <div className="details-container">
           <div className="content">
             <StayMainInfo stay={stay} toggleModal={toggleModal} isModalOpen={isModalOpen} />
-            <StayRooms stay={stay} />
-            <StayAmenities stay={stay} toggleModal={toggleModal} isModalOpen={isModalOpen} />
+            {stay.sleep && <StayRooms stay={stay} />}
+            {stay.amenities && (
+              <StayAmenities stay={stay} toggleModal={toggleModal} isModalOpen={isModalOpen} />
+            )}
             <WhenDetails dates={dates} setDates={setDates} stay={stay} breakpoint={1200} />
           </div>
 
@@ -69,10 +71,10 @@ export function StayDetails() {
         </div>
 
         <div className="more-content">
-          <StayReview />
-          <StayLocation />
-          {/* <StayHost stay={stay} /> */}
-          <StayToKnow stay={stay} />
+          {stay.reviews && <StayReview />}
+          {stay.location && <StayLocation />}
+          {stay.host && <StayHost stay={stay} />}
+          {stay.thingsToKnow && <StayToKnow stay={stay} />}
         </div>
 
         {isModalOpen && (

@@ -20,6 +20,13 @@ button {
 		color: whitesmoke;
 		background-color: black;
 	}
+
+	&.disabled {
+		color: whitesmoke;
+		background-color: $gray2;
+		cursor: not-allowed;
+
+	}
 }
 
 form>* {
