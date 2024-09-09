@@ -7,6 +7,10 @@ import diamond from "../assets/imgs/icons/diamond.svg"
 import superhost from "../assets/imgs/icons/superhost.svg"
 import starIcon from "../assets/imgs/icons/star.svg"
 import logoImg from "../assets/imgs/logo.svg"
+import amex from "../assets/imgs/pay/amex.svg"
+import visa from "../assets/imgs/pay/visa.svg"
+import masterCard from "../assets/imgs/pay/masterCard.svg"
+import Gpay from "../assets/imgs/pay/Gpay.svg"
 
 import { Who } from "../cmps/MainFilterCmps/Who";
 import { When } from "../cmps/MainFilterCmps/When";
@@ -53,7 +57,7 @@ export function StayOrder() {
         ? stay.reviews.reduce((sum, review) => sum + review.rate, 0) / totalReviews
         : 0
 
-    function handleClick(){
+    function handleClick() {
         setIsModalOpen(true)
         // setShowConfirmation(false)
     }
@@ -109,8 +113,8 @@ export function StayOrder() {
 
     return (
         <><div className="order">
-             <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
-                    className="logo"><img src={logoImg} /></Link>
+            <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
+            ><img src={logoImg} className="logo" /></Link>
             {/* <img src={logoImg} className="logo" /> */}
             <hr className='main-hr' /> </div>
             <section className='stay-main-order'>
@@ -119,7 +123,7 @@ export function StayOrder() {
                         <button onClick={onBack}> <img src={arrowLeft} alt="ArrowLeft Icon" className="arrow-left icon" /></button>
                         <h2>Request to book</h2>
                     </div>
-                    
+
                     <div className='rare-find grid'>
                         <div>  <h5>This is a rare find.</h5>
                             <h5> Karen & Tal's place is usually booked.</h5></div>
@@ -140,51 +144,84 @@ export function StayOrder() {
                         </div>
                     </div>
                     <div className='order-pay grid'>
-                        <h3>Pay with</h3>
-                        <h4>Credit or debit card</h4>
-                        <div className='card-details'>
-                            <h4>Card number</h4>
-                            <h4>Expiration</h4>
-                            <h4>CVV</h4>
-                            <h4>ZIP code</h4>
+                        <div className='pay-img'>
+                            <h3>Pay with</h3>
+                            <div className='imgs-pay'>
+                                <img src={visa} alt="visa" className="visa icon" />
+                                <img src={masterCard} alt="masterCard" className="masterCard icon" />
+                                <img src={amex} alt="amex" className="amex icon" />
+                                <img src={Gpay} alt="Gpay" className="Gpay icon" /></div>
+                            {/* <h4>Credit or debit card</h4> */}
+                        </div> <div className="card-details">
+                            <div className="input-group">
+                                <div className="floating-label">
+                                    <input type="text" id="card-number" name="card-number" placeholder=" " required />
+                                    <label htmlFor="card-number">Card number</label>
+                                </div>
+                            </div>
+                            <div className="input-group">
+                                <div className="floating-label">
+                                    <input type="text" id="expiration" name="expiration" placeholder=" " required />
+                                    <label htmlFor="expiration">Expiration</label>
+                                </div>
+                            </div>
+                            <div className="input-group">
+                                <div className="floating-label">
+                                    <input type="text" id="cvv" name="cvv" placeholder=" " required />
+                                    <label htmlFor="cvv">CVV</label>
+                                </div>
+                            </div>
+                            <div className="input-group">
+                                <div className="floating-label">
+                                    <input type="text" id="zip-code" name="zip-code" placeholder=" " required />
+                                    <label htmlFor="zip-code">ZIP code</label>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
+
                     <div className='payment grid'>
                         {/* <button onClick={onAddOrder} >Request to book</button> */}
-                        <button onClick={handleClick}>Request to book</button>
+                        <button className='btn-pay' onClick={handleClick}>Request to book</button>
                         <ModalBooking isOpen={isModalOpen} onClose={closeModal} stay={stay} onAddOrder={onAddOrder} />
                     </div>
                     {/* </section> */}
                     <section className="price-details">
-                        {/* <div className='grid'> */}
-                        <img src={stay.imgs[0]} alt={`stay-img`} className="stay-img" />
-                        {/* </div> */}
-                        <div className="main-name">
-                            <h4>{stay.name}</h4>
-                            <h4>{stay.highlights[0].main}</h4>
+                        <div className='part1 flex'>
+                            <img src={stay.imgs[0]} alt={`stay-img`} className="stay-img" />
+                            {/* </div> */}
+                            <div className="main-name">
+                                <h4>{stay.name}</h4>
+                                <h4>{stay.highlights[0].main}</h4>
 
-                            <div className="rating flex">
-                                <img src={starIcon} alt="Star Icon" className="star icon" />
-                                <span>{avgRating.toFixed(1)}</span>
-                                <span className="reviews-number">({totalReviews} reviews)</span>
-                                <img src={superhost} alt="Superhost Icon" className="superhost icon" />
-                                <span>Superhost</span>
-                            </div>  </div>
-
-                        <div className="price-calc add-grid">
-                            <h2>Price details</h2>
-                            <h3 className="light">${price} <span><span>X</span> 5 nights</span></h3>
-                            <h3>${total}</h3>
-                        </div>
-                        {cleaningFee > 0 && (
-                            <div className="price-calc add-grid">
-                                <h3 className="light">Cleaning fee</h3>
-                                <h3>${cleaningFee}</h3>
+                                <div className="rating flex">
+                                    <img src={starIcon} alt="Star Icon" className="star icon" />
+                                    <span>{avgRating.toFixed(1)}</span>
+                                    <span className="reviews-number">({totalReviews} reviews)</span>
+                                    <img src={superhost} alt="Superhost Icon" className="superhost icon" />
+                                    <span>Superhost</span>
+                                </div>
                             </div>
-                        )}
-                        <div className="total">
-                            <h3>Total</h3>
-                            <h3>${total}</h3>
+                        </div>
+                        <hr />
+                        <div className='part2'>
+                            <h2>Price details</h2>
+                            <div className="price-calc">
+
+                                <h3 className="light">${price} <span><span>X</span> 5 nights</span></h3>
+                                <h3>${total}</h3>
+                            </div>
+                            {cleaningFee > 0 && (
+                                <div className="price-calc">
+                                    <h3 className="light">Cleaning fee</h3>
+                                    <h3>${cleaningFee}</h3>
+                                </div>
+                            )}
+                            <div className="total">
+                                <h3>Total</h3>
+                                <h3>${total}</h3>
+                            </div>
                         </div>
                     </section>
 
