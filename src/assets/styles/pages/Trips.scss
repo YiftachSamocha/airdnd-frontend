@@ -1,0 +1,110 @@
+.trips {
+    padding: 2em;
+
+    h2 {
+        font-size: em(33px);
+    }
+    .invite{
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto;
+        width: 60%;
+        border: 1px solid $gray2;
+        border-radius: 25px;
+        margin-bottom: 5em;
+
+        >img {
+            width: em(400px);
+            object-fit: cover;
+            border-radius: 0 10px 10px 0;
+            margin-left: 4em;
+        }
+        div{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            
+            padding: 1em 3em;
+            h5{
+                font-size: 20px;
+                font-weight: 600;
+                margin: 0;
+            }
+            img{
+                width: 50px;
+            }
+            button{
+                background-color: $clr-red;
+                color: white;
+                border: 0;
+            }
+        }
+    }
+
+    .trip-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2em;
+
+
+        .trip-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5em;
+            border-radius: 10px;
+            //box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: box-shadow 0.3s ease;
+
+            &:hover {
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            }
+
+            img {
+                width: em(200px);
+                height: em(130px);
+                object-fit: cover;
+                border-radius: 10px;
+                margin-right: 1.5em;
+            }
+
+            .item-info {
+                flex-grow: 1;
+
+                p {
+                    margin: 0.3em 0;
+                    white-space: nowrap;
+                }
+
+                p:first-of-type {
+                    font-weight: bolder;
+                }
+
+                .status {
+                    font-weight: bold;
+                    text-transform: capitalize;
+                    width: 50%;
+                }
+
+                .approved {
+                    color: $basic-green;
+                }
+
+                .pending {
+                    color: $basic-yellow;
+                }
+
+                .declined {
+                    color: $basic-red;
+                }
+            }
+        }
+    }
+
+    // Message when there are no trips
+    // >div {
+    //     text-align: center;
+    //     font-size: 1.5em;
+    //     margin-top: 3em;
+    // }
+}

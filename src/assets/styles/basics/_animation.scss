@@ -1,0 +1,282 @@
+// .option-item {
+//     transition: transform 0.1s ease;
+
+//     &:active {
+//         transform: scale(0.95); // Shrink the selected item when clicked
+//     }
+
+//     &.animate {
+//         /* WiFi Icon - Strips go up one by one */
+//         .wifi-icon {
+//             animation: wifiStripsUp 1s ease-in-out forwards;
+//             animation-iteration-count: 1;
+//         }
+
+//         /* TV Icon - Screen becomes black and returns by opening from the center */
+//         .tv-icon {
+//             animation: tvScreenTransition 1.5s ease-in-out forwards;
+//             animation-iteration-count: 1;
+//         }
+
+//         /* Kitchen Icon - Oven opening */
+//         .kitchen-icon {
+//             animation: kitchenOvenOpen 1.5s ease forwards;
+//             animation-iteration-count: 1;
+//         }
+
+//         /* Washer Icon - The wheel inside is turning */
+//         .washer-icon {
+//             animation: washerSpin 2s linear forwards;
+//             animation-iteration-count: 1;
+//         }
+
+//         /* Parking Icon - Stripes of the road underneath moving like driving */
+//         .parking-icon {
+//             animation: parkingDrive 2s linear forwards;
+//             animation-iteration-count: 1;
+//         }
+
+//         /* Paid Parking Icon - Coin entering */
+//         .paid-parking-icon {
+//             animation: coinEnter 1.2s ease-in-out forwards;
+//             animation-iteration-count: 1;
+//         }
+
+//         /* Air Conditioning Icon - Shaking */
+//         .ac-icon {
+//             animation: acShake 0.7s ease forwards;
+//             animation-iteration-count: 1;
+//         }
+
+//         /* Workspace and Pool Icon - Shrinks then returns to normal size */
+//         .workspace-icon, .pool-icon {
+//             animation: scaleDownUp 1s ease forwards;
+//             animation-iteration-count: 1;
+//         }
+
+//         /* Hot Tub Icon - Two lines at the top flipping vertically */
+//         .hot-tub-icon {
+//             animation: hotTubFlip 1.5s ease-in-out forwards;
+//             animation-iteration-count: 1;
+//         }
+
+//         /* Patio Icon - Windows opening and closing */
+//         .patio-icon {
+//             animation: patioWindowOpen 1.5s ease-in-out forwards;
+//             animation-iteration-count: 1;
+//         }
+
+//         /* BBQ Grill Icon - Same as hot tub (flipping) */
+//         .bbq-grill-icon {
+//             animation: bbqGrillFlip 1.5s ease-in-out forwards;
+//             animation-iteration-count: 1;
+//         }
+
+//         /* Dining Area Icon - Sun umbrella closing */
+//         .dining-area-icon {
+//             animation: umbrellaClose 1.2s ease-in-out forwards;
+//             animation-iteration-count: 1;
+//         }
+
+//         /* Fire Pit Icon - Fire flickering */
+//         .fire-pit-icon {
+//             animation: firePitFlicker 1.5s ease-in-out forwards;
+//             animation-iteration-count: 1;
+//         }
+
+//         /* Pool Table Icon - Stick hits the ball, and balls move on the table */
+//         .pool-table-icon {
+//             animation: poolStickHit 1s ease forwards;
+//             animation-iteration-count: 1;
+//         }
+
+//         /* Indoor Fireplace Icon - Fire disappearing and going back */
+//         .indoor-fireplace-icon {
+//             animation: fireplaceFlicker 1.5s ease-in-out forwards;
+//             animation-iteration-count: 1;
+//         }
+
+//         /* Piano Icon - Keyboard moving */
+//         .piano-icon {
+//             animation: pianoKeyMove 1.5s ease forwards;
+//             animation-iteration-count: 1;
+//         }
+//     }
+// }
+
+// /* Keyframe Definitions */
+
+// /* WiFi Icon - Strips go up one by one */
+// @keyframes wifiStripsUp {
+//     0%, 20%, 40%, 60%, 80% {
+//         opacity: 0;
+//         transform: translateY(10px);
+//     }
+//     100% {
+//         opacity: 1;
+//         transform: translateY(0);
+//     }
+// }
+
+// /* TV Icon - Screen becomes black and returns by opening from the center */
+// @keyframes tvScreenTransition {
+//     0% {
+//         transform: scaleY(0);
+//         opacity: 0;
+//     }
+//     50% {
+//         transform: scaleY(1);
+//         opacity: 0.5;
+//     }
+//     100% {
+//         transform: scaleY(1);
+//         opacity: 1;
+//     }
+// }
+
+// /* Kitchen Icon - Oven opening */
+// @keyframes kitchenOvenOpen {
+//     0% {
+//         transform: rotateX(0);
+//     }
+//     100% {
+//         transform: rotateX(90deg);
+//     }
+// }
+
+// /* Washer Icon - The wheel inside is turning */
+// @keyframes washerSpin {
+//     0% {
+//         transform: rotate(0deg);
+//     }
+//     100% {
+//         transform: rotate(360deg);
+//     }
+// }
+
+// /* Parking Icon - Stripes of the road underneath moving like driving */
+// @keyframes parkingDrive {
+//     0% {
+//         background-position: 0;
+//     }
+//     100% {
+//         background-position: -100px;
+//     }
+// }
+
+// /* Paid Parking Icon - Coin entering */
+// @keyframes coinEnter {
+//     0% {
+//         transform: translateY(-20px);
+//         opacity: 0;
+//     }
+//     100% {
+//         transform: translateY(0);
+//         opacity: 1;
+//     }
+// }
+
+// /* Air Conditioning Icon - Shaking */
+// @keyframes acShake {
+//     0%, 100% {
+//         transform: translateX(0);
+//     }
+//     25% {
+//         transform: translateX(-5px);
+//     }
+//     50% {
+//         transform: translateX(5px);
+//     }
+//     75% {
+//         transform: translateX(-5px);
+//     }
+// }
+
+// /* Workspace and Pool Icon - Shrinks then returns to normal size */
+// @keyframes scaleDownUp {
+//     0%, 100% {
+//         transform: scale(1);
+//     }
+//     50% {
+//         transform: scale(0.8);
+//     }
+// }
+
+// /* Hot Tub Icon - Two lines at the top flipping vertically */
+// @keyframes hotTubFlip {
+//     0% {
+//         transform: rotateX(0deg);
+//     }
+//     100% {
+//         transform: rotateX(180deg);
+//     }
+// }
+
+// /* Patio Icon - Windows opening and closing */
+// @keyframes patioWindowOpen {
+//     0%, 100% {
+//         transform: scaleX(1);
+//     }
+//     50% {
+//         transform: scaleX(0.8);
+//     }
+// }
+
+// /* BBQ Grill Icon - Same as hot tub (flipping) */
+// @keyframes bbqGrillFlip {
+//     0% {
+//         transform: rotateX(0deg);
+//     }
+//     100% {
+//         transform: rotateX(180deg);
+//     }
+// }
+
+// /* Dining Area Icon - Sun umbrella closing */
+// @keyframes umbrellaClose {
+//     0% {
+//         transform: scaleY(1);
+//     }
+//     100% {
+//         transform: scaleY(0.5);
+//     }
+// }
+
+// /* Fire Pit Icon - Fire flickering */
+// @keyframes firePitFlicker {
+//     0%, 100% {
+//         opacity: 1;
+//     }
+//     50% {
+//         opacity: 0.5;
+//     }
+// }
+
+// /* Pool Table Icon - Stick hits the ball, and balls move on the table */
+// @keyframes poolStickHit {
+//     0% {
+//         transform: translateX(0);
+//     }
+//     100% {
+//         transform: translateX(10px);
+//     }
+// }
+
+// @keyframes fireplaceFlicker {
+//     0%, 100% {
+//         opacity: 1;
+//     }
+//     50% {
+//         opacity: 0;
+//     }
+// }
+
+// /* Piano Icon - Keyboard moving */
+// @keyframes pianoKeyMove {
+//     0%, 100% {
+//         transform: translateY(0);
+//     }
+//     50% {
+//         transform: translateY(3px);
+//     }
+// }

@@ -40,15 +40,15 @@
                 font-weight: 700;
 
                 &.approved {
-                    color: green;
+                    color: $basic-green;
                 }
 
                 &.declined {
-                    color: red;
+                    color: $basic-red;
                 }
 
                 &.pending {
-                    color: orange;
+                    color: $basic-yellow;
                 }
             }
 
@@ -78,11 +78,11 @@
                 }
 
                 button:first-of-type {
-                    background-color: green;
+                    background-color: $basic-green;
                 }
 
                 button:last-of-type {
-                    background-color: red;
+                    background-color: $basic-red;
                 }
             }
         }

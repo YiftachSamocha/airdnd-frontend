@@ -16,7 +16,7 @@ function getDefaultFilter() {
         extra: {
             type: 'any',
             rooms: { rooms: 0, bedrooms: 0, bathrooms: 0 },
-            price: [0, 3000],
+            price: [40, 3000],
             maxPrice: 3000,
             amenities: getData('mainAmenities'),
             booking: { instant: false, self: false, pets: false },

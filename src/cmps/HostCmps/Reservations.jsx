@@ -31,13 +31,13 @@ export function Reservations({ orders, listings }) {
         return format(date, 'yyyy-MM-dd')
     }
 
-    function changeStatus(stay, newStatus) {
-        updateOrder({ ...stay, status: newStatus })
+    function changeStatus(order, newStatus) {
+        updateOrder({ ...order, status: newStatus })
     }
 
     function onChangeListing({ target }) {
         const { value } = target
-        setFilterBy(prev => ({ ...prev, listing: value }))
+        setFilterBy(prev => ({ ...prev, listing: value, page: 0 }))
     }
 
     function onChangePage(rightLeft) {
@@ -56,13 +56,13 @@ export function Reservations({ orders, listings }) {
             <h2>Your Reservations</h2>
             <div className="reservations-filter">
                 <div className="filter-type">
-                    <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'all' }))}
+                    <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'all', page: 0 }))}
                         className={filterBy.type === 'all' ? 'selected' : ''} >All</button>
-                    <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'approved' }))}
+                    <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'approved', page: 0 }))}
                         className={filterBy.type === 'approved' ? 'selected' : ''} >Aprroved</button>
-                    <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'pending' }))}
+                    <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'pending', page: 0 }))}
                         className={filterBy.type === 'pending' ? 'selected' : ''} >Pending</button>
-                    <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'declined' }))}
+                    <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'declined', page: 0 }))}
                         className={filterBy.type === 'declined' ? 'selected' : ''}>Declined</button>
                 </div>
                 <div className="filter-listing">

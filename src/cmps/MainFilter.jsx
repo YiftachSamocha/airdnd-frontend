@@ -59,6 +59,7 @@ export function MainFilter() {
         const pets = searchParams.get('pets')
 
         const updatedFilterBy = {
+            ...gFilter,
             where: {
                 city: city || '',
                 country: country || ''

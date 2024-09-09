@@ -13,6 +13,7 @@ import { stayService } from "../services/stay"
 import { store } from "../store/store"
 import { useSearchParams } from "react-router-dom"
 import { getData } from "../services/data/stay.data"
+import { userService } from "../services/user"
 
 export function ExtraFilter({ closeExtra }) {
     const filterBy = useSelector(state => state.stayModule.filterBy)
@@ -134,14 +135,28 @@ export function ExtraFilter({ closeExtra }) {
     }
 
     function onSubmit() {
-        const extra = {
-            type,
-            price,
-            rooms,
-            amenities,
-            booking,
-            standout,
-        }
+        // const defExtra = userService.getDefaultFilter()
+        // let extra
+        // if (type !== defExtra.type) {
+        //     extra.type = type
+        // }
+        // if (!(price[0] === defExtra[0] && price[1] === defExtra[1])) {
+        //     extra.price = price
+        // }
+        // if (!(rooms.bathrooms === defExtra.bathrooms && rooms.rooms === defExtra.rooms && rooms.bedrooms === defExtra.bedrooms)) {
+        //     extra.rooms = rooms
+        // }
+        // const selectedAmenities = amenities.filter(amenity => amenity.isSelected)
+        // if (selectedAmenities.length > 0) {
+        //     extra.amenities = amenities
+        // }
+        // if (booking && (!booking.instant && !booking.pets && !booking.self)) {
+        //     extra.booking = booking
+        // }
+        // if (standout && (!standout.favorite && !standout.luxe)) {
+        //     extra.standout = standout
+        // }
+        const extra= {type, price, rooms, amenities, standout, booking}
         store.dispatch({ type: SET_FILTER_BY, filterBy: ({ ...filterBy, extra }) })
         updateSearchParams()
         closeExtra()

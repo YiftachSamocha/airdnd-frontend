@@ -38,3 +38,12 @@
 // .portrait-ratio {
 //     @include aspect-ratio(9, 16);
 // }
+
+@keyframes scaleUp {
+    0% {
+        transform: scale(0.9); /* Start small */
+    }
+    100% {
+        transform: scale(1); /* Return to normal size */
+    }
+}

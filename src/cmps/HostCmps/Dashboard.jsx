@@ -33,9 +33,9 @@ export function Dashboard({ orders, stays }) {
             label: 'Orders status',
             data: ordersRatio,
             backgroundColor: [
-                'rgb(255, 128, 128',
-                'rgb(253, 253, 150)',
-                'rgb(144, 238, 144)'
+                'rgb(204, 51, 51)',
+                'rgb(255, 204, 0)',
+                'rgb(0, 153, 76)'
             ],
             hoverOffset: 4
         }]

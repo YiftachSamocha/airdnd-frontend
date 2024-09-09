@@ -49,6 +49,7 @@ function getById(stayId) {
     return storageService.get(STAY_STORAGE_KEY, stayId)
 }
 
+
 async function remove(stayId) {
     // throw new Error('Nope')
     await storageService.remove(STAY_STORAGE_KEY, stayId)
@@ -61,8 +62,7 @@ async function save(stay) {
     } else {
         const stayToSave = {
             ...stay,
-            status: 'draft',  // Save new stays as draft by default
-            owner: userService.getLoggedinUser(),
+            host: userService.getLoggedinUser(),
             msgs: stay.msgs || []
         }
         savedStay = await storageService.post(STAY_STORAGE_KEY, stayToSave)
@@ -84,7 +84,7 @@ async function addStayMsg(stayId, txt) {
     return msg
 }
 
-async function _createData() {
+ function _createData() {
     const currStayData = JSON.parse(localStorage.getItem(STAY_STORAGE_KEY))
     const currUserData = JSON.parse(localStorage.getItem(USER_STORAGE_KEY))
     const currOrderData = JSON.parse(localStorage.getItem(ORDER_STORAGE_KEY))
@@ -93,14 +93,14 @@ async function _createData() {
         !currStayData || currStayData.length === 0 ||
         !currOrderData || currOrderData.length === 0) {
 
-        const newUsers = await createUserData()
+        const newUsers = createUserData()
         localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(newUsers))
 
-        const newStays = await createStayData(newUsers)
+        const newStays = createStayData(newUsers)
         localStorage.setItem(STAY_STORAGE_KEY, JSON.stringify(newStays))
 
 
-        const newOrders = await createOrderData(newStays, newUsers)
+        const newOrders = createOrderData(newStays, newUsers)
         localStorage.setItem(ORDER_STORAGE_KEY, JSON.stringify(newOrders))
     }
 

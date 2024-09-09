@@ -1,9 +1,6 @@
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import bigLogoImg from "../assets/imgs/logo.svg"
 import smallLogoImg from "../assets/imgs/small-icon.png"
-import languageImg from "../assets/imgs/language.png"
-import hamburgerImg from "../assets/imgs/hamburger.png"
-import profileImg from "../assets/imgs/profile.png"
 import filterImg from "../assets/imgs/filter.png"
 import { MainFilter } from "./MainFilter"
 import { useEffect, useState, useRef } from "react"
@@ -15,9 +12,8 @@ import { OutsideClick } from "./OutsideClick"
 import { store } from "../store/store"
 import { SET_FILTER_BY } from "../store/reducers/stay.reducer"
 import { useSelector } from "react-redux"
-import { userService } from "../services/user"
 import { LoginSignup } from "./LoginSignup"
-import { addHostInfoToUser, logout } from "../store/actions/user.actions"
+import { UserInfoBtn } from "./UserInfoBtn"
 
 export function AppHeader() {
     const [isFolded, setIsFolded] = useState(false)
@@ -25,16 +21,12 @@ export function AppHeader() {
     const [isTop, setIsTop] = useState(true)
     const [isExtraBtnShown, setIsExtraBtnShown] = useState(false)
     const [logoImg, setLogoImg] = useState(bigLogoImg)
-    const [isUserInfoOpen, setIsUserInfoOpen] = useState(false)
     const [loginSignup, setLoginSignup] = useState(null)
     const mainFilterRef = useRef(null)
     const labelsFilterRef = useRef(null)
     const userInitiatedOpen = useRef(false)
-    const userInfoRef = useRef(null)
     const location = useLocation()
-    const navigate = useNavigate()
     const filterBy = useSelector(state => state.stayModule.filterBy)
-    const currUser = useSelector(state => state.userModule.currUser)
     const isStayPage = location.pathname.startsWith('/stay') || location.pathname === '/'
 
     useEffect(() => {
@@ -80,20 +72,7 @@ export function AppHeader() {
         }
     }, [isFolded, isTop])
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (
-                userInfoRef.current && !userInfoRef.current.contains(event.target)) {
-                setIsUserInfoOpen(false)
-            }
-        }
-        document.addEventListener("mousedown", handleClickOutside)
 
-
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside)
-        }
-    }, [isUserInfoOpen])
 
     useEffect(() => {
         if (filterBy.where.city || filterBy.where.country || filterBy.when.startDate || filterBy.endDate || (filterBy.label && filterBy.label.label !== 'icons')
@@ -127,22 +106,6 @@ export function AppHeader() {
         }
     }, [logoImg])
 
-    const handleHostLinkClick = async () => {
-        if (!currUser.host) {
-            const hostDetails = addHostInfoToUser(currUser)
-            console.log('host-detals', hostDetails)
-
-            if (hostDetails) {
-                // Navigate to the host page with the new host ID
-                navigate(`/become-a-host/${currUser._id}`);
-            } else {
-                console.error('Failed to create host profile');
-            }
-        } else {
-            // Navigate to the host's add listing page
-            navigate(`/become-a-host/${currUser._id}/about-your-place`);
-        }
-    }
 
     return (
         <section className="app-header">
@@ -154,35 +117,8 @@ export function AppHeader() {
                         <MainFilterFolded filterBy={filterBy} />
                     </div>
                 )}
-
-                <div className="user-header" >
-                    <Link>Airdnd your home</Link>
-                    <Link><img src={languageImg} /></Link>
-                    <div className="user-profile" onClick={() => setIsUserInfoOpen(prev => !prev)}>
-                        <img src={hamburgerImg} />
-                        <div className="profile"> {!currUser ? <img src={profileImg} /> : <img src={currUser.imgUrl} />}</div>
-                    </div>
-                    {isUserInfoOpen &&
-                        <div className="user-modal" ref={userInfoRef} >
-                            {currUser ? <div>
-                                <Link to={'/trip'}><p className="bolder">Trips</p></Link>
-                                {currUser.host ? (
-                                    <Link to={`/host`}><p className="bolder">Host</p></Link>
-                                ) : (
-                                    <p className="bolder" onClick={handleHostLinkClick}>Become a Host</p>
-                                )}
-                                <Link to="/stay"><p onClick={() => logout()} >Log Out</p></Link>
-                            </div>
-                                :
-                                <div>
-                                    <p onClick={() => setLoginSignup('login')} >Log in</p>
-                                    <p onClick={() => setLoginSignup('signup')}>Sign up</p>
-                                </div>
-                            }
-                        </div>}
-
-                </div>
-            </div>
+                <UserInfoBtn setLoginSignup={setLoginSignup} />
+            </div >
 
             {!isFolded && isStayPage && (
                 <div ref={mainFilterRef}>
@@ -211,8 +147,6 @@ export function AppHeader() {
                     <LoginSignup closeLoginsignup={() => setLoginSignup(null)} initalType={loginSignup} />
                 </OutsideClick>
             </div>}
-
-
         </section>
     )
 }

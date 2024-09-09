@@ -1,5 +1,6 @@
 import { addDays, addMonths, isBefore, isAfter, format } from 'date-fns';
 import { uploadService } from './upload.service';
+import { bedTypes, doubleBedroomImgs, highlightOptions, livingRoomImgs, singleBedroomImgs } from './data/stay.data';
 
 
 export function makeId(length = 6) {
@@ -121,7 +122,20 @@ export function getDateRange(datesBooked) {
 }
 
 export function findFirstAvailableNights(reservedRanges, nightsNeeded) {
-    const today = new Date()
+    const today = new Date();
+
+    // If there are no reserved ranges, return the next 5 days starting from tomorrow
+    if (!reservedRanges || reservedRanges.length === 0) {
+        const nextFiveDays = [];
+        for (let i = 1; i <= nightsNeeded; i++) {
+            nextFiveDays.push(addDays(today, i))
+        }
+        return {
+            startDate: nextFiveDays[0],
+            endDate: nextFiveDays[nightsNeeded - 1],
+        }
+    } 
+
     let currentDate = addDays(today, 1)
     let foundNights = []
 
@@ -194,8 +208,79 @@ export function getRandomColor() {
 }
 
 export async function onHandleFile(ev){
-    console.log('hi ')
     let res = await uploadService.uploadImg(ev)
-    console.log(res, 'res')
     return res
+}
+
+;
+export function generateHighlights(selectedAmenities) {
+    let highlights = [];
+
+    // Iterate through each selected amenity
+    selectedAmenities.forEach(amenity => {
+        const matchingHighlight = highlightOptions.find(
+            (highlight) => highlight.amenity.toLowerCase() === amenity.name.toLowerCase()
+        );
+
+        if (matchingHighlight) {
+            // Add the amenity's imgUrl to the highlight
+            highlights.push({
+                ...matchingHighlight,
+                imgUrl: amenity.imgUrl,  // Add imgUrl from amenity
+            });
+        }
+    });
+
+    // Add random highlights if less than 3
+    while (highlights.length < 3) {
+        const randomHighlight = highlightOptions[Math.floor(Math.random() * highlightOptions.length)];
+
+        // Ensure no duplicates and add random highlights
+        if (!highlights.some(h => h.amenity === randomHighlight.amenity)) {
+            highlights.push({
+                ...randomHighlight,
+                imgUrl: randomHighlight.imgUrl || ''  // Assign an empty imgUrl if no match
+            });
+        }
+    }
+
+    return highlights.slice(0, 3);
+}
+
+export function getRandomItems(arr, numItems) {
+    if (arr.length === 0 || numItems <= 0) return numItems === 1 ? null : []
+
+    const shuffled = [...arr].sort(() => 0.5 - Math.random())
+    const result = shuffled.slice(0, Math.min(numItems, arr.length))
+
+    return numItems === 1 ? result[0] : result
+}
+export function  getRandomRoomData() {
+    const bedType = getRandomItems(bedTypes , 1)
+    let imgUrl= ''
+
+    if (bedType === "single bed") {
+        imgUrl = generateImgUrls(singleBedroomImgs)[0];
+    } else if (bedType === "double bed" || bedType === "queen bed" || bedType === "king bed") {
+        imgUrl = generateImgUrls(doubleBedroomImgs)[0];
+    } else {
+        imgUrl = generateImgUrls(livingRoomImgs)[0];
+    }
+    return {
+        roomType: 'bedroom',
+        bedType,
+        imgUrl
+    }; // Default case if needed
+}
+
+export function generateImgUrls(imgs) {
+    const imgIds = getRandomItems(imgs, getRandomIntInclusive(5, 10))
+    return imgIds.map(imgId => {
+        return `https://images.pexels.com/photos/${imgId}/pexels-photo-${imgId}.jpeg?width=400`
+    })
+}
+
+export function generateImgUrl(imgs) {
+    const imgId = getRandomItems(imgs, 1)[0]; // Select one random image ID
+    return `https://images.pexels.com/photos/${imgId}/pexels-photo-${imgId}.jpeg?width=400`;
 }

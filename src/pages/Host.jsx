@@ -19,7 +19,7 @@ export function Host() {
         if (currUser) {
             loadOrders({ host: hostId })
         }
-    }, [currUser, stays])
+    }, [currUser])
 
     useEffect(() => {
         if (currUser) {
@@ -29,8 +29,8 @@ export function Host() {
                     setStays(newStays)
                 })
         }
-    }, [currUser, orders])
-
+    }, [currUser])
+    if (!currUser) return <div>Log in to watch your host details</div>
     return <section className="host">
         <AppHeader />
         <div className="host-header">
