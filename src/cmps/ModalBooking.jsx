@@ -67,7 +67,7 @@ export function ModalBooking({ isOpen, onClose, stay, onAddOrder }) {
                     </div>
                 </div>
                 <div className="modal-img">
-                    {/* <img src={stay.imgs[0]} alt={`stay-img`} className="stay-img" /> */}
+                    <img src={stay.imgs[0]} alt={`stay-img`} className="stay-img" />
                     <div className="img-name">
                         <h5>{stay.name}</h5>
                         <h5>{stay.location.city}, {stay.location.country}</h5>
