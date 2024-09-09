@@ -1,8 +1,106 @@
 @include for-mobile-layout {
-    .loginsignup{
+    .loginsignup {
         position: sticky;
         bottom: 0;
         width: 100%;
+    }
+
+    .main-container main {
+        grid-template-columns: 10px 1fr 10px;
+    }
+
+    .app-header {
+        margin: 0;
+
+        .main-header {
+            display: none;
+
+        }
+
+        .main-filter {
+            flex-direction: column;
+            margin: 1em;
+
+            .where-input.selected {
+                width: 100%;
+                flex-direction: column;
+
+                div {
+                    width: 100%;
+
+                    label {
+                        font-size: 30px;
+                        margin-bottom: 0.5em;
+                    }
+
+                    input {
+                        padding: 1.5em;
+                        width: 100%;
+                        border: 1px solid $gray3;
+                        border-radius: 10px;
+                    }
+                }
+
+                button {
+                    display: none;
+                }
+
+                .where {
+                    position: static;
+                    box-shadow: none;
+                    width: 100%;
+
+                    h5 {
+                        display: none;
+                    }
+
+                    .where-areas {
+                        padding: 0;
+                        width: 80vw;
+
+                        div {
+                            display: flex;
+                            overflow:hidden;
+                            width: 100%;
+                            div{
+                                padding: 1em 1em 1em 0;
+                                align-items: start;
+                                overflow: hidden;
+                               
+                                img{
+                                    border-radius: 15px;
+                                    border: 1px solid $gray3;
+                                }
+                                img:hover{
+                                    border-color: black;
+                                }
+                                p{
+                                    margin: 0;
+                                    margin-left: 0.5em;
+                                }
+                                
+                            }
+                            div:hover{
+                                background-color: inherit;
+                            }
+                        }
+                    }
+                    .where-cities{
+                        height: 100%;
+                        div{
+                            width:3em ;
+                            img{
+
+                            }
+                        }
+                    }
+                }
+
+
+
+            }
+
+        }
     }
 }
 
@@ -15,9 +113,6 @@
             left: -100%;
             background-color: white;
         }
-       
-
-
 
     }
 }
