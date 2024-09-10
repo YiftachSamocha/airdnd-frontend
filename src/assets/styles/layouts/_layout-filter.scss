@@ -43,8 +43,9 @@
                 flex-direction: row;
                 justify-content: space-between;
                 width: 100%;
-                input{
-                    
+
+                input {
+
                     margin-left: 20px;
                 }
             }
@@ -54,7 +55,7 @@
                 flex-direction: column;
                 flex-grow: 0;
 
-                > div {
+                >div {
                     flex-direction: column;
                 }
 
@@ -101,7 +102,7 @@
                             div {
                                 padding: 1em 1em 1em 0;
                                 align-items: start;
-flex-direction: column;
+                                flex-direction: column;
 
                                 img {
                                     border-radius: 15px;
@@ -131,7 +132,7 @@ flex-direction: column;
                         div {
                             width: 3em;
 
-                            img {}
+                          
                         }
                     }
                 }
@@ -160,14 +161,17 @@ flex-direction: column;
                     color: white;
                 }
             }
-            .when-input{
+
+            .when-input {
                 flex-direction: column;
             }
-            .when{
+
+            .when {
                 position: static;
                 height: 50vh;
                 overflow: auto;
-                .rdrNextPrevButton{
+
+                .rdrNextPrevButton {
                     display: none;
                 }
             }

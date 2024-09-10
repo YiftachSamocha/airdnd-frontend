@@ -220,11 +220,11 @@ export function MainFilter() {
         </div>
 
         <div className="when-input">
-            <div>
+            {!isNarrow ? <div>
                 <div onClick={() => setOpenType('when-start')} className={`when-input-start ${openType === 'when-start' ? 'selected' : ''}`}>
                     <div>
-                        <label htmlFor="">Check in</label>
-                        <input type="text" placeholder="Add dates" readOnly
+                        <label htmlFor="startdate">Check in</label>
+                        <input type="text" placeholder="Add dates" readOnly id="startdate"
                             value={filterBy.when.startDate ? format(filterBy.when.startDate, 'MMM dd') : ''} />
                     </div>
                     {isDeleteBtnShown('when-start') && <button onClick={() => deleteFilter('when-start')} >X</button>}
@@ -233,14 +233,24 @@ export function MainFilter() {
 
                 <div onClick={() => setOpenType('when-end')} className={`when-input-end ${openType === 'when-end' ? 'selected' : ''}`}>
                     <div>
-                        <label htmlFor="">Check out</label>
-                        <input type="text" placeholder="Add dates" readOnly
+                        <label htmlFor="enddate">Check out</label>
+                        <input type="text" placeholder="Add dates" readOnly id="enddate"
                             value={filterBy.when.endDate ? format(filterBy.when.endDate, 'MMM dd') : ''}
                         />
                     </div>
                     {isDeleteBtnShown('when-end') && <button onClick={() => deleteFilter('when-end')} >X</button>}
                 </div>
             </div>
+                :
+                <div onClick={() => setOpenType('when-start')}>
+                    <label htmlFor="">When</label>
+                    <input type="text" placeholder="Add dates" readOnly
+                        value={filterBy.when.endDate && filterBy.when.startDate ?
+                            (format(filterBy.when.startDate, 'MMM dd') + ' - ' + format(filterBy.when.endDate, 'MMM dd')) : ''}
+                    />
+                </div>
+
+            }
             {(openType === 'when-start' || openType === 'when-end') && <When dates={filterBy.when} setDates={changeFilterWhen} />}
         </div>
 

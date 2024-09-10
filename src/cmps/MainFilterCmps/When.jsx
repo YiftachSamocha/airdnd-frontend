@@ -4,24 +4,35 @@ import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { useEffect, useState } from 'react';
 
-export function When({ dates, setDates, breakpoint = 950 }) {
+export function When({ dates, setDates }) {
     const [monthsAmount, setMonthsAmount] = useState(2)
+    const [direction, setDirection] = useState('horizontal')
+    const BREAKPOINT_WIDE = 920
+    const BREAKPOINT_NARROW = 743
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth > breakpoint && monthsAmount !== 2) {
+            if (window.innerWidth > BREAKPOINT_WIDE && monthsAmount !== 2) {
                 setMonthsAmount(2)
-            } else if (window.innerWidth <= breakpoint && monthsAmount !== 1) {
+            } else if (window.innerWidth <= BREAKPOINT_WIDE && window.innerWidth > BREAKPOINT_NARROW && monthsAmount !== 1) {
                 setMonthsAmount(1)
+            } else if (window.innerWidth <= BREAKPOINT_NARROW && monthsAmount !== 12) {
+                setMonthsAmount(12)
+            }
+
+            if (window.innerWidth >= BREAKPOINT_NARROW && direction !== 'horizontal') {
+                setDirection('horizontal')
+            } else if (window.innerWidth < BREAKPOINT_NARROW && direction !== 'vertical') {
+                setDirection('vertical')
             }
         }
 
-        window.addEventListener("resize", handleResize);
+        window.addEventListener("resize", handleResize)
         handleResize()
 
         return () => {
-            window.removeEventListener("resize", handleResize);
+            window.removeEventListener("resize", handleResize)
         }
-    }, [breakpoint, monthsAmount])
+    }, [BREAKPOINT_WIDE, monthsAmount])
 
     function handleDateChange(ranges) {
         const { selection } = ranges
@@ -40,7 +51,7 @@ export function When({ dates, setDates, breakpoint = 950 }) {
                 color: '#f7f7f7'
             }]}
             months={monthsAmount}
-            direction="horizontal"
+            direction={direction}
             showDateDisplay={false}
             moveRangeOnFirstSelection={false}
             showPreview={true}
