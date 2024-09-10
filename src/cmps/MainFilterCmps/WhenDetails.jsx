@@ -5,8 +5,9 @@ import { useEffect, useState } from 'react';
 import { addDays, addMonths, isBefore, isAfter, format } from 'date-fns';
 import { findFirstAvailableNights } from '../../services/util.service';
 
-export function WhenDetails({ dates, setDates, stay, breakpoint = 1200 }) {
+export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200 }) {
     const [monthsAmount, setMonthsAmount] = useState(2)
+    const [isSelectingEndDate, setIsSelectingEndDate] = useState(false);
 
     const { reservedDates } = stay
 
@@ -31,45 +32,27 @@ export function WhenDetails({ dates, setDates, stay, breakpoint = 1200 }) {
         if (!dates.startDate && !dates.endDate) {
             const availableDates = findFirstAvailableNights(reservedDates, 5)
             if (availableDates) {
-                setDates({
+                onSetDates({
                     startDate: availableDates.startDate,
                     endDate: availableDates.endDate,
                 })
             }
         }
-    }, [reservedDates, dates, setDates])
-
+    }, [reservedDates, dates])
+   
     // useEffect(() => {
     //     // Call updateMonthNames after the component mounts and after each render
     //     updateMonthNames()
     // }, [monthsAmount, dates])
 
     function handleDateChange(ranges) {
-        const { selection } = ranges
-        const startDate = selection.startDate
-        const endDate = selection.endDate
-
-        // Update the state with the selected dates
-        setDates({
-            startDate,
-            endDate,
-        })
-
-        // Format the dates to a suitable format for the URL, e.g., 'YYYY-MM-DD'
-        const formattedStartDate = format(startDate, 'yyyy-MM-dd')
-        const formattedEndDate = format(endDate, 'yyyy-MM-dd')
-
-        // Get the current URL search parameters
-        const searchParams = new URLSearchParams(window.location.search)
-
-        // Update the 'checkin' and 'checkout' search parameters
-        searchParams.set('start_date', formattedStartDate)
-        searchParams.set('end_date', formattedEndDate)
-
-        // Update the URL with the new search parameters
-        const newUrl = `${window.location.pathname}?${searchParams.toString()}`
-        window.history.replaceState(null, '', newUrl)
+        const { selection } = ranges;
+        const startDate = selection.startDate;
+        const endDate = selection.endDate;
+        
+        onSetDates({ startDate, endDate });
     }
+    
 
     // function updateMonthNames() {
     //     // Select all elements with the class 'rdrMonthName'
