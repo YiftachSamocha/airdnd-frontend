@@ -118,8 +118,13 @@ export function StayPayment({ stay, onSetDates, dates }) {
             updateSearchParams('children', filterCapacity.children || 0)
             updateSearchParams('infants', filterCapacity.infants || 0)
             updateSearchParams('pets', filterCapacity.pets || 0)
-
-            navigate(`/book/stay/${stay._id + orderURL}`)
+            if (!dates.startDate || !dates.endDate) {
+                const startDate = new Date()
+                const endDate = new Date()
+                endDate.setDate(startDate.getDate() + 5)
+                navigate(`/book/stay/${stay._id + orderURL}&start_date=${format(startDate, 'yyyy-MM-dd')}&end_date=${format(endDate, 'yyyy-MM-dd')}`)
+            }
+            else navigate(`/book/stay/${stay._id + orderURL}`)
         } catch (error) {
             console.error("Error creating order:", error)
         }
