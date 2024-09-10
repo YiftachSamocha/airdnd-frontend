@@ -15,12 +15,15 @@ import { getRandomItems, getRandomRoomData } from '../../services/util.service';
 import { cancellationPolicy, highlights, houseRules, labels, safetyProperty } from '../../services/data/stay.data';
 import { loadStay, updateStay } from '../../store/actions/stay.actions';
 import swal from 'sweetalert';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export function AboutYourPlace() {
     const navigate = useNavigate()
-    const { stayId } = useParams()
-    // const [isFormComplete, setIsFormComplete] = useState(false);
-    // const [missingFields, setMissingFields] = useState([])
+    const { stayId, userId, } = useParams()
+    const users = useSelector(state => state.userModule.users)
+    const [userExists, setUserExists] = useState(true); // Track whether the user exists
+
     const [formData, setFormData] = useState({
 
         location: { country: '', city: '', lat: '', lng: '' },
@@ -53,6 +56,15 @@ export function AboutYourPlace() {
         price: true
     })
 
+
+    useEffect(() => {
+        // Check if the user exists in your store
+        const user = users.find(user => user._id === userId);
+        if (!user) {
+            setUserExists(false); // User does not exist, so we show the error
+        }
+    }, [userId, users])
+
     useEffect(() => {
         console.log('validation status', validationStatus)
     }, [validationStatus])
@@ -60,7 +72,6 @@ export function AboutYourPlace() {
     const [isFormComplete, setIsFormComplete] = useState(false)
 
     useEffect(() => {
-        // Recalculate form completion status whenever validationStatus changes
         setIsFormComplete(Object.values(validationStatus).every(status => status === true))
     }, [validationStatus])
 
@@ -72,14 +83,9 @@ export function AboutYourPlace() {
         }));
     };
 
-    // useEffect(() => {
-    //     console.log('changes', formData)
-    // }, [formData])
 
     useEffect(() => {
         console.log('changes', formData)
-
-        // checkFormCompletion()
     }, [formData])
 
     useEffect(() => {
@@ -93,36 +99,18 @@ export function AboutYourPlace() {
         }
     }, [stayId])
 
-    // function checkFormCompletion() {
-    //     const requiredFields = ['type', 'location.country', 'location.city', 'imgs', 'name', 'description', 'price.night'];
-    //     const missing = requiredFields.filter(field => {
-    //         const value = field.split('.').reduce((o, i) => o[i], formData);
-    //         return !value || (Array.isArray(value) && value.length === 0);
-    //     });
-
-    //     setMissingFields(missing);
-    //     setIsFormComplete(missing.length === 0);
-    // }
-
     function handleBtn(event, btnType) {
         event.preventDefault()
 
-        // if (!isFormComplete && btnType === 'next') {
-        //     swal("Oops!",
-        //          "You forgot to fill the following fields: ${missingFields.join(', ')}`",
-        //           "error")
-        //     return;
-        // }
-        // Generate rooms based on the number of bedrooms
         const rooms = Array.from({ length: formData.sleep.bedrooms }, () => getRandomRoomData());
-        const status = btnType === 'next' ? 'published' : 'draft';
+        const status = btnType === 'next' ? 'published' : 'draft'
         formData.price.night = Number(formData.price.night)
-        // Update formData with the generated highlights and status
+
         const updatedStay = {
             ...formData,
             sleep: {
                 ...formData.sleep,
-                rooms  // Add the generated rooms to the sleep data
+                rooms
             },
             status,
             imgs: formData.imgs,
@@ -130,7 +118,7 @@ export function AboutYourPlace() {
             labels: formData.labels.length ? formData.labels : getRandomItems(labels, 3),  // Keep existing labels unless empty
             thingsToKnow: {
                 houseRules: formData.thingsToKnow.houseRules.length ? formData.thingsToKnow.houseRules : getRandomItems(houseRules, 3),
-                safetyProperty: formData.thingsToKnow.houseRules.length ? formData.thingsToKnow.houseRules :  getRandomItems(safetyProperty, 3),
+                safetyProperty: formData.thingsToKnow.houseRules.length ? formData.thingsToKnow.houseRules : getRandomItems(safetyProperty, 3),
                 cancellationPolicy: formData.thingsToKnow.houseRules.length ? formData.thingsToKnow.houseRules : getRandomItems(cancellationPolicy, 1)
             },
             highlights: formData.highlights.length ? formData.highlights : getRandomItems(highlights, 3)
@@ -163,8 +151,6 @@ export function AboutYourPlace() {
 
 
     function handleImgsChange(imgs) {
-        console.log('imgs:', imgs)
-
         setFormData(prevData => ({
             ...prevData,
             imgs, // Store full image objects for rendering
@@ -183,6 +169,12 @@ export function AboutYourPlace() {
             }
             return { ...prevData, amenities: updatedAmenities };
         })
+    }
+
+    if (!userExists) {
+        return <div className='page-error'>Oops, something went wrong.
+            <Link to="/">Please try again.</Link>
+        </div>
     }
 
 
@@ -240,7 +232,7 @@ export function AboutYourPlace() {
                     onPriceChange={(value, subKey) => handleInputChange('price', value, subKey)} // Use handleInputChange for price
                     onValidate={(isValid) => handleValidationUpdate('price', isValid)}  // Pass validation callback
 
-               />
+                />
             </div>
         </form>
 
