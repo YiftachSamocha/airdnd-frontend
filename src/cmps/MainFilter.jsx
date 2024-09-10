@@ -20,6 +20,19 @@ export function MainFilter() {
     const filterRef = useRef(null)
     const navigate = useNavigate()
     const location = useLocation()
+    const [isNarrow, setIsNarrow] = useState(window.innerWidth < 743)
+    useEffect(() => {
+        const handleResize = () => {
+            setIsNarrow(window.innerWidth < 743)
+        }
+
+        window.addEventListener('resize', handleResize);
+
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        }
+    }, [])
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -140,7 +153,13 @@ export function MainFilter() {
                 setFilterBy(prev => ({ ...prev, who: emptyFilter.who }))
                 setWhoInput('')
                 break
+            case 'all':
+                setFilterBy(prev => ({ ...prev, where: emptyFilter.where, when: emptyFilter.when, who: emptyFilter.who }))
+                setWhoInput('')
+                setWhereInput('')
+                setOpenType('')
         }
+
     }
     function isDeleteBtnShown(type) {
         if (type !== openType) return false
@@ -201,24 +220,26 @@ export function MainFilter() {
         </div>
 
         <div className="when-input">
-            <div onClick={() => setOpenType('when-start')} className={`when-input-start ${openType === 'when-start' ? 'selected' : ''}`}>
-                <div>
-                    <label htmlFor="">Check in</label>
-                    <input type="text" placeholder="Add dates" readOnly
-                        value={filterBy.when.startDate ? format(filterBy.when.startDate, 'MMM dd') : ''} />
+            <div>
+                <div onClick={() => setOpenType('when-start')} className={`when-input-start ${openType === 'when-start' ? 'selected' : ''}`}>
+                    <div>
+                        <label htmlFor="">Check in</label>
+                        <input type="text" placeholder="Add dates" readOnly
+                            value={filterBy.when.startDate ? format(filterBy.when.startDate, 'MMM dd') : ''} />
+                    </div>
+                    {isDeleteBtnShown('when-start') && <button onClick={() => deleteFilter('when-start')} >X</button>}
                 </div>
-                {isDeleteBtnShown('when-start') && <button onClick={() => deleteFilter('when-start')} >X</button>}
-            </div>
 
 
-            <div onClick={() => setOpenType('when-end')} className={`when-input-end ${openType === 'when-end' ? 'selected' : ''}`}>
-                <div>
-                    <label htmlFor="">Check out</label>
-                    <input type="text" placeholder="Add dates" readOnly
-                        value={filterBy.when.endDate ? format(filterBy.when.endDate, 'MMM dd') : ''}
-                    />
+                <div onClick={() => setOpenType('when-end')} className={`when-input-end ${openType === 'when-end' ? 'selected' : ''}`}>
+                    <div>
+                        <label htmlFor="">Check out</label>
+                        <input type="text" placeholder="Add dates" readOnly
+                            value={filterBy.when.endDate ? format(filterBy.when.endDate, 'MMM dd') : ''}
+                        />
+                    </div>
+                    {isDeleteBtnShown('when-end') && <button onClick={() => deleteFilter('when-end')} >X</button>}
                 </div>
-                {isDeleteBtnShown('when-end') && <button onClick={() => deleteFilter('when-end')} >X</button>}
             </div>
             {(openType === 'when-start' || openType === 'when-end') && <When dates={filterBy.when} setDates={changeFilterWhen} />}
         </div>
@@ -235,6 +256,10 @@ export function MainFilter() {
             {openType === 'who' && <Who filterCapacity={filterBy.who} setFilterCapacity={changeFilterWho} />}
             <button onClick={submitFilter} className="search-button"> <img src={searchImg} /></button>
         </div>
+        {isNarrow && <div className="mobile-btns">
+            <button onClick={submitFilter}>Search</button>
+            <button onClick={() => deleteFilter('all')}>Clear all</button>
+        </div>}
     </section >
 
 

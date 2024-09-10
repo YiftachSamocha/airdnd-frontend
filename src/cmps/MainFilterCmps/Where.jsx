@@ -23,7 +23,7 @@ export function Where({ input, setInput }) {
                 <h5>Search by region</h5>
                 <div >
                     {countryLocations.map(location => {
-                        return <div key={location.img} onClick={() => setInput(location)}>
+                        return <div key={location.img} onClick={() => setInput(location)} className='area-item'>
                             <img src={location.img} alt="" />
                             <p>{location.country}</p>
                         </div>

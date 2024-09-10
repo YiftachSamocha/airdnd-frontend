@@ -1,9 +1,11 @@
+import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 export function Listings({ listings }) {
     const navigate = useNavigate()
     const drafts = listings.filter(listing => listing.status === 'draft')
     const published = listings.filter(listing => listing.status === 'published')
+    const currUser = useSelector(state => state.userModule.currUser)
 
     return (
         <section className="listings">
@@ -30,7 +32,8 @@ export function Listings({ listings }) {
                             <h5>Drafts:</h5>
                             {drafts.map(listing => (
                                 <div key={listing._id}
-                                    onClick={() => navigate('/stay/' + listing._id)} className="listing-item">
+                                    onClick={() => navigate(`/become-a-host/${currUser._id}/about-your-place/${listing._id}`)}
+                                    className="listing-item">
                                     <img src={listing.imgs[0]} alt="" />
                                     <div>
                                         <p>{listing.name}</p>
