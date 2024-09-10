@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, useSearchParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { format } from 'date-fns';
 
 import { loadStay } from '../store/actions/stay.actions'
 import { StayImage } from '../cmps/DetailsCmps/StayImage'
@@ -26,6 +27,7 @@ export function StayDetails() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [dates, setDates] = useState({ startDate: null, endDate: null })
   const [city, setCity] = useState('');
+  const [isSelectingEndDate, setIsSelectingEndDate] = useState(false);
 
   useEffect(() => {
     loadStay(stayId)
@@ -47,11 +49,32 @@ export function StayDetails() {
     setIsModalOpen(prevState => !prevState)
     // setModalContent(type === 'description' ? stay.description : stay.amenities)
   }
+  function onSetDates(newDates) {
+    setDates(newDates);
+
+    const params = new URLSearchParams(searchParams);
+
+    if (newDates.startDate) {
+      const formattedStartDate = format(newDates.startDate, 'yyyy-MM-dd');
+      params.set('start_date', formattedStartDate);
+    } else {
+      params.delete('start_date');
+    }
+
+    if (newDates.endDate) {
+      const formattedEndDate = format(newDates.endDate, 'yyyy-MM-dd');
+      params.set('end_date', formattedEndDate);
+    } else {
+      params.delete('end_date');
+    }
+
+    setSearchParams(params);
+  }
 
   if (!stay) return <div>Loading...</div>
   return (
     <section className="stay-details">
-      <AppHeader />
+      {/* <AppHeader /> */}
       <div className="main-content">
         <h1>{stay.name}</h1>
         {stay.imgs && <StayImage stay={stay} />}
@@ -62,11 +85,11 @@ export function StayDetails() {
             {stay.amenities && (
               <StayAmenities stay={stay} toggleModal={toggleModal} isModalOpen={isModalOpen} />
             )}
-            <WhenDetails dates={dates} setDates={setDates} stay={stay} breakpoint={1200} />
+            <WhenDetails dates={dates} onSetDates={onSetDates} stay={stay} breakpoint={1200} />
           </div>
 
           <div className="payment-container">
-            <StayPayment stay={stay} />
+            <StayPayment stay={stay} onSetDates={onSetDates} dates={dates}/>
           </div>
         </div>
 

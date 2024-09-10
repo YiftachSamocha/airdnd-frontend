@@ -85,6 +85,7 @@ export function AboutYourPlace() {
     useEffect(() => {
         if (stayId) {
             loadStay(stayId).then(loadedStay => {
+                console.log('load stay', loadedStay)
                 setFormData(loadedStay);  // Populate the form with the loaded stay data
             }).catch(err => {
                 console.error('Error loading stay:', err);
@@ -124,17 +125,16 @@ export function AboutYourPlace() {
                 rooms  // Add the generated rooms to the sleep data
             },
             status,
-            imgs: formData.secureUrls,
+            imgs: formData.imgs,
             status,
             labels: formData.labels.length ? formData.labels : getRandomItems(labels, 3),  // Keep existing labels unless empty
-            thingsToKnow: formData.thingsToKnow ? formData.thingsToKnow : {
-                houseRules: getRandomItems(houseRules, 3),
-                safetyProperty: getRandomItems(safetyProperty, 3),
-                cancellationPolicy: getRandomItems(cancellationPolicy, 1)
+            thingsToKnow: {
+                houseRules: formData.thingsToKnow.houseRules.length ? formData.thingsToKnow.houseRules : getRandomItems(houseRules, 3),
+                safetyProperty: formData.thingsToKnow.houseRules.length ? formData.thingsToKnow.houseRules :  getRandomItems(safetyProperty, 3),
+                cancellationPolicy: formData.thingsToKnow.houseRules.length ? formData.thingsToKnow.houseRules : getRandomItems(cancellationPolicy, 1)
             },
             highlights: formData.highlights.length ? formData.highlights : getRandomItems(highlights, 3)
         }
-
         updateStay(updatedStay)
             .then(() => {
                 navigate('/host', { replace: true });
@@ -163,12 +163,11 @@ export function AboutYourPlace() {
 
 
     function handleImgsChange(imgs) {
-        const secureUrls = imgs.map(img => img.secure_url);
+        console.log('imgs:', imgs)
 
         setFormData(prevData => ({
             ...prevData,
-            imgs: imgs, // Store full image objects for rendering
-            secureUrls  // Store secure_url for submission later when needed
+            imgs, // Store full image objects for rendering
         }));
     }
 

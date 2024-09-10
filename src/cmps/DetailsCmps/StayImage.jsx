@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 
 export function StayImage({ stay }) {
-    console.log('stay stayimgsae:', stay)
+    // console.log('stay stayimgsae:', stay)
 
     if (!stay || !stay.imgs) {
         return <p>No images available</p>

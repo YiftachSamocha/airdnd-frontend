@@ -12,21 +12,21 @@ import { useSelector } from "react-redux"
 
 
 
-export function StayPayment({ stay }) {
+export function StayPayment({ stay, onSetDates, dates }) {
     const [isWhoOpen, setIsWhoOpen] = useState(false)
     const [isWhenOpen, setIsWhenOpen] = useState(false)
 
     const [orderToAdd, setOrderToAdd] = useState(orderService.getEmptyOrder())
 
     const [filterCapacity, setFilterCapacity] = useState({ adults: 0, children: 0, infants: 0, pets: 0 })
-    const [dates, setDates] = useState({ startDate: null, endDate: null })
+    // const [dates, setDates] = useState({ startDate: null, endDate: null })
     const [isSelectingEndDate, setIsSelectingEndDate] = useState(false) // Track whether the user is selecting the end date
 
     const [isFormReady, setIsFormReady] = useState()
     const [orderURL, setOrderUrl] = useState('')
     const [searchParams, setSearchParams] = useSearchParams()
 
-    const currUser = useSelector(state => state.user?.currUser)
+	const currUser = useSelector(state => state.userModule.currUser)
 
     const navigate = useNavigate()
 
@@ -51,7 +51,7 @@ export function StayPayment({ stay }) {
         const infants = Number(searchParams.get('infants')) || 0
         const pets = Number(searchParams.get('pets')) || 0
 
-        setDates({ startDate: checkin, endDate: checkout })
+        // setDates({ startDate: checkin, endDate: checkout })
         setFilterCapacity({ adults, children, infants, pets })
     }, [])
 
@@ -60,24 +60,13 @@ export function StayPayment({ stay }) {
         updateSearchParams()
 
         setIsFormReady(currUser && dates.startDate && dates.endDate && filterCapacity.adults > 0)
+    // console.log('curr user', currUser)
+
     }, [currUser, dates, filterCapacity])
 
     function updateSearchParams() {
         const params = new URLSearchParams(searchParams)
-        if (dates.startDate) {
-            const formattedStartDate = format(dates.startDate, 'yyyy-MM-dd')
-            params.set('start_date', formattedStartDate)
-        } else {
-            params.delete('start_date')
-        }
-
-        if (dates.endDate) {
-            const formattedEndDate = format(dates.endDate, 'yyyy-MM-dd')
-            params.set('end_date', formattedEndDate)
-        } else {
-            params.delete('end_date')
-        }
-
+       
         if (filterCapacity.adults) params.set('adults', filterCapacity.adults)
         else params.delete('adults')
 
@@ -95,11 +84,11 @@ export function StayPayment({ stay }) {
 
     function handleDateChange(newDates) {
         if (!isSelectingEndDate) {
-            setDates({ startDate: newDates.startDate, endDate: null })
+            onSetDates({ startDate: newDates.startDate, endDate: null })
             setIsSelectingEndDate(true)
         } else {
-            setDates({ startDate: dates.startDate, endDate: newDates.endDate })
-            updateSearchParams() // Update URL only after both dates are selected
+            onSetDates({ startDate: dates.startDate, endDate: newDates.endDate })
+         
             setIsWhenOpen(false) // Close the date picker
             setIsSelectingEndDate(false)
         }
@@ -124,16 +113,7 @@ export function StayPayment({ stay }) {
     }
 
     async function handleReserve(stay) {
-        // if (!isFormReady) {
-        //     setIsWhenOpen(true)
-        //     return
-        // }
-
         try {
-            if (dates.startDate && dates.endDate) {
-                updateSearchParams('start_date', dates.startDate.toISOString().split('T')[0])
-                updateSearchParams('end_date', dates.endDate.toISOString().split('T')[0])
-            }
             updateSearchParams('adults', filterCapacity.adults || 1)
             updateSearchParams('children', filterCapacity.children || 0)
             updateSearchParams('infants', filterCapacity.infants || 0)
@@ -192,7 +172,7 @@ export function StayPayment({ stay }) {
 
                 <div className="reserve grid-item button-container">
                     <button className="color-change" onClick={() => handleReserve(stay)}>
-                    {isFormReady ? 'Reserve' : 'Check availability'}
+                        {isFormReady ? 'Reserve' : 'Check availability'}
 
                     </button>
                 </div>
@@ -213,9 +193,9 @@ export function StayPayment({ stay }) {
                 <div className="total">
                     <h3>Total</h3>
                     <h3>${total}</h3>
-                </div>  
+                </div>
                 {isWhoOpen &&
-                <OutsideClick onOutsideClick={() => setIsWhoOpen(false)}>
+                    <OutsideClick onOutsideClick={() => setIsWhoOpen(false)}>
                         <Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} onClose={closeWho} />
                     </OutsideClick>
                 }

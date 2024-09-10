@@ -41,7 +41,7 @@ export function BecomeHost() {
     }
 
     async function handleNext() {
-console.log('hi')
+
         try {
             if (!loggedinUser.host) addHostInfoToUser(loggedinUser)
             const savedStay = await addStay(stay)

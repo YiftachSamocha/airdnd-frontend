@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { onHandleFile } from "../../services/util.service";
 
 export function UploadImgs({imgs, onImgsChange, onValidate}) {
+    // debugger
     // const [imgs, setImgs] = useState([])
     const [uploadClicked, setUploadClicked] = useState(false)
     useEffect(() => {
@@ -46,7 +47,7 @@ export function UploadImgs({imgs, onImgsChange, onValidate}) {
                         <div className="grid-container">
                             {imgs.map((img, idx) => (
                                 <div key={idx} className="grid-item">
-                                    <img src={img.secure_url} alt={`Uploaded ${idx + 1}`} />
+                                    <img src={img} alt={`Uploaded ${idx + 1}`} />
                                 </div>
                             ))}
                         </div>
