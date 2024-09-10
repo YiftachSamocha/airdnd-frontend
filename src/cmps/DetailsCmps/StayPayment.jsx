@@ -138,8 +138,13 @@ export function StayPayment({ stay }) {
             updateSearchParams('children', filterCapacity.children || 0)
             updateSearchParams('infants', filterCapacity.infants || 0)
             updateSearchParams('pets', filterCapacity.pets || 0)
-
-            navigate(`/book/stay/${stay._id + orderURL}`)
+            if (!dates.startDate || !dates.endDate) {
+                const startDate = new Date()
+                const endDate = new Date()
+                endDate.setDate(startDate.getDate() + 5)
+                navigate(`/book/stay/${stay._id + orderURL}&start_date=${format(startDate, 'yyyy-MM-dd')}&end_date=${format(endDate, 'yyyy-MM-dd')}`)
+            }
+            else navigate(`/book/stay/${stay._id + orderURL}`)
         } catch (error) {
             console.error("Error creating order:", error)
         }
@@ -192,7 +197,7 @@ export function StayPayment({ stay }) {
 
                 <div className="reserve grid-item button-container">
                     <button className="color-change" onClick={() => handleReserve(stay)}>
-                    {isFormReady ? 'Reserve' : 'Check availability'}
+                        {isFormReady ? 'Reserve' : 'Check availability'}
 
                     </button>
                 </div>
@@ -213,9 +218,9 @@ export function StayPayment({ stay }) {
                 <div className="total">
                     <h3>Total</h3>
                     <h3>${total}</h3>
-                </div>  
+                </div>
                 {isWhoOpen &&
-                <OutsideClick onOutsideClick={() => setIsWhoOpen(false)}>
+                    <OutsideClick onOutsideClick={() => setIsWhoOpen(false)}>
                         <Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} onClose={closeWho} />
                     </OutsideClick>
                 }
