@@ -1,7 +1,8 @@
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import bigLogoImg from "../assets/imgs/logo.svg"
 import smallLogoImg from "../assets/imgs/small-icon.png"
 import filterImg from "../assets/imgs/filter.png"
+import searchMobileImg from "../assets/imgs/search-mobile.svg"
 import { MainFilter } from "./MainFilter"
 import { useEffect, useState, useRef } from "react"
 import { LabelsFilter } from "./LabelsFilter"
@@ -14,20 +15,35 @@ import { SET_FILTER_BY } from "../store/reducers/stay.reducer"
 import { useSelector } from "react-redux"
 import { LoginSignup } from "./LoginSignup"
 import { UserInfoBtn } from "./UserInfoBtn"
+import { format } from "date-fns"
 
 export function AppHeader() {
     const [isFolded, setIsFolded] = useState(false)
-    const [isExtaVisible, setIsExtraVisible] = useState(false)
+    const [isExtraVisible, setIsExtraVisible] = useState(false)
     const [isTop, setIsTop] = useState(true)
     const [isExtraBtnShown, setIsExtraBtnShown] = useState(false)
     const [logoImg, setLogoImg] = useState(bigLogoImg)
     const [loginSignup, setLoginSignup] = useState(null)
+    const [isNarrow, setIsNarrow] = useState(window.innerWidth < 743)
+    const [mainFilterBy, setMainFilterBy] = useState(stayService.getDefaultFilter())
     const mainFilterRef = useRef(null)
     const labelsFilterRef = useRef(null)
     const userInitiatedOpen = useRef(false)
     const location = useLocation()
     const filterBy = useSelector(state => state.stayModule.filterBy)
     const isStayPage = location.pathname.startsWith('/stay') || location.pathname === '/'
+    const navigate= useNavigate()
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsNarrow(window.innerWidth < 743)
+        }
+        window.addEventListener('resize', handleResize)
+
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }, [])
 
     useEffect(() => {
         const handleScroll = () => {
@@ -106,6 +122,17 @@ export function AppHeader() {
         }
     }, [logoImg])
 
+    function createMobileString(type) {
+        if (type === 'who') {
+            const sum = mainFilterBy.who.adults + mainFilterBy.who.children + mainFilterBy.who.infants
+            if (sum < 1) return ''
+            return sum + ' guests'
+        } else if (type === 'when') {
+            if (!mainFilterBy.when.startDate || !mainFilterBy.when.endDate) return ''
+            return format(mainFilterBy.when.startDate, 'MMM d') + ' - ' + format(mainFilterBy.when.endDate, 'MMM d')
+        }
+    }
+
 
     return (
         <section className="app-header">
@@ -120,11 +147,23 @@ export function AppHeader() {
                 <UserInfoBtn setLoginSignup={setLoginSignup} />
             </div >
 
-            {!isFolded && isStayPage && (
+            {!isFolded && isStayPage && !isNarrow && (
                 <div ref={mainFilterRef}>
-                    <MainFilter />
+                    <MainFilter filterBy={mainFilterBy} setFilterBy={setMainFilterBy} />
                 </div>
             )}
+            {isNarrow && isStayPage && <div onClick={() => navigate('filter-mobile')} className="mobile-filter">
+                <img src={searchMobileImg} />
+                <div>
+                    <input type="text" value={mainFilterBy.where.country} placeholder="Where to?" readOnly />
+                    <div>
+                        <input type="text" value={createMobileString('when')} placeholder="Any week" readOnly />
+                        <span>·</span>
+                        <input type="text" value={createMobileString('who')} placeholder="Add guests" readOnly />
+                    </div>
+                </div>
+
+            </div>}
             <hr className="main-hr" />
             <div ref={labelsFilterRef} className="labels-wrap"
                 style={location.pathname === '/stay' || location.pathname === '/' ? {} : { display: "none" }}>
@@ -135,7 +174,7 @@ export function AppHeader() {
 
                 </button>}
             </div>
-            {isExtaVisible && <div className="layout">
+            {isExtraVisible && <div className="layout">
                 <OutsideClick onOutsideClick={() => setIsExtraVisible(prev => !prev)} >
                     <ExtraFilter closeExtra={() => setIsExtraVisible(prev => !prev)} />
                 </OutsideClick>
