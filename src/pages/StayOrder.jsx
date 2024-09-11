@@ -42,18 +42,56 @@ export function StayOrder() {
         loadStay(stayId)
     }, [stayId])
 
-    console.log('stayId', stayId);
+    // console.log('stayId', stayId);
+    // console.log('stay', stay);
+    useEffect(() => {
+        const params = new URLSearchParams(searchParams);
+        console.log(params);
+        console.log('params', params.toString());
+        console.log('Params:', Array.from(params.entries()));
 
-    {/* <Link to="/foo" query={{ the: 'query' }}/> */ }
-    // navigate('/stay/:id?a=2&b=3')
+        const startDateParam = params.get('start_date');
+        const endDateParam = params.get('end_date');
+        const adults = Number(params.get('adults')) || 0;
+        const children = Number(params.get('children')) || 0;
+        const infants = Number(params.get('infants')) || 0;
+        const pets = Number(params.get('pets')) || 0;
+        console.log('Parsed Params:', { startDateParam, endDateParam, adults, children, infants, pets });
+
+
+        let startDate = null;
+        let endDate = null;
+
+        if (startDateParam && endDateParam) {
+            try {
+                startDate = parse(startDateParam, 'yyyy-MM-dd', new Date());
+                endDate = parse(endDateParam, 'yyyy-MM-dd', new Date());
+            } catch (error) {
+                console.error('Date parsing error:', error);
+            }
+        }
+        setDates({ startDate, endDate })
+        setFilterCapacity({ adults, children, infants, pets });
+    }, [searchParams])
+
+    console.log('filterCapacity.adults', filterCapacity.adults);
+
+    // adults, children, infants, pets 
+
     if (!stay) return <div>Loading...</div>
 
-    const price = formatNumberWithCommas(stay.price.night)
-    const total = formatNumberWithCommas(stay.price.night * 5)
-    const cleaningFee = formatNumberWithCommas(stay.price.cleaning)
-    const availableDates = findFirstAvailableNights(stay.reservedDates, 5)
-    const freeDate = formatDateRange(availableDates)
+    const price = stay.price.night
+    const finalPrice = stay.price.night * 5
+    const cleaningFee = stay.price.cleaning
 
+    const total = finalPrice + cleaningFee
+    // console.log('availableDates',availableDates);
+
+    // formatNumberWithCommas
+    // const availableDates = findFirstAvailableNights(stay.reservedDates, 5)
+    const freeDate = formatDateRange(dates)
+    console.log('freeDate', freeDate);
+    
     const totalReviews = stay.reviews ? stay.reviews.length : 0
     const avgRating = totalReviews > 0
         ? stay.reviews.reduce((sum, review) => sum + review.rate, 0) / totalReviews
@@ -114,6 +152,18 @@ export function StayOrder() {
         addOrder(order)
     }
 
+    //     // When
+    // function handleDateChange(newDates) {
+    //     setDates(newDates);
+    //     setSearchParams({ ...searchParams, start_date: format(newDates.startDate, 'yyyy-MM-dd'), end_date: format(newDates.endDate, 'yyyy-MM-dd') });
+    // }
+
+    // // Who
+    // function handleCapacityChange(newCapacity) {
+    //     setFilterCapacity(newCapacity);
+    //     setSearchParams({ ...searchParams, adults: newCapacity.adults, children: newCapacity.children, infants: newCapacity.infants, pets: newCapacity.pets });
+    // }
+
 
     return (
         <><div className="order">
@@ -142,7 +192,10 @@ export function StayOrder() {
                         </div>
                         <div className='flex'>
                             <div>
-                                <h4 >Guests </h4><span>{stay.sleep.maxCapacity} guests</span></div>
+                                <h4 >Guests </h4><span>{filterCapacity.adults} adults</span></div>
+                                {/* <span>{filterCapacity.children} children</span>
+                                <span>{filterCapacity.infants} infants</span>
+                                <span>{filterCapacity.pets} pets</span></div> */}
                             <button onClick={toggleWho}>Edit</button>
                         </div>
                     </div>
@@ -219,7 +272,7 @@ export function StayOrder() {
                             <div className="price-calc">
 
                                 <h3 className="light">${price} <span><span>X</span> 5 nights</span></h3>
-                                <h3>${total}</h3>
+                                <h3>${finalPrice}</h3>
                             </div>
                             {cleaningFee > 0 && (
                                 <div className="price-calc">

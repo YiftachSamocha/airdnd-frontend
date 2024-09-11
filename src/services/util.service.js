@@ -47,8 +47,13 @@ export function formatRating(rating) {
 
 
 
+// export function formatNumberWithCommas(number) {
+//     return number.toLocaleString()
+// }
+
 export function formatNumberWithCommas(number) {
-    return number.toLocaleString()
+    const numberStr = number.toString();
+    return numberStr.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 
