@@ -87,6 +87,7 @@ async function remove(stayId) {
 async function save(stay) {
     var savedStay
     if (stay._id) {
+        console.log('saving')
         savedStay = await httpService.put('stay', stay)
     } else {
         savedStay = await httpService.post('stay', stay)

@@ -1,13 +1,24 @@
 import { useEffect } from "react";
 import { NumberInput } from "../StarterCmps/NumberInput";
 
-export function ListingRooms({ formData, onRoomsChange }) {
+export function ListingRooms({ formData, onRoomsChange, onValidate }) {
     const handleInputChange = (key, value) => {
         onRoomsChange(key, value); // Since formData.sleep is already passed as a prop
     }
 
-    // useEffect(() => {
-    // }, [])
+    useEffect(() => {
+        const isValid = validateRooms(formData)
+        onValidate(isValid) // Notify parent whether rooms data is valid
+    }, [formData])
+
+    function validateRooms(data) {
+        return (
+            data.maxCapacity >= 1 && 
+            data.bedrooms >= 1 && 
+            data.beds >= 1 && 
+            data.bathrooms >= 1
+        )  // Ensure all fields have valid values
+    }
 
     return (
         <div className="listing-rooms info">

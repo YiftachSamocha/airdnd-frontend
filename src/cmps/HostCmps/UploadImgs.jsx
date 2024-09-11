@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { onHandleFile } from "../../services/util.service";
 
-export function UploadImgs({imgs, onImgsChange}) {
+export function UploadImgs({imgs, onImgsChange, onValidate}) {
+    // debugger
     // const [imgs, setImgs] = useState([])
     const [uploadClicked, setUploadClicked] = useState(false)
+    useEffect(() => {
+        const isValid = imgs.length >= 5;  // Check if there are at least 5 images
+        onValidate(isValid)   // Notify parent about validation status
+    }, [imgs])
 
     function handleButtonClick(event) {
         event.preventDefault() // Prevent default behavior if needed
@@ -42,7 +47,7 @@ export function UploadImgs({imgs, onImgsChange}) {
                         <div className="grid-container">
                             {imgs.map((img, idx) => (
                                 <div key={idx} className="grid-item">
-                                    <img src={img.secure_url} alt={`Uploaded ${idx + 1}`} />
+                                    <img src={img} alt={`Uploaded ${idx + 1}`} />
                                 </div>
                             ))}
                         </div>
@@ -61,7 +66,8 @@ export function UploadImgs({imgs, onImgsChange}) {
                 // onKeyDown={handleKeyDown}
                 >Add photos
                 </button>
+                {imgs.length < 5 && <p className="error-msg">Please upload at least 5 photos.</p>}
             </div>
         </section>
-    );
+    )
 }

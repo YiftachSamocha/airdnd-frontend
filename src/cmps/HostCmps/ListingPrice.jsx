@@ -1,67 +1,78 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { debounce } from '../../services/util.service';
-import { showErrorMsg } from '../../services/event-bus.service';
+import { useState, useEffect, useCallback, useRef } from 'react'
+import { debounce } from '../../services/util.service'
+import { showErrorMsg } from '../../services/event-bus.service'
 
-export function ListingPrice({ price, onPriceChange }) {
-    const [localPrice, setLocalPrice] = useState({ night: price.night, cleaning: price.cleaning || 5 });
-    const [error, setError] = useState(''); // Error message state
-    const inputRef = useRef(null);
+export function ListingPrice({ price, onPriceChange, onValidate }) {
+    const [localPrice, setLocalPrice] = useState({ night: price.night, cleaning: price.cleaning || 5 })
+    const [error, setError] = useState('') // Error message state
+    const inputRef = useRef(null)
 
     const debouncedChange = useCallback(
         debounce((newPrice) => {
-            onPriceChange(newPrice);
+            onPriceChange(newPrice)
         }, 500),
         [onPriceChange]
-    );
+    )
 
     // Sync localPrice with the prop when it changes
     useEffect(() => {
-        setLocalPrice({ night: price.night, cleaning: price.cleaning || 5 });
-        resizeInput(price.night);
-    }, [price]);
+        setLocalPrice({ night: price.night, cleaning: price.cleaning || 5 })
+        resizeInput(price.night)
+    }, [price])
 
     // Prevent scroll from changing the input value using a non-passive event listener
     useEffect(() => {
-        const inputElement = inputRef.current;
-        const handleWheel = (e) => e.preventDefault(); // Prevent default behavior
+        const inputElement = inputRef.current
+        const handleWheel = (e) => e.preventDefault() // Prevent default behavior
 
         if (inputElement) {
-            inputElement.addEventListener('wheel', handleWheel, { passive: false }); // Non-passive listener
+            inputElement.addEventListener('wheel', handleWheel, { passive: false }) // Non-passive listener
         }
 
         return () => {
             if (inputElement) {
-                inputElement.removeEventListener('wheel', handleWheel); // Cleanup listener on unmount
+                inputElement.removeEventListener('wheel', handleWheel) // Cleanup listener on unmount
             }
-        };
+        }
     }, [])
 
     function handleChange(ev) {
-        const { name, value } = ev.target; // Use name to identify the input field ('night' or 'cleaning')
+        const { name, value } = ev.target // Use name to identify the input field ('night' or 'cleaning')
         setLocalPrice(prevPrice => ({
             ...prevPrice,
             [name]: value
-        }));
-        resizeInput(value);
+        }))
+        resizeInput(value)
     }
 
+    useEffect(() => {
+        const isValid = validatePrice(localPrice.night)
+        onValidate(isValid)  // Notify parent component about validation status
+    }, [localPrice.night])
+
     function handleBlur() {
-        if (localPrice === '' || localPrice < 10 || localPrice > 10000) {
-            setError('Please enter a price between $10 and $10,000');
-            showErrorMsg('Oops, there is an issue with your price'); // Display toast message
+        const nightPrice = +localPrice.night // Convert to number
+
+        if (!nightPrice || nightPrice < 10 || nightPrice > 10000) {
+            setError('Please enter a price between $10 and $10,000')
+            showErrorMsg('Oops, there is an issue with your price') // Display toast message
         } else {
-            setError('');
-            debouncedChange({ night: localPrice.night, cleaning: 5 });
+            setError('')
+            debouncedChange({ night: localPrice.night, cleaning: 5 })
         }
     }
 
     // Function to resize the input dynamically based on its value
     function resizeInput(value) {
-        const inputElement = document.querySelector('.price-input input');
+        const inputElement = document.querySelector('.price-input input')
         if (inputElement) {
-            const length = value.toString().length;
-            inputElement.style.width = `${length + 1}ch`; // Resize based on character count
+            const length = value.toString().length
+            inputElement.style.width = `${length + 1}ch` // Resize based on character count
         }
+    }
+
+    function validatePrice(nightPrice) {
+        return nightPrice >= 10 && nightPrice <= 10000;
     }
 
     return (
@@ -93,5 +104,5 @@ export function ListingPrice({ price, onPriceChange }) {
                 </svg>
             </button> */}
         </div>
-    );
+    )
 }

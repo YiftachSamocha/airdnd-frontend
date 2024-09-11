@@ -31,6 +31,13 @@
                 &.btn-link {
                     text-align: start !important;
                 }
+
+                &.disabled {
+                    color: whitesmoke;
+                    background-color: #dddddd;
+                    cursor: not-allowed;
+                    border: none;
+                }
             }
 
         }
@@ -49,7 +56,6 @@
                 .selection-grid {
                     margin: 0 auto;
                     width: 630px;
-                    margin: 0 auto;
                 }
             }
 
@@ -305,7 +311,7 @@
                         height: 99px;
 
                         &:active {
-                            transform: scale(1.2s); // Shrink the selected item when clicked
+                            transform: scale(1.2); // Shrink the selected item when clicked
                         }
 
                         &.selected {

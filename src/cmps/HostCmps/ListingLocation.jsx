@@ -2,8 +2,13 @@ import { useEffect, useRef, useState } from "react";
 import { GoogleMap } from "./GoogleMap";
 import mapIcon from '../../assets/imgs/icons/map-pink.svg';
 
-export function ListingLocation({ location, onLocationChange }) {
+export function ListingLocation({ location, onLocationChange, onValidate }) {
     const inputRef = useRef(null)
+    
+    useEffect(() => {
+        const isValid = Boolean(location.country && location.city) // Ensure both country and city are truthy
+        onValidate(isValid) // Pass the boolean value (true/false) to the parent
+    }, [location.country, location.city])
 
     useEffect(() => {
         if (!window.google || !window.google.maps || !window.google.maps.places) return;

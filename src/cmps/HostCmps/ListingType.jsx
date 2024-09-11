@@ -1,7 +1,13 @@
+import { useEffect } from "react";
 
 
-export function ListingType({ type, onPlaceTypeChange }) {
+export function ListingType({ type, onPlaceTypeChange, onValidate }) {
     console.log('Current type:', type);  // Add this to check the value of the type prop
+
+    useEffect(() => {
+        const isValid = !!type;  // Type is valid if it's not empty or null
+        onValidate(isValid);  // Notify the parent component
+    }, [type])
 
     return (
         <div className="selection info listing-type">
@@ -13,7 +19,10 @@ export function ListingType({ type, onPlaceTypeChange }) {
                         name="type"
                         value="entire-place"
                         checked={type === 'entire-place'}
-                        onChange={(e) => onPlaceTypeChange(e.target.value)}
+                        onChange={(e) => {
+                            onPlaceTypeChange(e.target.value)
+                            
+                        }}
                     />
                     <div className="option-content">
                         <h3>An entire place</h3>

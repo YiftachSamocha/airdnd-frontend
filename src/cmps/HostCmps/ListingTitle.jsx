@@ -1,7 +1,7 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { debounce } from '../../services/util.service' // Assuming this is where your debounce is located
 
-export function ListingTitle({ name, onNameChange }) {
+export function ListingTitle({ name, onNameChange, onValidate }) {
     const [localName, setLocalName] = useState(name)
     const [nameCount, setNameCount] = useState(name.length)
 
@@ -12,6 +12,11 @@ export function ListingTitle({ name, onNameChange }) {
         }, 500), [onNameChange]
     )
 
+    useEffect(() => {
+        const isValid = validateName(localName)
+        onValidate(isValid) // Pass validation result to parent
+    }, [localName])
+
     function handleNameChange (ev) {
         const newName = ev.target.value
         setLocalName(newName) // Update the local name instantly for real-time feedback
@@ -19,6 +24,10 @@ export function ListingTitle({ name, onNameChange }) {
         debouncedChange(newName) // Use debounced function to notify parent
     }
 
+    function validateName(name) {
+        return name.length > 0 && name.length <= 32;
+    }
+    
     return (
         <div className="txt-area info">
             <h2>Now, let's give your castle a name</h2>

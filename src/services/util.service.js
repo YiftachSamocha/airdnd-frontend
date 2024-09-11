@@ -209,7 +209,8 @@ export function getRandomColor() {
 
 export async function onHandleFile(ev){
     let res = await uploadService.uploadImg(ev)
-    return res
+
+    return res.map(img => img.secure_url)
 }
 
 ;
