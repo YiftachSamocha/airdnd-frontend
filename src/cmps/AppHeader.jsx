@@ -25,14 +25,13 @@ export function AppHeader() {
     const [logoImg, setLogoImg] = useState(bigLogoImg)
     const [loginSignup, setLoginSignup] = useState(null)
     const [isNarrow, setIsNarrow] = useState(window.innerWidth < 743)
-    const [mainFilterBy, setMainFilterBy] = useState(stayService.getDefaultFilter())
     const mainFilterRef = useRef(null)
     const labelsFilterRef = useRef(null)
     const userInitiatedOpen = useRef(false)
     const location = useLocation()
     const filterBy = useSelector(state => state.stayModule.filterBy)
     const isStayPage = location.pathname.startsWith('/stay') || location.pathname === '/'
-    const navigate= useNavigate()
+    const navigate = useNavigate()
 
     useEffect(() => {
         const handleResize = () => {
@@ -124,12 +123,12 @@ export function AppHeader() {
 
     function createMobileString(type) {
         if (type === 'who') {
-            const sum = mainFilterBy.who.adults + mainFilterBy.who.children + mainFilterBy.who.infants
+            const sum = filterBy.who.adults + filterBy.who.children + filterBy.who.infants
             if (sum < 1) return ''
             return sum + ' guests'
         } else if (type === 'when') {
-            if (!mainFilterBy.when.startDate || !mainFilterBy.when.endDate) return ''
-            return format(mainFilterBy.when.startDate, 'MMM d') + ' - ' + format(mainFilterBy.when.endDate, 'MMM d')
+            if (!filterBy.when.startDate || !filterBy.when.endDate) return ''
+            return format(filterBy.when.startDate, 'MMM d') + ' - ' + format(filterBy.when.endDate, 'MMM d')
         }
     }
 
@@ -149,13 +148,13 @@ export function AppHeader() {
 
             {!isFolded && isStayPage && !isNarrow && (
                 <div ref={mainFilterRef}>
-                    <MainFilter filterBy={mainFilterBy} setFilterBy={setMainFilterBy} />
+                    <MainFilter />
                 </div>
             )}
-            {isNarrow && isStayPage && <div onClick={() => navigate('filter-mobile')} className="mobile-filter">
+            {isNarrow && isStayPage && <div onClick={() => navigate('/stay/filter-mobile')} className="mobile-filter">
                 <img src={searchMobileImg} />
                 <div>
-                    <input type="text" value={mainFilterBy.where.country} placeholder="Where to?" readOnly />
+                    <input type="text" value={filterBy.where.country} placeholder="Where to?" readOnly />
                     <div>
                         <input type="text" value={createMobileString('when')} placeholder="Any week" readOnly />
                         <span>·</span>

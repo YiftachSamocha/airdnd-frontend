@@ -11,12 +11,11 @@ import { Where } from "../cmps/MainFilterCmps/Where";
 import { When } from "../cmps/MainFilterCmps/When";
 
 export function MainFilterMobile() {
-    const [openType, setOpenType] = useState('')
+    const [openType, setOpenType] = useState('where')
     const [whereInput, setWhereInput] = useState('')
     const [whoInput, setWhoInput] = useState('')
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(stayService.getDefaultFilter())
-    const [isNarrow, setIsNarrow] = useState(window.innerWidth < 743)
     const gFilter = useSelector(state => state.stayModule.filterBy)
     const filterRef = useRef(null)
     const navigate = useNavigate()
@@ -24,7 +23,7 @@ export function MainFilterMobile() {
 
     useEffect(() => {
         const handleResize = () => {
-            if(window.innerWidth>743){
+            if (window.innerWidth > 743) {
                 navigate('/stay')
             }
         }
@@ -46,12 +45,9 @@ export function MainFilterMobile() {
         changeFilterWhen(gFilter.when)
         changeFilterWho(gFilter.who)
         setTimeout(() => {
-            setOpenType('')
+            setOpenType('where')
         }, 100)
     }, [gFilter])
-
-    useEffect
-
 
     function updateGFilterBySearchParams() {
         const city = searchParams.get('city')
@@ -99,12 +95,11 @@ export function MainFilterMobile() {
             setWhereInput('')
         }
         setTimeout(() => {
-            setOpenType('when-start')
+            setOpenType('when')
         }, 100)
     }
 
     function changeFilterWhen(range) {
-        if (range.startDate !== filterBy.when.startDate) setOpenType('when-end')
         setFilterBy(prev => ({ ...prev, when: range }))
     }
 
@@ -126,7 +121,7 @@ export function MainFilterMobile() {
         setTimeout(() => {
             setOpenType('')
         }, 100)
-        if (location.pathname !== '/' && location.pathname !== '/stay') navigate('/stay')
+        navigate('/stay')
     }
 
     function deleteFilter() {
@@ -134,7 +129,7 @@ export function MainFilterMobile() {
         setFilterBy(prev => ({ ...prev, where: emptyFilter.where, when: emptyFilter.when, who: emptyFilter.who }))
         setWhoInput('')
         setWhereInput('')
-        setOpenType('')
+        setOpenType('where')
 
     }
 
@@ -166,40 +161,45 @@ export function MainFilterMobile() {
     }
 
 
-    return <section className={`main-filter mobile ${openType ? 'has-selection' : ''}`} ref={filterRef} >
-        <div onClick={() => setOpenType('where')} className={`where-input ${openType === 'where' ? 'selected' : ''}`}>
-            <div>
-                <label htmlFor="">Where</label>
-                <input type="text" placeholder="Im flexible" value={whereInput}
-                    onChange={handleChangeWhere} />
-            </div>
-            {openType === 'where' && <Where input={whereInput} setInput={changeFilterWhere} />}
-        </div>
+    return <section className={`main-filter mobile`} ref={filterRef} >
 
-        <div className="when-input">
-            <div onClick={() => setOpenType('when-start')} className={`when-input-all ${openType === 'when-start' ? 'selected' : ''}`}>
-                <label htmlFor="">When</label>
-                <input type="text" placeholder="Add dates" readOnly
-                    value={filterBy.when.endDate && filterBy.when.startDate ?
-                        (format(filterBy.when.startDate, 'MMM dd') + ' - ' + format(filterBy.when.endDate, 'MMM dd')) : ''}
-                />
-            </div>
-            {(openType === 'when-start' || openType === 'when-end') && <When dates={filterBy.when} setDates={changeFilterWhen} />}
-        </div>
-
-        <div onClick={() => setOpenType('who')} className={`who-input ${openType === 'who' ? 'selected' : ''}`}>
-            <div className="who-content">
+        <div className="mobile-container">
+            <button className="closing-btn" onClick={() => navigate('/stay')}>x</button>
+            <div onClick={() => setOpenType('where')} className={`where-input ${openType === 'where' ? 'selected' : ''}`}>
                 <div>
-                    <label htmlFor="">Who</label>
-                    <input type="text" placeholder="Add guests"
-                        value={whoInput} readOnly />
+                    <label htmlFor="">Where</label>
+                    <input type="text" placeholder="Im flexible" value={whereInput}
+                        onChange={handleChangeWhere} />
                 </div>
+                {openType === 'where' && <Where input={whereInput} setInput={changeFilterWhere} />}
             </div>
-            {openType === 'who' && <Who filterCapacity={filterBy.who} setFilterCapacity={changeFilterWho} />}
+
+            <div className="when-input">
+                <div onClick={() => setOpenType('when')} className={`when-input-all ${openType === 'when' ? 'selected' : ''}`}>
+                    <label htmlFor="">When</label>
+                    <input type="text" placeholder="Add dates" readOnly
+                        value={filterBy.when.endDate && filterBy.when.startDate ?
+                            (format(filterBy.when.startDate, 'MMM dd') + ' - ' + format(filterBy.when.endDate, 'MMM dd')) : ''}
+                    />
+                </div>
+                {(openType === 'when' ) && <When dates={filterBy.when} setDates={changeFilterWhen} />}
+            </div>
+
+            <div onClick={() => setOpenType('who')} className={`who-input ${openType === 'who' ? 'selected' : ''}`}>
+                <div className="who-content">
+                    <div>
+                        <label htmlFor="">Who</label>
+                        <input type="text" placeholder="Add guests"
+                            value={whoInput} readOnly />
+                    </div>
+                </div>
+                {openType === 'who' && <Who filterCapacity={filterBy.who} setFilterCapacity={changeFilterWho} />}
+            </div>
         </div>
         <div className="mobile-btns">
+            <button onClick={deleteFilter}>Clear all</button>
             <button onClick={submitFilter}>Search</button>
-            <button onClick={() => deleteFilter('all')}>Clear all</button>
+
         </div>
     </section >
 

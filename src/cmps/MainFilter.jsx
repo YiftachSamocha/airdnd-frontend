@@ -10,7 +10,8 @@ import { stayService } from "../services/stay";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-export function MainFilter({ filterBy, setFilterBy }) {
+export function MainFilter() {
+    const [filterBy, setFilterBy]= useState(stayService.getDefaultFilter())
     const [openType, setOpenType] = useState('')
     const [whereInput, setWhereInput] = useState('')
     const [whoInput, setWhoInput] = useState('')
