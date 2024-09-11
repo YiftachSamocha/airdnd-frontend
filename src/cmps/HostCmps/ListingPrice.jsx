@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { debounce } from '../../services/util.service'
 import { showErrorMsg } from '../../services/event-bus.service'
+import editIcon from '../../assets/imgs/icons/edit.svg'
 
 export function ListingPrice({ price, onPriceChange, onValidate }) {
     const [localPrice, setLocalPrice] = useState({ night: price.night, cleaning: price.cleaning || 5 })
@@ -74,6 +75,9 @@ export function ListingPrice({ price, onPriceChange, onValidate }) {
     function validatePrice(nightPrice) {
         return nightPrice >= 10 && nightPrice <= 10000;
     }
+    function handleFocus () {
+        document.querySelector('.price-input input').focus(); // Target the input by class
+      }
 
     return (
         <div className="pricing info">
@@ -94,6 +98,8 @@ export function ListingPrice({ price, onPriceChange, onValidate }) {
                     className={error ? 'input-error' : ''}
                     style={{ overflow: 'hidden' }}
                 />
+                <img src={editIcon} onClick={handleFocus} />
+
             </div>
             {error && <p className="error-msg">{error}</p>} {/* Show error if present */}
             <p className="char-limit">Guest Price: ${+localPrice.night + +localPrice.cleaning}</p>

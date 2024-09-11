@@ -1,0 +1,60 @@
+.add-listing {
+    &.about {
+        .pricing {
+            .price-input {
+                // position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                span,
+                input {
+
+                    font-size: 100px;
+                    font-weight: 800;
+                    border: none;
+                    text-align: center;
+                }
+
+                input:focus {
+                    outline: none;
+                    border: none;
+                    padding: 10px;
+                }
+
+                img {
+                    // position: absolute;
+                    // bottom: 20px;
+                    // right: 40px;
+                    align-self: flex-end;  // Aligns the image closer to the bottom, but not too low
+                    transform: translateY(-30px) ;
+                    width: 20px;
+                    height: 20px;
+                    cursor: pointer;
+                    margin-inline-end: 10px;  // Adds space between input and image
+                                      
+                }
+            }
+
+            input[type=number]::-webkit-inner-spin-button,
+            input[type=number]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            /* For Firefox */
+            input[type=number] {
+                -moz-appearance: textfield;
+            }
+
+            @media(max-width: 400px) {
+                .price-input {
+
+                    span,
+                    input {
+                        font-size: 65px !important;
+                    }
+                }
+            }
+        }
+    }
+}

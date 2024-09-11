@@ -5,10 +5,11 @@ import { StayDetails } from './pages/StayDetails'
 import { StayOrder } from './pages/StayOrder.jsx'
 import { BecomeHost } from './pages/hostPages/BecomeHost.jsx'
 import { AboutYourPlace } from './pages/hostPages/AboutYourPlace.jsx'
+
+
 import { Trips } from './pages/Trips.jsx'
 import { AppFooter } from './cmps/AppFooter.jsx'
 import { Host } from './pages/Host.jsx'
-import { MainFilterMobile } from './pages/MainFilterMobile.jsx'
 
 export function RootCmp() {
     const location = useLocation()
@@ -39,6 +40,7 @@ export function RootCmp() {
 
     return (
         <div className="main-container">
+            {/* {showHeader && <AppHeader />} */}
             <main>
                 <Routes>
                     <Route path="/" element={<StayIndex />} />
@@ -49,7 +51,8 @@ export function RootCmp() {
                     <Route path="trip" element={<Trips />} />
                     <Route path="become-a-host/" element={<BecomeHost />} />
                     <Route path="/become-a-host/:userId/about-your-place/:stayId" element={<AboutYourPlace />} />
-                    <Route path='/stay/filter-mobile' element={<MainFilterMobile />} />
+
+
                 </Routes>
             </main>
             {showFooter && isFooter && <AppFooter />}

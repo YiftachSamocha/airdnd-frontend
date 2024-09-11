@@ -59,6 +59,7 @@ export function AboutYourPlace() {
 
     useEffect(() => {
         // Check if the user exists in your store
+        console.log(userId)
         const user = users.find(user => user._id === userId);
         if (!user) {
             setUserExists(false); // User does not exist, so we show the error
@@ -171,17 +172,17 @@ export function AboutYourPlace() {
         })
     }
 
-    if (!userExists) {
-        return <div className='page-error'>Oops, something went wrong.
-            <Link to="/">Please try again.</Link>
-        </div>
-    }
+    // if (!userExists) {
+    //     return <div className='page-error'>Oops, something went wrong.
+    //         <Link to="/">Please try again.</Link>
+    //     </div>
+    // }
 
 
     return <section className="add-listing about">
         <header>
-            <img src={logoBlack}></img>
-            <button onClick={(ev) => handleBtn(ev, 'save')}>Save & Exit</button>
+            <img src={logoBlack} onClick={() => navigate('/')}></img>
+            <button className="white" onClick={(ev) => handleBtn(ev, 'save')}>Save & Exit</button>
         </header>
         <form >
             <div className='main'>

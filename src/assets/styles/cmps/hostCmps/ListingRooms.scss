@@ -1,0 +1,66 @@
+.add-listing {
+    &.about {
+        .listing-rooms {
+            margin-block-end: 32px;
+
+            .room-info {
+                width: 100%;
+                max-width: 50vw;
+                color: $gray4;
+                margin: 0 auto;
+
+                .number-input {
+                    display: flex;
+                    justify-content: space-between;
+                    padding-block: 24px;
+                    box-shadow: 0px 1px 0 0 #e1dede;
+
+                    input {
+                        color: $gray4; // Text color when input is focused
+
+                        border: none;
+                        width: 45px;
+                        font-size: 16px;
+                        text-align: center;
+                        padding-inline-start: 12px;
+
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+
+                    button {
+                        width: unset;
+                        padding: 10px;
+                        border-radius: 50%;
+                        border-color: $gray3;
+
+                        &:hover {
+                            border-color: $gray5;
+                            background-color: transparent;
+
+                            svg {
+                                fill: $gray5;
+                            }
+                        }
+
+                        svg {
+                            display: block;
+                            height: 12px;
+                            width: 12px;
+                            fill: gray;
+                        }
+                    }
+                }
+            }
+
+            @media (max-width:743px) {
+                .room-info {
+                    max-width: 630px;
+                    width: 100%
+                }
+            }
+        }
+
+    }
+}

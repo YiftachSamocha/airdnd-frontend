@@ -54,7 +54,7 @@ export function BecomeHost() {
 
     return <section className="become-host">
         <header>
-            <img src={logoBlack}></img>
+            <img src={logoBlack} onClick={() => navigate('/')}></img>
         </header>
         <div className='main'>
             <div className="step-1">
