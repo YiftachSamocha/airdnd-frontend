@@ -13,9 +13,14 @@ export function StayList() {
     const filterBy = useSelector(state => state.stayModule.filterBy)
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterUrl, setFilterUrl] = useState('')
+    const [currStays, setCurrStays] = useState([])
 
     useEffect(() => {
         loadStays(filterBy)
+            .then(stays => {
+                const newState = stays.slice(0, 29)
+                setCurrStays(newState)
+            })
     }, [filterBy])
 
     useEffect(() => {
@@ -40,14 +45,14 @@ export function StayList() {
         setFilterUrl(urlStr)
     }
 
-    const publishedStays = stays.filter(stay => stay.status === 'published');
+    const publishedStays = currStays.filter(stay => stay.status === 'published');
 
 
     return (<>
         <section className="stay-main-list">
             {/* <div>{filterBy.where.country}</div> */}
             <ul className="stay-list">
-            {publishedStays.map(stay => {
+                {publishedStays.map(stay => {
                     return (
                         <Link to={`/stay/${stay._id}${filterUrl}`} key={stay._id}>
                             <li>
