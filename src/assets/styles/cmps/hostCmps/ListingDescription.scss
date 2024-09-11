@@ -1,0 +1,22 @@
+.add-listing {
+    &.about {
+
+        .txt-area {
+
+            &.description {
+                position: relative;
+            }
+
+            .char-limit {
+                color: rgb(106, 106, 106) !important;
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 16px;
+                padding: 10px;
+                margin-inline-end: 20px;
+                text-align: end;
+            }
+        }
+
+    }
+}

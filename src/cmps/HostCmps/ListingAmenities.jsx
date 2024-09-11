@@ -58,9 +58,9 @@ export function ListingAmenities({ amenities = [], onAmenityChange, onValidate }
         'Fire extinguisher': fireExtinguisherImg,
         'Carbon monoxide alarm': carbonAlarmImg
     }
-    
+
     // Helper function to check if an amenity is selected based on its name
-    function isAmenitySelected(amenityName)  {
+    function isAmenitySelected(amenityName) {
         return amenities.some(a => a.name === amenityName)
     }
 
@@ -133,8 +133,8 @@ export function ListingAmenities({ amenities = [], onAmenityChange, onValidate }
                                 onChange={(e) => onAmenityChange({ name: e.target.value, type: 'safety', imgUrl: amenityImages[amenity] })}
                             />
                             <div className="option-content">
-                                <p>{amenity}</p>
                                 <img src={amenityImages[amenity]} alt={amenity} />
+                                <p>{amenity}</p>
                             </div>
                         </label>
                     ))}

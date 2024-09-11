@@ -1,26 +1,8 @@
 @include for-mobile-layout {
-    .loginsignup {
+    .loginsignup{
         position: sticky;
         bottom: 0;
         width: 100%;
-    }
-
-
-    .main-container main {
-        grid-template-columns: 10px 1fr 10px;
-
-    }
-
-    .app-header {
-        margin: 0;
-        width: 100%;
-
-        .main-header {
-            display: none;
-        }
-
-       
-
     }
 }
 
@@ -33,6 +15,9 @@
             left: -100%;
             background-color: white;
         }
+       
+
+
 
     }
 }
