@@ -32,7 +32,6 @@ export function StayPreview({ stay }) {
         }))
     }
 
-
     return (
         <article className="stay-preview">
             <button className="btn-heart"
