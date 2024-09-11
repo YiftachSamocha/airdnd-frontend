@@ -69,7 +69,7 @@ export function StayDetails() {
         </div>
 
         <div className="more-content">
-          <StayReview />
+          <StayReview stay={stay}/>
           <StayLocation />
           {/* <StayHost stay={stay} /> */}
           <StayToKnow stay={stay} />
