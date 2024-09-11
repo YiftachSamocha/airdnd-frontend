@@ -156,7 +156,8 @@ export function AppHeader() {
                 <div>
                     <input type="text" value={filterBy.where.country} placeholder="Where to?" readOnly />
                     <div>
-                        <input type="text" value={createMobileString('when')} placeholder="Any week" readOnly />
+                        <input type="text" value={createMobileString('when')} placeholder="Any week" readOnly 
+                        style={filterBy.when.startDate && filterBy.when.endDate && { width: '100px' }} />
                         <span>·</span>
                         <input type="text" value={createMobileString('who')} placeholder="Add guests" readOnly />
                     </div>
