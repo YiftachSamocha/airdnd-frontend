@@ -1,0 +1,56 @@
+.add-listing {
+    &.about {
+        .listing-amenities {
+            p {
+                margin-block-end: unset ;
+            }
+
+            section h3 {
+                margin-block: 48px !important;
+            }
+
+            .selection-grid {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr);
+                max-width: 630px;
+                margin: 0 auto;
+
+                .option-item {
+                    width: 100%;
+                    height: 99px;
+
+                    &.selected {
+                        animation: scaleUp 0.3s ease-in-out forwards;
+                    }
+
+                    input[type='checkbox'] {
+                        display: none;
+                    }
+
+                    p {
+                        font-size: 16px;
+                        color: $gray5;
+                        font-weight: bolder;
+                    }
+
+                    img {
+                        padding-block-end: 8px;
+                    }
+                }
+            }
+           
+        }
+        @media (max-width:743px) {
+            .listing-amenities {
+                .selection-grid {
+                    grid-template-columns: repeat(2, 1fr) !important;
+    
+                    .option-item {
+                        width: unset !important;
+                        height: unset !important;
+                    }
+                }
+            }  
+        }
+    }
+}

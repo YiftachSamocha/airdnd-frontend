@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { debounce } from '../../services/util.service'
 
-export function ListingDescription({ description, onDescriptionChange }) {
+export function ListingDescription({ description, onDescriptionChange, onValidate }) {
     const [count, setCount] = useState(description.length)
     const [localDesc, setLocalDesc] = useState(description) 
     const [isFirstFocus, setIsFirstFocus] = useState(true) // Flag to track first focus
@@ -11,16 +11,32 @@ export function ListingDescription({ description, onDescriptionChange }) {
     const debouncedChange = useCallback(
         debounce((newDesc) => {
             onDescriptionChange(newDesc) 
-        }, 500), [onDescriptionChange]
+        }, 500), [description]
     )
 
-    useEffect(() => {
-        setCount(localDesc.length) // Set the initial description count from props
-    }, [localDesc])
+    // const debouncedValidation = useCallback(
+    //     debounce((desc) => {
+    //         const isValid = validateDescription(desc)
+    //         onValidate(isValid)
+    //     }, 500),
+    //     [onValidate]
+    // )
 
     useEffect(() => {
         setLocalDesc(description) // Sync with description prop when it changes
+        setCount(description.length) 
     }, [description])
+
+
+    useEffect(() => {
+        const isValid = validateDescription(localDesc)
+        onValidate(isValid) // Notify parent about validation status
+    }, [localDesc])
+
+    // Validation logic: ensure description is not empty and greater than 10 characters
+    function validateDescription(desc) {
+        return desc.trim().length >= 10 // Ensure it's at least 10 characters long
+    }
 
     function handleChange (ev) {
         const newDesc = ev.target.value
@@ -32,9 +48,7 @@ export function ListingDescription({ description, onDescriptionChange }) {
     function handleFocus() {
         if (isFirstFocus) {
             setIsFirstFocus(false)
-            return
-        }
-        defaultText === ''
+            setLocalDesc('')         }
     }
 
     function handleBlur() {

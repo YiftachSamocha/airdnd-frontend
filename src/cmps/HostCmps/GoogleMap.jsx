@@ -25,7 +25,8 @@ export function GoogleMap({ center, zoom , children}) {
 
     return (
         // Important! Always set the container height explicitly
-        <div className="map" style={{ height: '70vh', width: '60vw' }}>
+        <div className="map"> 
+        {/*  style={{ height: '70vh', width: '60vw' }} */}
             <GoogleMapReact
                 bootstrapURLKeys={{
                     key: "AIzaSyDtYR9s32CUO3Bh1-xX2DZgEDySdtVjPZg",

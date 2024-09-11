@@ -1,9 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { GoogleMap } from "./GoogleMap";
-import mapIcon from '../../assets/imgs/icons/map-pink.svg';
+import mapPink from '../../assets/imgs/icons/map-pink.svg';
+import mapBlack from '../../assets/imgs/icons/map-black.svg';
 
-export function ListingLocation({ location, onLocationChange }) {
+export function ListingLocation({ location, onLocationChange, onValidate }) {
     const inputRef = useRef(null)
+
+    useEffect(() => {
+        const isValid = Boolean(location.country && location.city) // Ensure both country and city are truthy
+        onValidate(isValid) // Pass the boolean value (true/false) to the parent
+    }, [location.country, location.city])
 
     useEffect(() => {
         if (!window.google || !window.google.maps || !window.google.maps.places) return;
@@ -12,8 +18,8 @@ export function ListingLocation({ location, onLocationChange }) {
             types: ['geocode'], // Restrict to geographical locations
         });
 
-        autocompleteInstance.addListener('place_changed', () => { 
-            const place =   autocompleteInstance.getPlace();
+        autocompleteInstance.addListener('place_changed', () => {
+            const place = autocompleteInstance.getPlace();
             // debugger
             if (place.geometry) {
                 const { lat, lng } = place.geometry.location;
@@ -65,23 +71,29 @@ export function ListingLocation({ location, onLocationChange }) {
                 <h2>Where's your place located?</h2>
                 <p>Your address is only shared with guests after they’ve made a reservation.</p>
             </div>
-            <label>Location</label>
-            <input
-                ref={inputRef}
-                type="text"
-                value={location.address || ''}
-                onChange={handleLocationInput}
-                placeholder="Enter your location"
-                className="location-input"
-            />
-            <GoogleMap center={{ lat: location.lat, lng: location.lng }} zoom={13}>
-                <div
-                    lat={location.lat}
-                    lng={location.lng}
-                    className="custom-marker">
-                    <img src={mapIcon} alt="Marker" />
+            <div className="input-position">
+                <div className="container">
+                    <img src={mapBlack}/>
+                    <input
+                    ref={inputRef}
+                    type="text"
+                    value={location.address || ''}
+                    onChange={handleLocationInput}
+                    placeholder="Enter your location"
+                    className="location-input"
+                />
                 </div>
-            </GoogleMap>
+               
+                <GoogleMap center={{ lat: location.lat, lng: location.lng }} zoom={13}>
+                    <div
+                        lat={location.lat}
+                        lng={location.lng}
+                        className="custom-marker">
+                        <img src={mapPink} alt="Marker" />
+                    </div>
+                </GoogleMap>
+            </div>
+
         </div>
     );
 }

@@ -112,7 +112,8 @@ export function StayOrder() {
 
     function onAddOrder() {
         const params = new URLSearchParams(searchParams)
-        // if (!params.get('start_date') || !params.get('end_date')) return
+        if (!params.get('start_date') || !params.get('end_date')) return
+        if (!currUser) return
         const startDate = parse(params.get('start_date'), 'yyyy-MM-dd', new Date())
         const endDate = parse(params.get('end_date'), 'yyyy-MM-dd', new Date())
         let capacity = {
@@ -136,7 +137,7 @@ export function StayOrder() {
             _id: stay.host._id,
             fullname: stay.host.fullname
         }
-        const guest = currUser
+        const guest = { _id: currUser._id, fullname: currUser.fullname }
         const createdAt = new Date()
         const order = {
             startDate,

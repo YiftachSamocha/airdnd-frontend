@@ -41,7 +41,7 @@ export function BecomeHost() {
     }
 
     async function handleNext() {
-console.log('hi')
+
         try {
             if (!loggedinUser.host) addHostInfoToUser(loggedinUser)
             const savedStay = await addStay(stay)
@@ -54,7 +54,7 @@ console.log('hi')
 
     return <section className="become-host">
         <header>
-            <img src={logoBlack}></img>
+            <img src={logoBlack} onClick={() => navigate('/')}></img>
         </header>
         <div className='main'>
             <div className="step-1">

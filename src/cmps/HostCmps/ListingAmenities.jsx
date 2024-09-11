@@ -26,8 +26,9 @@ import smokeAlarmImg from '../../assets/imgs/amenities/smoke-alarm.svg';
 import firstAidImg from '../../assets/imgs/amenities/first-aid.svg';
 import fireExtinguisherImg from '../../assets/imgs/amenities/fire-extinguisher.svg';
 import carbonAlarmImg from '../../assets/imgs/amenities/carbon-alarm.svg';
+import { useEffect } from 'react';
 
-export function ListingAmenities({ amenities = [], onAmenityChange }) {
+export function ListingAmenities({ amenities = [], onAmenityChange, onValidate }) {
     // Define a mapping between amenities and their corresponding imgUrls
     const amenityImages = {
         'Wifi': wifiImg,
@@ -57,11 +58,16 @@ export function ListingAmenities({ amenities = [], onAmenityChange }) {
         'Fire extinguisher': fireExtinguisherImg,
         'Carbon monoxide alarm': carbonAlarmImg
     }
-    
+
     // Helper function to check if an amenity is selected based on its name
-    function isAmenitySelected(amenityName)  {
+    function isAmenitySelected(amenityName) {
         return amenities.some(a => a.name === amenityName)
     }
+
+    useEffect(() => {
+        const isValid = amenities.length > 0  // At least one amenity must be selected
+        onValidate(isValid)  // Notify parent about validation status
+    }, [amenities])
 
     return (
         <div className="selection info listing-amenities">
@@ -127,8 +133,8 @@ export function ListingAmenities({ amenities = [], onAmenityChange }) {
                                 onChange={(e) => onAmenityChange({ name: e.target.value, type: 'safety', imgUrl: amenityImages[amenity] })}
                             />
                             <div className="option-content">
-                                <p>{amenity}</p>
                                 <img src={amenityImages[amenity]} alt={amenity} />
+                                <p>{amenity}</p>
                             </div>
                         </label>
                     ))}

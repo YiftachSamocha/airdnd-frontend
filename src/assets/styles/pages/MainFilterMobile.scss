@@ -1,0 +1,346 @@
+.mobile-filter {
+    display: flex;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+    align-items: center;
+    padding: 0.5em 1em;
+    margin: 1em;
+    cursor: pointer;
+
+    img {
+        max-width: 30px;
+        height: 30px;
+        margin-inline-end: 1em;
+    }
+
+    >div>input {
+        font-weight: bolder;
+        font-size: 1em;
+
+
+    }
+
+    input {
+        border: 0;
+        outline: 0;
+        max-width: auto;
+        text-align: start;
+        cursor: pointer;
+        width: 100px;
+    }
+
+}
+
+main .main-filter.mobile {
+    grid-column: 1 / -1;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    border: 0;
+    border-radius: 0;
+    height: 100vh;
+    z-index: 200;
+    background-color: $gray1;
+    gap: 1em;
+    cursor: default;
+    position: relative;
+    margin-inline: 0;
+
+    input {
+        cursor: default;
+    }
+
+    .closing-btn {
+        background-color: white;
+        border-radius: 50%;
+        border: 1px solid $gray2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        width: 2em;
+        height: 2em;
+        font-weight: lighter;
+    }
+
+    .mobile-container {
+        padding: 0.8em;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        width: 100%;
+        overflow: auto;
+        height: 90vh;
+
+        .selected {
+            border-radius: 25px;
+            cursor: default;
+        }
+
+
+
+        .where-input,
+        .when-input,
+        .who-input {
+            background-color: white;
+            flex-grow: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            cursor: pointer;
+
+
+        }
+
+        .where-input div {
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+
+            input {
+                max-width: auto;
+                text-align: end;
+            }
+        }
+
+        .where-input.selected {
+            width: 100%;
+            flex-direction: column;
+            flex-grow: 0;
+            padding-inline: 1em;
+
+            input {
+                text-align: start;
+            }
+
+            >div {
+                flex-direction: column;
+            }
+
+            div {
+                width: 100%;
+
+
+                label {
+                    font-size: 30px;
+                    margin-bottom: 0.5em;
+                }
+
+                input {
+                    padding: 1.5em;
+                    max-width: 100%;
+                    border: 1px solid $gray3;
+                    border-radius: 10px;
+                }
+            }
+
+            button {
+                display: none;
+            }
+
+            .where {
+                position: static;
+                box-shadow: none;
+                width: 100%;
+
+                h5 {
+                    display: none;
+                }
+
+                .where-areas {
+                    padding: 0;
+                    width: 85vw;
+                    overflow: auto;
+
+                    div {
+                        display: flex;
+
+                        width: 100%;
+
+                        div {
+                            padding: 1em 1em 1em 0;
+                            align-items: start;
+                            flex-direction: column;
+
+                            img {
+                                border-radius: 15px;
+                                border: 1px solid $gray3;
+                            }
+
+                            img:hover {
+                                border-color: black;
+                            }
+
+                            p {
+                                margin: 0;
+                                margin-left: 0.5em;
+                            }
+
+                        }
+
+                        div:hover {
+                            background-color: inherit;
+                        }
+                    }
+                }
+
+                .where-cities {
+                    height: 35vh;
+                    padding: 0;
+
+                    div {
+                        width: 3em;
+                        align-items: center;
+                        justify-content: center;
+
+                    }
+                }
+            }
+
+
+
+        }
+
+
+
+        .when-input {
+            flex-direction: column;
+            padding: 1em;
+
+
+            .when-input-all {
+                display: flex;
+                justify-content: space-between;
+
+                input {
+                    text-align: end;
+                    max-width: auto;
+                }
+            }
+        }
+
+
+        .when-input-all.selected {
+            padding-inline: 1em;
+
+            label {
+                font-size: 30px;
+            }
+
+            input {
+                display: none;
+            }
+        }
+
+        .when {
+            position: static;
+            border: 0;
+            border-radius: 0;
+            box-shadow: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            >div {
+                height: 40vh;
+                overflow: auto;
+            }
+
+            .rdrNextPrevButton {
+                display: none;
+            }
+
+            .rdrMonthName {
+                margin-inline: 0;
+            }
+
+            button.rdrDay {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+            }
+        }
+
+        .who-input {
+            align-items: start;
+            flex-direction: column;
+            padding-block: 1em;
+
+
+            >button {
+                display: none;
+            }
+
+            .who {
+                position: static;
+                width: 100%;
+                box-shadow: none;
+                padding: 0;
+
+
+                p {
+                    margin: 0;
+                }
+
+            }
+        }
+
+        .who-content {
+            width: 100%;
+
+
+            div {
+                flex-direction: row;
+                justify-content: space-between;
+                width: 100%;
+
+
+                input {
+                    max-width: auto;
+                    text-align: end;
+                }
+            }
+        }
+
+        .who-input.selected {
+            label {
+                font-size: 30px;
+            }
+
+            .who-content button {
+                display: none;
+            }
+
+            input {
+                display: none;
+            }
+        }
+
+        .who>div button:hover {
+            background-color: inherit;
+            border: 1px solid black;
+        }
+    }
+
+    .mobile-btns {
+        position: sticky;
+        bottom: 0;
+        padding-block: 0.5em;
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        background-color: white;
+
+        button:first-of-type {
+            background-color: inherit;
+            border: 0;
+            text-decoration: underline;
+        }
+
+        button:last-of-type {
+            background-color: $clr-red;
+            border: 0;
+            color: white;
+        }
+    }
+}

@@ -9,13 +9,25 @@
             img {
                 width: 32px;
                 height: 32px;
+                cursor: pointer;
+            }
+
+            button {
+                border-radius: 32px;
+                font-size: 14px;
+                padding: 10px 16px;
+                border-color: $gray2;
+
+                &:hover {
+                    border-color: $gray4;
+                }
             }
         }
 
         footer {
             display: flex;
             justify-content: space-between;
-            padding: 16px 0 !important;
+            padding-block: 20px;
 
             button {
                 font-size: 14px;
@@ -30,6 +42,13 @@
 
                 &.btn-link {
                     text-align: start !important;
+                }
+
+                &.disabled {
+                    color: whitesmoke;
+                    background-color: #dddddd;
+                    cursor: not-allowed;
+                    border: none;
                 }
             }
 
@@ -49,13 +68,14 @@
                 .selection-grid {
                     margin: 0 auto;
                     width: 630px;
-                    margin: 0 auto;
                 }
             }
 
             .info {
                 flex-direction: column;
                 height: unset;
+                max-width: 630px;
+                margin: 0 auto;
 
                 h2 {
                     font-size: 32px;
@@ -70,8 +90,6 @@
                     margin-block-end: 24px;
                     color: $gray4;
                 }
-
-
 
                 textarea {
                     width: 100%;
@@ -95,143 +113,12 @@
                 }
             }
 
-            .cloudinary {
-                display: grid;
-                flex-direction: column;
-                justify-content: center;
-                background-color: $gray1;
-                padding-block: 48px;
-                border: 1px dashed;
-                border-color: $gray3;
-                max-width: 60vw;
-                margin: 0 auto;
-
-                &.gallery-display {
-                    padding-block: 0;
-
-                    .grid-container {
-                        display: grid;
-                        grid-template-columns: repeat(2, 1fr);
-                        gap: 24px;
-
-                        .grid-item {
-                            &:first-of-type {
-                                grid-column: span 2;
-                            }
-
-                            img {
-                                object-fit: cover;
-                                padding-block-end: 24px;
-                                aspect-ratio: 1;
-                            }
-                        }
-
-
-                    }
-                }
-
-                .default-image {
-                    width: 182px;
-                    aspect-ratio: 1/1;
-                    margin: 0 auto;
-                }
-
-                button {
-                    margin: 0 auto;
-
-                    &:hover {
-                        background-color: $gray1;
-                    }
-                }
-            }
-
-            .location {
-                padding-block: 24px 32px;
-                margin: 0 auto;
-
-                .map {
-                    margin: 0 auto;
-                    padding-block: 24px;
-                    height: 60vh;
-                    width: 630px;
-
-                    div div {
-                        border-radius: 20px;
-                    }
-
-                    .custom-marker {
-                        position: relative;
-                        transform: translate(-50%, -50%);
-                        /* Optional: Set a default size for the marker */
-                        width: 100px;
-                        height: 100px;
-                    }
-                }
-            }
-
-            .listing-rooms {
-                margin-block-end: 32px;
-
-            }
-
-            .room-info {
-                width: 100%;
-                max-width: 50vw;
-                color: $gray4;
-                margin: 0 auto;
-
-                .number-input {
-                    display: flex;
-                    justify-content: space-between;
-                    padding-block: 24px;
-                    box-shadow: 0px 1px 0 0 #e1dede;
-
-                    input {
-                        color: $gray4; // Text color when input is focused
-
-                        border: none;
-                        width: 45px;
-                        font-size: 16px;
-                        text-align: center;
-                        padding-inline-start: 12px;
-
-
-                        &:focus {
-                            outline: none;
-                        }
-                    }
-
-                    button {
-                        width: unset;
-                        padding: 10px;
-                        border-radius: 50%;
-                        border-color: $gray3;
-
-                        &:hover {
-                            border-color: $gray5;
-                            background-color: transparent;
-
-                            svg {
-                                fill: $gray5;
-                            }
-                        }
-
-                        svg {
-                            display: block;
-                            height: 12px;
-                            width: 12px;
-                            fill: gray;
-                        }
-                    }
-                }
-            }
-
             .selection {
                 padding-block: 12px 32px;
 
                 .selection-grid {
-                    display: flex;
-                    flex-direction: column;
+                    display: grid;
+                    justify-content: center;
                     gap: 20px;
                     margin: 0 auto;
                 }
@@ -285,101 +172,6 @@
                 }
             }
 
-            .listing-amenities {
-                p {
-                    margin-block-end: unset;
-                }
-
-                section h3 {
-                    margin-block: 48px !important;
-                }
-
-                .selection-grid {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    max-width: 630px;
-                    margin: 0 auto;
-
-                    .option-item {
-                        width: 180px;
-                        height: 99px;
-
-                        &:active {
-                            transform: scale(1.2s); // Shrink the selected item when clicked
-                        }
-
-                        &.selected {
-                            transform: scale(0.8);
-                            /* Shrinks the item initially */
-                            animation: scaleUp 0.3s ease-in-out forwards;
-                            /* Animation to scale back up */
-                        }
-
-                        input[type='checkbox'] {
-                            display: none;
-
-                        }
-
-                        p {
-                            font-size: 16px;
-                            color: $gray5;
-                            font-weight: bolder;
-                        }
-
-                        img {
-                            padding-block-end: 8px;
-                        }
-                    }
-                }
-            }
-
-            .txt-area {
-
-                &.description {
-                    position: relative;
-                }
-
-                .char-limit {
-                    color: rgb(106, 106, 106) !important;
-                    font-size: 12px;
-                    font-weight: 700;
-                    line-height: 16px;
-                    padding: 10px;
-                    margin-inline-end: 20px;
-                    text-align: end;
-                }
-            }
-
-            .pricing {
-                .price-input {
-
-                    span,
-                    input {
-                        font-size: 100px;
-                        font-weight: 800;
-                        border: none;
-                        text-align: center;
-                    }
-
-                    input:focus {
-                        outline: none;
-                        /* Removes the outline */
-                        border: none;
-                    }
-                }
-
-                input[type=number]::-webkit-inner-spin-button,
-                input[type=number]::-webkit-outer-spin-button {
-                    -webkit-appearance: none;
-                    margin: 0;
-                }
-
-                /* For Firefox */
-                input[type=number] {
-                    -moz-appearance: textfield;
-                }
-
-            }
 
         }
     }
@@ -389,45 +181,26 @@
     @media (max-width: 743px) {
         grid-column: span 3 !important;
 
+        .main>*:not(.location):not(.imgs),
+        header,
+        footer {
+            padding-inline: 20px;
+        }
+
+
         .info {
             margin-inline: 20px;
-
-            section {
-                width: 100%;
-            }
-        }
-
-        .location .map {
-            width: 100% !important;
-        }
-
-        .cloudinary {
-            margin: 0 !important;
-            width: 100% !important;
             max-width: 100% !important;
-        }
 
-        .listing-amenities {
+
+            section,
             .selection-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-
-                .option-item {
-                    width: unset !important;
-                    height: unset !important;
-                }
+                width: 100% !important;
             }
         }
+
+
     }
 
-    @media(max-width: 400px) {
-        .pricing {
-            .price-input {
 
-                span,
-                input {
-                    font-size: 65px !important;
-                }
-            }
-        }
-    }
 }
