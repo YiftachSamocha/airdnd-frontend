@@ -74,7 +74,7 @@ export function StayDetails() {
   if (!stay) return <div>Loading...</div>
   return (
     <section className="stay-details">
-      {/* <AppHeader /> */}
+      <AppHeader />
       <div className="main-content">
         <h1>{stay.name}</h1>
         {stay.imgs && <StayImage stay={stay} />}

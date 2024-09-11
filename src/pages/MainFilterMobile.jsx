@@ -1,9 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { format } from 'date-fns';
-import searchImg from "../assets/imgs/search.png";
 import { SET_FILTER_BY } from "../store/reducers/stay.reducer";
 import { stayService } from "../services/stay";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { store } from "../store/store";
 import { Who } from "../cmps/MainFilterCmps/Who";
@@ -14,12 +13,10 @@ export function MainFilterMobile() {
     const [openType, setOpenType] = useState('where')
     const [whereInput, setWhereInput] = useState('')
     const [whoInput, setWhoInput] = useState('')
-    const [searchParams, setSearchParams] = useSearchParams()
     const [filterBy, setFilterBy] = useState(stayService.getDefaultFilter())
     const gFilter = useSelector(state => state.stayModule.filterBy)
     const filterRef = useRef(null)
     const navigate = useNavigate()
-    const location = useLocation()
 
     useEffect(() => {
         const handleResize = () => {
@@ -34,13 +31,7 @@ export function MainFilterMobile() {
         }
     }, [])
 
-
     useEffect(() => {
-        updateGFilterBySearchParams()
-    }, [searchParams])
-
-    useEffect(() => {
-        updateSearchParams()
         changeFilterWhere(gFilter.where)
         changeFilterWhen(gFilter.when)
         changeFilterWho(gFilter.who)
@@ -48,37 +39,6 @@ export function MainFilterMobile() {
             setOpenType('where')
         }, 100)
     }, [gFilter])
-
-    function updateGFilterBySearchParams() {
-        const city = searchParams.get('city')
-        const country = searchParams.get('country')
-        const startDate = searchParams.get('start_date')
-        const endDate = searchParams.get('end_date')
-        const adults = searchParams.get('adults')
-        const children = searchParams.get('children')
-        const infants = searchParams.get('infants')
-        const pets = searchParams.get('pets')
-
-        const updatedFilterBy = {
-            ...gFilter,
-            where: {
-                city: city || '',
-                country: country || ''
-            },
-            when: {
-                startDate: startDate ? new Date(startDate) : null,
-                endDate: endDate ? new Date(endDate) : null
-            },
-            who: {
-                adults: adults ? +adults : 0,
-                children: children ? +children : 0,
-                infants: infants ? +infants : 0,
-                pets: pets ? +pets : 0
-            }
-        }
-
-        store.dispatch({ type: SET_FILTER_BY, filterBy: updatedFilterBy })
-    }
 
 
     function handleChangeWhere({ target }) {
@@ -114,14 +74,35 @@ export function MainFilterMobile() {
         if (sum < 1) return ''
         return sum + ' guests'
     }
+    function createParamsStr() {
+        let queryStr = '/stay?'
+        if (filterBy.where && filterBy.where.city && filterBy.where.country) {
+            queryStr += `city=${filterBy.where.city}&country=${filterBy.where.country}&`
+        }
+        if (filterBy.when && filterBy.when.startDate && filterBy.when.endDate) {
+            queryStr += `start_date=${format(filterBy.when.startDate, 'yyyy-MM-dd')}&end_date=${format(filterBy.when.endDate, 'yyyy-MM-dd')}&`
+        }
+        if (filterBy.who) {
+            if (filterBy.who.adults) {
+                queryStr += `adults=${filterBy.who.adults}&`
+            }
+            if (filterBy.who.children) {
+                queryStr += `children=${filterBy.who.children}&`
+            }
+            if (filterBy.who.infants) {
+                queryStr += `infants=${filterBy.who.infants}&`
+            }
+        }
+        return queryStr
+    }
 
     function submitFilter() {
         store.dispatch({ type: SET_FILTER_BY, filterBy })
-        updateSearchParams()
         setTimeout(() => {
             setOpenType('')
         }, 100)
-        navigate('/stay')
+        const queryStr= createParamsStr()
+        navigate(queryStr)
     }
 
     function deleteFilter() {
@@ -133,36 +114,7 @@ export function MainFilterMobile() {
 
     }
 
-    function updateSearchParams() {
-        const params = new URLSearchParams(searchParams)
-        if (filterBy.where.city) params.set('city', filterBy.where.city)
-        else params.delete('city')
-        if (filterBy.where.country) params.set('country', filterBy.where.country)
-        else params.delete('country')
-        if (filterBy.when.startDate) {
-            const startDate = format(filterBy.when.startDate, 'yyyy-MM-dd')
-            params.set('start_date', startDate)
-        }
-        else params.delete('start_date')
-        if (filterBy.when.endDate) {
-            const endDate = format(filterBy.when.endDate, 'yyyy-MM-dd')
-            params.set('end_date', endDate)
-        }
-        else params.delete('end_date')
-        if (filterBy.who.adults) params.set('adults', filterBy.who.adults)
-        else params.delete('adults')
-        if (filterBy.who.children) params.set('children', filterBy.who.children)
-        else params.delete('children')
-        if (filterBy.who.infants) params.set('infants', filterBy.who.infants)
-        else params.delete('infants')
-        if (filterBy.who.pets) params.set('pets', filterBy.who.pets)
-        else params.delete('pets')
-        setSearchParams(params)
-    }
-
-
     return <section className={`main-filter mobile`} ref={filterRef} >
-
         <div className="mobile-container">
             <button className="closing-btn" onClick={() => navigate('/stay')}>x</button>
             <div onClick={() => setOpenType('where')} className={`where-input ${openType === 'where' ? 'selected' : ''}`}>
@@ -182,7 +134,7 @@ export function MainFilterMobile() {
                             (format(filterBy.when.startDate, 'MMM dd') + ' - ' + format(filterBy.when.endDate, 'MMM dd')) : ''}
                     />
                 </div>
-                {(openType === 'when' ) && <When dates={filterBy.when} setDates={changeFilterWhen} />}
+                {(openType === 'when') && <When dates={filterBy.when} setDates={changeFilterWhen} />}
             </div>
 
             <div onClick={() => setOpenType('who')} className={`who-input ${openType === 'who' ? 'selected' : ''}`}>

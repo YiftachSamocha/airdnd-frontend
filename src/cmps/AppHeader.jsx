@@ -135,7 +135,7 @@ export function AppHeader() {
 
     return (
         <section className="app-header">
-            <div className="main-header">
+            {!isNarrow && <div className="main-header">
                 <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
                     className="logo"><img src={logoImg} /></Link>
                 {isFolded && (
@@ -144,7 +144,7 @@ export function AppHeader() {
                     </div>
                 )}
                 <UserInfoBtn setLoginSignup={setLoginSignup} />
-            </div >
+            </div >}
 
             {!isFolded && isStayPage && !isNarrow && (
                 <div ref={mainFilterRef}>
