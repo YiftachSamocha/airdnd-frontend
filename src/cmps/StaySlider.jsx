@@ -40,11 +40,10 @@ export function StaySlider({ images }) {
             {/* onMouseEnter={() => setShowArrows(true)} onMouseLeave={() => setShowArrows(false)}> */}
             <Slider {...settings}>
                 {images.map((img, index) => (
-                    <><div className="img-body"
+                    <div className="img-body"
                         key={index}>
                         <img src={img} alt={`slide-${index}`} />
-                        </div>
-                    </>
+                    </div>
                 ))}
             </Slider >
             {/* {showArrows && (
@@ -68,8 +67,8 @@ const PrevArrow = ({ className, style, onClick }) => (
             backgroundSize: '13px',
             backgroundColor: 'rgba(255, 255, 255, 0.8)',
             width: '30px', height: '30px',
-            '&:hover':{
-                width: '40px', height: '40px', 
+            '&:hover': {
+                width: '40px', height: '40px',
                 backgroundColor: 'white',
             }
             // opacity: 'isAtStart' ? 0 : 1,
@@ -90,8 +89,8 @@ const NextArrow = ({ className, style, onClick }) => (
             backgroundColor: 'rgba(255, 255, 255, 0.8)',
             backgroundSize: '15px',
             width: '30px', height: '30px',
-            '&:hover':{
-                width: '40px', height: '40px', 
+            '&:hover': {
+                width: '40px', height: '40px',
                 backgroundColor: 'white',
             }
             // opacity: 'isAtEnd' ? 0 : 1,

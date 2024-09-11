@@ -47,8 +47,13 @@ export function formatRating(rating) {
 
 
 
+// export function formatNumberWithCommas(number) {
+//     return number.toLocaleString()
+// }
+
 export function formatNumberWithCommas(number) {
-    return number.toLocaleString()
+    const numberStr = number.toString();
+    return numberStr.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
 
@@ -88,6 +93,16 @@ export function randomPastTime() {
     const pastTime = getRandomIntInclusive(HOUR, WEEK)
     return Date.now() - pastTime
 }
+
+export function formatDateYearAndMonth(originalDate) {
+    const [year, month] = originalDate.split('-');
+    const monthIndex = parseInt(month, 10) - 1; // Convert month to zero-based index
+    const date = new Date(year, monthIndex);
+  
+    const options = { year: 'numeric', month: 'long' };
+    return date.toLocaleDateString('en-US', options);
+  }
+
 
 
 export function getDateRange(datesBooked) {

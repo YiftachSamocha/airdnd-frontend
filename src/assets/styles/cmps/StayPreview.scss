@@ -91,4 +91,17 @@ button .btn-heart{
     font-size: none;
     font-weight: none;
 }
+
+svg{
+    display: block; 
+    fill: rgba(0, 0, 0, 0.5); 
+    height: 24px; width: 24px; 
+    stroke: var(--linaria-theme_palette-icon-primary-inverse); 
+    stroke-width: 2; 
+    overflow: visible;
+}
+//  .gray{
+//    fill: ff385c;
+//    fill: rgba(0, 0, 0, 0.5); 
+//  } : 'red'
 }

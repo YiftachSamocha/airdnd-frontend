@@ -53,11 +53,12 @@
         padding: 10px;
         border-radius: 10px;
         box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-        width: 60%;
+        width: 50%;
     }
 
     .modal-img img {
         border-radius: 10px;
+        aspect-ratio: 1 / 1;
     }
 
     .img-name {
@@ -75,15 +76,36 @@
         justify-content: center;
         margin-bottom: 10px;
 
-        button.back {
-            background-color: $gray4 !important;
-            background: none;
+        button.back,
+        button.close {
             width: 9em;
             height: 2.5em;
             line-height: 0.5;
             font-weight: 400;
-            margin-right: 40px
+            margin-right: 40px;
+            margin-top: 10px;
         }
+
+        button.back {
+            background: $gray4 !important;
+
+            &:hover {
+                background-color: $gray4 !important;
+                background: none;
+            }
+        }
+
+        button.close {
+            background: linear-gradient(90deg, #e00b41, #c21c54) !important;
+            transition: background-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+            background: none;
+            margin-right: 60px;
+
+            &:hover {
+                background-color: linear-gradient(90deg, #c21c54, #e00b41);
+            }
+        }
+
 
         button.confirm {
             height: 2.5em;
@@ -91,6 +113,7 @@
             line-height: 0.5;
             font-weight: 400;
             margin-right: 70px;
+            margin-top: 10px;
         }
     }
 
@@ -239,7 +262,10 @@
         order: 3;
     }
 
-    .modal-booking .modal-btn button.back {
+    .modal-booking .modal-btn button.confirm{
         margin-right: 0;
+    }
+    .modal-booking .modal-btn button.close {
+        margin-left: 40px;
     }
 }

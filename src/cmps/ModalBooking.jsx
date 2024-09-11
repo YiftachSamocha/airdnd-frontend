@@ -73,7 +73,7 @@ export function ModalBooking({ isOpen, onClose, stay, onAddOrder }) {
                         <h5>{stay.location.city}, {stay.location.country}</h5>
                     </div> </div>
                 <div className="modal-btn">
-                    <button className="back" onClick={handleBackClick}>{isConfirmation ? 'Closed' : 'Back'}</button>
+                    <button className={isConfirmation ? "close" : "back"} onClick={handleBackClick}>{isConfirmation ? 'Close' : 'Back'}</button>
                     <button
                         onClick={handleConfirmClick}
                         className={isConfirmation ? 'hidden' : 'confirm'}

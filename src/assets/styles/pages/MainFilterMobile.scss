@@ -16,15 +16,17 @@
     >div>input {
         font-weight: bolder;
         font-size: 1em;
-       width: auto;
+
+
     }
 
     input {
         border: 0;
         outline: 0;
         max-width: auto;
-        text-align: center;
+        text-align: start;
         cursor: pointer;
+        width: 100px;
     }
 
 }
@@ -40,9 +42,13 @@ main .main-filter.mobile {
     z-index: 200;
     background-color: $gray1;
     gap: 1em;
-    
+    cursor: default;
     position: relative;
     margin-inline: 0;
+
+    input {
+        cursor: default;
+    }
 
     .closing-btn {
         background-color: white;
@@ -52,7 +58,7 @@ main .main-filter.mobile {
         justify-content: center;
         align-items: center;
         padding: 0;
-       width: 2em;
+        width: 2em;
         height: 2em;
         font-weight: lighter;
     }
@@ -65,8 +71,10 @@ main .main-filter.mobile {
         width: 100%;
         overflow: auto;
         height: 90vh;
-        .selected{
+
+        .selected {
             border-radius: 25px;
+            cursor: default;
         }
 
 
@@ -78,7 +86,8 @@ main .main-filter.mobile {
             flex-grow: 0;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             border-radius: 15px;
-           
+            cursor: pointer;
+
 
         }
 
@@ -139,7 +148,7 @@ main .main-filter.mobile {
 
                 .where-areas {
                     padding: 0;
-                    width: 90vw;
+                    width: 85vw;
                     overflow: auto;
 
                     div {
@@ -175,7 +184,7 @@ main .main-filter.mobile {
                 }
 
                 .where-cities {
-                    height: 40vh;
+                    height: 35vh;
                     padding: 0;
 
                     div {
@@ -196,7 +205,7 @@ main .main-filter.mobile {
         .when-input {
             flex-direction: column;
             padding: 1em;
-          
+
 
             .when-input-all {
                 display: flex;
@@ -212,6 +221,7 @@ main .main-filter.mobile {
 
         .when-input-all.selected {
             padding-inline: 1em;
+
             label {
                 font-size: 30px;
             }
@@ -266,7 +276,7 @@ main .main-filter.mobile {
                 width: 100%;
                 box-shadow: none;
                 padding: 0;
-               
+
 
                 p {
                     margin: 0;
@@ -277,13 +287,13 @@ main .main-filter.mobile {
 
         .who-content {
             width: 100%;
-           
+
 
             div {
                 flex-direction: row;
                 justify-content: space-between;
                 width: 100%;
-                
+
 
                 input {
                     max-width: auto;
@@ -304,6 +314,11 @@ main .main-filter.mobile {
             input {
                 display: none;
             }
+        }
+
+        .who>div button:hover {
+            background-color: inherit;
+            border: 1px solid black;
         }
     }
 

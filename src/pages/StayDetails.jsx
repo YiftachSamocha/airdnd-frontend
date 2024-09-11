@@ -94,10 +94,12 @@ export function StayDetails() {
         </div>
 
         <div className="more-content">
-          {stay.reviews && <StayReview />}
+          {stay.reviews && <StayReview stay={stay}/>}
           {stay.location && <StayLocation />}
-          {stay.host && <StayHost stay={stay} />}
+          {stay.host && <StayHost stay={stay}/>}
           {stay.thingsToKnow && <StayToKnow stay={stay} />}
+          <StayLocation />
+          <StayToKnow stay={stay} />
         </div>
 
         {isModalOpen && (
