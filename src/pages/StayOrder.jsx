@@ -19,6 +19,8 @@ import { findFirstAvailableNights, formatDateRange, formatNumberWithCommas, getD
 import { addOrder } from '../store/actions/order.action';
 import { parse } from 'date-fns';
 import { ModalBooking } from '../cmps/ModalBooking';
+import { OutsideClick } from '../cmps/OutsideClick';
+
 
 export function StayOrder() {
     const navigate = useNavigate()
@@ -117,7 +119,6 @@ export function StayOrder() {
         <><div className="order">
             <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
             ><img src={logoImg} className="logo" /></Link>
-            {/* <img src={logoImg} className="logo" /> */}
             <hr className='main-hr' /> </div>
             <section className='stay-main-order'>
                 <section className='stay-order'>
@@ -186,7 +187,13 @@ export function StayOrder() {
                     <div className='payment grid'>
                         {/* <button onClick={onAddOrder} >Request to book</button> */}
                         <button className='btn-pay' onClick={handleClick}>Request to book</button>
-                        <ModalBooking isOpen={isModalOpen} onClose={closeModal} stay={stay} onAddOrder={onAddOrder} />
+                        {isModalOpen &&
+                            //  <OutsideClick onOutsideClick={() => setIsWhoOpen(false)}></OutsideClick>
+                            <OutsideClick onOutsideClick={() => setIsModalOpen(false)}>
+                                <ModalBooking isOpen={isModalOpen} onClose={closeModal} stay={stay} onAddOrder={onAddOrder} />
+                            </OutsideClick>
+                        }
+                        {/* <ModalBooking isOpen={isModalOpen} onClose={closeModal} stay={stay} onAddOrder={onAddOrder} /> */}
                     </div>
                     {/* </section> */}
                     <section className="price-details">
