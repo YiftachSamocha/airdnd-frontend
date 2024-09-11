@@ -1,11 +1,17 @@
+.mobile-filter-cont{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .mobile-filter {
     display: flex;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     border-radius: 25px;
     align-items: center;
     padding: 0.5em 1em;
-    margin: 1em;
+    margin: 1em 0 1em 0;
     cursor: pointer;
+    width: 100%;
 
     img {
         max-width: 30px;
@@ -25,14 +31,16 @@
     }
 
     div div {
-        input::placeholder{
+        input::placeholder {
             width: 80px;
         }
+
         input:first-of-type {
             margin-left: 0.1em;
             margin-right: 0.3em;
         }
-        input:last-of-type{
+
+        input:last-of-type {
             margin-left: 0.4em;
         }
     }
@@ -42,7 +50,7 @@
         outline: 0;
         cursor: pointer;
         width: 70px;
-        
+
     }
 
 }
@@ -88,11 +96,14 @@ main .main-filter.mobile {
         overflow: auto;
         height: 90vh;
 
-        .selected  {
+       
+
+        .selected {
             border-radius: 25px;
             cursor: default;
         }
-        .selected >*{
+
+        .selected>* {
             cursor: default;
         }
 
@@ -107,15 +118,17 @@ main .main-filter.mobile {
             border-radius: 15px;
             cursor: pointer;
             padding-inline: 1em;
-            input{
+
+            input {
                 cursor: pointer;
             }
-            
+
         }
-        .selected label{
+
+        .selected label {
             font-size: 23px;
         }
-        
+
 
         .where-input div {
             flex-direction: row;
@@ -247,7 +260,7 @@ main .main-filter.mobile {
         .when-input-all.selected {
             padding-inline: 1em;
 
-            
+
 
             input {
                 display: none;
@@ -326,7 +339,7 @@ main .main-filter.mobile {
         }
 
         .who-input.selected {
-           
+
 
             .who-content button {
                 display: none;

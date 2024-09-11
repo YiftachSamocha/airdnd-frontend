@@ -33,24 +33,36 @@
         display: flex;
         align-items: center;
         width: calc(100vw - 100px);
+    }
 
+    .extra-button {
+        @include extra-btn();
+        padding: 1em;
+        border-radius: 15px;
+        margin-inline: 1em 0;
 
-        .extra-button {
-            @include extra-btn();
-            padding: 1em;
-            border-radius: 15px;
-            margin-inline: 1em 0;
-
-            img {
-                max-width: em(24px);
-            }
-
-
+        img {
+            max-width: em(24px);
         }
+    }
 
-        .extra-button:hover {
-            background-color: $gray1;
-        }
+    .extra-button:hover {
+        background-color: $gray1;
+    }
+
+    .extra-button.small {
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 3em;
+        height: 3em;
+        padding: 0.5em;
+        padding-inline-start: 1em;
+        font-weight: lighter;
+    }
+    .extra-button.small:hover{
+        background-color: inherit;
     }
 
     .layout-main {

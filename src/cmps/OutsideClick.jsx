@@ -16,7 +16,7 @@ export function OutsideClick({ onOutsideClick, children }) {
         }
     }, [onOutsideClick]);
 
-    return <div ref={ref}>{children}</div>
+    return <div ref={ref} className='outside-click'>{children}</div>
 }
 
 
