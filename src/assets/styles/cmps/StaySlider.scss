@@ -1,13 +1,6 @@
 .slider-container {
     position: relative;
     width: 100%;
-    // max-width: 500px;
-    // max-height: 475px;
-    // 320px X 304px;
-    // max-width: 280px;
-    // max-height: 265px;
-    // 240X228 min
-    // 500x475 max
     height: auto;
     margin: 0;
     padding: 0;
@@ -35,7 +28,6 @@
     .slick-dots {
         position: absolute;
         bottom: 10px;
-        /* מיקום העיגולים למטה */
         left: 50%;
         transform: translateX(-50%);
         padding: 0;
@@ -45,11 +37,9 @@
 
     .slick-dots li {
         margin: 0;
-        /* רווח בין העיגולים */
     }
 
 
-    /* עיצוב לחיצים בצדדים */
     .slick-prev,
     .slick-next {
         width: 35px;
@@ -171,7 +161,6 @@
         display: flex;
     }
 
-    /* עיצוב לעיגולים */
     .slick-dots li button {
         position: relative;
         border-radius: 50%;
@@ -181,7 +170,6 @@
     }
 
 
-    /* עיצוב לעיגול פעיל */
     .slick-dots .slick-active button {
         background-color: aliceblue;
         // opacity: 0;
@@ -196,7 +184,6 @@
     .slick-dots li:nth-child(4) button {
         width: 0.6px;
         height: 0.6px;
-        /* גובה עיגולי צד */
     }
 
     .slider-container {
