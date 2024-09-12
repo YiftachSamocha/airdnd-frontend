@@ -179,7 +179,7 @@ export function AppHeader() {
                 </button>}
             </div>
             {isExtraVisible && <div className="layout">
-                <OutsideClick onOutsideClick={() => setIsExtraVisible(prev => !prev)} >
+                <OutsideClick onOutsideClick={() => setIsExtraVisible(prev => !prev)} className="extra-outside">
                     <ExtraFilter closeExtra={() => setIsExtraVisible(prev => !prev)} />
                 </OutsideClick>
             </div>}

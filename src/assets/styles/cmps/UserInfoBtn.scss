@@ -5,10 +5,7 @@
     gap: 0.1em;
     margin-block-start: 0.5em;
     position: relative;
-    .outside-click{
-        padding: 0;
-        width: 0;
-    }
+    
 
     img {
         height: 1.3em;
@@ -99,4 +96,8 @@
 
 .user-modal:hover {
     background-color: white;
+}
+
+.outside-click{
+    padding: 0;
 }
