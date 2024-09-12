@@ -1,7 +1,7 @@
 .when-static {
     position: relative;
     width: 100%;
-    margin: 48px auto 0 0;
+    margin: 48px auto;
     background-color: white;
     color: #222222;
 
@@ -23,6 +23,14 @@
 
     .rdrDefinedRangesWrapper {
         display: none;
+    }
+
+    .rdrDateRangePickerWrapper, .rdrCalendarWrapper{
+        display: flex;
+    }
+
+    .rdrMonth {
+        position: relative;
     }
 
     .rdrMonthPicker select,
@@ -97,7 +105,6 @@
     .rdrDay {
         font-size: initial;
         font-weight: bold;
-        height: unset;
 
         font span {
             font-weight: 300;
@@ -150,10 +157,9 @@
 
     .rdrStartEdge,
     .rdrEndEdge {
-        // border: black 1px solid !important;
-        // background-color: black !important;
-        // border-radius: 50% !important;
-        display: none;
+        border: black 1px solid !important;
+        background-color: black !important;
+        border-radius: 50% !important;
 
 
         .rdrDayNumber {
@@ -200,7 +206,7 @@
 }
 
 
-@media (max-width: 1200px) {
+@media (max-width: 1273px) {
     .when-static {
 
         .rdrCalendarWrapper,
@@ -233,10 +239,6 @@
 
         .rdrMonth {
             width: 100%;
-            position: relative;
-            padding-inline: 0;
-            padding-block: 0;
-
         }
 
         .rdrmonthandearwrapper {
@@ -246,6 +248,10 @@
         .rdrStartEdge,
         .rdrEndEdge {
             width: 100%;
+        }
+
+        .rdrDay {
+            height: unset;
         }
 
         // button {
@@ -264,19 +270,13 @@
     }
 }
 
-@media(max-width: 743px) {
-    .when-static {
-        margin-inline: 24px;
-        margin: 32px 0 24px 0;
-        max-width: 504px;
-        // margin: 32px auto !important;
+    @media(max-width: 743px) {
+        .when-static {
+margin: 24px ;
+            .custom-header{
+                // padding-inline: 24px;
 
-        h3 {
-            padding-inline: 24px;
-        }
-
-        .rdrDays {
-            padding-inline: 24px;
+            }
+            max-width: 504px;
         }
     }
-}

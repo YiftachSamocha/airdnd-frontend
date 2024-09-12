@@ -33,7 +33,7 @@
 
     .outer-circle {
         border-radius: 50%;
-        background-color: rgba(255, 29, 131, 0.3); // Semi-transparent outer circle
+        background-color: rgb(255 29 131 / 15%); // Semi-transparent outer circle
         display: flex;
         justify-content: center;
         align-items: center;
