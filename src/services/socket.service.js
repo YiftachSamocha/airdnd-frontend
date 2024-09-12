@@ -1,10 +1,12 @@
 import io from 'socket.io-client'
 import { userService } from './user'
 
-export const SOCKET_EVENT_CHANGE_STATUS = 'change-order-status'
-export const SOCKET_EVENT_TAKE_STATUS = 'take-order-status'
 export const SOCKET_EMIT_LOGIN = 'set-user-socket'
 export const SOCKET_EMIT_LOGOUT = 'unset-user-socket'
+export const SOCKET_EVENT_CHANGE_STATUS = 'change-order-status'
+export const SOCKET_EVENT_TAKE_STATUS = 'take-order-status'
+export const SOCKET_EVENT_ADD_ORDER = 'add-order'
+export const SOCKET_EVENT_TAKE_ORDER = 'take-order'
 
 const baseUrl = (process.env.NODE_ENV === 'production') ? '' : '//localhost:3030'
 export const socketService = createSocketService()
