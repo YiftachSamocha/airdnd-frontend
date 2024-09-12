@@ -25,7 +25,8 @@
         display: none;
     }
 
-    .rdrDateRangePickerWrapper, .rdrCalendarWrapper{
+    .rdrDateRangePickerWrapper,
+    .rdrCalendarWrapper {
         display: flex;
     }
 
@@ -157,9 +158,7 @@
 
     .rdrStartEdge,
     .rdrEndEdge {
-        border: black 1px solid !important;
-        background-color: black !important;
-        border-radius: 50% !important;
+        display: none;
 
 
         .rdrDayNumber {
@@ -270,13 +269,21 @@
     }
 }
 
-    @media(max-width: 743px) {
-        .when-static {
-margin: 24px ;
-            .custom-header{
-                // padding-inline: 24px;
+@media(max-width: 743px) {
+    .when-static {
+        display: grid;
+        margin-block: 32px 0;
+        grid-template-columns: 24px 1fr 24px;
+        // max-width: 450px;
 
-            }
-            max-width: 504px;
+        >* {
+            grid-column: 2;
         }
+
+        .custom-header {
+            // padding-inline: 24px;
+
+        }
+
     }
+}
