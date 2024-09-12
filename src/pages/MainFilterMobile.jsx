@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { format } from 'date-fns';
 import { SET_FILTER_BY } from "../store/reducers/stay.reducer";
 import { stayService } from "../services/stay";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { store } from "../store/store";
 import { Who } from "../cmps/MainFilterCmps/Who";
@@ -101,7 +101,7 @@ export function MainFilterMobile() {
         setTimeout(() => {
             setOpenType('')
         }, 100)
-        const queryStr= createParamsStr()
+        const queryStr = createParamsStr()
         navigate(queryStr)
     }
 
@@ -119,7 +119,7 @@ export function MainFilterMobile() {
             <button className="closing-btn" onClick={() => navigate('/stay')}>x</button>
             <div onClick={() => setOpenType('where')} className={`where-input ${openType === 'where' ? 'selected' : ''}`}>
                 <div>
-                    <label htmlFor="">Where</label>
+                    <label htmlFor="">Where {openType === 'where' && <span> to?</span>}</label>
                     <input type="text" placeholder="Im flexible" value={whereInput}
                         onChange={handleChangeWhere} />
                 </div>
@@ -128,7 +128,7 @@ export function MainFilterMobile() {
 
             <div className="when-input">
                 <div onClick={() => setOpenType('when')} className={`when-input-all ${openType === 'when' ? 'selected' : ''}`}>
-                    <label htmlFor="">When</label>
+                    <label htmlFor="">When{openType === 'when' && <span>'s your trip?</span>}</label>
                     <input type="text" placeholder="Add dates" readOnly
                         value={filterBy.when.endDate && filterBy.when.startDate ?
                             (format(filterBy.when.startDate, 'MMM dd') + ' - ' + format(filterBy.when.endDate, 'MMM dd')) : ''}
@@ -140,7 +140,7 @@ export function MainFilterMobile() {
             <div onClick={() => setOpenType('who')} className={`who-input ${openType === 'who' ? 'selected' : ''}`}>
                 <div className="who-content">
                     <div>
-                        <label htmlFor="">Who</label>
+                        <label htmlFor="">Who{openType === 'who' && <span>'s coming?</span>}</label>
                         <input type="text" placeholder="Add guests"
                             value={whoInput} readOnly />
                     </div>

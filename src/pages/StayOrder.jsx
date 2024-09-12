@@ -20,6 +20,7 @@ import { addOrder } from '../store/actions/order.action';
 import { parse } from 'date-fns';
 import { ModalBooking } from '../cmps/ModalBooking';
 import { OutsideClick } from '../cmps/OutsideClick';
+import { SOCKET_EVENT_ADD_ORDER, socketService } from '../services/socket.service';
 
 
 export function StayOrder() {
@@ -91,7 +92,7 @@ export function StayOrder() {
     // const availableDates = findFirstAvailableNights(stay.reservedDates, 5)
     const freeDate = formatDateRange(dates)
     console.log('freeDate', freeDate);
-    
+
     const totalReviews = stay.reviews ? stay.reviews.length : 0
     const avgRating = totalReviews > 0
         ? stay.reviews.reduce((sum, review) => sum + review.rate, 0) / totalReviews
@@ -151,6 +152,7 @@ export function StayOrder() {
             createdAt
         }
         addOrder(order)
+        socketService.emit(SOCKET_EVENT_ADD_ORDER, order)
     }
 
     //     // When
@@ -194,7 +196,7 @@ export function StayOrder() {
                         <div className='flex'>
                             <div>
                                 <h4 >Guests </h4><span>{filterCapacity.adults} adults</span></div>
-                                {/* <span>{filterCapacity.children} children</span>
+                            {/* <span>{filterCapacity.children} children</span>
                                 <span>{filterCapacity.infants} infants</span>
                                 <span>{filterCapacity.pets} pets</span></div> */}
                             <button onClick={toggleWho}>Edit</button>

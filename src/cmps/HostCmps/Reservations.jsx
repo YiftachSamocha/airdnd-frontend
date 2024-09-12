@@ -5,6 +5,7 @@ import { updateOrder } from "../../store/actions/order.action";
 import { useSelector } from "react-redux";
 import arrowRight from '../../assets/imgs/arrow-right.png'
 import arrowLeft from '../../assets/imgs/arrow-left.png'
+import { SOCKET_EVENT_CHANGE_STATUS, socketService } from "../../services/socket.service";
 
 export function Reservations({ orders, listings }) {
     const [reservations, setReservations] = useState([])
@@ -27,12 +28,15 @@ export function Reservations({ orders, listings }) {
         setReservations(newRes)
     }, [filterBy, orders])
 
+
     function formatDate(date) {
         return format(date, 'yyyy-MM-dd')
     }
 
-    function changeStatus(order, newStatus) {
-        updateOrder({ ...order, status: newStatus })
+    async function changeStatus(order, newStatus) {
+        const updatedOrder = { ...order, status: newStatus }
+        await updateOrder(updatedOrder)
+        socketService.emit(SOCKET_EVENT_CHANGE_STATUS, updatedOrder)
     }
 
     function onChangeListing({ target }) {

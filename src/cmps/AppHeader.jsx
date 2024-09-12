@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import bigLogoImg from "../assets/imgs/logo.svg"
 import smallLogoImg from "../assets/imgs/small-icon.png"
 import filterImg from "../assets/imgs/filter.png"
+import smallFilterImg from "../assets/imgs/filter-small.svg"
 import searchMobileImg from "../assets/imgs/search-mobile.svg"
 import { MainFilter } from "./MainFilter"
 import { useEffect, useState, useRef } from "react"
@@ -136,7 +137,8 @@ export function AppHeader() {
     return (
         <section className="app-header">
             {!isNarrow && <div className="main-header">
-                <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
+                <Link to={'/stay'}
+                    onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
                     className="logo"><img src={logoImg} /></Link>
                 {isFolded && (
                     <div onClick={handleMainFilterFoldedClick} style={isStayPage ? {} : { display: "none" }}>
@@ -151,30 +153,33 @@ export function AppHeader() {
                     <MainFilter />
                 </div>
             )}
-            {isNarrow && isStayPage && <div onClick={() => navigate('/stay/filter-mobile')} className="mobile-filter">
+            <div className="mobile-filter-cont">{isNarrow && isStayPage && <div onClick={() => navigate('/stay/filter-mobile')} className="mobile-filter">
                 <img src={searchMobileImg} />
                 <div>
                     <input type="text" value={filterBy.where.country} placeholder="Where to?" readOnly />
                     <div>
-                        <input type="text" value={createMobileString('when')} placeholder="Any week" readOnly />
+                        <input type="text" value={createMobileString('when')} placeholder="Any week" readOnly
+                            style={filterBy.when.startDate && filterBy.when.endDate && { width: '100px' }} />
                         <span>·</span>
                         <input type="text" value={createMobileString('who')} placeholder="Add guests" readOnly />
                     </div>
                 </div>
-
             </div>}
+                {isExtraBtnShown && isNarrow && <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button small">
+                    <img src={smallFilterImg} />
+                </button>}
+            </div>
             <hr className="main-hr" />
             <div ref={labelsFilterRef} className="labels-wrap"
                 style={location.pathname === '/stay' || location.pathname === '/' ? {} : { display: "none" }}>
                 <LabelsFilter />
-                {isExtraBtnShown && <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button">
+                {isExtraBtnShown && !isNarrow && <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button">
                     <img src={filterImg} alt="" />
                     Filters
-
                 </button>}
             </div>
             {isExtraVisible && <div className="layout">
-                <OutsideClick onOutsideClick={() => setIsExtraVisible(prev => !prev)} >
+                <OutsideClick onOutsideClick={() => setIsExtraVisible(prev => !prev)} className="extra-outside">
                     <ExtraFilter closeExtra={() => setIsExtraVisible(prev => !prev)} />
                 </OutsideClick>
             </div>}
