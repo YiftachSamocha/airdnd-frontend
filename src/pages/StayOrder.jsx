@@ -20,6 +20,7 @@ import { addOrder } from '../store/actions/order.action';
 import { parse } from 'date-fns';
 import { ModalBooking } from '../cmps/ModalBooking';
 import { OutsideClick } from '../cmps/OutsideClick';
+import logo from '../assets/imgs/small-icon.png';
 
 
 export function StayOrder() {
@@ -104,31 +105,15 @@ export function StayOrder() {
         });
     }, [stay, dates, filterCapacity]);
 
-    if (!stay) return <div>Loading...</div>
-
-
-    // const freeDate = formatDateRange(dates)
-    // const dateRange = {
-    //     startDate: new Date('2024-09-19T00:00:00+03:00'),
-    //     endDate: new Date('2024-09-20T00:00:00+03:00')
-    // }
-
-    // const totalNights = calculateDaysBetween(dateRange)
-    // let price = stay.price.night
-    // let finalPrice = stay.price.night * totalNights
-    // const cleaningFee = stay.price.cleaning
-    // let total = finalPrice + cleaningFee
-
-    // price = formatNumberWithCommas(price)
-    // total = formatNumberWithCommas(total)
-    // finalPrice = formatNumberWithCommas(finalPrice)
-    // // const availableDates = findFirstAvailableNights(stay.reservedDates, 5)
-
-    // const orderNew = ({ price, total, finalPrice, cleaningFee, totalNights, freeDate, filterCapacity })
-    console.log('stay.reviews', stay.reviews);
-
+    if (!stay) {
+      return (
+          <div className="spinner-container">
+              <img className="spinner" src={logo} alt="logo" />
+          </div>
+      )
+    }
+   
     const totalReviews = stay.reviews ? stay.reviews.length : 0
-    // console.log('stay.reviews.length ',stay.reviews.length );
     
     const avgRating = totalReviews > 0
         ? stay.reviews.reduce((sum, review) => sum + review.rate, 0) / totalReviews
@@ -136,7 +121,6 @@ export function StayOrder() {
 
     function handleClick() {
         setIsModalOpen(true)
-        // setShowConfirmation(false)
     }
 
     function closeModal() {

@@ -4,6 +4,8 @@ import { StaySlider } from './StaySlider.jsx';
 import heart from "../assets/imgs/icons/heart1.svg"
 import heartRed from "../assets/imgs/icons/heart.svg"
 import { useState } from 'react';
+import logo from '../assets/imgs/small-icon.png';
+
 
 export function StayPreview({ stay }) {
     const [likedImages, setLikedImages] = useState({});
@@ -31,6 +33,14 @@ export function StayPreview({ stay }) {
             [stay.id]: !prevLikedImages[stay.id]
         }))
     }
+
+if (!stay) {
+  return (
+      <div className="spinner-container">
+          <img className="spinner" src={logo} alt="logo" />
+      </div>
+  )
+}
 
     return (
         <article className="stay-preview">
