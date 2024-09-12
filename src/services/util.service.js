@@ -24,6 +24,36 @@ export function makeLorem(size = 100) {
     return txt
 }
 
+export function calculateCategoryAverages(reviews) {
+    if (!reviews || reviews.length === 0) return {}
+
+    const categorySums = {}
+    const categoryCounts = {}
+
+    reviews.forEach(review => {
+        const { ratingCategories } = review
+
+        Object.entries(ratingCategories).forEach(([category, rating]) => {
+            if (!categorySums[category]) {
+                categorySums[category] = 0
+                categoryCounts[category] = 0
+            }
+            categorySums[category] += rating
+            categoryCounts[category] += 1
+        })
+    })
+
+    const categoryAverages = {}
+    Object.entries(categorySums).forEach(([category, sum]) => {
+        categoryAverages[category] = sum / categoryCounts[category]
+    })
+    return categoryAverages
+}
+
+
+
+
+
 export function calculateAverageRating(reviews) {
     if (!Array.isArray(reviews) || reviews.length === 0) {
         return 0

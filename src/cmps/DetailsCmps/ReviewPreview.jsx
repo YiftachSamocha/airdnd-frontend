@@ -5,6 +5,7 @@ import { formatDateYearAndMonth } from '../../services/util.service';
 
 export function ReviewPreview({ review }) {
 
+    
 
     const firstName = review.by.fullname ? review.by.fullname.split(' ')[0] : ''
     const starsFromRate = []
@@ -24,7 +25,7 @@ export function ReviewPreview({ review }) {
                 <img src={review.by.imgUrl} alt={`${firstName}'s profile`} className="reviewer-image" />
                 <div className="reviewer-info">
                     <h4>{firstName}</h4>
-                    <h4>{review.by.address}</h4>
+                    <h4>{review.by.livingIn}</h4>
                 </div> </div>
             <div className="review-details">
                 <div className="stars-container">
