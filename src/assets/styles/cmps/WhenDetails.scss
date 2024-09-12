@@ -1,9 +1,8 @@
 .when-static {
     position: relative;
     width: 100%;
-    margin: 48px auto !important;
+    margin: 48px auto 0 0;
     background-color: white;
-    box-shadow: 0 1px 0 0 #e1dede !important;
     color: #222222;
 
     .custom-header div {
@@ -24,10 +23,6 @@
 
     .rdrDefinedRangesWrapper {
         display: none;
-    }
-
-    .rdrMonth {
-        position: relative;
     }
 
     .rdrMonthPicker select,
@@ -102,6 +97,7 @@
     .rdrDay {
         font-size: initial;
         font-weight: bold;
+        height: unset;
 
         font span {
             font-weight: 300;
@@ -154,9 +150,10 @@
 
     .rdrStartEdge,
     .rdrEndEdge {
-        border: black 1px solid !important;
-        background-color: black !important;
-        border-radius: 50% !important;
+        // border: black 1px solid !important;
+        // background-color: black !important;
+        // border-radius: 50% !important;
+        display: none;
 
 
         .rdrDayNumber {
@@ -236,6 +233,10 @@
 
         .rdrMonth {
             width: 100%;
+            position: relative;
+            padding-inline: 0;
+            padding-block: 0;
+
         }
 
         .rdrmonthandearwrapper {
@@ -263,10 +264,19 @@
     }
 }
 
-    @media(max-width: 743px) {
-        .when-static {
+@media(max-width: 743px) {
+    .when-static {
+        margin-inline: 24px;
+        margin: 32px 0 24px 0;
+        max-width: 504px;
+        // margin: 32px auto !important;
+
+        h3 {
             padding-inline: 24px;
-            max-width: 504px;
-            margin: 32px auto !important;
+        }
+
+        .rdrDays {
+            padding-inline: 24px;
         }
     }
+}

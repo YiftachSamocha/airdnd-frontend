@@ -34,9 +34,20 @@ export function StayDetails() {
   }, [stayId])
 
   useEffect(() => {
+    // Any side effect or actions that should occur when isModalOpen changes
+    if (isModalOpen) {
+        // Modal opened, apply necessary styles or logic
+        console.log('Modal is now open')
+    } else {
+        // Modal closed, apply necessary styles or logic
+        console.log('Modal is now closed')
+    }
+}, [isModalOpen])
+
+  useEffect(() => {
     // Initialize dates and guests from search params
-    const startDate = searchParams.get('start_date') ? new Date(searchParams.get('start_date')) : null;
-    const endDate = searchParams.get('end_date') ? new Date(searchParams.get('end_date')) : null;
+    const startDate = searchParams.get('start_date') ? new Date(searchParams.get('start_date')) : null
+    const endDate = searchParams.get('end_date') ? new Date(searchParams.get('end_date')) : null
     const cityParam = searchParams.get('city') || ''
 
     setDates({ startDate, endDate })
@@ -49,32 +60,65 @@ export function StayDetails() {
     setIsModalOpen(prevState => !prevState)
     // setModalContent(type === 'description' ? stay.description : stay.amenities)
   }
+  
   function onSetDates(newDates) {
-    setDates(newDates);
+    setDates(newDates)
 
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams)
 
     if (newDates.startDate) {
-      const formattedStartDate = format(newDates.startDate, 'yyyy-MM-dd');
-      params.set('start_date', formattedStartDate);
+      const formattedStartDate = format(newDates.startDate, 'yyyy-MM-dd')
+      params.set('start_date', formattedStartDate)
     } else {
-      params.delete('start_date');
+      params.delete('start_date')
     }
 
     if (newDates.endDate) {
-      const formattedEndDate = format(newDates.endDate, 'yyyy-MM-dd');
-      params.set('end_date', formattedEndDate);
+      const formattedEndDate = format(newDates.endDate, 'yyyy-MM-dd')
+      params.set('end_date', formattedEndDate)
     } else {
-      params.delete('end_date');
+      params.delete('end_date')
     }
 
-    setSearchParams(params);
+    setSearchParams(params)
   }
+
+  function groupItemsByType(items) {
+    console.log(items)
+            return items.reduce((acc, item) => {
+                const type = item.type || 'Other'
+                if (!acc[type]) acc[type] = []
+                acc[type].push(item)
+                return acc
+            }, {})
+        }
+    
+        // Render grouped amenities
+        function renderGroupedAmenities(items) {
+          console.log(items, 'items')
+            const groupedItems = groupItemsByType(items)
+    
+            return Object.keys(groupedItems).map((type, index) => (
+                <div key={index} className="modal-group">
+                    <h3>{type}</h3>
+                    {groupedItems[type].map((item, i) => (
+                        <div key={i} className={`item ${i}`}>
+                            <div>
+                                {item.imgUrl && (
+                                    <img src={item.imgUrl} alt={item.name || 'Image'} className="modal-details-icon" />
+                                )}
+                                <span>{item.name || item.text || item.toString()}</span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            ))
+        }
 
   if (!stay) return <div>Loading...</div>
   return (
     <section className="stay-details">
-      <AppHeader />
+      {/* <AppHeader /> */}
       <div className="main-content">
         <h1>{stay.name}</h1>
         {stay.imgs && <StayImage stay={stay} />}
@@ -94,12 +138,10 @@ export function StayDetails() {
         </div>
 
         <div className="more-content">
-          {stay.reviews && <StayReview stay={stay}/>}
-          {stay.location && <StayLocation />}
+          {/* {stay.reviews && <StayReview stay={stay}/>} */}
+          {stay.location && <StayLocation stay={stay} />}
           {stay.host && <StayHost stay={stay}/>}
           {stay.thingsToKnow && <StayToKnow stay={stay} />}
-          <StayLocation />
-          <StayToKnow stay={stay} />
         </div>
 
         {isModalOpen && (
@@ -114,9 +156,7 @@ export function StayDetails() {
               <div>
                 <h2>What this place offers</h2>
                 <div className="amenities-list">
-                  {stay.amenities.map((amenity, index) => (
-                    <div key={index}>{amenity}</div>
-                  ))}
+                  {renderGroupedAmenities(stay.amenities)}
                 </div>
               </div>
             )}

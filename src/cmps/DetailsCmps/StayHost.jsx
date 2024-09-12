@@ -1,5 +1,6 @@
 import securityIcon from '../../assets/imgs/icons/security.svg'
 import starIcon from '../../assets/imgs/icons/star.svg'
+import securityAlert from '../../assets/imgs/icons/security-alert.svg'
 
 export function StayHost({ stay }) {
     return (
@@ -58,7 +59,11 @@ export function StayHost({ stay }) {
                         <p>Response Rate: {stay.host.responceRate}%</p>
                         <p>Responds within a few hours</p>
                     </div>
-                    <p className="note">To protect your payment, never transfer money or communicate outside of the Airdnd website or app.</p>
+                    <div className='alert'>
+                        <img src={securityAlert} />
+                        <p className="note">To protect your payment, never transfer money or communicate outside of the Airdnd website or app.</p>
+
+                    </div>
                 </div>
             </div>
         </section>

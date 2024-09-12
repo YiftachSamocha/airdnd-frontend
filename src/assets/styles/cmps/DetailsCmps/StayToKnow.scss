@@ -1,5 +1,6 @@
 .things-to-know {
     padding-block: 48px;
+    box-shadow: 0px -1px 0 0 #e1dede !important;
 
     h3 {
         padding-block-end: 24px !important;
@@ -24,7 +25,8 @@
     }
 
     @media (max-width:743px) {
-        padding: 24px;
+        margin-inline: 24px;
+        // margin-block: 24px 32px;
 
         h3 {
             display: none;
