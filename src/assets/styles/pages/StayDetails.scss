@@ -1,5 +1,5 @@
 .stay-details {
-    max-width: min(1120px, 90%);
+    max-width: 1120px;
     margin-inline: auto;
     position: relative;
 
@@ -39,7 +39,7 @@
 
         .details-container {
             display: grid;
-            grid-template-columns: 58.3% calc(41.7% - 8.33%);
+            grid-template-columns: minmax(320px, 2fr) minmax(230px, 1fr);
             gap: 8.33%;
             align-items: flex-start;
             margin-block: 32px 24px;

@@ -26,7 +26,7 @@ export function StayPayment({ stay, onSetDates, dates }) {
     const [orderURL, setOrderUrl] = useState('')
     const [searchParams, setSearchParams] = useSearchParams()
 
-	const currUser = useSelector(state => state.userModule.currUser)
+    const currUser = useSelector(state => state.userModule.currUser)
 
     const navigate = useNavigate()
 
@@ -60,13 +60,13 @@ export function StayPayment({ stay, onSetDates, dates }) {
         updateSearchParams()
 
         setIsFormReady(currUser && dates.startDate && dates.endDate && filterCapacity.adults > 0)
-    // console.log('curr user', currUser)
+        // console.log('curr user', currUser)
 
     }, [currUser, dates, filterCapacity])
 
     function updateSearchParams() {
         const params = new URLSearchParams(searchParams)
-       
+
         if (filterCapacity.adults) params.set('adults', filterCapacity.adults)
         else params.delete('adults')
 
@@ -88,7 +88,7 @@ export function StayPayment({ stay, onSetDates, dates }) {
             setIsSelectingEndDate(true)
         } else {
             onSetDates({ startDate: dates.startDate, endDate: newDates.endDate })
-         
+
             setIsWhenOpen(false) // Close the date picker
             setIsSelectingEndDate(false)
         }
@@ -155,12 +155,16 @@ export function StayPayment({ stay, onSetDates, dates }) {
                             <p>{displayDateInLocal(dates.endDate)}</p>
                         </div>
                     </button>
+
                     {isWhenOpen && (
-                        <When
-                            dates={dates}
-                            setDates={handleDateChange}
-                            breakpoint={743}
-                        />
+                        <OutsideClick onOutsideClick={() => setIsWhenOpen(false)}>
+                            <WhenDetaisl
+                                dates={dates}
+                                setDates={handleDateChange}
+                                breakpoint={743}
+                            />
+                        </OutsideClick>
+
                     )}
 
                     <button className="btn-team full" onClick={toggleWho}>
