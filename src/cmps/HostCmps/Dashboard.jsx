@@ -50,8 +50,7 @@ export function Dashboard({ orders, stays }) {
     }
     //BAR
     const prices = stays.map(stay => stay.price.night)
-    const names = stays.map(stay => stay.name)
-    const colors = stays.map(() => getRandomColor())
+    const names = stays.map(stay => stay.name.slice(0,10)+'...')
     const barData = {
         labels: names,
         datasets: [{
@@ -118,7 +117,7 @@ export function Dashboard({ orders, stays }) {
             </div>
         }
 
-        <Box sx={{ minWidth: 200, margin: '20px' }}>
+        <Box sx={{ minWidth: 250, margin: '20px' }}>
             <FormControl fullWidth
                sx={{
                 margin: '20px 0',

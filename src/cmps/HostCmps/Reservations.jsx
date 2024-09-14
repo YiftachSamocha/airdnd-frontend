@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import arrowRight from '../../assets/imgs/arrow-right.png'
 import arrowLeft from '../../assets/imgs/arrow-left.png'
 import { SOCKET_EVENT_CHANGE_STATUS, socketService } from "../../services/socket.service";
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 export function Reservations({ orders, listings }) {
     const [reservations, setReservations] = useState([])
@@ -90,13 +91,40 @@ export function Reservations({ orders, listings }) {
                             className={filterBy.type === 'declined' ? 'selected' : ''}>Declined</button>
                     </div>
                     <div className="filter-listing">
-                        <label htmlFor="listing">Listing</label>
-                        <select name="" id="listing" onChange={onChangeListing}>
-                            <option value="all" >All</option>
-                            {listings.map(listing => {
-                                return <option value={listing._id}>{listing.name}</option>
-                            })}
-                        </select>
+                        <Box sx={{ minWidth: 400, margin: '20px' }}>
+                            <FormControl fullWidth
+                                sx={{
+                                    margin: '20px 0',
+                                    '& .MuiOutlinedInput-root': {
+                                        '& fieldset': {
+                                            borderColor: '#e0e0e0',
+                                        },
+                                        '&.Mui-focused fieldset': {
+                                            borderColor: '#ff385c',
+                                            top: '-5px',
+                                        },
+                                        '& .MuiInputLabel-root': {
+                                            padding: '0 4px',  // Add padding to prevent text cutting
+                                          },
+                                    },
+                                }}>
+                                <InputLabel id="demo-simple-select-label"
+                                    sx={{ color: 'black', '&.Mui-focused': { color: '#ff385c' } }}
+                                    shrink>Listing</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={filterBy.listing}
+                                    label="Age"
+                                    onChange={onChangeListing}
+                                >
+                                    <MenuItem value="all">All</MenuItem>
+                                    {listings.filter(list => list.status === 'published').map(listing => {
+                                        return <MenuItem value={listing._id}>{listing.name}</MenuItem>
+                                    })}
+                                </Select>
+                            </FormControl>
+                        </Box>
                     </div>
                 </div>
 

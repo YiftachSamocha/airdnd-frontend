@@ -1,5 +1,6 @@
 .reservations {
     padding: 1.25em;
+    position: relative;
 
     h2 {
         margin-bottom: 1.25em;
@@ -42,6 +43,7 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 5em;
+        padding-inline: 2em;
 
         .res-item {
             display: flex;
@@ -123,6 +125,13 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        position: sticky;
+        top: 0;
+        
+        background-color: white;
+        border-bottom: 1px solid $gray1;
+        padding-block: 1em;
+
         .res-filter-cont{
             display: flex;
             width: 100%;
@@ -130,6 +139,7 @@
             flex-direction: column;
             align-items: center;
             gap: 1em;
+          
         }
 
         .filter-type {

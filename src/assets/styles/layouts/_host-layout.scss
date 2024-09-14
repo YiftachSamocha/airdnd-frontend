@@ -6,22 +6,48 @@
 }
 
 @include for-narrow-layout {
-
     .reservations .reservations-filter {
         flex-direction: column;
         gap: 1em;
     }
+
 }
 
-@include for-normal-layout{
-    .host .host-header{
+@include for-normal-layout {
+    .host .host-header {
         flex-direction: row;
+        align-items: stretch;
+      
+    }
+
+    .reservations .reservations-filter {
+        top: 60px;
+    }
+
+    .listings h2 {
+        top: 60px;
     }
 }
 
 @include for-wide-layout {
     .reservations .reservations-filter .res-filter-cont {
         flex-direction: row;
+    }
+
+    .host .host-details {
+        height: auto;
+
+        .host {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+            border: 1px solid $gray1;
+            padding-inline: 1.5em;
+            border-radius: 15px;
+            min-width: 500px;
+
+            .host-stats hr {
+                width: 100%;
+            }
+        }
     }
 }
 
@@ -41,9 +67,9 @@
             flex-direction: row;
         }
     }
-    
-    .dashboard{
+
+    .dashboard {
         flex-direction: row;
     }
-    
+
 }
