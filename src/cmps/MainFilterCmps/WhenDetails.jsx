@@ -2,10 +2,10 @@ import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { useEffect, useState } from 'react';
-import { addDays, addMonths, isBefore, isAfter, format } from 'date-fns';
+import { addDays, addMonths, isBefore, isAfter, format, isSameDay } from 'date-fns';
 import { findFirstAvailableNights } from '../../services/util.service';
 
-export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200 }) {
+export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200, setIsWhenOpen, isWhenOpen }) {
     const [monthsAmount, setMonthsAmount] = useState(2)
     const [isSelectingEndDate, setIsSelectingEndDate] = useState(false);
 
@@ -38,21 +38,32 @@ export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200 }) {
                 })
             }
         }
-    }, [reservedDates, dates])
-   
+    }, [])
+
     // useEffect(() => {
     //     // Call updateMonthNames after the component mounts and after each render
     //     updateMonthNames()
     // }, [monthsAmount, dates])
 
-    function handleDateChange(ranges) {
-        const { selection } = ranges;
-        const startDate = selection.startDate;
-        const endDate = selection.endDate;
-        
-        onSetDates({ startDate, endDate });
+    async function handleDateChange(ranges) {
+        // onSetDates({ startDate, endDate: null })
+        const { selection } = ranges
+        const startDate = selection.startDate
+        const endDate = selection.endDate
+
+        if (!isSelectingEndDate) {
+            setIsSelectingEndDate(true);
+            onSetDates({ startDate, endDate: null }); // Start selecting, don't set endDate yet
+            return; // Don't close the modal yet
+        }
+
+        // When end date is selected, set both dates and close the modal
+        if (isSelectingEndDate && startDate && endDate) {
+            onSetDates({ startDate, endDate });
+            setIsWhenOpen(false); // Close the modal
+            setIsSelectingEndDate(false); // Reset the flag
+        }
     }
-    
 
     // function updateMonthNames() {
     //     // Select all elements with the class 'rdrMonthName'
@@ -80,41 +91,16 @@ export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200 }) {
 
     const nightsCount = dates.startDate && dates.endDate ? getNightsCount(dates.startDate, dates.endDate) : 0
 
-    // function findFirstAvailableNights(reservedRanges, nightsNeeded) {
-    //     const today = new Date()
-    //     let currentDate = addDays(today, 1)
-    //     let foundNights = []
-
-    //     while (foundNights.length < nightsNeeded) {
-    //         const isReserved = reservedRanges.some(range =>
-    //             isBefore(currentDate, new Date(range.end)) && isAfter(currentDate, new Date(range.start))
-    //         )
-
-    //         if (!isReserved) {
-    //             foundNights.push(currentDate)
-    //         } else {
-    //             foundNights = [] // Reset if a reserved date is found within the needed range
-    //         }
-
-    //         currentDate = addDays(currentDate, 1)
-
-    //         if (foundNights.length === nightsNeeded) {
-    //             return {
-    //                 startDate: foundNights[0],
-    //                 endDate: foundNights[nightsNeeded - 1],
-    //             }
-    //         }
-    //     }
-    //     return null // Return null if no suitable range is found
-    // }
-
+    function handleClear() {
+        onSetDates({ startDate: '', endDate: '' });
+    }
     return (
         <div className="when-static">
             <div className="custom-header">
                 {nightsCount > 0 ? (
                     <div>
                         <h3>
-                            {nightsCount} nights in {stay.location.city}
+                            {nightsCount} nights <span>in {stay.location.city}</span>
                             <div>
                                 {dates.startDate ? dates.startDate.toDateString() : ''} -{' '}
                                 {dates.endDate ? dates.endDate.toDateString() : ''}
@@ -147,6 +133,11 @@ export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200 }) {
                 inputRanges={[]}
                 onChange={handleDateChange}
             />
+            <div className='btns'>
+                <button className='clear btn-link' onClick={handleClear}>Clear</button>
+                <button className="black" onClick={() => setIsWhenOpen(false)}>Close</button>
+            </div>
+
         </div>
     )
 }

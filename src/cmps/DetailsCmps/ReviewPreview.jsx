@@ -15,7 +15,7 @@ export function ReviewPreview({ review }) {
     }
     const stayed = review.daysStayed > 1 ? 'Stayed a few nights' : 'Stayed one night'
     const date = formatDateYearAndMonth(review.date)
-    console.log(firstName);
+    // console.log(firstName);
 
 
     return (

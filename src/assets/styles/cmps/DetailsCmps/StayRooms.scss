@@ -15,6 +15,9 @@
             gap: 12px;
 
             button {
+                display: flex; /* Use flexbox */
+                align-items: center; /* Center vertically */
+                justify-content: center;
                 background-color: transparent;
                 border-radius: 50%;
                 aspect-ratio: 1/1;
@@ -23,7 +26,7 @@
                 box-shadow: -1px 3px 3px 0 #dddddd;
                 cursor: pointer;
 
-                img {
+                svg {
                     height: 16px;
                     width: 16px;
                     padding: 0;

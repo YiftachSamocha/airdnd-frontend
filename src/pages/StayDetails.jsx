@@ -62,6 +62,8 @@ export function StayDetails() {
   }
   
   function onSetDates(newDates) {
+    console.log(newDates)
+    // debugger
     setDates(newDates)
 
     const params = new URLSearchParams(searchParams)
@@ -118,7 +120,7 @@ export function StayDetails() {
   if (!stay) return <div>Loading...</div>
   return (
     <section className="stay-details">
-      {/* <AppHeader /> */}
+      <AppHeader />
       <div className="main-content">
         <h1>{stay.name}</h1>
         {stay.imgs && <StayImage stay={stay} />}

@@ -18,7 +18,7 @@ button {
 
 	&.black {
 		color: whitesmoke;
-		background-color: black;
+		background-color: $gray5;
 	}
 
 	&.disabled {
@@ -27,6 +27,19 @@ button {
 		cursor: not-allowed;
 
 	}
+
+	&.change-count {
+		&.disabled{
+		border-color: $gray2;
+		cursor: not-allowed;
+
+		svg{
+			fill: $gray2 !important;
+		}
+	}
+}
+
+	
 }
 
 form>* {

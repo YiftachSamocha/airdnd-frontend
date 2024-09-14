@@ -4,7 +4,7 @@ import { GoogleMapMarker } from "../GoogleMapMarker";
 
 export function StayLocation({ stay }) {
     const [zoomLevel, setZoomLevel] = useState(13);
-    const [outerCircleSize, setOuterCircleSize] = useState(100); // Initial size for the outer circle   
+    const [outerCircleSize, setOuterCircleSize] = useState(75); // Initial size for the outer circle   
 
     const stayLocationSVG = `
   <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
@@ -28,7 +28,7 @@ export function StayLocation({ stay }) {
 
     // Use the onChange callback to capture changes in zoom or center
     function calculateCircleSize(zoomLevel) {
-        const baseSize = 100; // Smaller starting size for the circle
+        const baseSize = 75; // Smaller starting size for the circle
         const scaleFactor = Math.pow(1.7, zoomLevel - 12); // Adjust scaling sensitivity
         const calculatedSize = baseSize * scaleFactor;
 

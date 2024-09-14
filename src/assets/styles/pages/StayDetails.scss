@@ -42,7 +42,7 @@
             grid-template-columns: minmax(320px, 2fr) minmax(230px, 1fr);
             gap: 8.33%;
             align-items: flex-start;
-            margin-block: 32px 24px;
+            margin-block: 32px 1px;
             max-width: 100%;
             /* Ensure that the sticky element references this container */
 
@@ -61,6 +61,7 @@
             .payment-container {
                 position: sticky;
                 top: 110px;
+                padding-block-end: 48px;
 
                 max-width: 370px;
                 min-width: 223px;
@@ -197,6 +198,7 @@
             width: 100vw !important;
             max-width: 100% !important;
             z-index: 100;
+            padding-block-end: 0 !important;
         }
 
         .more-content {

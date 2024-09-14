@@ -9,6 +9,7 @@ import { addOrder } from "../../store/actions/order.action.js"
 import { format, isValid } from "date-fns"
 import { OutsideClick } from "../OutsideClick.jsx"
 import { useSelector } from "react-redux"
+import { WhenDetails } from "../MainFilterCmps/WhenDetails.jsx"
 
 
 
@@ -59,7 +60,7 @@ export function StayPayment({ stay, onSetDates, dates }) {
         createOrderURLstr()
         updateSearchParams()
 
-        setIsFormReady(currUser && dates.startDate && dates.endDate && filterCapacity.adults > 0)
+        setIsFormReady(dates.startDate && dates.endDate && filterCapacity.adults > 0)
         // console.log('curr user', currUser)
 
     }, [currUser, dates, filterCapacity])
@@ -82,17 +83,17 @@ export function StayPayment({ stay, onSetDates, dates }) {
         setSearchParams(params)
     }
 
-    function handleDateChange(newDates) {
-        if (!isSelectingEndDate) {
-            onSetDates({ startDate: newDates.startDate, endDate: null })
-            setIsSelectingEndDate(true)
-        } else {
-            onSetDates({ startDate: dates.startDate, endDate: newDates.endDate })
+    // function handleDateChange(newDates) {
+    //     if (!isSelectingEndDate) {
+    //         onSetDates({ startDate: newDates.startDate, endDate: null })
+    //         setIsSelectingEndDate(true)
+    //     } else {
+    //         onSetDates({ startDate: dates.startDate, endDate: newDates.endDate })
 
-            setIsWhenOpen(false) // Close the date picker
-            setIsSelectingEndDate(false)
-        }
-    }
+    //         setIsWhenOpen(false) // Close the date picker
+    //         setIsSelectingEndDate(false)
+    //     }
+    // }
 
     function createOrderURLstr() {
         let urlStr = '?'
@@ -138,6 +139,15 @@ export function StayPayment({ stay, onSetDates, dates }) {
         setIsWhoOpen(false) // Only closes the dropdown
     }
 
+    function handleButtonClick() {
+        if (!dates.startDate || !dates.endDate) {
+            isWhenOpen(true)
+        } else {
+            handleReserve(stay)
+        }
+    }
+
+
     return (
         <div className="payment-cmp">
             <section className="stay-payment sticky">
@@ -157,13 +167,18 @@ export function StayPayment({ stay, onSetDates, dates }) {
                     </button>
 
                     {isWhenOpen && (
-                        <OutsideClick onOutsideClick={() => setIsWhenOpen(false)}>
-                            <WhenDetaisl
-                                dates={dates}
-                                setDates={handleDateChange}
-                                breakpoint={743}
-                            />
-                        </OutsideClick>
+                        <div className="when-modal">
+                            <OutsideClick onOutsideClick={() => setIsWhenOpen(false)}>
+                                <WhenDetails
+                                    dates={dates}
+                                    onSetDates={onSetDates}
+                                    stay={stay}
+                                    breakpoint={743}
+                                    setIsWhenOpen={setIsWhenOpen}
+                                    isWhenOpen={isWhenOpen}
+                                />
+                            </OutsideClick>
+                        </div>
 
                     )}
 
@@ -180,9 +195,9 @@ export function StayPayment({ stay, onSetDates, dates }) {
                 </div>
 
                 <div className="reserve grid-item button-container">
-                    <button className="color-change" onClick={() => handleReserve(stay)}>
-                        {isFormReady ? 'Reserve' : 'Check availability'}
 
+                    <button className="color-change" onClick={handleButtonClick}>
+                        {isFormReady ? 'Reserve' : 'Check availability'}
                     </button>
                 </div>
 

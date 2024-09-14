@@ -1,7 +1,8 @@
 .when-static {
     position: relative;
     width: 100%;
-    margin: 48px auto;
+    margin-block-start: 48px;
+    padding-block-end: 48px;
     background-color: white;
     color: #222222;
 
@@ -32,6 +33,8 @@
 
     .rdrMonth {
         position: relative;
+        padding: 0 9px 0 9px;
+
     }
 
     .rdrMonthPicker select,
@@ -55,7 +58,7 @@
         border: none;
         cursor: pointer;
         font-size: 18px;
-        color: black;
+        color: $gray5;
         margin-block-start: 4.5em;
     }
 
@@ -98,7 +101,7 @@
         margin: 1.5em auto;
         font-size: 16px;
         padding: 0;
-        color: black;
+        color: $gray5;
         width: 100%;
         text-align: center;
     }
@@ -125,7 +128,7 @@
     }
 
     .rdrDayHovered {
-        border: black 1px solid !important;
+        border: $gray5 1px solid !important;
         border-radius: 50%;
 
         .rdrDayNumber {
@@ -136,7 +139,7 @@
 
     button:has(.rdrStartEdge),
     button:has(.rdrEndEdge) {
-        background-color: black !important;
+        background-color: $gray5 !important;
         border-radius: 50% !important;
     }
 
@@ -185,7 +188,7 @@
     }
 
     .rdrDay:not(.rdrDayPassive) .rdrInRange~.rdrDayNumber span {
-        color: black;
+        color: $gray5;
     }
 
     .rdrInRange:hover {
@@ -200,7 +203,25 @@
         opacity: 0.5;
         background-color: white;
     }
+    
+   .rdrDayDisabled {
+        opacity: 0.5;
+        background-color: white;
+    }
 
+    .btns {
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+        gap: 8px;
+        font-size: 14px;
+        padding-block-start: 20px;
+
+        .black{
+            padding: 8px 16px;
+            display: none;
+        }
+    }
 
 }
 
@@ -274,6 +295,7 @@
         display: grid;
         margin-block: 32px 0;
         grid-template-columns: 24px 1fr 24px;
+        padding-block-end: 24px;
         // max-width: 450px;
 
         >* {

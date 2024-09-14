@@ -169,7 +169,7 @@ export function AppHeader() {
                     <img src={smallFilterImg} />
                 </button>}
             </div>
-            <hr className="main-hr" />
+            {/* <hr className="main-hr" /> */}
             <div ref={labelsFilterRef} className="labels-wrap"
                 style={location.pathname === '/stay' || location.pathname === '/' ? {} : { display: "none" }}>
                 <LabelsFilter />

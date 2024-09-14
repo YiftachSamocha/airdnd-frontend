@@ -102,16 +102,46 @@
         }
     }
 
-    .when{
-        top: 10%;
-        left: unset;
-        right: 0;
+    .when-modal {
+        background: rgb(255, 255, 255);
+        border-radius: 16px;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 6px 20px;
+        display: inline-block;
+        padding-inline: 24px;
+        position: absolute;
+        top: 60px;
+        right: -5px;
+        width: 661px;
+        z-index: 1;
+
+        .when-static {
+            margin-block: 24px;
+            padding-block-end: 24px !important;
+
+            h3 {
+                span {
+                    display: none;
+                }
+
+                div {
+                    font-weight: lighter;
+                }
+            }
+
+            .rdrMonths {
+                max-width: 620px;
+            }
+
+            .btns .black {
+                display: inline;
+            }
+        }
     }
 
     .who {
         width: 100%;
         position: absolute;
-        top: 42% ;
+        top: 190px;
         left: unset;
         right: 25px;
         border-radius: 4px;
@@ -121,9 +151,10 @@
         min-width: 280px;
         padding: 16px;
 
-        >div button {
+        div button {
             width: 32px;
             height: 32px;
+            color: red;
         }
 
         h5 {
@@ -151,10 +182,10 @@
         grid-column: span 2;
         margin-top: 5px;
         font-size: 22px;
-        margin-block-end: 24px !important ;
+        margin-block-end: 24px !important;
         font-weight: 700 !important;
 
-        :not(span){
+        :not(span) {
             font-weight: 700;
         }
 
