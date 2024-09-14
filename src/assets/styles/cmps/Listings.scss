@@ -1,6 +1,9 @@
 .listings {
     padding: 2em;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     h2 {
         font-size: 1.5em;
@@ -9,10 +12,16 @@
     }
 
     .listings-main {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1.5em;
+        // display: flex;
+        // flex-wrap: wrap;
+        // gap: 1.5em;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+        grid-auto-rows: 400px;
+        gap: 2.5em;
         width: 100%;
+        margin-bottom: 2em;
+
     }
 
     .listing-item {
@@ -20,20 +29,22 @@
         border: 1px solid #e0e0e0;
         border-radius: 12px;
         overflow: hidden;
-        width: calc(33.333% - 1em);
+        // width: calc(33.333% - 1em);
         cursor: pointer;
         transition: box-shadow 0.3s ease;
         display: flex;
         justify-content: space-between;
-        
+        flex-direction: column;
+
 
         &:hover {
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
         }
 
         img {
-            max-width: 190px;
-            height: 190px;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
             object-fit: cover;
             border-bottom: 1px solid #e0e0e0;
         }
@@ -55,5 +66,21 @@
                 }
             }
         }
+    }
+    h5{
+        font-size: 20px;
+    }
+    .add-stay-btn{
+    background-color: $clr-red;
+    color: white;
+    border: 0;
+    border-radius: 15px;
+    width: 220px;
+    height: 70px;
+    font-size: 20px;
+    white-space: nowrap;
+    margin-block: 1em;
+    
+        
     }
 }

@@ -1,4 +1,8 @@
 .dashboard{
     display: flex;
     justify-content: space-around;
+    max-width: 40%;
+    flex-direction: column;
+    align-items: center;
+    margin-inline: 1.5em;
 }

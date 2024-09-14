@@ -2,5 +2,15 @@
     .host-header{
         display: flex;
         justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+    }
+    .host-details .host{
+        display: block;
+        width: 380px;
+        .host-stats{
+            max-width: 100%;
+            width: 100%;
+        }
     }
 }

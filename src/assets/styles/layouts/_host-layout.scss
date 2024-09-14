@@ -11,10 +11,16 @@
         flex-direction: column;
         gap: 1em;
     }
-
 }
-@include for-wide-layout{
-  .reservations  .reservations-filter .res-filter-cont{
+
+@include for-normal-layout{
+    .host .host-header{
+        flex-direction: row;
+    }
+}
+
+@include for-wide-layout {
+    .reservations .reservations-filter .res-filter-cont {
         flex-direction: row;
     }
 }
@@ -24,4 +30,20 @@
         flex-direction: row;
         gap: 0;
     }
+
+    .listings {
+        .listings-main {
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-auto-rows: 200px;
+        }
+
+        .listing-item {
+            flex-direction: row;
+        }
+    }
+    
+    .dashboard{
+        flex-direction: row;
+    }
+    
 }

@@ -150,7 +150,7 @@ export function Reservations({ orders, listings }) {
                                 <th>{formatDate(reservation.endDate)}</th>
                                 <th>{formatDate(reservation.createdAt)}</th>
                                 <th><Link to={'/stay/' + reservation.stay._id} >{reservation.stay.name}</Link></th>
-                                <th>{reservation.totalPrice}</th>
+                                <th>{reservation.totalPrice}$</th>
                                 {(filterBy.type === 'all' || filterBy.type === 'pending') && <th className="actions">
                                     {reservation.status === 'pending' && <><button onClick={() => changeStatus(reservation, 'approved')} >Approve</button>
                                         <button onClick={() => changeStatus(reservation, 'declined')} >Decline</button></>}
