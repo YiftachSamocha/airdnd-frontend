@@ -1,5 +1,27 @@
-@include for-narrow-layout{
-    .host{
+@include for-mobile-layout {
+    .reservations .reservations-filter {
+        flex-direction: column;
+        gap: 1em;
+    }
+}
 
+@include for-narrow-layout {
+
+    .reservations .reservations-filter {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+}
+@include for-wide-layout{
+  .reservations  .reservations-filter .res-filter-cont{
+        flex-direction: row;
+    }
+}
+
+@include for-large-layout {
+    .reservations .reservations-filter {
+        flex-direction: row;
+        gap: 0;
     }
 }

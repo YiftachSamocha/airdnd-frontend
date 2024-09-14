@@ -100,10 +100,10 @@ export function Host() {
 
                 </div>
             </div>
-            <Dashboard orders={orders} stays={stays} />
+            {/* <Dashboard orders={orders} stays={stays} /> */}
         </div>
         <Reservations orders={orders} listings={stays} />
-        <Listings listings={stays} />
+        {/* <Listings listings={stays} /> */}
 
 
     </section>

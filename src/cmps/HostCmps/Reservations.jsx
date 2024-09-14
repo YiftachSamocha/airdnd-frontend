@@ -12,6 +12,8 @@ export function Reservations({ orders, listings }) {
     const [filterBy, setFilterBy] = useState({ type: 'all', listing: 'all', page: 0 })
     const currUser = useSelector(state => state.userModule.currUser)
     const PAGE_SIZE = 5
+    const [isNarrow, setIsNarrow] = useState(window.innerWidth < 1130
+    )
 
     useEffect(() => {
         let newRes = [...orders]
@@ -27,10 +29,22 @@ export function Reservations({ orders, listings }) {
         newRes = newRes.slice(start, end)
         setReservations(newRes)
     }, [filterBy, orders])
+    useEffect(() => {
+        const handleResize = () => {
+            setIsNarrow(window.innerWidth < 1130
+
+            )
+        }
+        window.addEventListener('resize', handleResize)
+
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }, [])
 
 
     function formatDate(date) {
-        return format(date, 'yyyy-MM-dd')
+        return format(date, 'yy-MM-dd')
     }
 
     async function changeStatus(order, newStatus) {
@@ -59,62 +73,92 @@ export function Reservations({ orders, listings }) {
         {!currUser ? <div>Log in to watch your reservations</div> : <div>
             <h2>Your Reservations</h2>
             <div className="reservations-filter">
-                <div className="filter-type">
-                    <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'all', page: 0 }))}
-                        className={filterBy.type === 'all' ? 'selected' : ''} >All</button>
-                    <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'approved', page: 0 }))}
-                        className={filterBy.type === 'approved' ? 'selected' : ''} >Aprroved</button>
-                    <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'pending', page: 0 }))}
-                        className={filterBy.type === 'pending' ? 'selected' : ''} >Pending</button>
-                    <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'declined', page: 0 }))}
-                        className={filterBy.type === 'declined' ? 'selected' : ''}>Declined</button>
-                </div>
-                <div className="filter-listing">
-                    <label htmlFor="listing">Listing</label>
-                    <select name="" id="listing" onChange={onChangeListing}>
-                        <option value="all" >All</option>
-                        {listings.map(listing => {
-                            return <option value={listing._id}>{listing.name}</option>
-                        })}
-                    </select>
-                </div>
                 <div className="filter-page">
                     <button onClick={() => onChangePage(-1)}><img src={arrowLeft} /></button>
                     <span>{filterBy.page + 1}</span>
                     <button onClick={() => onChangePage(1)}><img src={arrowRight} /></button>
                 </div>
+                <div className="res-filter-cont">
+                    <div className="filter-type">
+                        <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'all', page: 0 }))}
+                            className={filterBy.type === 'all' ? 'selected' : ''} >All</button>
+                        <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'approved', page: 0 }))}
+                            className={filterBy.type === 'approved' ? 'selected' : ''} >Aprroved</button>
+                        <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'pending', page: 0 }))}
+                            className={filterBy.type === 'pending' ? 'selected' : ''} >Pending</button>
+                        <button onClick={() => setFilterBy(prev => ({ ...prev, type: 'declined', page: 0 }))}
+                            className={filterBy.type === 'declined' ? 'selected' : ''}>Declined</button>
+                    </div>
+                    <div className="filter-listing">
+                        <label htmlFor="listing">Listing</label>
+                        <select name="" id="listing" onChange={onChangeListing}>
+                            <option value="all" >All</option>
+                            {listings.map(listing => {
+                                return <option value={listing._id}>{listing.name}</option>
+                            })}
+                        </select>
+                    </div>
+                </div>
+
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        {filterBy.type === 'all' && <th>Status</th>}
-                        <th>Guests</th>
-                        <th>Check in</th>
-                        <th>Check out</th>
-                        <th>Booked</th>
-                        <th>Listing</th>
-                        <th>Total payout</th>
-                        {(filterBy.type === 'all' || filterBy.type === 'pending') && <th>Action</th>}
-                    </tr>
-                </thead>
-                <tbody>
+            {isNarrow ?
+                <div className="narrow-res">
                     {reservations.map(reservation => {
-                        return <tr key={reservation._id}>
-                            {filterBy.type === 'all' && <td className={`status ${reservation.status.toLowerCase()}`}>{reservation.status}</td>}
-                            <th>{reservation.capacity.total}</th>
-                            <th>{formatDate(reservation.startDate)}</th>
-                            <th>{formatDate(reservation.endDate)}</th>
-                            <th>{formatDate(reservation.createdAt)}</th>
-                            <th><Link to={'/stay/' + reservation.stay._id} >{reservation.stay.name}</Link></th>
-                            <th>{reservation.totalPrice}</th>
-                            {(filterBy.type === 'all' || filterBy.type === 'pending') && <th className="th-actions">
+                        return <div key={reservation._id} className="res-item">
+                            <div>
+                                {filterBy.type === 'all' && <p className={`status ${reservation.status.toLowerCase()}`}>{reservation.status}</p>}
+                                {/* <span>·</span> */}
+                                <p>{reservation.totalPrice}$</p>
+                            </div>
+                            <Link to={'/stay/' + reservation.stay._id} className="name" >{reservation.stay.name}</Link>
+                            <div>
+                                <p>{reservation.capacity.total} guests</p>
+                                {/* <span>·</span> */}
+                                <div>
+                                    <p>{format(reservation.startDate, 'MMM dd')}</p>
+                                    <span>-</span>
+                                    <p>{format(reservation.endDate, 'MMM dd')}</p>
+                                </div>
+                            </div>
+                            {(filterBy.type === 'all' || filterBy.type === 'pending') && <p className="actions">
                                 {reservation.status === 'pending' && <><button onClick={() => changeStatus(reservation, 'approved')} >Approve</button>
                                     <button onClick={() => changeStatus(reservation, 'declined')} >Decline</button></>}
-                            </th>}
-                        </tr>
+                            </p>}
+                        </div>
                     })}
-                </tbody>
-            </table>
+
+                </div>
+                : <table>
+                    <thead>
+                        <tr>
+                            {filterBy.type === 'all' && <th>Status</th>}
+                            <th>Guests</th>
+                            <th>Check in</th>
+                            <th>Check out</th>
+                            <th>Booked</th>
+                            <th>Listing</th>
+                            <th>Total payout</th>
+                            {(filterBy.type === 'all' || filterBy.type === 'pending') && <th>Action</th>}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {reservations.map(reservation => {
+                            return <tr key={reservation._id}>
+                                {filterBy.type === 'all' && <td className={`status ${reservation.status.toLowerCase()}`}>{reservation.status}</td>}
+                                <th>{reservation.capacity.total}</th>
+                                <th>{formatDate(reservation.startDate)}</th>
+                                <th>{formatDate(reservation.endDate)}</th>
+                                <th>{formatDate(reservation.createdAt)}</th>
+                                <th><Link to={'/stay/' + reservation.stay._id} >{reservation.stay.name}</Link></th>
+                                <th>{reservation.totalPrice}</th>
+                                {(filterBy.type === 'all' || filterBy.type === 'pending') && <th className="actions">
+                                    {reservation.status === 'pending' && <><button onClick={() => changeStatus(reservation, 'approved')} >Approve</button>
+                                        <button onClick={() => changeStatus(reservation, 'declined')} >Decline</button></>}
+                                </th>}
+                            </tr>
+                        })}
+                    </tbody>
+                </table>}
             {orders.length === 0 && <div>No reservations yet</div>}
         </div>}
     </section>
