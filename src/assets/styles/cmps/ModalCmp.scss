@@ -34,11 +34,11 @@
             height: 93%;
 
             .modal-group {
-                padding-inline-start: 30px;
+                padding-inline: 30px;
         
                 h3 {
                     font-size: 1.125rem;
-                    padding: 3rem 0;
+                    padding: 24px 0;
                 }
         
                 &:first-of-type h3 {
@@ -111,8 +111,8 @@
     cursor: pointer;
 
     img {
-        height: 0.8rem;
-        width: 0.8rem;
+        height: 16px;
+        width: 16px;
     }
 }
 

@@ -34,6 +34,8 @@ export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200, closeW
         setDisabledDates(allDisabledDates);
     }, [reservedDates])
 
+    
+
     // useEffect(() => {
     //     // Call updateMonthNames after the component mounts and after each render
     //     updateMonthNames()
