@@ -2,30 +2,14 @@ import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { useEffect, useState } from 'react';
-import { addDays, addMonths, isBefore, isAfter, format, isSameDay } from 'date-fns';
+import { addDays, addMonths, isBefore, isAfter, format, isSameDay, eachDayOfInterval, parseISO } from 'date-fns';
 import { findFirstAvailableNights } from '../../services/util.service';
 import xIcon from '../../assets/imgs/icons/x.svg'
-export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200, setIsWhenOpen, isWhenOpen, type, monthsAmount }) {
+export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200, closeWhen, type, monthsAmount }) {
     const [isSelectingEndDate, setIsSelectingEndDate] = useState(false);
 
     const { reservedDates } = stay
-
-    // useEffect(() => {
-    //     const handleResize = () => {
-    //         if (window.innerWidth > breakpoint && monthsAmount !== 2) {
-    //             setMonthsAmount(2)
-    //         } else if (window.innerWidth <= breakpoint && monthsAmount !== 1) {
-    //             setMonthsAmount(1)
-    //         }
-    //     }
-
-    //     window.addEventListener("resize", handleResize)
-    //     handleResize()
-
-    //     return () => {
-    //         window.removeEventListener("resize", handleResize)
-    //     }
-    // }, [breakpoint, monthsAmount])
+    const [disabledDates, setDisabledDates] = useState([])
 
     useEffect(() => {
         if (!dates.startDate && !dates.endDate) {
@@ -38,6 +22,17 @@ export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200, setIsW
             }
         }
     }, [])
+
+    useEffect(() => {
+        // Create an array of all unavailable dates from reservedDates
+        const allDisabledDates = reservedDates.flatMap(({ startDate, endDate }) =>
+            eachDayOfInterval({
+                start: parseISO(startDate),
+                end: parseISO(endDate),
+            })
+        )
+        setDisabledDates(allDisabledDates);
+    }, [reservedDates])
 
     // useEffect(() => {
     //     // Call updateMonthNames after the component mounts and after each render
@@ -58,9 +53,13 @@ export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200, setIsW
 
         // When end date is selected, set both dates and close the modal
         if (isSelectingEndDate && startDate && endDate) {
-            onSetDates({ startDate, endDate });
-            setIsWhenOpen(false); // Close the modal
-            setIsSelectingEndDate(false); // Reset the flag
+            onSetDates({ startDate, endDate })
+
+            if (typeof closeWhen === 'function') {
+                closeWhen() // Close the modal if closeWhen exists
+            }
+
+            setIsSelectingEndDate(false) // Reset the flag
         }
     }
 
@@ -97,7 +96,7 @@ export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200, setIsW
         <div className="when-static">
             <div className="custom-header">
                 <div className='btns top'>
-                    <button className="close" onClick={() => setIsWhenOpen(false)}>
+                    <button className="close" onClick={closeWhen}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 32 32"
@@ -117,7 +116,7 @@ export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200, setIsW
                             <path d="M6 6 L26 26 M26 6 L6 26" />
                         </svg>
                     </button>
-                    <button className='clear btn-link' onClick={handleClear}>Clear newDates</button>
+                    <button className='clear btn-link' onClick={handleClear}>Clear dates</button>
                 </div>
                 {nightsCount > 0 ? (
                     <div>
@@ -163,10 +162,11 @@ export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200, setIsW
                 staticRanges={[]}
                 inputRanges={[]}
                 onChange={handleDateChange}
+                disabledDates={disabledDates}  
             />
             <div className='btns'>
                 <button className='clear btn-link' onClick={handleClear}>Clear</button>
-                <button className="black" onClick={() => setIsWhenOpen(false)}>Close</button>
+                <button className="black" onClick={closeWhen}>Close</button>
             </div>
 
         </div >

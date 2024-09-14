@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { format } from 'date-fns';
+import { addDays, format, isAfter, isBefore, isSameDay, parseISO } from 'date-fns';
 
 import { loadStay } from '../store/actions/stay.actions'
 import { StayImage } from '../cmps/DetailsCmps/StayImage'
@@ -29,21 +29,12 @@ export function StayDetails() {
   const [city, setCity] = useState('');
   const [isSelectingEndDate, setIsSelectingEndDate] = useState(false);
   const [monthsAmount, setMonthsAmount] = useState(2);
+  const navigate = useNavigate()
 
   useEffect(() => {
     loadStay(stayId)
   }, [stayId])
 
-  useEffect(() => {
-    // Any side effect or actions that should occur when isModalOpen changes
-    if (isModalOpen) {
-        // Modal opened, apply necessary styles or logic
-        console.log('Modal is now open')
-    } else {
-        // Modal closed, apply necessary styles or logic
-        console.log('Modal is now closed')
-    }
-}, [isModalOpen])
 
   useEffect(() => {
     // Initialize dates and guests from search params
@@ -62,28 +53,42 @@ export function StayDetails() {
 
       // Handling `monthsAmount` for both regular flow and payment
       setMonthsAmount(prev => ({
-        regular: width <= 1200 ? 1 : 2,    // Set monthsAmount for regular flow based on 1200px
-        payment: width <= 743 ? 12 : 2    // Set monthsAmount for payment based on 743px
-      }));
-    };
+        regular: width <= 1200 ? 1 : 2,
+        payment: width <= 743 ? 12 : 2
+      }))
+    }
 
-    window.addEventListener('resize', handleResize);
-    handleResize(); // Initial call
+    window.addEventListener('resize', handleResize)
+    handleResize() // Initial call
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', handleResize)
     }
   }, [])
+
+  // useEffect(() => {
+  //   if (stay && stay.reservedDates) {
+  //     const startDateParam = searchParams.get('start_date') 
+  //     const endDateParam = searchParams.get('end_date')    
+
+  //     if (startDateParam && endDateParam) {
+  //       const startDate = new Date(startDateParam)
+  //       const endDate = new Date(endDateParam)
+  //       const isReserved = isDateInRange(startDate, endDate, stay.reservedDates)
+  //       console.log(isReserved)
+  //       if (isReserved) {
+  //         navigate('/error');        }
+  //     }
+  //   }
+  // }, [stay, searchParams])
 
   function toggleModal(type) {
     setModalType(type)
     setIsModalOpen(prevState => !prevState)
-    // setModalContent(type === 'description' ? stay.description : stay.amenities)
   }
-  
+
   function onSetDates(newDates) {
     console.log(newDates)
-    // debugger
     setDates(newDates)
 
     const params = new URLSearchParams(searchParams)
@@ -107,35 +112,63 @@ export function StayDetails() {
 
   function groupItemsByType(items) {
     console.log(items)
-            return items.reduce((acc, item) => {
-                const type = item.type || 'Other'
-                if (!acc[type]) acc[type] = []
-                acc[type].push(item)
-                return acc
-            }, {})
-        }
-    
-        // Render grouped amenities
-        function renderGroupedAmenities(items) {
-          console.log(items, 'items')
-            const groupedItems = groupItemsByType(items)
-    
-            return Object.keys(groupedItems).map((type, index) => (
-                <div key={index} className="modal-group">
-                    <h3>{type}</h3>
-                    {groupedItems[type].map((item, i) => (
-                        <div key={i} className={`item ${i}`}>
-                            <div>
-                                {item.imgUrl && (
-                                    <img src={item.imgUrl} alt={item.name || 'Image'} className="modal-details-icon" />
-                                )}
-                                <span>{item.name || item.text || item.toString()}</span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            ))
-        }
+    return items.reduce((acc, item) => {
+      const type = item.type || 'Other'
+      if (!acc[type]) acc[type] = []
+      acc[type].push(item)
+      return acc
+    }, {})
+  }
+
+  // Render grouped amenities
+  function renderGroupedAmenities(items) {
+    console.log(items, 'items')
+    const groupedItems = groupItemsByType(items)
+
+    return Object.keys(groupedItems).map((type, index) => (
+      <div key={index} className="modal-group">
+        <h3>{type}</h3>
+        {groupedItems[type].map((item, i) => (
+          <div key={i} className={`item ${i}`}>
+            <div>
+              {item.imgUrl && (
+                <img src={item.imgUrl} alt={item.name || 'Image'} className="modal-details-icon" />
+              )}
+              <span>{item.name || item.text || item.toString()}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    ))
+  }
+
+//   function isDateInRange(startDate, endDate, reservedDates) {
+//     // Iterate over each day in the user-selected range (from startDate to endDate)
+//     let currentDate = new Date(startDate);
+
+//     while (!isAfter(currentDate, endDate)) {
+//         // Check each reserved date range to see if currentDate falls within it
+//         for (const { startDate: reservedStart, endDate: reservedEnd } of reservedDates) {
+//             const reservedStartDate = new Date(reservedStart);
+//             const reservedEndDate = new Date(reservedEnd);
+
+//             // Check if currentDate is within the reserved range
+//             if (
+//                 (isSameDay(currentDate, reservedStartDate) || isAfter(currentDate, reservedStartDate)) &&
+//                 (isSameDay(currentDate, reservedEndDate) || isBefore(currentDate, reservedEndDate))
+//             ) {
+//                 console.log("Overlap found on date:", currentDate);
+//                 return true; // If any overlap is found, return true
+//             }
+//         }
+        
+//         // Move to the next day in the user-selected range
+//         currentDate = addDays(currentDate, 1);
+//     }
+
+//     return false; // If no overlap is found, return false
+// }
+
 
   if (!stay) return <div>Loading...</div>
   return (
@@ -151,30 +184,30 @@ export function StayDetails() {
             {stay.amenities && (
               <StayAmenities stay={stay} toggleModal={toggleModal} isModalOpen={isModalOpen} />
             )}
-            <WhenDetails 
-            dates={dates} 
-            onSetDates={onSetDates} 
-            stay={stay} 
-            breakpoint={1200}
-            monthsAmount={monthsAmount.regular}
-            type="regular"
-             />
+            <WhenDetails
+              dates={dates}
+              onSetDates={onSetDates}
+              stay={stay}
+              breakpoint={1200}
+              monthsAmount={monthsAmount.regular}
+              type="regular"
+            />
           </div>
 
           <div className="payment-container">
-            <StayPayment 
-            stay={stay} 
-            onSetDates={onSetDates} 
-            dates={dates}
-            monthsAmount={monthsAmount.payment}
+            <StayPayment
+              stay={stay}
+              onSetDates={onSetDates}
+              dates={dates}
+              monthsAmount={monthsAmount.payment}
             />
           </div>
         </div>
 
         <div className="more-content">
-          {stay.reviews && <StayReview stay={stay}/>}
+          {/* {stay.reviews && <StayReview stay={stay} />} */}
           {stay.location && <StayLocation stay={stay} />}
-          {stay.host && <StayHost stay={stay}/>}
+          {stay.host && <StayHost stay={stay} />}
           {stay.thingsToKnow && <StayToKnow stay={stay} />}
         </div>
 

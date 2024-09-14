@@ -172,11 +172,11 @@ export function AboutYourPlace() {
         })
     }
 
-    // if (!userExists) {
-    //     return <div className='page-error'>Oops, something went wrong.
-    //         <Link to="/">Please try again.</Link>
-    //     </div>
-    // }
+    if (!userExists) {
+        return <div className='page-error'>Oops, something went wrong.
+            <Link to="/">Please try again.</Link>
+        </div>
+    }
 
 
     return <section className="add-listing about">

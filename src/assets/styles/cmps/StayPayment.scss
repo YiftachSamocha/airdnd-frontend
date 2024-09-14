@@ -61,6 +61,7 @@
         p {
             font-size: 14px;
             padding-bottom: 3px;
+            text-align: start;
             // margin-bottom: 10px;
         }
     }
@@ -119,6 +120,7 @@
             padding-block-end: 24px !important;
 
             h3 {
+
                 span {
                     display: none;
                 }
@@ -179,6 +181,9 @@
 
     .header {
         h3 {
+            display: flex;
+            align-items: center;
+            gap: 7px;
             grid-column: span 2;
             margin-top: 5px;
             font-size: 22px;
@@ -372,21 +377,21 @@
                         align-items: center;
                         padding-inline: 0;
 
-                        .close{
+                        .close {
                             width: 100%;
                             height: 100%;
                             border: none;
                             background-color: transparent;
                         }
 
-                        .clear{
+                        .clear {
                             font-size: 14px;
                             width: 100%;
                             height: 100%;
                             text-align: end;
                             color: $gray5;
                             padding-inline-end: 40px;
-                        
+
                         }
                     }
 

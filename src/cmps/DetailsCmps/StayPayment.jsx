@@ -13,7 +13,7 @@ import { WhenDetails } from "../MainFilterCmps/WhenDetails.jsx"
 
 
 
-export function StayPayment({ stay, onSetDates, dates , monthsAmount}) {
+export function StayPayment({ stay, onSetDates, dates, monthsAmount }) {
     const [isWhoOpen, setIsWhoOpen] = useState(false)
     const [isWhenOpen, setIsWhenOpen] = useState(false)
 
@@ -55,11 +55,12 @@ export function StayPayment({ stay, onSetDates, dates , monthsAmount}) {
     useEffect(() => {
         createOrderURLstr()
         updateSearchParams()
-// debugger
+        // debugger
         setIsFormReady(dates.startDate && dates.endDate && filterCapacity.adults > 0)
         // console.log('curr user', currUser)
 
     }, [dates, filterCapacity])
+
 
     function updateSearchParams() {
         const params = new URLSearchParams(searchParams)
@@ -103,12 +104,8 @@ export function StayPayment({ stay, onSetDates, dates , monthsAmount}) {
             updateSearchParams('children', filterCapacity.children || 0)
             updateSearchParams('infants', filterCapacity.infants || 0)
             updateSearchParams('pets', filterCapacity.pets || 0)
-            if (!dates.startDate || !dates.endDate) {
-                const startDate = new Date()
-                const endDate = new Date()
-                endDate.setDate(startDate.getDate() + 5)
-                navigate(`/book/stay/${stay._id + orderURL}&start_date=${format(startDate, 'yyyy-MM-dd')}&end_date=${format(endDate, 'yyyy-MM-dd')}`)
-            }
+            if (!dates.startDate || !dates.endDate) return 
+
             else navigate(`/book/stay/${stay._id + orderURL}`)
         } catch (error) {
             console.error("Error creating order:", error)
@@ -121,6 +118,10 @@ export function StayPayment({ stay, onSetDates, dates , monthsAmount}) {
 
     function closeWho() {
         setIsWhoOpen(false) // Only closes the dropdown
+    }
+
+    function closeWhen() {
+        setIsWhenOpen(false) // Only closes the dropdown
     }
 
     function handleButtonClick() {
@@ -141,7 +142,7 @@ export function StayPayment({ stay, onSetDates, dates , monthsAmount}) {
                     {dates.startDate && dates.endDate ? (
                         <button className="dates btn-link" onClick={() => setIsWhenOpen(true)}>
                             {format(dates.startDate, 'MMM d')} - {format(dates.endDate, 'MMM d')}
-                       
+
                         </button>
                     ) : ''}
 
@@ -164,13 +165,13 @@ export function StayPayment({ stay, onSetDates, dates , monthsAmount}) {
                     {isWhenOpen && (
                         <div className="when-modal">
                             <OutsideClick onOutsideClick={() => setIsWhenOpen(false)}>
+
                                 <WhenDetails
                                     dates={dates}
                                     onSetDates={onSetDates}
                                     stay={stay}
                                     breakpoint={743}
-                                    setIsWhenOpen={setIsWhenOpen}
-                                    isWhenOpen={isWhenOpen}
+                                    closeWhen={closeWhen}
                                     type="payment"
                                     monthsAmount={monthsAmount}
                                 />
