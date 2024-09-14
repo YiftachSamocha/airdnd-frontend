@@ -17,7 +17,7 @@
     .host .host-header {
         flex-direction: row;
         align-items: stretch;
-      
+
     }
 
     .reservations .reservations-filter {
@@ -42,11 +42,31 @@
             border: 1px solid $gray1;
             padding-inline: 1.5em;
             border-radius: 15px;
-            min-width: 500px;
+            min-width: 480px;
 
             .host-stats hr {
                 width: 100%;
             }
+        }
+    }
+
+    .trips {
+        padding: 2em;
+
+        .invite {
+
+            img {
+                display: block;
+            }
+
+            .invite-info {
+                align-items: stretch;
+
+                button {
+                    width: auto;
+                }
+            }
+
         }
     }
 }

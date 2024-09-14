@@ -135,61 +135,66 @@ export function AppHeader() {
 
 
     return (
-        <section className="app-header">
-            {!isNarrow && <div className="main-header">
-                <Link to={'/stay'}
-                    onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
-                    className="logo"><img src={logoImg} /></Link>
-                {isFolded && (
-                    <div onClick={handleMainFilterFoldedClick} style={isStayPage ? {} : { display: "none" }}>
-                        <MainFilterFolded filterBy={filterBy} />
+        <>
+            <section className="app-header">
+                {!isNarrow && <div className="main-header">
+                    <Link to={'/stay'}
+                        onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
+                        className="logo"><img src={logoImg} /></Link>
+                    {isFolded && (
+                        <div onClick={handleMainFilterFoldedClick} style={isStayPage ? {} : { display: "none" }}>
+                            <MainFilterFolded filterBy={filterBy} />
+                        </div>
+                    )}
+                    <UserInfoBtn setLoginSignup={setLoginSignup} />
+                </div >}
+
+                {!isFolded && isStayPage && !isNarrow && (
+                    <div ref={mainFilterRef}>
+                        <MainFilter />
                     </div>
                 )}
-                <UserInfoBtn setLoginSignup={setLoginSignup} />
-            </div >}
-
-            {!isFolded && isStayPage && !isNarrow && (
-                <div ref={mainFilterRef}>
-                    <MainFilter />
-                </div>
-            )}
-            <div className="mobile-filter-cont">{isNarrow && isStayPage && <div onClick={() => navigate('/stay/filter-mobile')} className="mobile-filter">
-                <img src={searchMobileImg} />
-                <div>
-                    <input type="text" value={filterBy.where.country} placeholder="Where to?" readOnly />
+                <div className="mobile-filter-cont">{isNarrow && isStayPage && <div onClick={() => navigate('/stay/filter-mobile')} className="mobile-filter">
+                    <img src={searchMobileImg} />
                     <div>
-                        <input type="text" value={createMobileString('when')} placeholder="Any week" readOnly
-                            style={filterBy.when.startDate && filterBy.when.endDate && { width: '100px' }} />
-                        <span>·</span>
-                        <input type="text" value={createMobileString('who')} placeholder="Add guests" readOnly />
+                        <input type="text" value={filterBy.where.country} placeholder="Where to?" readOnly />
+                        <div>
+                            <input type="text" value={createMobileString('when')} placeholder="Any week" readOnly
+                                style={filterBy.when.startDate && filterBy.when.endDate && { width: '100px' }} />
+                            <span>·</span>
+                            <input type="text" value={createMobileString('who')} placeholder="Add guests" readOnly />
+                        </div>
                     </div>
+                </div>}
+                    {isExtraBtnShown && isNarrow && <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button small">
+                        <img src={smallFilterImg} />
+                    </button>}
                 </div>
-            </div>}
-                {isExtraBtnShown && isNarrow && <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button small">
-                    <img src={smallFilterImg} />
-                </button>}
-            </div>
-            {/* <hr className="main-hr" /> */}
-            <div ref={labelsFilterRef} className="labels-wrap"
-                style={location.pathname === '/stay' || location.pathname === '/' ? {} : { display: "none" }}>
-                <LabelsFilter />
-                {isExtraBtnShown && !isNarrow && <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button">
-                    <img src={filterImg} alt="" />
-                    Filters
-                </button>}
-            </div>
-            {isExtraVisible && <div className="layout">
-                <OutsideClick onOutsideClick={() => setIsExtraVisible(prev => !prev)} className="extra-outside">
-                    <ExtraFilter closeExtra={() => setIsExtraVisible(prev => !prev)} />
-                </OutsideClick>
-            </div>}
-            {(!isFolded && !isTop) && <div className="layout-main"></div>}
+                <hr className="main-hr" />
+                <div ref={labelsFilterRef} className="labels-wrap"
+                    style={location.pathname === '/stay' || location.pathname === '/' ? {} : { display: "none" }}>
+                    <LabelsFilter />
+                    {isExtraBtnShown && !isNarrow && <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button">
+                        <img src={filterImg} alt="" />
+                        Filters
+                    </button>}
+                </div>
+                {(location.pathname === '/' || location.pathname === '/stay') && <hr className="main-hr" />}
+                {isExtraVisible && <div className="layout">
+                    <OutsideClick onOutsideClick={() => setIsExtraVisible(prev => !prev)} className="extra-outside">
+                        <ExtraFilter closeExtra={() => setIsExtraVisible(prev => !prev)} />
+                    </OutsideClick>
+                </div>}
 
-            {loginSignup && <div className="layout">
-                <OutsideClick onOutsideClick={() => setLoginSignup(null)}>
-                    <LoginSignup closeLoginsignup={() => setLoginSignup(null)} initalType={loginSignup} />
-                </OutsideClick>
-            </div>}
-        </section>
+
+                {loginSignup && <div className="layout">
+                    <OutsideClick onOutsideClick={() => setLoginSignup(null)}>
+                        <LoginSignup closeLoginsignup={() => setLoginSignup(null)} initalType={loginSignup} />
+                    </OutsideClick>
+                </div>}
+            </section>
+            {(!isFolded && !isTop) && <div className="layout-main"
+                style={{ top: location.pathname.startsWith('/stay/') && '182px' }}></div>}
+        </>
     )
 }

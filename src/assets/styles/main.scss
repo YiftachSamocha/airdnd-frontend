@@ -23,9 +23,7 @@
 @import "pages/AboutYourPlace";
 
 
-// @import "pages/UserDetails";
-// @import "pages/TaskDetails";
-// @import "pages/LoginSignup";
+
 
 // // Components
 
@@ -76,18 +74,11 @@
 @import "cmps/LoginSignup.scss";
 
 
- @import "cmps/AppFooter";
-// @import "cmps/UserMsg";
+@import "cmps/AppFooter";
 
-// @import "cmps/StayFilter";
-// @import "cmps/ReviewEdit";
-// @import "cmps/ReviewList";
-// @import "cmps/ReviewPreview";
-// // @import "cmps/StayList";
-// // @import "cmps/StayPreview";
 @import "cmps/StayImages.scss";
 
-@import "layouts/layout-filter.scss";
+@import "layouts/filter-layout.scss";
 @import "layouts/list-layout.scss";
 
 @import "pages/Host.scss";
@@ -98,4 +89,4 @@
 @import "pages/Trips.scss";
 @import "pages/MainFilterMobile.scss";
 @import "layouts/_host-layout.scss";
-
+@import "layouts/general-layout";

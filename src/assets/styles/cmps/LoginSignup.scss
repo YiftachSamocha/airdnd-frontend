@@ -4,11 +4,13 @@
     z-index: 51;
     border-radius: 15px;
     padding-block-end: 1.5em;
+    width: 100vw;
+    height: 100vh;
+    margin-top: 3em;
 
 
     .loginsignup-content {
-        width: em(570px);
-        height: em(430px);
+
 
         .loginsignup-header {
             display: flex;
@@ -53,17 +55,19 @@
 
             .loginsignup-inputs {
                 margin-bottom: 1em;
-                border: 1px solid black;
-                border-bottom: 0;
-                border-radius: 15px;
-
-                input {
-                    margin-inline-start: 1.5em;
+                padding-inline: 0.5em;
+                gap: 1em;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                // >*{
+                //     max-width: 400px;
+                // }
+                filedset{
+                    padding: 1em;
                 }
 
-                div {
-                    border-radius: 15px;
-                }
+                
             }
 
             button {

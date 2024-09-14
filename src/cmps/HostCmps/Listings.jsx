@@ -10,7 +10,9 @@ export function Listings({ listings }) {
 
     return (
         <section className="listings">
-            <button onClick={() => navigate(`/become-a-host`)} className="add-stay-btn">Airdnd your home</button>
+            <div className="add-btn-cont">
+                <button onClick={() => navigate(`/become-a-host`)} className="add-stay-btn">Airdnd your home</button>
+            </div>
             <h2>Your Listings</h2>
             <div className="listings-main">
                 {(!listings || listings.length === 0) ? (

@@ -37,11 +37,11 @@ export function AppFooter() {
 				</Link>
 			</>
 				:
-				<div to={'/host'} onClick={() => { setSelected('login'); setLoginSignup('login') }}
+				<a onClick={() => { setSelected('login'); setLoginSignup('login') }}
 					className={selected === 'login' ? 'selected' : ''}>
 					<img src={hostImg} />
 					<p>Log in</p>
-				</div>}
+				</a>}
 				{loginSignup && <div className="layout">
                 <OutsideClick onOutsideClick={() => setLoginSignup(null)}>
                     <LoginSignup closeLoginsignup={() => setLoginSignup(null)} initalType={loginSignup} />

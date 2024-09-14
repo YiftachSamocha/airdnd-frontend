@@ -5,7 +5,7 @@
     width: auto;
     overflow: hidden;
     justify-content: space-between;
-    border-bottom: 1px solid $gray1;
+    // border-bottom: 1px solid $gray1;
     border-width: 150%;
     
 
@@ -25,6 +25,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        display: none;
 
         img {
             max-width: 1em;
@@ -38,7 +39,8 @@
     }
 
     .labels-container {
-        overflow: hidden;
+        overflow: auto;
+        scrollbar-width: none;
 
         .main-labels-container {
             display: flex;
@@ -56,6 +58,7 @@
                 border-bottom: 1px solid transparent;
                 padding-bottom: em(6px);
                 transition: transform 2s ease-in-out;
+                min-width: 80px;
 
                 p {
                     text-transform: capitalize;
@@ -66,8 +69,8 @@
                 }
 
                 img {
-                    height: em(24px);
-                    max-width: em(24px);
+                    height: em(30px);
+                    max-width: em(30px);
                     flex-shrink: 0;
                 }
             }

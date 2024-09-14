@@ -9,6 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-bottom: 5em;
 }
 
 .extra-filter {
@@ -54,6 +55,7 @@
         bottom: 0;
         height: em(480px);
         padding-inline: 2em;
+        scrollbar-width: none;
 
         h5 {
             font-size: em(18px);
@@ -105,10 +107,11 @@
 
             .chart {
                 margin-block-start: 2em;
+                display: none;
             }
 
             .range {
-                margin-block-end: 2em;
+                margin-block: 2em;
             }
 
             .price-inputs {
@@ -215,6 +218,9 @@
         .booking {
             div {
                 display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                gap: 10px;
 
                 button {
                     @include extra-btn()
@@ -228,6 +234,9 @@
 
             div {
                 display: flex;
+                flex-wrap: wrap;
+                width: 100%;
+                gap: 10px;
 
                 button {
                     @include extra-btn();

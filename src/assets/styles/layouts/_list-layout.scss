@@ -5,9 +5,9 @@
 
 
 @include for-mobile-layout {
-.stay-list{
-      grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
-}
+    .stay-list {
+        grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+    }
 
 }
 
@@ -21,6 +21,9 @@
     .stay-order {
         grid-column: 1;
     }
+
+    
+
 }
 
 @include for-normal-layout {
@@ -33,10 +36,11 @@
     .stay-order {
         grid-column: 1;
     }
+
 }
 
 @include for-wide-layout {
- 
+
     .stay-payment {
         grid-template-columns:
             minmax(auto, 140px);
@@ -46,11 +50,16 @@
         grid-column: 2;
         padding-inline: 0;
     }
+
+    .app-header .main-hr {
+        margin: 0 calc((100% - 98vw)/2);
+    }
+    
 }
 
 
 @include for-large-layout {
- 
+
     .stay-payment {
         grid-template-columns:
             minmax(auto, 200px);
@@ -59,11 +68,11 @@
     .stay-main-order {
         grid-column: 2;
         grid-template-columns: 1fr 1fr;
- 
+
         .stay-order {
             display: grid;
             grid-column: 2;
-          
+
         }
     }
 }

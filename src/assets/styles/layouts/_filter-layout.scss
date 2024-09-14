@@ -1,17 +1,12 @@
 @include for-mobile-layout {
-    .loginsignup{
-        position: sticky;
-        bottom: 0;
-        width: 100%;
-    }
+    
     
     .extra-filter, .extra-outside{
         height: 100%;
         width: 100%;
     }
     .extra-filter{
-        margin-top: 1em;
-        border-radius: 25px;
+        margin-top: 3em;
     }
     
 }
@@ -23,7 +18,7 @@
         width: 100%;
     }
     .extra-filter{
-        margin-top: 1em;
+        margin-top: 3em;
       
     }
    
