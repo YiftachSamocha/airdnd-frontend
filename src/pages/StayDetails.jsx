@@ -28,6 +28,7 @@ export function StayDetails() {
   const [dates, setDates] = useState({ startDate: null, endDate: null })
   const [city, setCity] = useState('');
   const [isSelectingEndDate, setIsSelectingEndDate] = useState(false);
+  const [monthsAmount, setMonthsAmount] = useState(2);
 
   useEffect(() => {
     loadStay(stayId)
@@ -54,6 +55,25 @@ export function StayDetails() {
     setCity(cityParam)
 
   }, [searchParams])
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+
+      // Handling `monthsAmount` for both regular flow and payment
+      setMonthsAmount(prev => ({
+        regular: width <= 1200 ? 1 : 2,    // Set monthsAmount for regular flow based on 1200px
+        payment: width <= 743 ? 12 : 2    // Set monthsAmount for payment based on 743px
+      }));
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial call
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    }
+  }, [])
 
   function toggleModal(type) {
     setModalType(type)
@@ -131,11 +151,23 @@ export function StayDetails() {
             {stay.amenities && (
               <StayAmenities stay={stay} toggleModal={toggleModal} isModalOpen={isModalOpen} />
             )}
-            <WhenDetails dates={dates} onSetDates={onSetDates} stay={stay} breakpoint={1200} />
+            <WhenDetails 
+            dates={dates} 
+            onSetDates={onSetDates} 
+            stay={stay} 
+            breakpoint={1200}
+            monthsAmount={monthsAmount.regular}
+            type="regular"
+             />
           </div>
 
           <div className="payment-container">
-            <StayPayment stay={stay} onSetDates={onSetDates} dates={dates}/>
+            <StayPayment 
+            stay={stay} 
+            onSetDates={onSetDates} 
+            dates={dates}
+            monthsAmount={monthsAmount.payment}
+            />
           </div>
         </div>
 

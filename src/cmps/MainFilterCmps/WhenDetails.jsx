@@ -4,29 +4,28 @@ import 'react-date-range/dist/theme/default.css';
 import { useEffect, useState } from 'react';
 import { addDays, addMonths, isBefore, isAfter, format, isSameDay } from 'date-fns';
 import { findFirstAvailableNights } from '../../services/util.service';
-
-export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200, setIsWhenOpen, isWhenOpen }) {
-    const [monthsAmount, setMonthsAmount] = useState(2)
+import xIcon from '../../assets/imgs/icons/x.svg'
+export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200, setIsWhenOpen, isWhenOpen, type, monthsAmount }) {
     const [isSelectingEndDate, setIsSelectingEndDate] = useState(false);
 
     const { reservedDates } = stay
 
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth > breakpoint && monthsAmount !== 2) {
-                setMonthsAmount(2)
-            } else if (window.innerWidth <= breakpoint && monthsAmount !== 1) {
-                setMonthsAmount(1)
-            }
-        }
+    // useEffect(() => {
+    //     const handleResize = () => {
+    //         if (window.innerWidth > breakpoint && monthsAmount !== 2) {
+    //             setMonthsAmount(2)
+    //         } else if (window.innerWidth <= breakpoint && monthsAmount !== 1) {
+    //             setMonthsAmount(1)
+    //         }
+    //     }
 
-        window.addEventListener("resize", handleResize)
-        handleResize()
+    //     window.addEventListener("resize", handleResize)
+    //     handleResize()
 
-        return () => {
-            window.removeEventListener("resize", handleResize)
-        }
-    }, [breakpoint, monthsAmount])
+    //     return () => {
+    //         window.removeEventListener("resize", handleResize)
+    //     }
+    // }, [breakpoint, monthsAmount])
 
     useEffect(() => {
         if (!dates.startDate && !dates.endDate) {
@@ -97,6 +96,29 @@ export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200, setIsW
     return (
         <div className="when-static">
             <div className="custom-header">
+                <div className='btns top'>
+                    <button className="close" onClick={() => setIsWhenOpen(false)}>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 32 32"
+                            aria-hidden="true"
+                            role="presentation"
+                            focusable="false"
+                            style={{
+                                display: 'block',
+                                fill: 'none',
+                                height: '16px',
+                                width: '16px',
+                                stroke: 'currentColor',
+                                strokeWidth: '2.66667',
+                                overflow: 'visible'
+                            }}
+                        >
+                            <path d="M6 6 L26 26 M26 6 L6 26" />
+                        </svg>
+                    </button>
+                    <button className='clear btn-link' onClick={handleClear}>Clear newDates</button>
+                </div>
                 {nightsCount > 0 ? (
                     <div>
                         <h3>
@@ -113,6 +135,15 @@ export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200, setIsW
                         <div>Minimum stay: 2 nights</div>
                     </div>
                 )}
+                <div className="weekdays-fixed">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
             </div>
 
             <DateRangePicker
@@ -138,6 +169,6 @@ export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200, setIsW
                 <button className="black" onClick={() => setIsWhenOpen(false)}>Close</button>
             </div>
 
-        </div>
+        </div >
     )
 }

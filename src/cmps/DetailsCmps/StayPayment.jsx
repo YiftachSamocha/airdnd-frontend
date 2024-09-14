@@ -13,11 +13,9 @@ import { WhenDetails } from "../MainFilterCmps/WhenDetails.jsx"
 
 
 
-export function StayPayment({ stay, onSetDates, dates }) {
+export function StayPayment({ stay, onSetDates, dates , monthsAmount}) {
     const [isWhoOpen, setIsWhoOpen] = useState(false)
     const [isWhenOpen, setIsWhenOpen] = useState(false)
-
-    const [orderToAdd, setOrderToAdd] = useState(orderService.getEmptyOrder())
 
     const [filterCapacity, setFilterCapacity] = useState({ adults: 0, children: 0, infants: 0, pets: 0 })
     // const [dates, setDates] = useState({ startDate: null, endDate: null })
@@ -26,8 +24,6 @@ export function StayPayment({ stay, onSetDates, dates }) {
     const [isFormReady, setIsFormReady] = useState()
     const [orderURL, setOrderUrl] = useState('')
     const [searchParams, setSearchParams] = useSearchParams()
-
-    const currUser = useSelector(state => state.userModule.currUser)
 
     const navigate = useNavigate()
 
@@ -59,11 +55,11 @@ export function StayPayment({ stay, onSetDates, dates }) {
     useEffect(() => {
         createOrderURLstr()
         updateSearchParams()
-
+// debugger
         setIsFormReady(dates.startDate && dates.endDate && filterCapacity.adults > 0)
         // console.log('curr user', currUser)
 
-    }, [currUser, dates, filterCapacity])
+    }, [dates, filterCapacity])
 
     function updateSearchParams() {
         const params = new URLSearchParams(searchParams)
@@ -82,18 +78,6 @@ export function StayPayment({ stay, onSetDates, dates }) {
 
         setSearchParams(params)
     }
-
-    // function handleDateChange(newDates) {
-    //     if (!isSelectingEndDate) {
-    //         onSetDates({ startDate: newDates.startDate, endDate: null })
-    //         setIsSelectingEndDate(true)
-    //     } else {
-    //         onSetDates({ startDate: dates.startDate, endDate: newDates.endDate })
-
-    //         setIsWhenOpen(false) // Close the date picker
-    //         setIsSelectingEndDate(false)
-    //     }
-    // }
 
     function createOrderURLstr() {
         let urlStr = '?'
@@ -140,18 +124,29 @@ export function StayPayment({ stay, onSetDates, dates }) {
     }
 
     function handleButtonClick() {
+        console.log("Opening calendar modal"); // Debugging log
+
         if (!dates.startDate || !dates.endDate) {
-            isWhenOpen(true)
+            setIsWhenOpen(true)
         } else {
             handleReserve(stay)
         }
     }
 
-
     return (
         <div className="payment-cmp">
             <section className="stay-payment sticky">
-                <h3>${price} <span>night</span></h3>
+                <div className="header" >
+                    <h3>${price}<span>night</span></h3>
+                    {dates.startDate && dates.endDate ? (
+                        <button className="dates btn-link" onClick={() => setIsWhenOpen(true)}>
+                            {format(dates.startDate, 'MMM d')} - {format(dates.endDate, 'MMM d')}
+                       
+                        </button>
+                    ) : ''}
+
+                </div>
+
                 <div className="btn-container">
                     <button className="btn-team" onClick={toggleWhen}>
                         <div className="btn-side">
@@ -176,6 +171,8 @@ export function StayPayment({ stay, onSetDates, dates }) {
                                     breakpoint={743}
                                     setIsWhenOpen={setIsWhenOpen}
                                     isWhenOpen={isWhenOpen}
+                                    type="payment"
+                                    monthsAmount={monthsAmount}
                                 />
                             </OutsideClick>
                         </div>

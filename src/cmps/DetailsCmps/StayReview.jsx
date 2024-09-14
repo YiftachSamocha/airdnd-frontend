@@ -11,7 +11,7 @@ export function StayReview({ stay }) {
     const avgRating = totalReviews > 0
         ? stay.reviews.reduce((sum, review) => sum + review.rate, 0) / totalReviews
         : 0
-    console.log(stay.reviews);
+    // console.log(stay.reviews);
 
     const reviewsToShow = stay.reviews.slice(0, 6);
     if (!stay.reviews) return <div>Loading...</div>

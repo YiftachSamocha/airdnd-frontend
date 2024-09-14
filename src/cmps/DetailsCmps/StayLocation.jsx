@@ -36,12 +36,10 @@ export function StayLocation({ stay }) {
         return Math.max(48, calculatedSize);    }
 
     function handleMapChange({ zoom }) {
-        console.log('Map zoom level:', zoom);
         setZoomLevel(zoom);
 
         // Dynamically calculate and update the outer circle size based on zoom
         const newOuterCircleSize = calculateCircleSize(zoom);
-        console.log('Calculated outer circle size:', newOuterCircleSize); // Debug log
         setOuterCircleSize(newOuterCircleSize);
 
     }
