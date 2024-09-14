@@ -366,6 +366,9 @@
                 border-radius: 10px;
                 display: block;
                 width: 100%;
+                ::-webkit-scrollbar {
+                    display: none;
+                  }
 
                 .custom-header {
                     box-shadow: 0px 2px 0 0 #e1dede;
@@ -431,6 +434,10 @@
                     gap: 0;
                     margin: 0 auto;
                     width: 100%;
+                    overflow-y: scroll; /* Enable scrolling on Y-axis */
+                    scrollbar-width: none; /* Hide scrollbar in Firefox */
+                    -ms-overflow-style: none; /* Hide scrollbar in IE and Edge */
+                   
                     // padding-inline: 24px;
 
                     &:last-of-type {
