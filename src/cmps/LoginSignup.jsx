@@ -9,7 +9,6 @@ export function LoginSignup({ closeLoginsignup, initalType }) {
     const customClr = {
         '& .MuiOutlinedInput-root': {
             backgroundColor: '#ffffff',
-            // width: '25ch',
             '& fieldset': {
                 borderColor: '#000000',
             },
@@ -56,9 +55,9 @@ export function LoginSignup({ closeLoginsignup, initalType }) {
             <div className="loginsignup-main">
                 <h4>Welcome to Airdnd</h4>
                 <div className="loginsignup-inputs">
-                    <TextField size="small" id="filled-basic" label="Username" variant="outlined" sx={customClr}
+                    <TextField size="medium" id="filled-basic" label="Username" variant="outlined" sx={customClr}
                         name="username" value={credentials.username} onChange={handleChnage} />
-                    <TextField size="small" id="filled-basic" label="Password" variant="outlined" sx={customClr}
+                    <TextField size="medium" id="filled-basic" label="Password" variant="outlined" sx={customClr}
                         name="password" value={credentials.password} onChange={handleChnage} />
                     {type === 'signup' && <TextField id="filled-basic" label="Fullname" variant="outlined" sx={customClr}
                         name="fullname" value={credentials.fullname} onChange={handleChnage} />}

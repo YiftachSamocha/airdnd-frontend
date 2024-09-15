@@ -13,8 +13,10 @@
 
     .loginsignup {
         width: em(570px);
-        height: em(430px);
-        margin-top: 0;
+        height: em(480px);
+        position: static;
+        border-radius: 15px;
+        padding-block-end: 1em;
     }
     .extra-filter .extra-main{
         scrollbar-width:auto;

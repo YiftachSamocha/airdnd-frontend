@@ -37,4 +37,15 @@
             }
         }
     }
+    .no-host{
+        font-size: 2em;
+        font-weight: 400;
+        text-align: center;
+        padding: 2em 0;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        max-width: 500px;
+        margin: 3em auto;
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    }
 }

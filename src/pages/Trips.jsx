@@ -41,7 +41,7 @@ export function Trips() {
 
     return <section className="trips">
         <AppHeader />
-        {!currUser ? <div>Log in to watch your trips</div> : <div>
+        {!currUser ? <div className="no-trips">Log in to watch your trips</div> : <div>
             <h2>Trips</h2>
             <div className="invite">
                 <div className="invite-info">

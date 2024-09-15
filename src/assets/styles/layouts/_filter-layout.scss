@@ -1,28 +1,7 @@
-@include for-mobile-layout {
-    
-    
-    .extra-filter, .extra-outside{
-        height: 100%;
-        width: 100%;
-    }
-    .extra-filter{
-        margin-top: 3em;
-    }
-    
-}
+@include for-mobile-layout {}
 
-@include for-narrow-layout{
-    
-    .extra-filter, .extra-outside{
-        height: 100%;
-        width: 100%;
-    }
-    .extra-filter{
-        margin-top: 3em;
-      
-    }
-   
-}
+@include for-narrow-layout {}
+
 @include for-normal-layout {
     .main-filter {
         max-width: 100%;
@@ -33,13 +12,17 @@
             background-color: white;
         }
     }
-    .extra-filter{
-        height: 35em;
+
+    .extra-filter {
         width: 35.5em;
+        height: 35em;
         border-radius: 25px;
-        margin-block: 2.5em;
+        left: 50%;
+        top: 50%;
+        bottom: auto;
+        transform: translate(-50%, -50%);
     }
-    
+
 }
 
 @include for-wide-layout {

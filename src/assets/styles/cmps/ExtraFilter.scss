@@ -9,18 +9,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: 5em;
+
 }
 
 .extra-filter {
     background-color: white;
     z-index: 101;
-    width: 35.5em;
-    height: 35em;
-    margin: auto;
-    margin-block: em(40px);
-    border-radius: 25px 25px 0 0;
-    button{
+    height: calc(100vh - 120px);
+    width: 100%;
+    top: 30px;
+    left: 0;
+    bottom: 30px;
+    border-radius: 25px;
+    position: fixed;
+    scrollbar-width: none;
+
+    button {
         width: initial;
     }
 
@@ -53,9 +57,9 @@
         left: 0;
         right: 0;
         bottom: 0;
-        height: em(480px);
+        height: 80%;
         padding-inline: 2em;
-        scrollbar-width: none;
+
 
         h5 {
             font-size: em(18px);
@@ -230,11 +234,12 @@
         }
 
         .standout {
-            margin-bottom: 5em;
+            margin-bottom: 2em;
 
             div {
                 display: flex;
                 flex-wrap: wrap;
+                align-items: center;
                 width: 100%;
                 gap: 10px;
 
@@ -273,16 +278,17 @@
     .extra-footer {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         position: sticky;
-        bottom: 40px;
+        min-height: 100px;
         background-color: white;
         z-index: 102;
         padding-inline: 1.5em;
         padding-block: 1em;
         border-top: 1px solid $gray3;
         border-radius: 0 0 25px 25px;
-    
-        
+
+
 
         button:first-of-type {
             padding: 0.1em;

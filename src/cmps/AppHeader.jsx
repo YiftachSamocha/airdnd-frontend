@@ -180,11 +180,11 @@ export function AppHeader() {
                     </button>}
                 </div>
                 {(location.pathname === '/' || location.pathname === '/stay') && <hr className="main-hr" />}
-                {isExtraVisible && <div className="layout">
+                {isExtraVisible && <> <div className="layout"> </div>
                     <OutsideClick onOutsideClick={() => setIsExtraVisible(prev => !prev)} className="extra-outside">
                         <ExtraFilter closeExtra={() => setIsExtraVisible(prev => !prev)} />
                     </OutsideClick>
-                </div>}
+                </>}
 
 
                 {loginSignup && <div className="layout">

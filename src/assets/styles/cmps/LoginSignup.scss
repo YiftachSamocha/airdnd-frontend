@@ -1,16 +1,19 @@
 .loginsignup {
     position: relative;
     background-color: white;
-    z-index: 51;
-    border-radius: 15px;
+    z-index: 61;
+    border-radius: 15px 15px 0 0;
     padding-block-end: 1.5em;
-    width: 100vw;
-    height: 100vh;
-    margin-top: 3em;
+    top: 30px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    position: fixed;
+    padding-block-end: 5em;
 
 
     .loginsignup-content {
-
+        height: 100%;
 
         .loginsignup-header {
             display: flex;
@@ -60,14 +63,15 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+
                 // >*{
                 //     max-width: 400px;
                 // }
-                filedset{
+                filedset {
                     padding: 1em;
                 }
 
-                
+
             }
 
             button {
@@ -90,6 +94,13 @@
                 background-color: $gray1;
             }
         }
+    }
+
+    .css-1jk99ih-MuiInputBase-input-MuiOutlinedInput-input {
+        width: 90%;
+    }
+    .css-qyvk1c-MuiFormControl-root-MuiTextField-root{
+        min-width: 300px;
     }
 
 }

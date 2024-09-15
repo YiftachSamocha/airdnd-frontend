@@ -1,7 +1,9 @@
 .trips {
     padding-bottom: 5em;
+
     h2 {
         font-size: em(33px);
+        font-weight: 500;
     }
 
     .invite {
@@ -43,10 +45,13 @@
             }
 
             button {
-                background-color: $clr-red;
+                background-color: $clr-light-red;
                 color: white;
                 border: 0;
                 width: 100%;
+            }
+            button:hover{
+                background-color: $clr-red;
             }
         }
     }
@@ -108,10 +113,16 @@
         }
     }
 
-    // Message when there are no trips
-    // >div {
-    //     text-align: center;
-    //     font-size: 1.5em;
-    //     margin-top: 3em;
-    // }
+    .no-trips {
+        font-size: 2em;
+        font-weight: 400;
+        text-align: center;
+        padding: 2em 0;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        max-width: 400px;
+        margin: 3em auto;
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
 }

@@ -75,8 +75,9 @@
         width: 100%;
         display: flex;
         justify-content: center;
+
         .add-stay-btn {
-            background-color: $clr-red;
+            background-color: $clr-light-red;
             color: white;
             border: 0;
             border-radius: 15px;
@@ -85,6 +86,13 @@
             font-size: 20px;
             white-space: nowrap;
             margin-block: 1em;
+            position: relative;
+
+         
         }
+        .add-stay-btn:hover {
+            background-color: $clr-red;
+        }
+        
     }
 }

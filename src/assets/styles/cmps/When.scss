@@ -80,20 +80,72 @@
         border: 0;
     }
 
-    .rdrDayHovered {
-        border: black 1px solid !important;
-        border-radius: 50%;
+    .rdrDays>* {
+        background-color: white;
 
+    }
+
+    .rdrDayHovered {
         .rdrDayNumber {
             border: 0;
             padding: 0;
+            border: black 1px solid !important;
+            border-radius: 50% !important;
         }
+    }
+
+    .rdrDayDisabled:has(.rdrInRange) {
+        background-color: white;
+    }
+
+    .rdrDayDisabled .rdrInRange {
+        background-color: white;
+    }
+
+    .rdrInRange {
+        background-color: white;
     }
 
     button:has(.rdrStartEdge),
     button:has(.rdrEndEdge) {
-        background-color: black !important;
-        border-radius: 50% !important;
+        background-color: $gray1 !important;
+        padding: 0;
+    }
+
+    button:has(.rdrStartEdge) {
+        border-radius: 50% 0 0 50% !important;
+    }
+
+    button:has(.rdrEndEdge) {
+        border-radius: 0 50% 50% 0 !important;
+    }
+
+    button:has(.rdrStartEdge.rdrEndEdge) {
+        border-radius: 50% 0 0 50% !important;
+    }
+
+    .rdrDayHovered~button:has(.rdrStartEdge.rdrEndEdge) {
+        border-radius: 0 50% 50% 0 !important;
+    }
+
+    button:has(.rdrStartEdge.rdrEndEdge)~.rdrDayHovered {
+        border-radius: 0 50% 50% 0 !important;
+    }
+
+    .rdrDay>span:not(.rdrInRange)+.rdrDay.rdrDayHovered {
+        border-radius: 50% 0 0 50% !important;
+        background-color: $gray1;
+    }
+
+
+
+
+    button:has(.rdrStartEdge)~button:has(.rdrInRange) {
+        background-color: $gray1;
+
+        .rdrInRange {
+            background-color: $gray1;
+        }
     }
 
     button:has(.rdrInRange) {
@@ -109,6 +161,7 @@
         background-color: $gray1;
         border-radius: 0;
     }
+
 
 
 
@@ -138,7 +191,6 @@
     }
 
     button:has(.rdrInRange) {
-        background-color: $gray1;
         border-radius: 0;
     }
 
