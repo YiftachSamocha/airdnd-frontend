@@ -1,9 +1,10 @@
-.mobile-filter-cont{
+.mobile-filter-cont {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
 }
+
 .mobile-filter {
     display: flex;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -71,6 +72,7 @@ main .main-filter.mobile {
     cursor: default;
     position: relative;
     margin-inline: 0;
+    margin-bottom: 0;
 
     input {
         cursor: default;
@@ -79,12 +81,13 @@ main .main-filter.mobile {
     .closing-btn {
         background-color: white;
         border-radius: 50%;
-        border: 1px solid $gray2;
+        border: 1px solid $gray3;
         display: flex;
         justify-content: center;
         align-items: center;
         padding: 0;
         width: 2em;
+        min-height: 2em;
         height: 2em;
         font-weight: lighter;
     }
@@ -98,7 +101,7 @@ main .main-filter.mobile {
         overflow: auto;
         height: 90vh;
 
-       
+
 
         .selected {
             border-radius: 25px;
@@ -224,7 +227,9 @@ main .main-filter.mobile {
                 }
 
                 .where-cities {
-                    height: 35vh;
+                    height: 40vh;
+                    min-height: 250px;
+                    max-height: 250px;
                     padding: 0;
 
                     div {
@@ -281,6 +286,8 @@ main .main-filter.mobile {
             >div {
                 height: 40vh;
                 overflow: auto;
+                min-width: 300px;
+                
             }
 
             .rdrNextPrevButton {
@@ -295,8 +302,31 @@ main .main-filter.mobile {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+            }
+
+            .rdrMonths {
+                align-items: center;
 
             }
+
+            .rdrWeekDays {
+                position: fixed;
+                display: flex;
+                z-index: 100;
+                width: 300px;
+                background-color: white;
+                padding-block: 0.3em;
+                justify-content: space-between;
+            }
+
+            .rdrMonthAndYearWrapper {
+                display: none;
+            }
+            .rdrDay{
+                height: 42px;
+                width: 42px;
+            }
+            
         }
 
         .who-input {
@@ -352,9 +382,13 @@ main .main-filter.mobile {
             }
         }
 
-        .who>div button:hover {
+        .who>div button:not(.change-count.disabled):hover {
             background-color: inherit;
             border: 1px solid black;
+        }
+
+        .who>div button.change-count.disabled:hover {
+            background-color: inherit;
         }
     }
 

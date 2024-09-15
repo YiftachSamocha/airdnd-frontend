@@ -12,9 +12,8 @@ export function Reservations({ orders, listings }) {
     const [reservations, setReservations] = useState([])
     const [filterBy, setFilterBy] = useState({ type: 'all', listing: 'all', page: 0 })
     const currUser = useSelector(state => state.userModule.currUser)
-    const PAGE_SIZE = 5
-    const [isNarrow, setIsNarrow] = useState(window.innerWidth < 1130
-    )
+    const [pageSize, setPageSize] = useState(5)
+    const [isNarrow, setIsNarrow] = useState(window.innerWidth < 1130)
 
     useEffect(() => {
         let newRes = [...orders]
@@ -25,24 +24,30 @@ export function Reservations({ orders, listings }) {
             newRes = newRes.filter(res => res.stay._id === filterBy.listing)
         }
         //const totalFilteredReservations = newRes.length;
-        const start = filterBy.page * PAGE_SIZE
-        const end = start + PAGE_SIZE
+        const start = filterBy.page * pageSize
+        const end = start + pageSize
         newRes = newRes.slice(start, end)
         setReservations(newRes)
-    }, [filterBy, orders])
+    }, [filterBy, orders, pageSize])
+
     useEffect(() => {
         const handleResize = () => {
-            setIsNarrow(window.innerWidth < 1130
-
-            )
+            setIsNarrow(window.innerWidth < 1130)
+            if (window.innerWidth <= 550 && pageSize !== 1) {
+                setPageSize(1)
+                setFilterBy(prev => ({ ...prev, page: 0 })); 
+            }
+            else if (window.innerWidth > 550 && pageSize !== 5){
+                setPageSize(5)
+                setFilterBy(prev => ({ ...prev, page: 0 }));
+            }
         }
         window.addEventListener('resize', handleResize)
 
         return () => {
             window.removeEventListener('resize', handleResize)
         }
-    }, [])
-
+    }, [pageSize])
 
     function formatDate(date) {
         return format(date, 'yy-MM-dd')
@@ -63,7 +68,7 @@ export function Reservations({ orders, listings }) {
         const totalFilteredReservations = orders
             .filter(res => filterBy.type === 'all' || res.status === filterBy.type)
             .filter(res => filterBy.listing === 'all' || res.stay._id === filterBy.listing)
-        const totalPages = Math.ceil(totalFilteredReservations.length / PAGE_SIZE)
+        const totalPages = Math.ceil(totalFilteredReservations.length / pageSize)
         if (rightLeft + filterBy.page < 0) return
         if (rightLeft + filterBy.page >= totalPages) return
         setFilterBy(prev => ({ ...prev, page: prev.page + rightLeft }))
@@ -104,7 +109,7 @@ export function Reservations({ orders, listings }) {
                                             top: '-5px',
                                         },
                                         '& .MuiInputLabel-root': {
-                                            padding: '0 4px',  // Add padding to prevent text cutting
+                                            padding: '0 4px',
                                         },
                                     },
                                 }}>

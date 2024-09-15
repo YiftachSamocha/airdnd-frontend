@@ -312,3 +312,10 @@
     }
 
 }
+
+body:has(.extra-filter),
+body:has(.main-filter.mobile),
+.main-filter .mobile {
+    overflow: hidden;
+    
+}

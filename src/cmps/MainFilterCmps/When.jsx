@@ -60,6 +60,8 @@ export function When({ dates, setDates }) {
             staticRanges={[]}
             inputRanges={[]}
             onChange={handleDateChange}
+            preventSnapRefocus={true}
+            //calendarFocus="forwards" 
         />
     </div>
 }

@@ -51,7 +51,7 @@ export function AppHeader() {
             if (window.scrollY === 0) {
                 if (!isTop) setIsTop(true);
                 if (isFolded && !userInitiatedOpen.current) setIsFolded(false);
-                
+
             } else {
                 if (isTop) setIsTop(false);
                 if (!isFolded && !userInitiatedOpen.current) setIsFolded(true);
@@ -167,7 +167,7 @@ export function AppHeader() {
                         </div>
                     </div>
                 </div>}
-                    {isExtraBtnShown && isNarrow && <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button small">
+                    {isExtraBtnShown && isNarrow && isStayPage && <button onClick={() => setIsExtraVisible(prev => !prev)} className="extra-button small">
                         <img src={smallFilterImg} />
                     </button>}
                 </div>

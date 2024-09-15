@@ -39,6 +39,7 @@
 
         }
     }
+
     .narrow-res {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -50,26 +51,29 @@
             flex-direction: column;
             // border: 1px solid black;
             padding-inline: 0.5em;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); 
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
             border-radius: 15px;
 
             div {
                 display: flex;
                 justify-content: space-between;
-               align-items: center;
-                p{
+                align-items: center;
+
+                p {
                     //white-space: nowrap;
                     text-transform: capitalize;
                 }
             }
-            .name{
+
+            .name {
                 text-decoration: none;
                 color: black;
-               
+
             }
         }
 
     }
+
     .status {
         font-weight: 700;
 
@@ -127,19 +131,19 @@
         align-items: center;
         position: sticky;
         top: 0;
-        
+
         background-color: white;
         border-bottom: 1px solid $gray1;
         padding-block: 1em;
 
-        .res-filter-cont{
+        .res-filter-cont {
             display: flex;
             width: 100%;
             justify-content: space-around;
             flex-direction: column;
             align-items: center;
             gap: 1em;
-          
+
         }
 
         .filter-type {
@@ -163,15 +167,22 @@
                     transform: translateY(-0.125em);
                 }
             }
-            
+
         }
-        .css-1vxbuxi, .css-yy3q0-MuiFormControl-root{
+
+        .css-1vxbuxi,
+        .css-yy3q0-MuiFormControl-root {
             margin: 0;
         }
 
-        .filter-listing{
+        .filter-listing {
             margin-block: 5px;
+
+            .css-yy3q0-MuiFormControl-root {
+                min-width: 250px;
+            }
         }
+
         .filter-page {
             display: flex;
             align-items: center;
