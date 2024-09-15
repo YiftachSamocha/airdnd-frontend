@@ -131,6 +131,11 @@
         }
     }
 
+    .rdrDays>* {
+        background-color: white;
+
+    }
+
     .rdrDayNumber {
         font-size: em(16px);
     }
@@ -172,7 +177,36 @@
         background-color: $gray1;
         border-radius: 0;
     }
+    .rdrDayDisabled:has(.rdrInRange) {
+        background-color: white;
+    }
 
+    .rdrDayDisabled .rdrInRange {
+        background-color: white;
+    }
+    button:has(.rdrInRange) ~ button:has(.rdrInRange){
+        background-color: $gray1;
+        .rdrInRange{
+            background-color: $gray1;
+        }
+    }
+
+    .rdrInRange {
+        background-color: white;
+    }
+
+    
+    button:has(.rdrStartEdge)~button:has(.rdrInRange):not(.rdrDayPassive) {
+        background-color: $gray1;
+
+        .rdrInRange {
+            background-color: $gray1;
+        }
+    }
+    button:has(.rdrDayInPreview) {
+        background-color: $gray1;
+        border-radius: 0;
+    }
 
 
     .rdrStartEdge,
@@ -184,6 +218,9 @@
             border: 0;
             padding: 0;
         }
+    }
+    .rdrInRange {
+        background-color: white;
     }
 
     .rdrDayToday:not(.rdrDayPassive) .rdrEndEdge~.rdrDayNumber span:after {
@@ -205,6 +242,12 @@
 
     .rdrDay:not(.rdrDayPassive) .rdrInRange~.rdrDayNumber span {
         color: $gray5;
+    }
+    button:not(:has(.rdrStartEdge)) ~ button:has(.rdrInRange){
+        background-color: white;
+        .rdrInRange{
+            background-color: white;
+        }
     }
 
     .rdrInRange:hover {
