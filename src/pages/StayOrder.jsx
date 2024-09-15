@@ -15,11 +15,12 @@ import Gpay from "../assets/imgs/pay/Gpay.svg"
 import { Who } from "../cmps/MainFilterCmps/Who";
 import { When } from "../cmps/MainFilterCmps/When";
 import { loadStay } from '../store/actions/stay.actions';
-import { findFirstAvailableNights, formatDateRange, formatNumberWithCommas, getDateRange } from '../services/util.service';
+import { calculateDaysBetween, findFirstAvailableNights, formatDateRange, formatNumberWithCommas, getDateRange } from '../services/util.service';
 import { addOrder } from '../store/actions/order.action';
 import { parse } from 'date-fns';
 import { ModalBooking } from '../cmps/ModalBooking';
 import { OutsideClick } from '../cmps/OutsideClick';
+import logo from '../assets/imgs/small-icon.png';
 import { SOCKET_EVENT_ADD_ORDER, socketService } from '../services/socket.service';
 
 
@@ -36,6 +37,15 @@ export function StayOrder() {
 
     const [filterCapacity, setFilterCapacity] = useState({ adults: 0, children: 0, infants: 0, pets: 0 })
     const [dates, setDates] = useState({ startDate: null, endDate: null })
+    const [newOrder, setNewOrder] = useState({
+        price: 0,
+        total: 0,
+        finalPrice: 0,
+        cleaningFee: 0,
+        totalNights: 0,
+        freeDate: '',
+        filterCapacity: ''
+    })
     const toggleWho = () => setWhoOpen(!isWhoOpen)
     const toggleWhen = () => setWhenOpen(!isWhenOpen)
 
@@ -43,13 +53,9 @@ export function StayOrder() {
         loadStay(stayId)
     }, [stayId])
 
-    // console.log('stayId', stayId);
-    // console.log('stay', stay);
+
     useEffect(() => {
         const params = new URLSearchParams(searchParams);
-        console.log(params);
-        console.log('params', params.toString());
-        console.log('Params:', Array.from(params.entries()));
 
         const startDateParam = params.get('start_date');
         const endDateParam = params.get('end_date');
@@ -58,7 +64,6 @@ export function StayOrder() {
         const infants = Number(params.get('infants')) || 0;
         const pets = Number(params.get('pets')) || 0;
         console.log('Parsed Params:', { startDateParam, endDateParam, adults, children, infants, pets });
-
 
         let startDate = null;
         let endDate = null;
@@ -75,32 +80,48 @@ export function StayOrder() {
         setFilterCapacity({ adults, children, infants, pets });
     }, [searchParams])
 
-    console.log('filterCapacity.adults', filterCapacity.adults);
+    useEffect(() => {
+        if (!stay || !dates.startDate || !dates.endDate) return;
 
-    // adults, children, infants, pets 
+        const dateRange = {
+            startDate: new Date(dates.startDate),
+            endDate: new Date(dates.endDate)
+        }
+        const totalNights = calculateDaysBetween(dateRange)
 
-    if (!stay) return <div>Loading...</div>
+        const price = stay.price.night
+        const finalPrice = price * totalNights
+        const cleaningFee = stay.price.cleaning
+        const total = finalPrice + cleaningFee
+        const freeDate = formatDateRange(dates)
 
-    const price = stay.price.night
-    const finalPrice = stay.price.night * 5
-    const cleaningFee = stay.price.cleaning
+        setNewOrder({
+            price: formatNumberWithCommas(price),
+            total: formatNumberWithCommas(total),
+            finalPrice: formatNumberWithCommas(finalPrice),
+            cleaningFee: formatNumberWithCommas(cleaningFee),
+            totalNights,
+            freeDate,
+            filterCapacity
+        });
+    }, [stay, dates, filterCapacity]);
 
-    const total = finalPrice + cleaningFee
-    // console.log('availableDates',availableDates);
-
-    // formatNumberWithCommas
-    // const availableDates = findFirstAvailableNights(stay.reservedDates, 5)
-    const freeDate = formatDateRange(dates)
-    console.log('freeDate', freeDate);
+    if (!stay) {
+        return (
+            <div className="spinner-container">
+                <img className="spinner" src={logo} alt="logo" />
+            </div>
+        )
+    }
 
     const totalReviews = stay.reviews ? stay.reviews.length : 0
+
     const avgRating = totalReviews > 0
         ? stay.reviews.reduce((sum, review) => sum + review.rate, 0) / totalReviews
         : 0
 
     function handleClick() {
         setIsModalOpen(true)
-        // setShowConfirmation(false)
     }
 
     function closeModal() {
@@ -155,6 +176,25 @@ export function StayOrder() {
         socketService.emit(SOCKET_EVENT_ADD_ORDER, order)
     }
 
+    function formatGuests(capacity) {
+        const { adults, children, infants, pets } = capacity
+        const parts = []
+
+        if (adults > 0) {
+            parts.push(`${adults} adult${adults > 1 ? 's' : ''}`)
+        }
+        if (children > 0) {
+            parts.push(`${children} child${children > 1 ? 'ren' : ''}`)
+        }
+        if (infants > 0) {
+            parts.push(`${infants} infant${infants > 1 ? 's' : ''}`)
+        }
+        if (pets > 0) {
+            parts.push(`${pets} pet${pets > 1 ? 's' : ''}`)
+        }
+
+        return parts.join(', ')
+    }
     //     // When
     // function handleDateChange(newDates) {
     //     setDates(newDates);
@@ -167,6 +207,7 @@ export function StayOrder() {
     //     setSearchParams({ ...searchParams, adults: newCapacity.adults, children: newCapacity.children, infants: newCapacity.infants, pets: newCapacity.pets });
     // }
 
+    const { freeDate, total, totalNights, totalPrice, finalPrice, cleaningFee, price } = newOrder
 
     return (
         <><div className="order">
@@ -195,10 +236,7 @@ export function StayOrder() {
                         </div>
                         <div className='flex'>
                             <div>
-                                <h4 >Guests </h4><span>{filterCapacity.adults} adults</span></div>
-                            {/* <span>{filterCapacity.children} children</span>
-                                <span>{filterCapacity.infants} infants</span>
-                                <span>{filterCapacity.pets} pets</span></div> */}
+                                <h4 >Guests </h4> <span>{formatGuests(filterCapacity)}</span></div>
                             <button onClick={toggleWho}>Edit</button>
                         </div>
                     </div>
@@ -210,7 +248,6 @@ export function StayOrder() {
                                 <img src={masterCard} alt="masterCard" className="masterCard icon" />
                                 <img src={amex} alt="amex" className="amex icon" />
                                 <img src={Gpay} alt="Gpay" className="Gpay icon" /></div>
-                            {/* <h4>Credit or debit card</h4> */}
                         </div> <div className="card-details">
                             <div className="input-group">
                                 <div className="floating-label">
@@ -241,12 +278,12 @@ export function StayOrder() {
                     </div>
 
                     <div className='payment grid'>
-                        {/* <button onClick={onAddOrder} >Request to book</button> */}
                         <button className='btn-pay' onClick={handleClick}>Request to book</button>
                         {isModalOpen &&
                             //  <OutsideClick onOutsideClick={() => setIsWhoOpen(false)}></OutsideClick>
                             <OutsideClick onOutsideClick={() => setIsModalOpen(false)}>
-                                <ModalBooking isOpen={isModalOpen} onClose={closeModal} stay={stay} onAddOrder={onAddOrder} />
+                                <ModalBooking isOpen={isModalOpen} onClose={closeModal} stay={stay}
+                                    onAddOrder={onAddOrder} newOrder={newOrder} />
                             </OutsideClick>
                         }
                         {/* <ModalBooking isOpen={isModalOpen} onClose={closeModal} stay={stay} onAddOrder={onAddOrder} /> */}
@@ -274,7 +311,7 @@ export function StayOrder() {
                             <h2>Price details</h2>
                             <div className="price-calc">
 
-                                <h3 className="light">${price} <span><span>X</span> 5 nights</span></h3>
+                                <h3 className="light">${price} <span><span>X</span> {totalNights} {totalNights > 1 ? 'nights' : 'night'}</span></h3>
                                 <h3>${finalPrice}</h3>
                             </div>
                             {cleaningFee > 0 && (

@@ -17,7 +17,7 @@ import { StayAmenities } from '../cmps/DetailsCmps/StayAmenities'
 import { StayRooms } from '../cmps/DetailsCmps/stayRooms'
 import { ModalCmp } from '../cmps/ModalCmp'
 import { WhenDetails } from '../cmps/MainFilterCmps/WhenDetails'
-
+import logo from '../assets/imgs/small-icon.png';
 
 export function StayDetails() {
   const { stayId } = useParams()

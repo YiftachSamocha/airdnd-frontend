@@ -24,6 +24,36 @@ export function makeLorem(size = 100) {
     return txt
 }
 
+export function calculateCategoryAverages(reviews) {
+    if (!reviews || reviews.length === 0) return {}
+
+    const categorySums = {}
+    const categoryCounts = {}
+
+    reviews.forEach(review => {
+        const { ratingCategories } = review
+
+        Object.entries(ratingCategories).forEach(([category, rating]) => {
+            if (!categorySums[category]) {
+                categorySums[category] = 0
+                categoryCounts[category] = 0
+            }
+            categorySums[category] += rating
+            categoryCounts[category] += 1
+        })
+    })
+
+    const categoryAverages = {}
+    Object.entries(categorySums).forEach(([category, sum]) => {
+        categoryAverages[category] = sum / categoryCounts[category]
+    })
+    return categoryAverages
+}
+
+
+
+
+
 export function calculateAverageRating(reviews) {
     if (!Array.isArray(reviews) || reviews.length === 0) {
         return 0
@@ -45,7 +75,13 @@ export function formatRating(rating) {
     return rating > 0 ? (rating % 1 === 0 ? rating.toFixed(1) : rating.toFixed(2)) : ''
 }
 
-
+export function calculateDaysBetween({ startDate, endDate }) {
+    if (!(startDate instanceof Date) || !(endDate instanceof Date)) {
+        throw new Error('Both startDate and endDate must be Date objects.')
+    }
+    const timeDifference = endDate.getTime() - startDate.getTime()
+    return Math.ceil(timeDifference / (1000 * 60 * 60 * 24))
+}
 
 // export function formatNumberWithCommas(number) {
 //     return number.toLocaleString()
@@ -98,10 +134,10 @@ export function formatDateYearAndMonth(originalDate) {
     const [year, month] = originalDate.split('-');
     const monthIndex = parseInt(month, 10) - 1; // Convert month to zero-based index
     const date = new Date(year, monthIndex);
-  
+
     const options = { year: 'numeric', month: 'long' };
     return date.toLocaleDateString('en-US', options);
-  }
+}
 
 
 
@@ -149,7 +185,7 @@ export function findFirstAvailableNights(reservedRanges, nightsNeeded) {
             startDate: nextFiveDays[0],
             endDate: nextFiveDays[nightsNeeded - 1],
         }
-    } 
+    }
 
     let currentDate = addDays(today, 1)
     let foundNights = []
@@ -222,7 +258,7 @@ export function getRandomColor() {
     return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
 }
 
-export async function onHandleFile(ev){
+export async function onHandleFile(ev) {
     let res = await uploadService.uploadImg(ev)
 
     return res.map(img => img.secure_url)
@@ -271,9 +307,9 @@ export function getRandomItems(arr, numItems) {
 
     return numItems === 1 ? result[0] : result
 }
-export function  getRandomRoomData() {
-    const bedType = getRandomItems(bedTypes , 1)
-    let imgUrl= ''
+export function getRandomRoomData() {
+    const bedType = getRandomItems(bedTypes, 1)
+    let imgUrl = ''
 
     if (bedType === "single bed") {
         imgUrl = generateImgUrls(singleBedroomImgs)[0];

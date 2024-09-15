@@ -3,15 +3,15 @@ import { findFirstAvailableNights, formatDateRange, formatNumberWithCommas, getD
 import { useNavigate } from "react-router-dom"
 import success from "../assets/imgs/icons/success.svg"
 
-export function ModalBooking({ isOpen, onClose, stay, onAddOrder }) {
+export function ModalBooking({ isOpen, onClose, stay, onAddOrder, newOrder }) {
     const [isConfirmation, setIsConfirmation] = useState(false)
     const navigate = useNavigate()
-    const price = formatNumberWithCommas(stay.price.night)
-    const total = formatNumberWithCommas(stay.price.night * 5)
-    const cleaningFee = formatNumberWithCommas(stay.price.cleaning)
-    const availableDates = findFirstAvailableNights(stay.reservedDates, 5)
-    const freeDate = formatDateRange(availableDates)
-
+    // const price = formatNumberWithCommas(stay.price.night)
+    // const total = formatNumberWithCommas(stay.price.night * 5)
+    // const cleaningFee = formatNumberWithCommas(stay.price.cleaning)
+    // const availableDates = findFirstAvailableNights(stay.reservedDates, 5)
+    // const freeDate = formatDateRange(availableDates)
+    console.log(' newOrder', newOrder);
 
     function handleBackClick() {
         if (isConfirmation) {
@@ -28,7 +28,29 @@ export function ModalBooking({ isOpen, onClose, stay, onAddOrder }) {
         onAddOrder()
     }
 
+    function formatGuests(capacity) {
+        const { adults, children, infants, pets } = capacity
+        const parts = []
+
+        if (adults > 0) {
+            parts.push(`${adults} adult${adults > 1 ? 's' : ''}`)
+        }
+        if (children > 0) {
+            parts.push(`${children} child${children > 1 ? 'ren' : ''}`)
+        }
+        if (infants > 0) {
+            parts.push(`${infants} infant${infants > 1 ? 's' : ''}`)
+        }
+        if (pets > 0) {
+            parts.push(`${pets} pet${pets > 1 ? 's' : ''}`)
+        }
+
+        return parts.join(', ')
+    }
+
     if (!isOpen) return null
+    const { freeDate, total, totalNights, totalPrice, finalPrice, cleaningFee, price, filterCapacity, dates } = newOrder
+
 
     return (
         <section className="modal-booking">
@@ -50,16 +72,20 @@ export function ModalBooking({ isOpen, onClose, stay, onAddOrder }) {
                     <h4>Trip dates:</h4>
                     <span>{freeDate}</span>
                     <h4>Guests:</h4>
-                    <span>{stay.sleep.maxCapacity} guests</span>
-                    {/* adult */}
+                    <span>{formatGuests(filterCapacity)}</span>
+
 
                     <div className="price-calc add-grid">
                         <h4>Price Details</h4>
-                        <h3 className="light">${price} <span><span>X</span> 5 nights</span></h3>
-                        <h3>${total}</h3>
+                        <h3 className="light">${price} <span><span>X</span> {totalNights} {totalNights > 1 ? 'nights' : 'night'}</span></h3>
+                        <h3>${finalPrice}</h3>
                         <div></div>
-                        <h3>Service fee</h3>
-                        <h3>${cleaningFee}</h3>
+                        {cleaningFee > 0 && (
+                            <>
+                                <h3>Service fee</h3>
+                                <h3>${cleaningFee}</h3>
+                            </>
+                        )}
                         <div className="total">
                             <h3>Total</h3>
                             <h3>${total}</h3>
