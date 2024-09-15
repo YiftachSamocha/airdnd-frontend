@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import inviteImg from '../assets/imgs/invite.png'
 import familyImg from '../assets/imgs/family.webp'
+import { SOCKET_EVENT_TAKE_STATUS, socketService } from "../services/socket.service";
 
 export function Trips() {
     const currUser = useSelector(state => state.userModule.currUser)
@@ -13,14 +14,26 @@ export function Trips() {
     let guestId = currUser ? currUser._id : ''
     const navigate = useNavigate()
 
-
     useEffect(() => {
         loadOrders({ guest: guestId })
             .then(newOrders => {
                 setTrips(newOrders)
             })
-
     }, [currUser])
+
+    useEffect(() => {
+        socketService.on(SOCKET_EVENT_TAKE_STATUS, newOrder => {
+            setTrips(prevTrips => {
+                return prevTrips.map(trip => {
+                    if (trip._id === newOrder._id) return newOrder
+                    return trip
+                })
+            })
+        })
+        return () => {
+            socketService.off(SOCKET_EVENT_TAKE_STATUS)
+        }
+    }, [])
 
     function formatDate(date) {
         return format(date, 'MMM d')

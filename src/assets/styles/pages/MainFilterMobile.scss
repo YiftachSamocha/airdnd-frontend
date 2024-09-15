@@ -1,11 +1,17 @@
+.mobile-filter-cont{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .mobile-filter {
     display: flex;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     border-radius: 25px;
     align-items: center;
     padding: 0.5em 1em;
-    margin: 1em;
+    margin: 1em 0 1em 0;
     cursor: pointer;
+    width: 100%;
 
     img {
         max-width: 30px;
@@ -16,17 +22,35 @@
     >div>input {
         font-weight: bolder;
         font-size: 1em;
+        width: 100px;
+    }
 
+    >div>input::placeholder {
+        color: black;
+        font-weight: lighter;
+    }
 
+    div div {
+        input::placeholder {
+            width: 80px;
+        }
+
+        input:first-of-type {
+            margin-left: 0.1em;
+            margin-right: 0.3em;
+        }
+
+        input:last-of-type {
+            margin-left: 0.4em;
+        }
     }
 
     input {
         border: 0;
         outline: 0;
-        max-width: auto;
-        text-align: start;
         cursor: pointer;
-        width: 100px;
+        width: 70px;
+
     }
 
 }
@@ -72,8 +96,14 @@ main .main-filter.mobile {
         overflow: auto;
         height: 90vh;
 
+       
+
         .selected {
             border-radius: 25px;
+            cursor: default;
+        }
+
+        .selected>* {
             cursor: default;
         }
 
@@ -87,9 +117,18 @@ main .main-filter.mobile {
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             border-radius: 15px;
             cursor: pointer;
+            padding-inline: 1em;
 
+            input {
+                cursor: pointer;
+            }
 
         }
+
+        .selected label {
+            font-size: 23px;
+        }
+
 
         .where-input div {
             flex-direction: row;
@@ -121,7 +160,6 @@ main .main-filter.mobile {
 
 
                 label {
-                    font-size: 30px;
                     margin-bottom: 0.5em;
                 }
 
@@ -222,9 +260,7 @@ main .main-filter.mobile {
         .when-input-all.selected {
             padding-inline: 1em;
 
-            label {
-                font-size: 30px;
-            }
+
 
             input {
                 display: none;
@@ -303,9 +339,7 @@ main .main-filter.mobile {
         }
 
         .who-input.selected {
-            label {
-                font-size: 30px;
-            }
+
 
             .who-content button {
                 display: none;
@@ -325,7 +359,7 @@ main .main-filter.mobile {
     .mobile-btns {
         position: sticky;
         bottom: 0;
-        padding-block: 0.5em;
+        padding-block: 1em;
         display: flex;
         justify-content: space-around;
         width: 100%;
@@ -341,6 +375,7 @@ main .main-filter.mobile {
             background-color: $clr-red;
             border: 0;
             color: white;
+
         }
     }
 }

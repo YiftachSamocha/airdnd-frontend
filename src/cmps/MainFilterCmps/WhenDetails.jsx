@@ -2,31 +2,14 @@ import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { useEffect, useState } from 'react';
-import { addDays, addMonths, isBefore, isAfter, format } from 'date-fns';
+import { addDays, addMonths, isBefore, isAfter, format, isSameDay, eachDayOfInterval, parseISO } from 'date-fns';
 import { findFirstAvailableNights } from '../../services/util.service';
-
-export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200 }) {
-    const [monthsAmount, setMonthsAmount] = useState(2)
+import xIcon from '../../assets/imgs/icons/x.svg'
+export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200, closeWhen, type, monthsAmount }) {
     const [isSelectingEndDate, setIsSelectingEndDate] = useState(false);
 
     const { reservedDates } = stay
-
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth > breakpoint && monthsAmount !== 2) {
-                setMonthsAmount(2)
-            } else if (window.innerWidth <= breakpoint && monthsAmount !== 1) {
-                setMonthsAmount(1)
-            }
-        }
-
-        window.addEventListener("resize", handleResize)
-        handleResize()
-
-        return () => {
-            window.removeEventListener("resize", handleResize)
-        }
-    }, [breakpoint, monthsAmount])
+    const [disabledDates, setDisabledDates] = useState([])
 
     useEffect(() => {
         if (!dates.startDate && !dates.endDate) {
@@ -38,21 +21,49 @@ export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200 }) {
                 })
             }
         }
-    }, [reservedDates, dates])
-   
+    }, [])
+
+    useEffect(() => {
+        // Create an array of all unavailable dates from reservedDates
+        const allDisabledDates = reservedDates.flatMap(({ startDate, endDate }) =>
+            eachDayOfInterval({
+                start: parseISO(startDate),
+                end: parseISO(endDate),
+            })
+        )
+        setDisabledDates(allDisabledDates);
+    }, [reservedDates])
+
+    
+
     // useEffect(() => {
     //     // Call updateMonthNames after the component mounts and after each render
     //     updateMonthNames()
     // }, [monthsAmount, dates])
 
-    function handleDateChange(ranges) {
-        const { selection } = ranges;
-        const startDate = selection.startDate;
-        const endDate = selection.endDate;
-        
-        onSetDates({ startDate, endDate });
+    async function handleDateChange(ranges) {
+        // onSetDates({ startDate, endDate: null })
+        const { selection } = ranges
+        const startDate = selection.startDate
+        const endDate = selection.endDate
+
+        if (!isSelectingEndDate) {
+            setIsSelectingEndDate(true);
+            onSetDates({ startDate, endDate: null }); // Start selecting, don't set endDate yet
+            return; // Don't close the modal yet
+        }
+
+        // When end date is selected, set both dates and close the modal
+        if (isSelectingEndDate && startDate && endDate) {
+            onSetDates({ startDate, endDate })
+
+            if (typeof closeWhen === 'function') {
+                closeWhen() // Close the modal if closeWhen exists
+            }
+
+            setIsSelectingEndDate(false) // Reset the flag
+        }
     }
-    
 
     // function updateMonthNames() {
     //     // Select all elements with the class 'rdrMonthName'
@@ -80,41 +91,39 @@ export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200 }) {
 
     const nightsCount = dates.startDate && dates.endDate ? getNightsCount(dates.startDate, dates.endDate) : 0
 
-    // function findFirstAvailableNights(reservedRanges, nightsNeeded) {
-    //     const today = new Date()
-    //     let currentDate = addDays(today, 1)
-    //     let foundNights = []
-
-    //     while (foundNights.length < nightsNeeded) {
-    //         const isReserved = reservedRanges.some(range =>
-    //             isBefore(currentDate, new Date(range.end)) && isAfter(currentDate, new Date(range.start))
-    //         )
-
-    //         if (!isReserved) {
-    //             foundNights.push(currentDate)
-    //         } else {
-    //             foundNights = [] // Reset if a reserved date is found within the needed range
-    //         }
-
-    //         currentDate = addDays(currentDate, 1)
-
-    //         if (foundNights.length === nightsNeeded) {
-    //             return {
-    //                 startDate: foundNights[0],
-    //                 endDate: foundNights[nightsNeeded - 1],
-    //             }
-    //         }
-    //     }
-    //     return null // Return null if no suitable range is found
-    // }
-
+    function handleClear() {
+        onSetDates({ startDate: '', endDate: '' });
+    }
     return (
         <div className="when-static">
             <div className="custom-header">
+                <div className='btns top'>
+                    <button className="close" onClick={closeWhen}>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 32 32"
+                            aria-hidden="true"
+                            role="presentation"
+                            focusable="false"
+                            style={{
+                                display: 'block',
+                                fill: 'none',
+                                height: '16px',
+                                width: '16px',
+                                stroke: 'currentColor',
+                                strokeWidth: '2.66667',
+                                overflow: 'visible'
+                            }}
+                        >
+                            <path d="M6 6 L26 26 M26 6 L6 26" />
+                        </svg>
+                    </button>
+                    <button className='clear btn-link' onClick={handleClear}>Clear dates</button>
+                </div>
                 {nightsCount > 0 ? (
                     <div>
                         <h3>
-                            {nightsCount} nights in {stay.location.city}
+                            {nightsCount} nights <span>in {stay.location.city}</span>
                             <div>
                                 {dates.startDate ? dates.startDate.toDateString() : ''} -{' '}
                                 {dates.endDate ? dates.endDate.toDateString() : ''}
@@ -127,6 +136,15 @@ export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200 }) {
                         <div>Minimum stay: 2 nights</div>
                     </div>
                 )}
+                <div className="weekdays-fixed">
+                    <span>Sun</span>
+                    <span>Mon</span>
+                    <span>Tue</span>
+                    <span>Wed</span>
+                    <span>Thu</span>
+                    <span>Fri</span>
+                    <span>Sat</span>
+                </div>
             </div>
 
             <DateRangePicker
@@ -146,7 +164,13 @@ export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200 }) {
                 staticRanges={[]}
                 inputRanges={[]}
                 onChange={handleDateChange}
+                disabledDates={disabledDates}  
             />
-        </div>
+            <div className='btns'>
+                <button className='clear btn-link' onClick={handleClear}>Clear</button>
+                <button className="black" onClick={closeWhen}>Close</button>
+            </div>
+
+        </div >
     )
 }

@@ -8,9 +8,11 @@ import { Dashboard } from "../cmps/HostCmps/Dashboard";
 import { loadStays } from "../store/actions/stay.actions";
 import securityIcon from '../assets/imgs/icons/security.svg'
 import starIcon from '../assets/imgs/icons/star.svg'
+import { SOCKET_EVENT_TAKE_ORDER, socketService } from "../services/socket.service";
 
 export function Host() {
-    const orders = useSelector(state => state.orderModule.orders)
+    const allOrders = useSelector(state => state.orderModule.orders)
+    const [orders, setOrders] = useState([])
     const [stays, setStays] = useState([])
     const currUser = useSelector(state => state.userModule.currUser)
     let hostId = currUser ? currUser._id : ''
@@ -18,8 +20,9 @@ export function Host() {
     useEffect(() => {
         if (currUser) {
             loadOrders({ host: hostId })
+                .then(res => setOrders(res))
         }
-    }, [currUser])
+    }, [currUser, allOrders])
 
     useEffect(() => {
         if (currUser) {
@@ -30,6 +33,19 @@ export function Host() {
                 })
         }
     }, [currUser])
+
+    useEffect(() => {
+        socketService.on(SOCKET_EVENT_TAKE_ORDER, order => {
+            setOrders(prev => {
+                return [order, ...prev]
+            })
+        })
+
+        return () => {
+            socketService.off(SOCKET_EVENT_TAKE_ORDER)
+        }
+    }, [])
+
     if (!currUser) return <div>Log in to watch your host details</div>
     return <section className="host">
         <AppHeader />

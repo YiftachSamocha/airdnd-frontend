@@ -1,16 +1,21 @@
 .when-static {
     position: relative;
     width: 100%;
-    margin: 48px auto !important;
+    margin-block-start: 48px;
+    padding-block-end: 48px;
     background-color: white;
-    box-shadow: 0 1px 0 0 #e1dede !important;
     color: #222222;
 
-    .custom-header div {
+    .custom-header {
+        .top {
+            display: none;
+        }
+        div {
         font-size: 14px;
         padding-block-start: 8px;
         color: $gray4;
     }
+}
 
     .rdrCalendarWrapper {
         border: none;
@@ -26,8 +31,15 @@
         display: none;
     }
 
+    .rdrDateRangePickerWrapper,
+    .rdrCalendarWrapper {
+        display: flex;
+    }
+
     .rdrMonth {
         position: relative;
+        padding: 0 9px 0 9px;
+
     }
 
     .rdrMonthPicker select,
@@ -51,7 +63,7 @@
         border: none;
         cursor: pointer;
         font-size: 18px;
-        color: black;
+        color: $gray5;
         margin-block-start: 4.5em;
     }
 
@@ -64,6 +76,10 @@
         color: #222222;
         font-size: 16px;
         text-align: center;
+    }
+
+    .weekdays-fixed{
+        display: none;
     }
 
     .rdrMonthAndYearWrapper {
@@ -94,7 +110,7 @@
         margin: 1.5em auto;
         font-size: 16px;
         padding: 0;
-        color: black;
+        color: $gray5;
         width: 100%;
         text-align: center;
     }
@@ -102,9 +118,16 @@
     .rdrDay {
         font-size: initial;
         font-weight: bold;
+        max-width: 70px;
+        max-height: 70px;
 
         font span {
             font-weight: 300;
+        }
+
+        &.rdrDayDisabled .rdrDayNumber{
+            text-decoration: line-through;
+            color: $gray3;
         }
     }
 
@@ -121,7 +144,7 @@
     }
 
     .rdrDayHovered {
-        border: black 1px solid !important;
+        border: $gray5 1px solid !important;
         border-radius: 50%;
 
         .rdrDayNumber {
@@ -132,7 +155,7 @@
 
     button:has(.rdrStartEdge),
     button:has(.rdrEndEdge) {
-        background-color: black !important;
+        background-color: $gray5 !important;
         border-radius: 50% !important;
     }
 
@@ -154,9 +177,7 @@
 
     .rdrStartEdge,
     .rdrEndEdge {
-        border: black 1px solid !important;
-        background-color: black !important;
-        border-radius: 50% !important;
+        display: none;
 
 
         .rdrDayNumber {
@@ -183,7 +204,7 @@
     }
 
     .rdrDay:not(.rdrDayPassive) .rdrInRange~.rdrDayNumber span {
-        color: black;
+        color: $gray5;
     }
 
     .rdrInRange:hover {
@@ -198,12 +219,30 @@
         opacity: 0.5;
         background-color: white;
     }
+    
+   .rdrDayDisabled {
+        opacity: 0.5;
+        background-color: white;
+    }
 
+    .btns {
+        display: flex;
+        width: 100%;
+        justify-content: flex-end;
+        gap: 8px;
+        font-size: 14px;
+        padding-block-start: 20px;
+
+        .black{
+            padding: 8px 16px;
+            display: none;
+        }
+    }
 
 }
 
 
-@media (max-width: 1200px) {
+@media (max-width: 1273px) {
     .when-static {
 
         .rdrCalendarWrapper,
@@ -247,6 +286,11 @@
             width: 100%;
         }
 
+        .rdrDay {
+            height: unset;
+            aspect-ratio: 1 / 1;
+        }
+
         // button {
         //     &:has(.rdrStartEdge) {
         //         background-color: black !important;
@@ -263,10 +307,23 @@
     }
 }
 
-    @media(max-width: 743px) {
-        .when-static {
-            padding-inline: 24px;
-            max-width: 504px;
-            margin: 32px auto !important;
+@media(max-width: 743px) {
+    .when-static {
+        display: grid;
+        margin-block: 32px 0;
+        grid-template-columns: 24px 1fr 24px;
+        padding-block-end: 24px;
+      
+        // max-width: 450px;
+
+        >* {
+            grid-column: 2;
         }
+
+        .custom-header {
+            // padding-inline: 24px;
+
+        }
+
     }
+}

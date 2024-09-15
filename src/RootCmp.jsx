@@ -11,6 +11,7 @@ import { Trips } from './pages/Trips.jsx'
 import { AppFooter } from './cmps/AppFooter.jsx'
 import { Host } from './pages/Host.jsx'
 import { MainFilterMobile } from './pages/MainFilterMobile.jsx'
+import { Error } from './pages/Error.jsx'
 
 export function RootCmp() {
     const location = useLocation()
@@ -53,6 +54,7 @@ export function RootCmp() {
                     <Route path="become-a-host/" element={<BecomeHost />} />
                     <Route path="/become-a-host/:userId/about-your-place/:stayId" element={<AboutYourPlace />} />
                     <Route path="stay/filter-mobile" element={<MainFilterMobile />} />
+                    <Route path="error" element={<Error />} />
 
 
                 </Routes>

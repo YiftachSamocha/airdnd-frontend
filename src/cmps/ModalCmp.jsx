@@ -48,7 +48,7 @@ export function ModalCmp({ children, onClose, modalType, stay }) {
         if (modalType === 'amenities') {
             const groupedItems = groupItemsByType(items)
             return Object.keys(groupedItems).map((type, index) => (
-                <div key={index} className="group">
+                <div key={index} className="modal-group">
                     <h3>{type}</h3>
                     {groupedItems[type].map(renderItem)}
                 </div>

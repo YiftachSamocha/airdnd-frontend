@@ -9,14 +9,13 @@ import { addOrder } from "../../store/actions/order.action.js"
 import { format, isValid } from "date-fns"
 import { OutsideClick } from "../OutsideClick.jsx"
 import { useSelector } from "react-redux"
+import { WhenDetails } from "../MainFilterCmps/WhenDetails.jsx"
 
 
 
-export function StayPayment({ stay, onSetDates, dates }) {
+export function StayPayment({ stay, onSetDates, dates, monthsAmount }) {
     const [isWhoOpen, setIsWhoOpen] = useState(false)
     const [isWhenOpen, setIsWhenOpen] = useState(false)
-
-    const [orderToAdd, setOrderToAdd] = useState(orderService.getEmptyOrder())
 
     const [filterCapacity, setFilterCapacity] = useState({ adults: 0, children: 0, infants: 0, pets: 0 })
     // const [dates, setDates] = useState({ startDate: null, endDate: null })
@@ -25,8 +24,6 @@ export function StayPayment({ stay, onSetDates, dates }) {
     const [isFormReady, setIsFormReady] = useState()
     const [orderURL, setOrderUrl] = useState('')
     const [searchParams, setSearchParams] = useSearchParams()
-
-	const currUser = useSelector(state => state.userModule.currUser)
 
     const navigate = useNavigate()
 
@@ -58,15 +55,16 @@ export function StayPayment({ stay, onSetDates, dates }) {
     useEffect(() => {
         createOrderURLstr()
         updateSearchParams()
+        // debugger
+        setIsFormReady(dates.startDate && dates.endDate && filterCapacity.adults > 0)
+        // console.log('curr user', currUser)
 
-        setIsFormReady(currUser && dates.startDate && dates.endDate && filterCapacity.adults > 0)
-    // console.log('curr user', currUser)
+    }, [dates, filterCapacity])
 
-    }, [currUser, dates, filterCapacity])
 
     function updateSearchParams() {
         const params = new URLSearchParams(searchParams)
-       
+
         if (filterCapacity.adults) params.set('adults', filterCapacity.adults)
         else params.delete('adults')
 
@@ -80,18 +78,6 @@ export function StayPayment({ stay, onSetDates, dates }) {
         else params.delete('pets')
 
         setSearchParams(params)
-    }
-
-    function handleDateChange(newDates) {
-        if (!isSelectingEndDate) {
-            onSetDates({ startDate: newDates.startDate, endDate: null })
-            setIsSelectingEndDate(true)
-        } else {
-            onSetDates({ startDate: dates.startDate, endDate: newDates.endDate })
-         
-            setIsWhenOpen(false) // Close the date picker
-            setIsSelectingEndDate(false)
-        }
     }
 
     function createOrderURLstr() {
@@ -118,12 +104,8 @@ export function StayPayment({ stay, onSetDates, dates }) {
             updateSearchParams('children', filterCapacity.children || 0)
             updateSearchParams('infants', filterCapacity.infants || 0)
             updateSearchParams('pets', filterCapacity.pets || 0)
-            if (!dates.startDate || !dates.endDate) {
-                const startDate = new Date()
-                const endDate = new Date()
-                endDate.setDate(startDate.getDate() + 5)
-                navigate(`/book/stay/${stay._id + orderURL}&start_date=${format(startDate, 'yyyy-MM-dd')}&end_date=${format(endDate, 'yyyy-MM-dd')}`)
-            }
+            if (!dates.startDate || !dates.endDate) return 
+
             else navigate(`/book/stay/${stay._id + orderURL}`)
         } catch (error) {
             console.error("Error creating order:", error)
@@ -138,10 +120,34 @@ export function StayPayment({ stay, onSetDates, dates }) {
         setIsWhoOpen(false) // Only closes the dropdown
     }
 
+    function closeWhen() {
+        setIsWhenOpen(false) // Only closes the dropdown
+    }
+
+    function handleButtonClick() {
+        console.log("Opening calendar modal"); // Debugging log
+
+        if (!dates.startDate || !dates.endDate) {
+            setIsWhenOpen(true)
+        } else {
+            handleReserve(stay)
+        }
+    }
+
     return (
         <div className="payment-cmp">
             <section className="stay-payment sticky">
-                <h3>${price} <span>night</span></h3>
+                <div className="header" >
+                    <h3>${price}<span>night</span></h3>
+                    {dates.startDate && dates.endDate ? (
+                        <button className="dates btn-link" onClick={() => setIsWhenOpen(true)}>
+                            {format(dates.startDate, 'MMM d')} - {format(dates.endDate, 'MMM d')}
+
+                        </button>
+                    ) : ''}
+
+                </div>
+
                 <div className="btn-container">
                     <button className="btn-team" onClick={toggleWhen}>
                         <div className="btn-side">
@@ -155,12 +161,23 @@ export function StayPayment({ stay, onSetDates, dates }) {
                             <p>{displayDateInLocal(dates.endDate)}</p>
                         </div>
                     </button>
+
                     {isWhenOpen && (
-                        <When
-                            dates={dates}
-                            setDates={handleDateChange}
-                            breakpoint={743}
-                        />
+                        <div className="when-modal">
+                            <OutsideClick onOutsideClick={() => setIsWhenOpen(false)}>
+
+                                <WhenDetails
+                                    dates={dates}
+                                    onSetDates={onSetDates}
+                                    stay={stay}
+                                    breakpoint={743}
+                                    closeWhen={closeWhen}
+                                    type="payment"
+                                    monthsAmount={monthsAmount}
+                                />
+                            </OutsideClick>
+                        </div>
+
                     )}
 
                     <button className="btn-team full" onClick={toggleWho}>
@@ -176,9 +193,9 @@ export function StayPayment({ stay, onSetDates, dates }) {
                 </div>
 
                 <div className="reserve grid-item button-container">
-                    <button className="color-change" onClick={() => handleReserve(stay)}>
-                        {isFormReady ? 'Reserve' : 'Check availability'}
 
+                    <button className="color-change" onClick={handleButtonClick}>
+                        {isFormReady ? 'Reserve' : 'Check availability'}
                     </button>
                 </div>
 

@@ -1,5 +1,6 @@
 .reservations {
     padding: 1.25em;
+    position: relative;
 
     h2 {
         margin-bottom: 1.25em;
@@ -14,7 +15,7 @@
         th,
         td {
             padding: 0.75em 0.9375em;
-            text-align: left;
+            text-align: center;
 
             a {
                 text-decoration: none;
@@ -36,63 +37,110 @@
                 background-color: #f9f9f9;
             }
 
-            .status {
-                font-weight: 700;
+        }
+    }
+    .narrow-res {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 5em;
+        padding-inline: 2em;
 
-                &.approved {
-                    color: $basic-green;
-                }
+        .res-item {
+            display: flex;
+            flex-direction: column;
+            // border: 1px solid black;
+            padding-inline: 0.5em;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); 
+            border-radius: 15px;
 
-                &.declined {
-                    color: $basic-red;
-                }
-
-                &.pending {
-                    color: $basic-yellow;
-                }
-            }
-
-            .th-actions {
+            div {
                 display: flex;
                 justify-content: space-between;
-
-                button {
-                    padding: 0.375em 0.75em;
-                    border-radius: 0.375em;
-                    border: 0.0625em solid #ccc;
-                    color: white;
-                    cursor: pointer;
-                    box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
-                    font-size: 0.875em;
-                    transition: background-color 0.3s, transform 0.2s;
-
-                    &:hover {
-                        background-color: darken($clr-light-red, 10%);
-                        transform: translateY(-0.125em);
-                        box-shadow: 0 0.375em 0.75em rgba(0, 0, 0, 0.2);
-                    }
-
-                    &:not(:last-child) {
-                        margin-right: 0.5em;
-                    }
-                }
-
-                button:first-of-type {
-                    background-color: $basic-green;
-                }
-
-                button:last-of-type {
-                    background-color: $basic-red;
+               align-items: center;
+                p{
+                    //white-space: nowrap;
+                    text-transform: capitalize;
                 }
             }
+            .name{
+                text-decoration: none;
+                color: black;
+               
+            }
+        }
+
+    }
+    .status {
+        font-weight: 700;
+
+        &.approved {
+            color: $basic-green;
+        }
+
+        &.declined {
+            color: $basic-red;
+        }
+
+        &.pending {
+            color: $basic-yellow;
+        }
+    }
+
+    .actions {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            padding: 0.375em 0.75em;
+            border-radius: 0.375em;
+            border: 0.0625em solid #ccc;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+            font-size: 0.875em;
+            transition: background-color 0.3s, transform 0.2s;
+
+            &:hover {
+                background-color: darken($clr-light-red, 10%);
+                transform: translateY(-0.125em);
+                box-shadow: 0 0.375em 0.75em rgba(0, 0, 0, 0.2);
+            }
+
+            &:not(:last-child) {
+                margin-right: 0.5em;
+            }
+        }
+
+        button:first-of-type {
+            background-color: $basic-green;
+        }
+
+        button:last-of-type {
+            background-color: $basic-red;
         }
     }
 
     .reservations-filter {
-        margin-bottom: 1.25em;
+        margin-bottom: 1.5em;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        position: sticky;
+        top: 0;
+        
+        background-color: white;
+        border-bottom: 1px solid $gray1;
+        padding-block: 1em;
+
+        .res-filter-cont{
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            flex-direction: column;
+            align-items: center;
+            gap: 1em;
+          
+        }
 
         .filter-type {
             display: flex;

@@ -35,6 +35,8 @@
 @import "cmps/DetailsCmps/StayRooms";
 @import "cmps/DetailsCmps/StayToKnow";
 @import "cmps/DetailsCmps/StayReview";
+@import "cmps/DetailsCmps/StayLocation";
+
 
 @import "cmps/hostCmps/ListingLocation";
 @import "cmps/hostCmps/ListingRooms";
@@ -95,5 +97,5 @@
 @import "cmps/UserInfoBtn.scss";
 @import "pages/Trips.scss";
 @import "pages/MainFilterMobile.scss";
-
+@import "layouts/_host-layout.scss";
 

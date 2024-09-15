@@ -1,13 +1,13 @@
 .main-filter-folded {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); // Slightly smaller shadow
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); 
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: em(600px); // Smaller max-width
+    max-width: em(600px); 
     margin-inline: auto;
-    margin-block: 1em; // Smaller margin
+    margin-block: 1em;
     border-radius: 50px;
-    padding: 0 1em; // Added padding for a neat fit
+    padding: 0 1em; 
     background-color: white;
     border: 1px solid $gray1;
     cursor: pointer;

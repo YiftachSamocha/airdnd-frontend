@@ -4,8 +4,30 @@
         bottom: 0;
         width: 100%;
     }
+    
+    .extra-filter, .extra-outside{
+        height: 100%;
+        width: 100%;
+    }
+    .extra-filter{
+        margin-top: 1em;
+        border-radius: 25px;
+    }
+    
 }
 
+@include for-narrow-layout{
+    
+    .extra-filter, .extra-outside{
+        height: 100%;
+        width: 100%;
+    }
+    .extra-filter{
+        margin-top: 1em;
+      
+    }
+   
+}
 @include for-normal-layout {
     .main-filter {
         max-width: 100%;
@@ -15,11 +37,14 @@
             left: -100%;
             background-color: white;
         }
-       
-
-
-
     }
+    .extra-filter{
+        height: 35em;
+        width: 35.5em;
+        border-radius: 25px;
+        margin-block: 2.5em;
+    }
+    
 }
 
 @include for-wide-layout {

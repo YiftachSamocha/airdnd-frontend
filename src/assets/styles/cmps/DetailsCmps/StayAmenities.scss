@@ -1,4 +1,4 @@
-.amenities {
+.flow-amenities {
     padding-block: 3rem;
     box-shadow: 0 1px 0 0 #e1dede;
 
@@ -7,79 +7,34 @@
         padding-block-end: 1.5rem;
     }
 
-    &.modal-closed {
-        .items {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(290px, 334px));
+    .items {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(290px, 334px));
 
-            .item {
-                grid-column: span 1;
+        .item {
+            grid-column: span 1;
 
-                div {
-                    display: flex;
-                    gap: 10px;
-                    padding: 1rem;
+            div {
+                display: flex;
+                gap: 1.5rem;
+                padding: 1rem;
+
+                img {
+                    width: 24px;
+                    height: 24px;
                 }
             }
-        }
-
-        button {
-            margin-block-start: 1.5rem;
-            ;
         }
     }
 
-    &.modal-open {
-        display: grid;
-        align-items: center; // Center items vertically within the grid
-        justify-content: center; // Center items horizontally within the grid
-        width: 780px; // Set the width to 780px when the modal is open
-        margin: auto;
+    button {
+        margin-block-start: 1.5rem;
 
-        .group {
-            h3 {
-                font-size: 1.125rem;
-                padding: 3rem 0;
-            }
-
-            &:first-of-type h3 {
-                margin-top: 12px;
-            }
-
-            .item {
-                display: flex;
-                flex-direction: column;
-                gap: 0;
-                width: 100%;
-
-                div {
-                    display: flex;
-                    gap: 1.5rem
-                }
-
-                hr {
-                    border: none; // Remove default border
-                    border-top: 0.25px solid $gray2; // Add a solid border on top
-                    margin: 1.5rem 0; // Add some margin above and below the line for spacing
-                }
-            }
-        }
     }
 }
 
-// .show-more.amenities-style {
-//     .modal-content {
-//         .item:nth-child(n+11) {
-//             display: flex // Hide all amenities after the 7th one
-//         }
-//     }
-// }
-
 @media (max-width: 1100px) {
-
-    // Replace $normal-breakpoint with your breakpoint, e.g., 768px
-    .amenities {
-
+    .flow-amenities {
         h3 {
             padding-block-end: 24px !important;
         }
@@ -103,9 +58,11 @@
 }
 
 @media (max-width: 743px) {
-    .amenities{
+    .flow-amenities {
+        margin-inline: 24px;
+        
         button {
-            width:100%
+            width: 100%
         }
     }
 }

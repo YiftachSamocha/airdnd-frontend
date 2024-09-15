@@ -27,26 +27,12 @@ export function StayReview({ stay }) {
         value,
     }
     const averages = calculateCategoryAverages(stay.reviews)
-    console.log(averages);
-
-    // const averages = {
-    //     cleanliness: 4.6,
-    //     accuracy: 4.4,
-    //     checkIn: 4.4,
-    //     communication: 4.7,
-    //     location: 4.5,
-    //     value: 4.5
-    // };
 
     const total = Object.values(averages).reduce((acc, average) => acc + average, 0);
     const averageRating = total / Object.values(averages).length;
     const maxRating = 5
 
-
-    console.log(total, averageRating);
-
     const percentage = (averageRating / maxRating) * 100;
-    console.log(percentage);
 
     return (
         <section className="reviews-stay">

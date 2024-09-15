@@ -7,6 +7,9 @@ import minusIcon from '../../assets/imgs/icons/minus.svg'
 export function Who({ filterCapacity, setFilterCapacity, onClose }) {
     const [capacity, setCapacity] = useState(filterCapacity)
     const whoRef = useRef(null)
+    const [disabledClasses, setDisabledClasses] = useState({}) // Track disabled classes for buttons
+
+    const totalCount = Object.values(capacity).reduce((a, b) => a + b, 0);
 
     const capacityInfo = [
         { name: 'adults', info: 'Ages 13 or above' },
@@ -23,9 +26,50 @@ export function Who({ filterCapacity, setFilterCapacity, onClose }) {
 
     }, [filterCapacity])
 
+    useEffect(() => {
+        checkDisabledClasses()
+    }, [capacity])
+
+
+    function checkDisabledClasses() {
+        const newDisabledClasses = { ...disabledClasses };
+    
+        // Apply specific conditions for each type
+        capacityInfo.forEach((type) => {
+            const typeName = type.name;
+    
+            // Initialize the disabled state for plus and minus buttons
+            newDisabledClasses[typeName] = { plus: '', minus: '' };
+    
+            // Disable the + button if the total count is >= 16
+            if (totalCount >= 16) {
+                newDisabledClasses[typeName].plus = 'disabled'
+            }
+    
+            // Disable the - button if count is <= minimum limit (1 for adults, 0 for others)
+            if (typeName === 'adults') {
+                if (capacity.adults <= 1) {
+                    newDisabledClasses['adults'].minus = 'disabled'
+                }
+            } else if (capacity[typeName] <= 0) {
+                newDisabledClasses[typeName].minus = 'disabled'
+            }
+        })
+    
+        // Update state only if the disabledClasses have changed to avoid unnecessary re-renders
+        if (JSON.stringify(newDisabledClasses) !== JSON.stringify(disabledClasses)) {
+            setDisabledClasses(newDisabledClasses)
+        }
+    }
+    
     function changeCapacity(type, amount) {
         const newValue = capacity[type] + amount
-        const newCapacity = newValue >= 0 ? { ...capacity, [type]: newValue } : capacity
+        if ((type === 'adults' && newValue < 1) || 
+        (type !== 'adults' && newValue < 0)) return
+
+        if (totalCount >= 16 && amount > 0) return
+
+        const newCapacity = { ...capacity, [type]: newValue }
         setCapacity(newCapacity)
         setFilterCapacity(newCapacity)
     }
@@ -33,18 +77,19 @@ export function Who({ filterCapacity, setFilterCapacity, onClose }) {
     useEffect(() => {
         function handleClickOutside(event) {
             if (whoRef.current && !whoRef.current.contains(event.target)) {
-                console.log("Click outside detected. Closing Who component.");
+                console.log("Click outside detected. Closing Who component.")
                 onClose(); // Close the Who component if clicked outside
             }
         }
 
-        console.log("Adding event listener for outside clicks.");
-        document.addEventListener('mousedown', handleClickOutside);
+        console.log("Adding event listener for outside clicks.")
+        document.addEventListener('mousedown', handleClickOutside)
         return () => {
-            console.log("Removing event listener for outside clicks.");
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [onClose]);
+            console.log("Removing event listener for outside clicks.")
+            document.removeEventListener('mousedown', handleClickOutside)
+        }
+    }, [onClose])
+
 
 
     return <div className="who">
@@ -55,7 +100,10 @@ export function Who({ filterCapacity, setFilterCapacity, onClose }) {
                     <p>{type.info}</p>
                 </div>
                 <div>
-                    <button onClick={() => changeCapacity(type.name, -1)}>
+                    <button
+                        onClick={() => changeCapacity(type.name, -1)}
+                        className={`change-count ${disabledClasses[type.name]?.minus || ''}`}
+                        >
                         <div className="icon-container">
                             <svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false">
                                 <path d="m.75 6.75h10.5v-1.5h-10.5z" />
@@ -64,7 +112,9 @@ export function Who({ filterCapacity, setFilterCapacity, onClose }) {
                     </button>
                     <span>{capacity[type.name]}</span>
 
-                    <button onClick={() => changeCapacity(type.name, +1)}>
+                    <button
+                        onClick={() => changeCapacity(type.name, +1)}
+                        className={`change-count ${disabledClasses[type.name]?.plus || ''}`}>
                         <div className="icon-container">
                             <svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false" >
                                 <path d="m6.75.75v4.5h4.5v1.5h-4.5v4.5h-1.5v-4.5h-4.5v-1.5h4.5v-4.5z" />

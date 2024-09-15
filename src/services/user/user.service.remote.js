@@ -1,4 +1,5 @@
 import { httpService } from '../http.service'
+import { socketService } from '../socket.service'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
@@ -34,16 +35,19 @@ async function update(user) {
 
 async function login(userCred) {
 	const user = await httpService.post('auth/login', userCred)
+	socketService.login(user._id)
 	if (user) return saveLoggedinUser(user)
 }
 
 async function signup(userCred) {
 	if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
     const user = await httpService.post('auth/signup', userCred)
+	socketService.login(user._id)
 	return saveLoggedinUser(user)
 }
 
 async function logout() {
+	socketService.logout()
 	sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
 	return await httpService.post('auth/logout')
 }

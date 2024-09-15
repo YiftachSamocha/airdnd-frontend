@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { GoogleMap } from "./GoogleMap";
 import mapPink from '../../assets/imgs/icons/map-pink.svg';
 import mapBlack from '../../assets/imgs/icons/map-black.svg';
+import { GoogleMap } from "../GoogleMap";
 
 export function ListingLocation({ location, onLocationChange, onValidate }) {
     const inputRef = useRef(null)

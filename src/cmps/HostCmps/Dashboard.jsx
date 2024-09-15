@@ -9,10 +9,18 @@ import {
     BarElement
 } from "chart.js";
 import { getRandomColor } from "../../services/util.service";
+import { useState } from "react";
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 ChartJS.register(ArcElement, Tooltip, Legend, PointElement, LineElement, BarElement);
 
 export function Dashboard({ orders, stays }) {
+    const [selected, setSelected] = useState('pie')
+
+    function handleChange({ target }) {
+        const { value } = target
+        setSelected(value)
+    }
     const options = {
         maintainAspectRatio: false,
         responsive: true,
@@ -42,8 +50,7 @@ export function Dashboard({ orders, stays }) {
     }
     //BAR
     const prices = stays.map(stay => stay.price.night)
-    const names = stays.map(stay => stay.name)
-    const colors = stays.map(() => getRandomColor())
+    const names = stays.map(stay => stay.name.slice(0,10)+'...')
     const barData = {
         labels: names,
         datasets: [{
@@ -54,7 +61,7 @@ export function Dashboard({ orders, stays }) {
             borderWidth: 1
         }]
     }
-   
+
     //LINE
     function getLineData(orders) {
         const daysInMonth = month => new Date(2024, month + 1, 0).getDate()
@@ -92,16 +99,51 @@ export function Dashboard({ orders, stays }) {
         }]
     }
     return <section className="dashboard">
-        <div style={{ width: '300px', height: '300px' }}>
-            <Pie data={pieData} options={options} />
-        </div>
-        <div style={{ width: '300px', height: '300px' }}>
-            <Bar data={barData} options={options} />
-        </div>
-        <div style={{ width: '300px', height: '300px' }}>
-            <Line data={lineData} options={options} />
+ {
+            selected === 'pie' && <div style={{ width: '300px', height: '300px' }}>
+                <Pie data={pieData} options={options} />
+            </div>
+        }
 
-        </div>
+        {
+            selected === 'bar' && <div style={{ width: '300px', height: '300px' }}>
+                <Bar data={barData} options={options} />
+            </div>
+        }
 
-    </section>
+        {
+            selected === 'line' && <div style={{ width: '300px', height: '300px' }}>
+                <Line data={lineData} options={options} />
+            </div>
+        }
+
+        <Box sx={{ minWidth: 250, margin: '20px' }}>
+            <FormControl fullWidth
+               sx={{
+                margin: '20px 0',
+                '& .MuiOutlinedInput-root': {
+                  '& fieldset': {
+                    borderColor: '#e0e0e0',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#ff385c',
+                  },
+                },
+              }}>
+                <InputLabel id="demo-simple-select-label"
+                    sx={{ color: 'black', '&.Mui-focused': { color: '#ff385c' } }}>Graph</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={selected}
+                    label="Age"
+                    onChange={handleChange}
+                >
+                    <MenuItem value='pie'>Reservations Status</MenuItem>
+                    <MenuItem value='bar'>Price per Listing</MenuItem>
+                    <MenuItem value='line'>Reservations per Months</MenuItem>
+                </Select>
+            </FormControl>
+        </Box>
+    </section >
 }
