@@ -17,6 +17,7 @@ import { useSelector } from "react-redux"
 import { LoginSignup } from "./LoginSignup"
 import { UserInfoBtn } from "./UserInfoBtn"
 import { format } from "date-fns"
+import { debounce } from "lodash"
 
 export function AppHeader() {
     const [isFolded, setIsFolded] = useState(false)
@@ -47,22 +48,21 @@ export function AppHeader() {
     }, [])
 
     useEffect(() => {
-        const handleScroll = () => {
+        const handleScroll = debounce(() => {
             if (window.scrollY === 0) {
-                if (!isTop) setIsTop(true);
-                if (isFolded && !userInitiatedOpen.current) setIsFolded(false);
-
+                if (!isTop) setIsTop(true)
+                if (isFolded && !userInitiatedOpen.current) setIsFolded(false)
             } else {
-                if (isTop) setIsTop(false);
-                if (!isFolded && !userInitiatedOpen.current) setIsFolded(true);
+                if (isTop) setIsTop(false)
+                if (!isFolded && !userInitiatedOpen.current) setIsFolded(true)
             }
-        }
-
+        }, 100)
+    
         window.addEventListener("scroll", handleScroll)
         return () => {
             window.removeEventListener("scroll", handleScroll)
-        }
-    }, [isFolded])
+        };
+    }, [isFolded, isTop])
 
     useEffect(() => {
         const handleClickOutside = (event) => {
