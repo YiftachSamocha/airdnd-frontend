@@ -89,58 +89,36 @@
 
         .dot-big {
             transform: scale(0.7);
+        }
+    }
 
-            // width: 0.5rem;
+    .reviews-rating {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 6fr;
+        margin-bottom: 40px;
+        padding-bottom: 40px;
+        border-bottom: 2px solid $gray2;
+
+        h3 {
+            font-size: 0.9em;
+        }
+
+        h4 {
+            font-size: 1.1em;
         }
     }
 
     .rating-categories {
-        display: flex;
-        align-content: center;
-        justify-content: center;
-        // padding: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
 
-        // ul {
-        //     display: grid;
-        //     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        //     column-gap: 1.5em;
-        //     row-gap: 2.5em;
-        // }
-        .rating-categories li {
-            padding: 20px;
-        }
         .rating-category {
-            padding: 20px;
-            margin: 20px;
-            // display: flex;
-            // align-content: center;
-            // justify-content: center;
-            // display: grid;
-            // grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            // column-gap: 1.5em;
-            // row-gap: 2.5em;
+            padding-inline: 24px;
+            border-left: 1px solid #ddd;
+            height: 102px;
+
         }
-
-        // display: flex;
-        // flex-wrap: wrap;
-        // list-style: none;
-        // padding: 0;
-        // margin: 0;
-
-        .icon {
-            width: 20px;
-        }
-
-        // li {
-        //     display: flex;
-        //     align-items: center;
-        //     margin-right: 1rem;
-        //     padding: 0.5rem 1rem;
-        //     border: 1px solid #ddd;
-        //     border-radius: 4px;
-        //     flex: 1 1 200px;
-        //     position: relative;
-        // }
 
         li:not(:last-child)::after {
             content: '';
@@ -153,6 +131,53 @@
 
         }
 
+        .icon {
+            width: 1.9em;
+            margin-top: 30px;
+        }
+
+    }
+
+    .overall-rating {
+        width: 135px;
+        margin-right: 24px;
+
+
+        h3 {
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+    }
+
+    .rating-bar-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .rating-bar {
+        width: 100%;
+        height: 4px;
+        background-color: #e0e0e0;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        position: relative;
+
+    }
+
+    .rating-bar span {
+        display: block;
+        height: 100%;
+        background-color: #3d4545;
+        border-radius: 5px;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .rating-number {
+        width: 1em;
+        font-size: 0.8em;
+        // text-align: right;
     }
 
     .reviewer-image {
@@ -196,11 +221,54 @@
 
 }
 
-// cle className="review-preview">
-//             <div className='reviewer-profile'>
-//                 <img src={review.by.imgUrl} alt={`${firstName}'s profile`} className="reviewer-image" />
-//                 <h4>{firstName}</h4>
-//                 <h4>{review.address}</h4>
-//             </div>
-//             <div>
-//                 <div className="stars-container
+
+@media(max-width:1230px) {
+    .reviews-stay {
+        .rating-categories .rating-category {
+            padding-inline: 16px;
+        }
+        .overall-rating {
+            width: 120px;
+            margin-right: 16px;
+
+        }
+    }
+}
+
+
+@media(max-width:1195px) {
+    .reviews-stay {
+
+
+        .reviews-rating {
+            display: grid;
+            grid-template-columns: 1fr 6fr;
+            width: 100%;
+        }
+
+        .rating-categories .rating-category:last-of-type {
+            padding-right: 0;
+        }
+    }
+
+    .overall-rating {
+        width: 120px;
+        margin-right: 16px;
+
+    }
+}
+
+
+@media(max-width:1060px) {
+    .reviews-stay {
+        .rating-categories {
+       .rating-category:nth-child(1),
+       .rating-category:nth-child(2),
+       .rating-category:nth-child(3),
+       .rating-category:nth-child(5) {
+            padding-right: 0;     
+        }
+        }
+    }
+}
+

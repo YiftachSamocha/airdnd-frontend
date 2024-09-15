@@ -5,8 +5,6 @@ import { formatDateYearAndMonth } from '../../services/util.service';
 
 export function ReviewPreview({ review }) {
 
-    
-
     const firstName = review.by.fullname ? review.by.fullname.split(' ')[0] : ''
     const starsFromRate = []
     for (let i = 0; i < review.rate; i++) {
@@ -16,7 +14,6 @@ export function ReviewPreview({ review }) {
     }
     const stayed = review.daysStayed > 1 ? 'Stayed a few nights' : 'Stayed one night'
     const date = formatDateYearAndMonth(review.date)
-    console.log(firstName);
 
 
     return (

@@ -74,13 +74,19 @@
     }
 }
 
-// @media(min-width:1640px) {
+// @media(max-width:550px) {
 //     .stay-list {
-//         padding: 80px;
+//         padding: 24px;
 //     }
 // }
-// @media(min-width:1880px) {
-//     .stay-list {
-//         padding: 80px;
-//     }
-// }
+@media(max-width:550px) {
+    .main-container main {
+        display: grid;
+        grid-template-columns: 24px 1fr 24px;
+    }
+
+    .stay-list {
+        padding: 0;
+    }
+    
+}

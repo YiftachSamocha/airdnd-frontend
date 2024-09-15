@@ -11,41 +11,43 @@ import communication from '../../assets/imgs/rating/communication.svg';
 import { ReviewPreview } from './ReviewPreview.jsx'
 import { calculateCategoryAverages } from "../../services/util.service.js";
 
-
-
 export function StayReview({ stay }) {
     const totalReviews = stay.reviews ? stay.reviews.length : 0
     const avgRating = totalReviews > 0
         ? stay.reviews.reduce((sum, review) => sum + review.rate, 0) / totalReviews
         : 0
-    console.log(stay.reviews[0].ratingCategories)
 
-    // console.log('Type of stay.reviews:', typeof stay.reviews)
-    // console.log('Is Array:', Array.isArray(stay.reviews))
     const reviewsToShow = stay.reviews.slice(0, 6)
-
-    function RatingCategories({ categories }) {
-        const categoryIcons = {
-            cleanliness,
-            accuracy,
-            checkIn,
-            communication,
-            location,
-            value,
-        }
+    const categories = {
+        cleanliness,
+        accuracy,
+        checkIn,
+        communication,
+        location,
+        value,
     }
-
     const averages = calculateCategoryAverages(stay.reviews)
     console.log(averages);
 
+    // const averages = {
+    //     cleanliness: 4.6,
+    //     accuracy: 4.4,
+    //     checkIn: 4.4,
+    //     communication: 4.7,
+    //     location: 4.5,
+    //     value: 4.5
+    // };
+
+    const total = Object.values(averages).reduce((acc, average) => acc + average, 0);
+    const averageRating = total / Object.values(averages).length;
+    const maxRating = 5
 
 
+    console.log(total, averageRating);
 
+    const percentage = (averageRating / maxRating) * 100;
+    console.log(percentage);
 
-    if (!stay.reviews) return <div>Loading...</div>
-
-
-    // console.log(stay.reviews.by._id);
     return (
         <section className="reviews-stay">
             <div className="rating">
@@ -53,42 +55,42 @@ export function StayReview({ stay }) {
                 <span>{avgRating.toFixed(1)}</span><span className="dot-big">•</span>
                 <span className="reviews-number">{totalReviews} reviews</span>
             </div>
-            <div className="rating-categories">
-                {/* <ul>
+            <div className="reviews-rating">
+                <div className="overall-rating">
+                    <h3>Overall rating</h3>
+                    {[...Array(5)].map((_, index) => {
+                        const isFull = index < Math.floor(averageRating);
+                        const isPartial = index === Math.floor(averageRating);
+                        const width = isFull ? 100 : (isPartial ? (averageRating % 1) * 100 : 0);
+
+                        return (
+                            <div className="rating-bar-container" key={index}>
+                                <span className="rating-number">{5 - index}</span>
+                                <div className="rating-bar">
+                                    <span style={{ width: `${width}%` }}></span>
+                                    {/* <span style={{ width: `${index < Math.floor(averageRating) ? 100 : (percentage % 100)}%` }}></span> */}
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+
+                <div className="rating-categories">
+                    {/* <ul> */}
                     {Object.entries(categories).map(([category, rating]) => (
-                        <li key={category} className={`rating-category ${category}`}>
+                        <div key={category} className={`rating-category ${category}`}>
                             <h3>{category.charAt(0).toUpperCase() + category.slice(1)}</h3>
-                            <h4>{rating.toFixed(1)}</h4>
+                            <h4>{averages[category]}</h4>
                             <img
-                                src={categoryIcons[category]}
+                                src={categories[category]}
                                 alt={`${category} icon`}
                                 className={`icon ${category}`}
                             />
-                        </li>
+                        </div>
                     ))}
-                </ul> */}
+                    {/* </ul> */}
+                </div>
             </div>
-         
-            {/* <div className="rating-categories">
-                <h3>Cleanliness</h3>
-                <h4>{averages.cleanliness}</h4>
-                <img src={cleanliness} alt="Cleanliness-icon" className="cleanliness icon" />
-                <h3>Accuracy</h3>
-                <h4>{averages.accuracy}</h4>
-                <img src={accuracy} alt="Accuracy-icon" className="accuracy icon" />
-                <h3>Check-in</h3>
-                <h4>{averages.checkIn}</h4>
-                <img src={checkIn} alt="Check-in-icon" className="checkIn icon" />
-                <h3>Communication</h3>
-                <h4>{averages.communication}</h4>
-                <img src={communication} alt="Communication-icon" className="communication icon" />
-                <h3>Location</h3>
-                <h4>{averages.location}</h4>
-                <img src={location} alt="Location-icon" className="location icon" />
-                <h3>Value</h3>
-                <h4>{averages.value}</h4>
-                <img src={value} alt="Value-icon" className="value icon" />
-            </div> */}
             <section>
                 <ul className="reviews-list">
                     {reviewsToShow.map(review => {
