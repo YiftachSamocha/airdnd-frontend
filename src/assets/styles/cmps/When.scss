@@ -70,15 +70,24 @@
 
     .rdrDayNumber {
         font-size: em(16px);
+
+
     }
 
-    .rdrDayPassive .rdrDayNumber {
-        display: none;
+    .rdrDayPassive {
+        background-color: white;
+        .rdrDayNumber {
+            display: none;
+        }
+        .rdrDayHovered {
+            border: 0;
+        }
+    }
+    .rdrDayPassive:has(.rdrInRange){
+        background-color: white;
     }
 
-    .rdrDayPassive.rdrDayHovered {
-        border: 0;
-    }
+   
 
     .rdrDays>* {
         background-color: white;
@@ -128,19 +137,27 @@
         border-radius: 0 50% 50% 0 !important;
     }
 
+    button:not(:has(.rdrEndEdge))~button:has(.rdrInRange):not(.rdrDayPassive) {
+        background-color: $gray1;
+
+        .rdrInRange {
+            background-color: $gray1;
+        }
+    }
+
     button:has(.rdrStartEdge.rdrEndEdge)~.rdrDayHovered {
         border-radius: 0 50% 50% 0 !important;
     }
 
-    .rdrDay>span:not(.rdrInRange)+.rdrDay.rdrDayHovered {
-        border-radius: 50% 0 0 50% !important;
-        background-color: $gray1;
-    }
+    // .rdrDay>span:not(.rdrInRange)+.rdrDay.rdrDayHovered {
+    //     border-radius: 50% 0 0 50% !important;
+    //     background-color: $gray1;
+    // }
 
 
 
 
-    button:has(.rdrStartEdge)~button:has(.rdrInRange) {
+    button:has(.rdrStartEdge)~button:has(.rdrInRange):not(.rdrDayPassive) {
         background-color: $gray1;
 
         .rdrInRange {
