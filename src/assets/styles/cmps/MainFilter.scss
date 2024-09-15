@@ -37,16 +37,17 @@
             cursor: pointer;
         }
 
-        
+
     }
 
     .where-input,
     .when-input-end,
     .when-input-start,
-    .who-input>div:first-of-type{
+    .who-input>div:first-of-type {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
         >button {
             background-color: inherit;
             border-radius: 50%;
@@ -76,7 +77,8 @@
 
     .where-input {
         padding-inline: 2em;
-        input{
+
+        input {
             cursor: text;
         }
     }
@@ -85,18 +87,21 @@
         flex-direction: row;
         padding: 0;
         width: 100%;
+        align-items: center;
     }
 
     .when-input-start,
     .when-input-end {
         border-radius: 50px;
-        padding: em(14px);
+        padding: em(14px) 1.5em;
         flex-grow: 1;
         width: 100%;
-        label{
+
+        label {
             white-space: nowrap;
         }
-        input{
+
+        input {
             width: 100%;
         }
 
@@ -115,7 +120,8 @@
             width: 100%;
             cursor: pointer;
         }
-        >div:first-of-type>div{
+
+        >div:first-of-type>div {
             display: flex;
             flex-direction: column;
         }
@@ -137,14 +143,15 @@
                 max-width: 1em;
                 height: 1em;
             }
-            span{
+
+            span {
                 color: white;
                 display: none;
             }
 
         }
-       
-        .search-button:hover{
+
+        .search-button:hover {
             background-color: $clr-red;
         }
 
@@ -181,17 +188,29 @@
         }
     }
 
+    hr {
+        border: 0;
+        height: 2.2em;
+        width: 2px;
+        background-color: $gray2;
+    }
 
+}
 
-    // hr {
-    //     height: 40px;
-    //     width: 1px;
-    //     background-color: $gray1;
-    // }
+.main-filter:has(.where-input:hover, .where-input.selected, .when-input-start:hover, .when-input-start.selected) {
+    hr.first {
+        background-color: inherit;
+    }
+}
 
-    // div:hover+hr,
-    // div:hover~hr {
-    //     opacity: 0;
-    // }
+.main-filter:has(.when-input-start:hover, .when-input-start.selected, .when-input-end:hover, .when-input-end.selected) {
+    hr.second {
+        background-color: inherit;
+    }
+}
 
+.main-filter:has(.when-input-end:hover, .when-input-end.selected, .who-input:hover, .who-input.selected) {
+    hr.third {
+        background-color: inherit;
+    }
 }

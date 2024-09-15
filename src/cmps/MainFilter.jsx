@@ -199,6 +199,7 @@ export function MainFilter() {
             {isDeleteBtnShown('where') && <button onClick={() => deleteFilter('where')} >x</button>}
             {openType === 'where' && <Where input={whereInput} setInput={changeFilterWhere} />}
         </div>
+        <hr className="first" />
 
         <div className="when-input">
             <div onClick={() => setOpenType('when-start')} className={`when-input-start ${openType === 'when-start' ? 'selected' : ''}`}>
@@ -209,7 +210,7 @@ export function MainFilter() {
                 </div>
                 {isDeleteBtnShown('when-start') && <button onClick={() => deleteFilter('when-start')} >X</button>}
             </div>
-
+            <hr className="second" />
 
             <div onClick={() => setOpenType('when-end')} className={`when-input-end ${openType === 'when-end' ? 'selected' : ''}`}>
                 <div>
@@ -222,6 +223,7 @@ export function MainFilter() {
             </div>
 
         </div>
+        <hr className="third" />
 
         <div onClick={() => setOpenType('who')} className={`who-input ${openType === 'who' ? 'selected' : ''}`}>
             <div>
