@@ -15,7 +15,7 @@
 .extra-filter {
     background-color: white;
     z-index: 101;
-    height: calc(100vh - 120px);
+    height: 100%;
     width: 100%;
     top: 30px;
     left: 0;
@@ -63,6 +63,7 @@
 
         h5 {
             font-size: em(18px);
+            font-weight: 600;
         }
 
         hr {
@@ -242,6 +243,8 @@
                 align-items: center;
                 width: 100%;
                 gap: 10px;
+                justify-content: center;
+
 
                 button {
                     @include extra-btn();
@@ -280,6 +283,7 @@
         justify-content: space-between;
         align-items: center;
         position: sticky;
+        bottom: 0;
         min-height: 100px;
         background-color: white;
         z-index: 102;
@@ -314,8 +318,13 @@
 }
 
 body:has(.extra-filter),
-body:has(.main-filter.mobile),
-.main-filter .mobile {
+body:has(.main-filter.mobile) {
     overflow: hidden;
-    
+
+}
+body:has(.extra-filter):has(.app-footer) .app-footer {
+    display: none;
+}
+body:has(.loginsignup):has(.app-footer) .app-footer .footer-nav {
+    display: none;
 }

@@ -1,5 +1,7 @@
-@include for-mobile-layout {
-    
+@media (max-width: 390px) {
+    .mobile-filter input {
+        width: 60px;
+    }
 }
 
 @include for-narrow-layout {}

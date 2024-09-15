@@ -28,29 +28,32 @@ export function AppFooter() {
 
 	return (
 		<footer className="app-footer">
-			<Link to='/stay' onClick={() => setSelected('explore')}
-				className={selected === 'explore' ? 'selected' : ''}>
-				<img src={selected === 'explore' ? exploreRedImg : exploreImg} />
-				<p>Explore</p>
-			</Link>
-
-			{currUser ? <><Link to={'/trip'} onClick={() => setSelected('trips')}
-				className={selected === 'trips' ? 'selected' : ''}>
-				<img src={selected === 'trips' ? tripsRedImg : tripsImg} />
-				<p>Trips</p>
-			</Link>
-
-				<Link to={'/host'} onClick={() => setSelected('host')}
-					className={selected === 'host' ? 'selected' : ''}>
-					<img src={selected === 'host' ? hostRedImg : hostImg} />
-					<p>Host</p>
+			<div className='footer-nav'>
+				<Link to='/stay' onClick={() => setSelected('explore')}
+					className={selected === 'explore' ? 'selected' : ''}>
+					<img src={selected === 'explore' ? exploreRedImg : exploreImg} />
+					<p>Explore</p>
 				</Link>
-			</>
-				:
-				<a onClick={() => { setSelected('login'); setLoginSignup('login') }}>
-					<img src={hostImg} />
-					<p>Log in</p>
-				</a>}
+
+				{currUser ? <><Link to={'/trip'} onClick={() => setSelected('trips')}
+					className={selected === 'trips' ? 'selected' : ''}>
+					<img src={selected === 'trips' ? tripsRedImg : tripsImg} />
+					<p>Trips</p>
+				</Link>
+
+					<Link to={'/host'} onClick={() => setSelected('host')}
+						className={selected === 'host' ? 'selected' : ''}>
+						<img src={selected === 'host' ? hostRedImg : hostImg} />
+						<p>Host</p>
+					</Link>
+				</>
+
+					:
+					<a onClick={() => { setSelected('login'); setLoginSignup('login') }}>
+						<img src={hostImg} />
+						<p>Log in</p>
+					</a>}
+			</div>
 			{loginSignup && <div className="layout">
 				<OutsideClick onOutsideClick={() => setLoginSignup(null)}>
 					<LoginSignup closeLoginsignup={() => setLoginSignup(null)} initalType={loginSignup} />
