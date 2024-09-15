@@ -105,11 +105,16 @@ export function Reservations({ orders, listings }) {
                                         },
                                         '& .MuiInputLabel-root': {
                                             padding: '0 4px',  // Add padding to prevent text cutting
-                                          },
+                                        },
                                     },
                                 }}>
                                 <InputLabel id="demo-simple-select-label"
-                                    sx={{ color: 'black', '&.Mui-focused': { color: '#ff385c' } }}
+                                    sx={{
+                                        color: 'black',
+                                        '&.Mui-focused': { color: '#ff385c' },
+                                        backgroundColor: 'white',
+                                        paddingInline: '8px',
+                                    }}
                                     shrink>Listing</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"

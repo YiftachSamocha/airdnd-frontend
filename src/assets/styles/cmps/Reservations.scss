@@ -1,5 +1,5 @@
 .reservations {
-    padding: 1.25em;
+    padding: 0.5em;
     position: relative;
 
     h2 {
@@ -163,41 +163,15 @@
                     transform: translateY(-0.125em);
                 }
             }
+            
+        }
+        .css-1vxbuxi, .css-yy3q0-MuiFormControl-root{
+            margin: 0;
         }
 
-        .filter-listing {
-            label {
-                font-size: 1.25em; // Larger label for the listing filter
-                font-weight: 600;
-                margin-right: 0.5em;
-            }
-
-            select {
-                padding: 0.5em 1em;
-                border-radius: 0.75em; // Improved border radius
-                border: 0.125em solid #ccc;
-                cursor: pointer;
-                transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
-
-                &:hover {
-                    background-color: #f7f7f7;
-                    border-color: darken(#ccc, 10%);
-                    transform: translateY(-0.125em);
-                }
-
-                option {
-                    padding: 0.5em;
-                    transition: background-color 0.3s;
-
-                    &:hover {
-                        background-color: #ff385c;
-                        color: white;
-                    }
-                }
-            }
-
+        .filter-listing{
+            margin-block: 5px;
         }
-
         .filter-page {
             display: flex;
             align-items: center;

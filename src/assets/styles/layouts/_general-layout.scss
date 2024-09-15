@@ -47,7 +47,7 @@
         }
 
         .search-button.expanded {
-            width: 140px;
+            width: em(160px);
             border-radius: 50px;
             gap: 0.5em;
             background-color: $clr-red;

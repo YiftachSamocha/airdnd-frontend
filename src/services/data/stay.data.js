@@ -651,8 +651,6 @@ const locations = [
     { country: 'France', city: 'Paris', lat: 48.85, lng: 2.35 },
     { country: 'Germany', city: 'Berlin', lat: 52.52, lng: 13.40 },
     { country: 'UK', city: 'London', lat: 51.51, lng: -0.13 },
-    { country: 'Italy', city: 'Rome', lat: 41.90, lng: 12.49 },
-    { country: 'Spain', city: 'Madrid', lat: 40.42, lng: -3.71 },
     { country: 'Brazil', city: 'Rio de Janeiro', lat: -22.91, lng: -43.20 },
     { country: 'Argentina', city: 'Buenos Aires', lat: -34.60, lng: -58.38 },
     { country: 'Japan', city: 'Tokyo', lat: 35.68, lng: 139.76 },

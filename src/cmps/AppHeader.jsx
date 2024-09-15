@@ -37,6 +37,7 @@ export function AppHeader() {
     useEffect(() => {
         const handleResize = () => {
             setIsNarrow(window.innerWidth < 743)
+            if (isNarrow) setIsFolded(true)
         }
         window.addEventListener('resize', handleResize)
 
@@ -48,12 +49,12 @@ export function AppHeader() {
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY === 0) {
-                setIsTop(true)
+                if (!isTop) setIsTop(true);
+                if (isFolded && !userInitiatedOpen.current) setIsFolded(false);
+                
             } else {
-                setIsTop(false)
-                if (!isFolded && !userInitiatedOpen.current) {
-                    setIsFolded(true)
-                }
+                if (isTop) setIsTop(false);
+                if (!isFolded && !userInitiatedOpen.current) setIsFolded(true);
             }
         }
 
@@ -143,7 +144,7 @@ export function AppHeader() {
                         className="logo"><img src={logoImg} /></Link>
                     {isFolded && (
                         <div onClick={handleMainFilterFoldedClick} style={isStayPage ? {} : { display: "none" }}>
-                            <MainFilterFolded filterBy={filterBy} />
+                            <MainFilterFolded />
                         </div>
                     )}
                     <UserInfoBtn setLoginSignup={setLoginSignup} />

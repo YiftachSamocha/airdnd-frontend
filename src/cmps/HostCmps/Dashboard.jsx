@@ -8,7 +8,6 @@ import {
     LineElement,
     BarElement
 } from "chart.js";
-import { getRandomColor } from "../../services/util.service";
 import { useState } from "react";
 import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
@@ -25,6 +24,19 @@ export function Dashboard({ orders, stays }) {
         maintainAspectRatio: false,
         responsive: true,
         aspectRatio: 1,
+        animation: {
+            duration: 100
+        },
+        interaction: {
+            mode: 'index',
+            intersect: false,
+            axis: 'x'
+        },
+        plugins: {
+            tooltip: {
+                enabled: false
+            }
+        }
     }
 
     //PIE
@@ -50,7 +62,7 @@ export function Dashboard({ orders, stays }) {
     }
     //BAR
     const prices = stays.map(stay => stay.price.night)
-    const names = stays.map(stay => stay.name.slice(0,10)+'...')
+    const names = stays.map(stay => stay.name.slice(0, 10) + '...')
     const barData = {
         labels: names,
         datasets: [{
@@ -99,7 +111,7 @@ export function Dashboard({ orders, stays }) {
         }]
     }
     return <section className="dashboard">
- {
+        {
             selected === 'pie' && <div style={{ width: '300px', height: '300px' }}>
                 <Pie data={pieData} options={options} />
             </div>
@@ -119,19 +131,25 @@ export function Dashboard({ orders, stays }) {
 
         <Box sx={{ minWidth: 250, margin: '20px' }}>
             <FormControl fullWidth
-               sx={{
-                margin: '20px 0',
-                '& .MuiOutlinedInput-root': {
-                  '& fieldset': {
-                    borderColor: '#e0e0e0',
-                  },
-                  '&.Mui-focused fieldset': {
-                    borderColor: '#ff385c',
-                  },
-                },
-              }}>
+                sx={{
+                    margin: '20px 0',
+                    '& .MuiOutlinedInput-root': {
+                        '& fieldset': {
+                            borderColor: '#e0e0e0',
+                        },
+                        '&.Mui-focused fieldset': {
+                            borderColor: '#ff385c',
+                        },
+                    },
+                }}>
                 <InputLabel id="demo-simple-select-label"
-                    sx={{ color: 'black', '&.Mui-focused': { color: '#ff385c' } }}>Graph</InputLabel>
+                    sx={{
+                        color: 'black',
+                        '&.Mui-focused': { color: '#ff385c' },
+                        backgroundColor: 'white', 
+                        paddingInline: '8px',
+                     
+                    }}>Graph</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"

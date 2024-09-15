@@ -1,8 +1,10 @@
 import { format } from "date-fns"
 import { useEffect, useState } from "react"
 import searchImg from "../assets/imgs/search.png";
+import { useSelector } from "react-redux";
 
-export function MainFilterFolded({ filterBy }) {
+export function MainFilterFolded() {
+    const filterBy = useSelector(state => state.stayModule.filterBy)
     const [filterValues, setFilterValues] = useState({ where: 'anywhere', when: 'any week', who: 'add guests' })
 
     useEffect(() => {
