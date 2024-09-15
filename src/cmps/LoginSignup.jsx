@@ -1,11 +1,17 @@
 import { TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { userService } from "../services/user";
 import { login, signup } from "../store/actions/user.actions";
 
 export function LoginSignup({ closeLoginsignup, initalType }) {
     const [type, setType] = useState(initalType)
     const [credentials, setCredentials] = useState(userService.getEmptyUser())
+    const [isErrorMsg, setIsErrorMsg] = useState(false)
+    useEffect(() => {
+        setTimeout(() => {
+            if (isErrorMsg) setIsErrorMsg(false)
+        }, 3000)
+    }, [isErrorMsg])
     const customClr = {
         '& .MuiOutlinedInput-root': {
             backgroundColor: '#ffffff',
@@ -38,7 +44,11 @@ export function LoginSignup({ closeLoginsignup, initalType }) {
 
     async function onSubmit() {
         if (type === 'login') {
-            login(credentials)
+            const user = await login(credentials)
+            if (!user) {
+                setIsErrorMsg(true)
+                return
+            }
         }
         else {
             signup(credentials)
@@ -59,10 +69,15 @@ export function LoginSignup({ closeLoginsignup, initalType }) {
                         name="username" value={credentials.username} onChange={handleChnage} />
                     <TextField size="medium" id="filled-basic" label="Password" variant="outlined" sx={customClr}
                         name="password" value={credentials.password} onChange={handleChnage} />
-                    {type === 'signup' && <TextField id="filled-basic" label="Fullname" variant="outlined" sx={customClr}
-                        name="fullname" value={credentials.fullname} onChange={handleChnage} />}
+                    {type === 'signup' ? <TextField id="filled-basic" label="Fullname" variant="outlined" sx={customClr}
+                        name="fullname" value={credentials.fullname} onChange={handleChnage} /> :
+                        <p className="error-msg">{isErrorMsg && 'Wrong username or password. Try again!'}</p>
+                    }
+
                 </div>
+
                 <div>
+
                     <button onClick={onSubmit} >Continue</button>
                     {type === 'login' ?
                         <button onClick={() => setType('signup')}>Sign up</button> :
