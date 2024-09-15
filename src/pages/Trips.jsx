@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import inviteImg from '../assets/imgs/invite.png'
 import familyImg from '../assets/imgs/family.webp'
-import { SOCKET_EVENT_TAKE_STATUS, socketService } from "../services/socket.service";
+import { SOCKET_EVENT_TAKE_ORDER, SOCKET_EVENT_TAKE_STATUS, socketService } from "../services/socket.service";
 
 export function Trips() {
     const currUser = useSelector(state => state.userModule.currUser)
@@ -32,6 +32,18 @@ export function Trips() {
         })
         return () => {
             socketService.off(SOCKET_EVENT_TAKE_STATUS)
+        }
+    }, [])
+
+    useEffect(() => {
+        socketService.on(SOCKET_EVENT_TAKE_ORDER, order => {
+            setTrips(prev => {
+                return [order, ...prev]
+            })
+        })
+
+        return () => {
+            socketService.off(SOCKET_EVENT_TAKE_ORDER)
         }
     }, [])
 

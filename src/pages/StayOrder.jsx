@@ -144,7 +144,7 @@ export function StayOrder() {
             infants: Number(params.get('infants')) || 0,
             pets: Number(params.get('pets')) || 0,
         }
-        const total = capacity.adults + capacity.children + capacity.infants + capacity.pets
+        const total = capacity.adults + capacity.children + capacity.infants
         capacity = { ...capacity, total }
         const stayToOrder = {
             _id: stay._id,
@@ -154,7 +154,7 @@ export function StayOrder() {
             location: stay.location.city,
         }
         const status = 'pending'
-        const totalPrice = total
+        const totalPrice = parseInt(newOrder.total.replace(/,/g, ''), 10)
         const host = {
             _id: stay.host._id,
             fullname: stay.host.fullname
