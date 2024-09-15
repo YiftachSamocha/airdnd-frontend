@@ -18,13 +18,15 @@
         border-radius: 15px;
         padding-block-end: 1em;
     }
-    .extra-filter .extra-main{
-        scrollbar-width:auto;
-        .price .chart{
+
+    .extra-filter .extra-main {
+        scrollbar-width: auto;
+
+        .price .chart {
             display: block;
         }
     }
-   
+
     // .loginsignup{
     //     position: sticky;
     //     bottom: 0;
@@ -38,4 +40,17 @@
 @include for-wide-layout {}
 
 
-@include for-large-layout {}
+@include for-large-layout {
+    .main-filter .who-input {
+        .search-button span {
+            display: block;
+        }
+
+        .search-button.expanded {
+            width: 140px;
+            border-radius: 50px;
+            gap: 0.5em;
+            background-color: $clr-red;
+        }
+    }
+}

@@ -84,7 +84,7 @@ export function BecomeHost() {
         </div>
 
         <footer>
-            <button className='btn-link'>Back</button>
+            <button className='btn-link' onClick={()=> navigate('/stay')}>Back</button>
             <button className='black' onClick={handleNext}>Next</button>
         </footer>
 

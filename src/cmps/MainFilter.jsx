@@ -220,7 +220,7 @@ export function MainFilter() {
                 </div>
                 {isDeleteBtnShown('when-end') && <button onClick={() => deleteFilter('when-end')} >X</button>}
             </div>
-            {(openType === 'when-start' || openType === 'when-end') && <When dates={filterBy.when} setDates={changeFilterWhen} />}
+
         </div>
 
         <div onClick={() => setOpenType('who')} className={`who-input ${openType === 'who' ? 'selected' : ''}`}>
@@ -233,8 +233,10 @@ export function MainFilter() {
                 {isDeleteBtnShown('who') && <button onClick={() => deleteFilter('who')} >X</button>}
             </div>
             {openType === 'who' && <Who filterCapacity={filterBy.who} setFilterCapacity={changeFilterWho} />}
-            <button onClick={submitFilter} className="search-button"> <img src={searchImg} /></button>
+            <button onClick={submitFilter} className={`search-button ${openType ? 'expanded' : ''}`}
+            > <img src={searchImg} /> {openType && <span>Search</span>} </button>
         </div>
+        {(openType === 'when-start' || openType === 'when-end') && <When dates={filterBy.when} setDates={changeFilterWhen} />}
     </section >
 
 

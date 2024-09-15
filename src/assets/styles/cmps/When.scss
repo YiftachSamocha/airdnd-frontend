@@ -1,7 +1,9 @@
 .when {
     position: absolute;
     top: 100%;
-    left: -75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 35;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
     background-color: white;
@@ -12,6 +14,15 @@
         border: none;
         box-shadow: none;
         border-radius: 25px;
+        width: 100%;
+    }
+    .rdrDateRangePickerWrapper{
+        width: 100%;
+    }
+    .rdrMonths{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
     }
 
     .rdrDateDisplayWrapper {

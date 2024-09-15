@@ -132,7 +132,13 @@
                 max-width: 1em;
                 height: 1em;
             }
+            span{
+                color: white;
+                display: none;
+            }
+
         }
+       
         .search-button:hover{
             background-color: $clr-red;
         }
