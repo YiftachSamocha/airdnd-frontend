@@ -22,7 +22,8 @@ export function StayPreview({ stay }) {
     const distance = calculateDistance(userLat, userLng, targetLat, targetLng)
     const roundedDistance = distance > 0 ? formatNumberWithCommas(Math.round(distance)) : '0'
     const price = formatNumberWithCommas(stay.price.night)
-    const availableDates = findFirstAvailableNights(stay.reservedDates, 5)
+    
+    const availableDates = findFirstAvailableNights(stay.reservedDates, 5)    
     const freeDate = formatDateRange(availableDates)
 
     function handleHeartClick(ev, stay) {

@@ -173,45 +173,81 @@ export function getDateRange(datesBooked) {
 }
 
 export function findFirstAvailableNights(reservedRanges, nightsNeeded) {
-    const today = new Date();
+    const parseDate = (dateStr) => new Date(dateStr);
 
-    // If there are no reserved ranges, return the next 5 days starting from tomorrow
-    if (!reservedRanges || reservedRanges.length === 0) {
-        const nextFiveDays = [];
-        for (let i = 1; i <= nightsNeeded; i++) {
-            nextFiveDays.push(addDays(today, i))
-        }
-        return {
-            startDate: nextFiveDays[0],
-            endDate: nextFiveDays[nightsNeeded - 1],
-        }
-    }
+    const formatDate = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
 
-    let currentDate = addDays(today, 1)
-    let foundNights = []
+    const ranges = reservedRanges.map(range => ({
+        start: parseDate(range.startDate),
+        end: parseDate(range.endDate)
+    }));
 
-    while (foundNights.length < nightsNeeded) {
-        const isReserved = reservedRanges.some(range =>
-            isBefore(currentDate, new Date(range.end)) && isAfter(currentDate, new Date(range.start))
-        )
+    // Sort ranges by start date
+    ranges.sort((a, b) => a.start - b.start);
 
-        if (!isReserved) {
-            foundNights.push(currentDate)
-        } else {
-            foundNights = [] // Reset if a reserved date is found within the needed range
-        }
+    // Function to check if there is a free period of the required length
+    const isAvailable = (startDate) => {
+        const endDate = new Date(startDate);
+        endDate.setDate(endDate.getDate() + nightsNeeded - 1);
 
-        currentDate = addDays(currentDate, 1)
-
-        if (foundNights.length === nightsNeeded) {
-            return {
-                startDate: foundNights[0],
-                endDate: foundNights[nightsNeeded - 1],
+        // Check if the range overlaps with any reserved ranges
+        for (const range of ranges) {
+            if (startDate <= range.end && endDate >= range.start) {
+                return false;
             }
         }
+
+        // Check if the range fits before the first reserved date
+        if (ranges.length > 0) {
+            if (startDate < ranges[0].start) {
+                return true;
+            }
+
+            // Check gaps between reserved ranges
+            for (let i = 0; i < ranges.length - 1; i++) {
+                const gapStart = new Date(ranges[i].end);
+                gapStart.setDate(gapStart.getDate() + 1);
+                const gapEnd = new Date(ranges[i + 1].start);
+                gapEnd.setDate(gapEnd.getDate() - 1);
+
+                if (gapStart <= gapEnd) {
+                    if (endDate <= gapEnd) {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            return true;
+        }
+
+        return false;
+    };
+
+    // Start from today and find the first available period
+    let currentStartDate = new Date();
+    currentStartDate.setHours(0, 0, 0, 0);
+
+    while (true) {
+        if (isAvailable(currentStartDate)) {
+            return {
+                startDate: formatDate(currentStartDate),
+                endDate: formatDate(new Date(currentStartDate.setDate(currentStartDate.getDate() + nightsNeeded - 1)))
+            };
+        }
+
+        // Move to the next day if current range is not available
+        currentStartDate.setDate(currentStartDate.getDate() + 1);
+        if (currentStartDate > new Date(2100, 0, 1)) { // To prevent infinite loop
+            return null;
+        }
     }
-    return null // Return null if no suitable range is found
 }
+
 
 
 export function formatDateRange(dateRange) {

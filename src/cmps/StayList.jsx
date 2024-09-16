@@ -44,7 +44,6 @@ export function StayList() {
     }
 
     const publishedStays = currStays.filter(stay => stay.status === 'published');
-
     return (<>
         <section className="stay-main-list">
             <ul className="stay-list">
