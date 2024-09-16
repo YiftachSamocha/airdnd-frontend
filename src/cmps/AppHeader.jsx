@@ -113,7 +113,7 @@ export function AppHeader() {
             } else if (window.innerWidth <= 1130 && logoImg !== smallLogoImg) {
                 setLogoImg(smallLogoImg)
             }
-        };
+        }
 
         window.addEventListener("resize", handleResize)
         handleResize()

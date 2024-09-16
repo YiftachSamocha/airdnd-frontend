@@ -15,20 +15,12 @@ export function Trips() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        loadOrders({ guest: guestId })
-            .then(newOrders => {
-                setTrips(newOrders)
-            })
+        onLoadOrders()
     }, [currUser])
 
     useEffect(() => {
         socketService.on(SOCKET_EVENT_TAKE_STATUS, newOrder => {
-            setTrips(prevTrips => {
-                return prevTrips.map(trip => {
-                    if (trip._id === newOrder._id) return newOrder
-                    return trip
-                })
-            })
+            onLoadOrders()
         })
         return () => {
             socketService.off(SOCKET_EVENT_TAKE_STATUS)
@@ -37,15 +29,18 @@ export function Trips() {
 
     useEffect(() => {
         socketService.on(SOCKET_EVENT_TAKE_ORDER, order => {
-            setTrips(prev => {
-                return [order, ...prev]
-            })
+            onLoadOrders()
         })
 
         return () => {
             socketService.off(SOCKET_EVENT_TAKE_ORDER)
         }
     }, [])
+
+    async function onLoadOrders() {
+        const newOrders = await loadOrders({ guest: guestId })
+        setTrips(newOrders)
+    }
 
     function formatDate(date) {
         return format(date, 'MMM d')

@@ -106,7 +106,7 @@ export function createStay(host) {
             reviews: host.host.reviews,
             rating: host.host.rating,
             yearsHosting: host.host.yearsHosting,
-            responceRate: host.host.responseRate,
+            responseRate: host.host.responseRate,
             personalDetails: host.host.personalDetails
         },
         location,
@@ -508,7 +508,7 @@ const amenities = [
     { type: 'laundry', name: 'Dryer', imgUrl: '/src/assets/imgs/more/dryer.svg' },
     { type: 'laundry', name: 'Iron', imgUrl: '/src/assets/imgs/more/iron.svg' },
     { type: 'laundry', name: 'Ironing board', imgUrl: '/src/assets/imgs/more/iron.svg' },
-    { type: 'laundry', name: 'Laundry detergent', imgUrl: '/src/assets/imgs/more/shampoo.svg' },
+    { type: 'laundry', name: 'Laundry detergent', imgUrl: '/src/assets/imgs/more/washer.svg' },
 
     { type: 'familyFeatures', name: 'Crib', imgUrl: '/src/assets/imgs/amenities/no-wifi.svg' },
     { type: 'familyFeatures', name: 'High chair', imgUrl: '/src/assets/imgs/amenities/no-wifi.svg' },
