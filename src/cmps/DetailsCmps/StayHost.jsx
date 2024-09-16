@@ -56,7 +56,7 @@ export function StayHost({ stay }) {
                 <div className="details">
                     <h4>Host Details</h4>
                     <div>
-                        <p>Response Rate: {stay.host.responceRate}%</p>
+                        <p>Response Rate: {stay.host.responseRate}%</p>
                         <p>Responds within a few hours</p>
                     </div>
                     <div className='alert'>

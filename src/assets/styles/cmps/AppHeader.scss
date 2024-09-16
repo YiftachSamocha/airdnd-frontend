@@ -37,12 +37,14 @@
 
     .extra-button {
         @include extra-btn();
-        padding: 1em;
-        border-radius: 15px;
+        padding: 1.2em;
+        border-radius: 10px;
         margin-inline: 1em 0;
+        font-size: 12px;
+        border-color: $gray2;
 
         img {
-            max-width: em(24px);
+            max-width: em(20px);
         }
     }
 
@@ -55,13 +57,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 0.6em;
-        margin-right: 1em;
+        padding: 1em;
+        margin-right: 0.2em;
+        border-color: $gray4;
        
         
         img{
-            width: 1.2em;
-            height: 1.2em;
+            max-width: 1.6em;
+            width: 1.6em;
+            height: 1.6em;
             opacity: 0.8;
             margin: 0;
         }
