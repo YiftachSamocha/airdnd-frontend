@@ -169,8 +169,13 @@ export function StayDetails() {
 //     return false; // If no overlap is found, return false
 // }
 
-
-  if (!stay) return <div>Loading...</div>
+if (!stay) {
+  return (
+      <div className="spinner-container">
+          <img className="spinner" src={logo} alt="logo" />
+      </div>
+  )
+}
   return (
     <section className="stay-details">
       <AppHeader />
@@ -205,7 +210,7 @@ export function StayDetails() {
         </div>
 
         <div className="more-content">
-          {/* {stay.reviews && <StayReview stay={stay} />} */}
+          {stay.reviews && <StayReview stay={stay} />}
           {stay.location && <StayLocation stay={stay} />}
           {stay.host && <StayHost stay={stay} />}
           {stay.thingsToKnow && <StayToKnow stay={stay} />}
