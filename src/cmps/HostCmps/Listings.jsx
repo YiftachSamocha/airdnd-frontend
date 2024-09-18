@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom"
 import houseIcon from '../../assets/imgs/icons/house.jpeg'
+import { useSelector } from "react-redux"
 
 export function Listings({ listings }) {
-
-    console.log('listings')
     const navigate = useNavigate()
     const drafts = listings.filter(listing => listing.status === 'draft')
     const published = listings.filter(listing => listing.status === 'published')
+    const currUser = useSelector(state => state.userModule.currUser)
 
     return (
         <section className="listings">
@@ -23,7 +23,7 @@ export function Listings({ listings }) {
                             <div key={listing._id}
                                 onClick={() => navigate('/stay/' + listing._id)} className="listing-item">
                                 {listing.imgs ?
-                                    (<img src={listing.imgs[0]} alt="" />) :
+                                    (<img src={listing.imgs[0]} />) :
                                     (<img src={houseIcon} />)
                                 }
                                 <div>
@@ -37,14 +37,14 @@ export function Listings({ listings }) {
                     </>
                 )}
             </div>
-            {drafts.length && <div>
+            {drafts.length > 0 && <div>
                 <h5>Drafts:</h5>
                 <div className="listings-main">
                     {drafts.map(listing => (
                         <div key={listing._id}
-                            onClick={() => navigate('/stay/' + listing._id)} className="listing-item">
-                            {listing.imgs && listing.imgs.length > 0 ?
-                                (<img src={listing.imgs[0]} alt="" />) :
+                            onClick={() => navigate(`/become-a-host/${currUser._id}/about-your-place/${listing._id}`)} className="listing-item">
+                            {(listing.imgs && listing.imgs.length > 0) ?
+                                (<img src={listing.imgs[0]} />) :
                                 (<img src={houseIcon} />)
                             }                                            <div>
                                 <p>{listing.name}</p>

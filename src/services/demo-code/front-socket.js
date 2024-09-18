@@ -7,11 +7,11 @@ async function changeStatus(order, newStatus) {
 
 //Use Effect from Trips page, setting new status for order
 useEffect(() => {
-    socketService.on(SOCKET_EVENT_TAKE_STATUS, newOrder => {
-        setTrips(prevTrips => {
-            return prevTrips.map(trip => {
-                if (trip._id === newOrder._id) return newOrder
-                return trip
+    socketService.on(SOCKET_EVENT_TAKE_STATUS, updatedOrder => {
+        setOrders(prevOrders => {
+            return prevOrders.map(order => {
+                if (order._id === updatedOrder._id) return updatedOrder
+                return order
             })
         })
     })
