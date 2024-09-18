@@ -6,13 +6,16 @@
 
 @include for-mobile-layout {
     .stay-list {
-        grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+        // img{
+        //     max-width: 100%;
+        // }
+        // grid-template-columns: 1fr;
+        // grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
     }
 
 }
 
 @include for-narrow-layout {
-
     .stay-payment {
         grid-template-columns:
             minmax(auto, 20px);
@@ -21,9 +24,6 @@
     .stay-order {
         grid-column: 1;
     }
-
-    
-
 }
 
 @include for-normal-layout {
@@ -50,11 +50,6 @@
         grid-column: 2;
         padding-inline: 0;
     }
-
-    // .app-header .main-hr {
-    //     margin: 0 calc((100% - 97vw)/2);
-    // }
-    
 }
 
 
