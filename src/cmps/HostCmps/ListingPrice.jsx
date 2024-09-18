@@ -43,6 +43,7 @@ export function ListingPrice({ price, onPriceChange, onValidate }) {
             ...prevPrice,
             [name]: value
         }))
+        onPriceChange({ night: value, cleaning: 20 })
         resizeInput(value)
     }
 
@@ -75,9 +76,9 @@ export function ListingPrice({ price, onPriceChange, onValidate }) {
     function validatePrice(nightPrice) {
         return nightPrice >= 10 && nightPrice <= 10000;
     }
-    function handleFocus () {
+    function handleFocus() {
         document.querySelector('.price-input input').focus(); // Target the input by class
-      }
+    }
 
     return (
         <div className="pricing info">
