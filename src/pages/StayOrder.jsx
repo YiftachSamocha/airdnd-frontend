@@ -131,7 +131,7 @@ export function StayOrder() {
         navigate(`/stay/${stay._id}`)
     }
 
-    function onAddOrder() {
+    async function onAddOrder() {
         const params = new URLSearchParams(searchParams)
         if (!params.get('start_date') || !params.get('end_date')) return
         if (!currUser) return
@@ -171,8 +171,8 @@ export function StayOrder() {
             guest,
             createdAt
         }
-        addOrder(order)
-        socketService.emit(SOCKET_EVENT_ADD_ORDER, order)
+        const addedOrder = await addOrder(order)
+        socketService.emit(SOCKET_EVENT_ADD_ORDER, addedOrder)
     }
 
     function formatGuests(capacity) {
