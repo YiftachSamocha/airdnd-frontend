@@ -53,7 +53,7 @@
         padding: 10px;
         border-radius: 10px;
         box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-        width: 50%;
+        width: 42%;
     }
 
     .modal-img img {
@@ -182,11 +182,23 @@
 }
 
 
-@media (min-width: 1330px) {
+
+@media (min-width: 1450px) {
     .modal-booking section {
         max-width: 60%;
     }
+
+    .modal-booking .modal-img {
+        width: 30%;
+    }
 }
+
+@media (min-width: 1300px) {
+    .modal-booking .modal-img {
+        width: 37%;
+    }
+}
+
 
 @media (max-width: 1045px) {
     .modal-booking section {
@@ -194,9 +206,18 @@
     }
 }
 
+@media (max-width: 1090px) {
+    .modal-booking .modal-img {
+        width: 50%;
+    }
+}
+
 @media (max-width: 830px) {
     .modal-booking section {
         padding-inline-start: 20px
+    }
+      .modal-booking .modal-img {
+        width: 60%;
     }
 }
 
@@ -242,7 +263,7 @@
         .img-name {
             margin: 10px;
             font-size: 1.3em;
-            margin-top: 40px;
+            // margin-top: 40px;
         }
     }
 
@@ -262,9 +283,10 @@
         order: 3;
     }
 
-    .modal-booking .modal-btn button.confirm{
+    .modal-booking .modal-btn button.confirm {
         margin-right: 0;
     }
+
     .modal-booking .modal-btn button.close {
         margin-left: 40px;
     }
