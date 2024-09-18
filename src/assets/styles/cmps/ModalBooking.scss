@@ -216,7 +216,8 @@
     .modal-booking section {
         padding-inline-start: 20px
     }
-      .modal-booking .modal-img {
+
+    .modal-booking .modal-img {
         width: 60%;
     }
 }
@@ -230,9 +231,14 @@
         padding-inline: 50px;
     }
 
+    .modal-booking .modal-header {
+        margin-top: 10px;
+    }
+
     .modal-header {
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         margin-right: 22%;
+
 
         h2 {
             padding: 0;
@@ -252,7 +258,7 @@
 
     .modal-booking {
         .modal-img {
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             height: 18%;
             box-shadow: none;
             display: flex;
@@ -290,4 +296,23 @@
     .modal-booking .modal-btn button.close {
         margin-left: 40px;
     }
+
+}
+
+@media (max-width: 560px) {
+    .modal-booking section {
+        padding-inline: 24px;
+    }
+
+    .modal-booking .modal-header {
+        margin-bottom: 10px;
+    }
+
+    .modal-booking .modal-img {
+        margin-bottom: 10px;
+    }
+    .modal-booking .modal-details h3 {
+        margin-bottom: 7px;
+    }
+
 }
