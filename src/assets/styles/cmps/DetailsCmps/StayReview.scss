@@ -54,7 +54,7 @@
     }
 
     .review-preview {
-        height: 226px;
+        height: 200px;
         padding: 0 8px;
         margin-right: 15%;
 
@@ -176,9 +176,17 @@
         left: 0;
     }
 
+
+.rating-fill {
+    display: block;
+    height: 100%;
+    background-color: black; /* צבע הפסים */
+    transition: width 0.3s ease;
+}
+
     .rating-number {
         width: 1em;
-        font-size: 0.8em;
+        font-size: 0.7em;
         // text-align: right;
     }
 
@@ -204,11 +212,11 @@
 }
 
 @media(max-width:743px) {
-    .reviews-stay{
+    .reviews-stay {
         padding-block-start: 24px;
         margin-inline: 24px;
     }
-    
+
 }
 
 
@@ -237,6 +245,7 @@
         .rating-categories .rating-category {
             padding-inline: 16px;
         }
+
         .overall-rating {
             width: 120px;
             margin-right: 16px;
@@ -269,16 +278,32 @@
 }
 
 
-@media(max-width:1060px) {
+@media(max-width:950px) {
     .reviews-stay {
-        .rating-categories {
-       .rating-category:nth-child(1),
-       .rating-category:nth-child(2),
-       .rating-category:nth-child(3),
-       .rating-category:nth-child(5) {
-            padding-right: 0;     
+
+        .reviews-rating {
+            padding: 0;
+            display: none;
         }
-        }
+
+    }
+
+    .reviews-rating {
+        margin-bottom: 0;
+        border-bottom: 0;
     }
 }
 
+
+// @media(max-width:1060px) {
+//     .reviews-stay {
+//         .rating-categories {
+//        .rating-category:nth-child(1),
+//        .rating-category:nth-child(2),
+//        .rating-category:nth-child(3),
+//        .rating-category:nth-child(5) {
+//             padding-right: 0;     
+//         }
+//         }
+//     }
+// }

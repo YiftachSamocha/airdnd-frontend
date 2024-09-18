@@ -27,12 +27,23 @@ export function StayReview({ stay }) {
         value,
     }
     const averages = calculateCategoryAverages(stay.reviews)
+    console.log(averages);
+    
 
     const total = Object.values(averages).reduce((acc, average) => acc + average, 0);
-    const averageRating = total / Object.values(averages).length;
+    const averageRating = total / Object.values(averages).length
     const maxRating = 5
 
     const percentage = (averageRating / maxRating) * 100;
+
+    console.log('total',total);
+    
+    console.log('averageRating',averageRating );
+    
+    console.log('percentage', percentage);
+    console.log(Math.floor(averageRating));
+    
+    
 
     return (
         <section className="reviews-stay">
@@ -45,17 +56,25 @@ export function StayReview({ stay }) {
                 <div className="overall-rating">
                     <h3>Overall rating</h3>
                     {[...Array(5)].map((_, index) => {
-                        const isFull = index < Math.floor(averageRating);
-                        const isPartial = index === Math.floor(averageRating);
-                        const width = isFull ? 100 : (isPartial ? (averageRating % 1) * 100 : 0);
-
+                        const barIndex = 5 - index;
+                        const isFull = barIndex < Math.floor(averageRating);
+                        const isPartial = barIndex === Math.floor(averageRating);
+                        const fillWidth = isFull ? 100 : (isPartial ? percentage % 100 : 0);
+                        const barColor = barIndex >= Math.floor(averageRating) ? 'black' : '#ddd';
                         return (
                             <div className="rating-bar-container" key={index}>
+                                {/* <div className="number-container"> */}
                                 <span className="rating-number">{5 - index}</span>
+                                {/* </div> */}
                                 <div className="rating-bar">
-                                    <span style={{ width: `${width}%` }}></span>
-                                    {/* <span style={{ width: `${index < Math.floor(averageRating) ? 100 : (percentage % 100)}%` }}></span> */}
-                                </div>
+                                <span
+                                        className="rating-fill"
+                                        style={{
+                                            width: `${fillWidth}%`,
+                                            backgroundColor: barColor
+                                        }}
+                                    ></span>
+                                  </div>
                             </div>
                         )
                     })}
