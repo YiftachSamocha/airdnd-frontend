@@ -13,6 +13,8 @@ export function StayList() {
     const [searchParams, setSearchParams] = useSearchParams()
     const [filterUrl, setFilterUrl] = useState('')
     const [currStays, setCurrStays] = useState([])
+    const [isFilterWhen, setFilterWhen] = useState(false)
+
 
     useEffect(() => {
         loadStays(filterBy)
@@ -24,8 +26,15 @@ export function StayList() {
 
     useEffect(() => {
         constructLinkUrl()
+        changeStayDates()
     }, [filterBy])
 
+
+    function changeStayDates() {
+        if (filterBy.when.startDate && filterBy.when.endDate) {
+            setFilterWhen(true)
+        } else setFilterWhen(false)
+    }
 
     function constructLinkUrl() {
         let urlStr = '?'
@@ -49,11 +58,11 @@ export function StayList() {
             <ul className="stay-list">
                 {publishedStays.map(stay => {
                     return (
-                        <Link to={`/stay/${stay._id}${filterUrl}`} key={stay._id}>
-                            <li>
-                                <StayPreview stay={stay} />
-                            </li>
-                        </Link>
+                        <li key={stay._id}>
+                            <Link to={`/stay/${stay._id}${filterUrl}`} >
+                                <StayPreview stay={stay} isFilterWhen={isFilterWhen} />
+                            </Link>
+                        </li>
                     )
                 })}
             </ul>

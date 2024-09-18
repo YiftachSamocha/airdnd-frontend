@@ -115,7 +115,6 @@ export function StayOrder() {
     }
 
     const totalReviews = stay.reviews ? stay.reviews.length : 0
-
     const avgRating = totalReviews > 0
         ? stay.reviews.reduce((sum, review) => sum + review.rate, 0) / totalReviews
         : 0
@@ -326,13 +325,10 @@ export function StayOrder() {
                             </div>
                         </div>
                     </section>
-
-
-
                 </section>
-
-                {isWhenOpen && <When dates={dates} setDates={setDates} />}
-                {isWhoOpen && <Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} />}
-
+                <section className='modal-who-when'>
+                    {isWhenOpen && <When dates={dates} setDates={setDates} />}
+                    {isWhoOpen && <Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} />}
+                </section>
             </section></>)
 }
