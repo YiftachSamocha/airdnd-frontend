@@ -177,12 +177,13 @@
     }
 
 
-.rating-fill {
-    display: block;
-    height: 100%;
-    background-color: black; /* צבע הפסים */
-    transition: width 0.3s ease;
-}
+    .rating-fill {
+        display: block;
+        height: 100%;
+        background-color: black;
+        /* צבע הפסים */
+        transition: width 0.3s ease;
+    }
 
     .rating-number {
         width: 1em;
@@ -211,34 +212,6 @@
     }
 }
 
-@media(max-width:743px) {
-    .reviews-stay {
-        padding-block-start: 24px;
-        margin-inline: 24px;
-    }
-
-}
-
-
-
-@media (max-width: 940px) {
-    .reviews-stay {
-
-        .reviews-list {
-            // column-count: 2;
-            display: grid;
-            grid-template-columns: 1fr;
-            // column-gap: 6.5em;
-        }
-    }
-
-    .reviewer-image {
-        width: 7%;
-        height: 7%;
-    }
-
-}
-
 
 @media(max-width:1230px) {
     .reviews-stay {
@@ -253,7 +226,6 @@
         }
     }
 }
-
 
 @media(max-width:1195px) {
     .reviews-stay {
@@ -295,15 +267,39 @@
 }
 
 
-// @media(max-width:1060px) {
-//     .reviews-stay {
-//         .rating-categories {
-//        .rating-category:nth-child(1),
-//        .rating-category:nth-child(2),
-//        .rating-category:nth-child(3),
-//        .rating-category:nth-child(5) {
-//             padding-right: 0;     
-//         }
-//         }
-//     }
-// }
+@media (max-width: 940px) {
+    .reviews-stay {
+
+        .reviews-list {
+            // column-count: 2;
+            display: grid;
+            grid-template-columns: 1fr;
+            // column-gap: 6.5em;
+        }
+    }
+
+    .reviewer-image {
+        width: 7%;
+        height: 7%;
+    }
+
+}
+
+
+@media(max-width:743px) {
+    .reviews-stay {
+        padding-block-start: 24px;
+        margin-inline: 24px;
+
+        .review-preview {
+            height: 230px;
+        }
+    }
+}
+
+@media(max-width:400px) {
+    .reviews-stay .review-preview {
+        margin-bottom: 25px;
+        height: 270px;
+    }
+}
