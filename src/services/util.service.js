@@ -1,6 +1,7 @@
 import { addDays, addMonths, isBefore, isAfter, format } from 'date-fns';
 import { uploadService } from './upload.service';
 import { bedTypes, doubleBedroomImgs, highlightOptions, livingRoomImgs, singleBedroomImgs } from './data/stay.data';
+import { log10 } from 'chart.js/helpers';
 
 
 export function makeId(length = 6) {
@@ -45,7 +46,8 @@ export function calculateCategoryAverages(reviews) {
 
     const categoryAverages = {}
     Object.entries(categorySums).forEach(([category, sum]) => {
-        categoryAverages[category] = sum / categoryCounts[category]
+        const average = sum / categoryCounts[category];
+        categoryAverages[category] = parseFloat(average.toFixed(1))
     })
     return categoryAverages
 }
@@ -58,21 +60,23 @@ export function calculateAverageRating(reviews) {
     if (!Array.isArray(reviews) || reviews.length === 0) {
         return 0
     }
-
     const totalRating = reviews.reduce((accumulator, review) => {
         return accumulator + (review.rate || 0)
     }, 0)
+    const average = totalRating / reviews.length
 
-    return totalRating / reviews.length
-}
+    if (average % 1 === 0) {
+        return average.toFixed(1)
+    }
 
-export function formatRating(rating) {
-    // if (rating <= 3) {        
-    //     return null
-    // }
-    const roundedRating = rating.toFixed(2)
-    // return parseFloat(roundedRating) % 1 === 0 ? roundedRating.slice(0, -1) : roundedRating;
-    return rating > 0 ? (rating % 1 === 0 ? rating.toFixed(1) : rating.toFixed(2)) : ''
+    const averageString = average.toString()
+    const decimalIndex = averageString.indexOf('.')
+    
+    if (decimalIndex !== -1 && averageString[decimalIndex + 2] === '0' || averageString.length === decimalIndex + 2) {
+        return parseFloat(averageString).toFixed(1);
+    }
+
+    return parseFloat(average).toFixed(2);
 }
 
 export function calculateDaysBetween({ startDate, endDate }) {
