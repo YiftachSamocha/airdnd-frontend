@@ -17,11 +17,12 @@ import { When } from "../cmps/MainFilterCmps/When";
 import { loadStay } from '../store/actions/stay.actions';
 import { calculateDaysBetween, findFirstAvailableNights, formatDateRange, formatNumberWithCommas, getDateRange } from '../services/util.service';
 import { addOrder } from '../store/actions/order.action';
-import { parse } from 'date-fns';
+import { format, parse } from 'date-fns';
 import { ModalBooking } from '../cmps/ModalBooking';
 import { OutsideClick } from '../cmps/OutsideClick';
 import logo from '../assets/imgs/small-icon.png';
 import { SOCKET_EVENT_ADD_ORDER, socketService } from '../services/socket.service';
+import { WhenDetails } from '../cmps/MainFilterCmps/WhenDetails';
 
 
 export function StayOrder() {
@@ -30,10 +31,11 @@ export function StayOrder() {
     const stay = useSelector(storeState => storeState.stayModule.stay)
     const currUser = useSelector(state => state.userModule.currUser)
     const [searchParams, setSearchParams] = useSearchParams();
-
-    const [isWhoOpen, setWhoOpen] = useState(false)
-    const [isWhenOpen, setWhenOpen] = useState(false)
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [activeModal, setActiveModal] = useState(null)
+    // const [isWhoOpen, setWhoOpen] = useState(false)
+    // const [isWhenOpen, setWhenOpen] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isModalWhoWhenOpen, setIsModalWhoWhenOpen] = useState(false)
 
     const [filterCapacity, setFilterCapacity] = useState({ adults: 0, children: 0, infants: 0, pets: 0 })
     const [dates, setDates] = useState({ startDate: null, endDate: null })
@@ -46,8 +48,23 @@ export function StayOrder() {
         freeDate: '',
         filterCapacity: ''
     })
-    const toggleWho = () => setWhoOpen(!isWhoOpen)
-    const toggleWhen = () => setWhenOpen(!isWhenOpen)
+    // const toggleWho = () => setWhoOpen(!isWhoOpen)
+    // const toggleWhen = () => setWhenOpen(!isWhenOpen)
+
+    const toggleWho = () => {
+        setActiveModal(activeModal === 'who' ? null : 'who')
+        setIsModalWhoWhenOpen(true)
+    }
+
+    const toggleWhen = () => {
+        setActiveModal(activeModal === 'when' ? null : 'when')
+        setIsModalWhoWhenOpen(true)
+    }
+
+    const closeModalWhoWhenOpen = () => {
+        setIsModalWhoWhenOpen(false);
+        setActiveModal(null);
+    }
 
     useEffect(() => {
         loadStay(stayId)
@@ -212,7 +229,8 @@ export function StayOrder() {
         <><div className="order">
             <Link to={'/stay'} onClick={() => store.dispatch({ type: SET_FILTER_BY, filterBy: stayService.getDefaultFilter() })}
             ><img src={logoImg} className="logo" /></Link>
-            <hr className='main-hr' /> </div>
+            <hr className='main-hr' />
+        </div>
             <section className='stay-main-order'>
                 <section className='stay-order'>
                     <div className="header">
@@ -326,9 +344,46 @@ export function StayOrder() {
                         </div>
                     </section>
                 </section>
-                <section className='modal-who-when'>
-                    {isWhenOpen && <When dates={dates} setDates={setDates} />}
-                    {isWhoOpen && <Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} />}
-                </section>
-            </section></>)
+            </section>
+            {isModalWhoWhenOpen && (
+                <div className="modal-overlay" onClick={closeModalWhoWhenOpen}>
+                    <div className="modal-content" onClick={e => e.stopPropagation()}>
+                        <div className="modal-header">
+                            {activeModal === 'when' ? <h2>{totalNights} night</h2> : <h2>Guests</h2>}
+                            <button className="close-button" onClick={closeModalWhoWhenOpen}>X</button>
+                        </div>
+                        <div className="modal-body">
+                            {activeModal === 'when' && (
+                                <>
+                                    <WhenDetails
+                                        dates={dates}
+                                        onSetDates={onSetDates}
+                                        stay={stay}
+                                        breakpoint={743}
+                                        closeWhen={closeWhen}
+                                        // type="payment"
+                                        monthsAmount={monthsAmount} />
+                                </>
+                            )}
+
+                            {activeModal === 'who' && (<Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} />
+                            )}
+                        </div>
+                        <div className="modal-footer">
+                            <button className='btn-link' onClick={(e) => { e.stopPropagation(); closeModalWhoWhenOpen(); }}>Cancel</button>
+                            <button className='btn-link' onClick={(e) => {
+                                e.stopPropagation();
+                                // הוסף כאן את הלוגיקה לשמירה
+                                closeModalWhoWhenOpen();
+                            }}>Save</button>
+                        </div>
+                        {/* <button className="dates btn-link" onClick={() => setIsWhenOpen(true)}>
+                        {format(dates.startDate, 'MMM d')} - {format(dates.endDate, 'MMM d')}
+
+                    </button> */}
+                    </div>
+                </div>
+            )}
+        </>)
+
 }
