@@ -268,25 +268,25 @@ export function StayOrder() {
                         </div> <div className="card-details">
                             <div className="input-group">
                                 <div className="floating-label">
-                                    <input type="text" id="card-number" name="card-number" placeholder=" " required />
+                                    <input type="text" id="card-number" name="card-number" placeholder=" " required value="1234 5678 9012 3456" />
                                     <label htmlFor="card-number">Card number</label>
                                 </div>
                             </div>
                             <div className="input-group">
                                 <div className="floating-label">
-                                    <input type="text" id="expiration" name="expiration" placeholder=" " required />
+                                    <input type="text" id="expiration" name="expiration" placeholder=" " required value="01/28"/>
                                     <label htmlFor="expiration">Expiration</label>
                                 </div>
                             </div>
                             <div className="input-group">
                                 <div className="floating-label">
-                                    <input type="text" id="cvv" name="cvv" placeholder=" " required />
+                                    <input type="text" id="cvv" name="cvv" placeholder=" " required value="723"/>
                                     <label htmlFor="cvv">CVV</label>
                                 </div>
                             </div>
                             <div className="input-group">
                                 <div className="floating-label">
-                                    <input type="text" id="zip-code" name="zip-code" placeholder=" " required />
+                                    <input type="text" id="zip-code" name="zip-code" placeholder=" " required value="96315"/>
                                     <label htmlFor="zip-code">ZIP code</label>
                                 </div>
                             </div>
