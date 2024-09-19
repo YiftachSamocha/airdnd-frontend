@@ -10,8 +10,8 @@ import logo from '../assets/imgs/small-icon.png';
 export function StayPreview({ stay, isFilterWhen }) {
     const [likedImages, setLikedImages] = useState({})
 
-    const averageRating = calculateAverageRating(stay.reviews)
-    
+    const avgRating = calculateAverageRating(stay.reviews)
+   
     const userLat = 31.7683
     const userLng = 35.2137
 
@@ -58,9 +58,9 @@ export function StayPreview({ stay, isFilterWhen }) {
                 <div>
                     <h4>{stay.location.city}, {stay.location.country}</h4>
                     <div className="rating">
-                        {averageRating  && (<>
+                        {avgRating  && (<>
                             <img src={starIcon} alt="Star Icon" className="star-icon" />
-                            <span> {averageRating }</span> </>
+                            <span>{avgRating}</span> </>
                         )} </div>
                 </div>
                 <h4 className="light"> {roundedDistance} kilometers away</h4>
