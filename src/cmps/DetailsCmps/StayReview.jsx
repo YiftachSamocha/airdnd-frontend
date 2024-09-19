@@ -27,23 +27,12 @@ export function StayReview({ stay }) {
         value,
     }
     const averages = calculateCategoryAverages(stay.reviews)
-    console.log(averages);
-    
 
     const total = Object.values(averages).reduce((acc, average) => acc + average, 0);
     const averageRating = total / Object.values(averages).length
     const maxRating = 5
 
     const percentage = (averageRating / maxRating) * 100;
-
-    console.log('total',total);
-    
-    console.log('averageRating',averageRating );
-    
-    console.log('percentage', percentage);
-    console.log(Math.floor(averageRating));
-    
-    
 
     return (
         <section className="reviews-stay">
@@ -56,36 +45,35 @@ export function StayReview({ stay }) {
                 <div className="overall-rating">
                     <h3>Overall rating</h3>
                     {[...Array(5)].map((_, index) => {
-                        const barIndex = 5 - index;
-                        const isFull = barIndex < Math.floor(averageRating);
-                        const isPartial = barIndex === Math.floor(averageRating);
-                        const fillWidth = isFull ? 100 : (isPartial ? percentage % 100 : 0);
-                        const barColor = barIndex >= Math.floor(averageRating) ? 'black' : '#ddd';
+                        const barIndex = 5 - index
+                        const isFull = avgRating < barIndex; 
+                        const isPartial = avgRating === barIndex + 0.5
+                        const fillWidth = isFull ? 100 : (isPartial ? 50 : 0)
+                        const barColor = barIndex <= 4 ? 'black' : '#ddd'
                         return (
                             <div className="rating-bar-container" key={index}>
                                 {/* <div className="number-container"> */}
                                 <span className="rating-number">{5 - index}</span>
                                 {/* </div> */}
                                 <div className="rating-bar">
-                                <span
+                                    <span
                                         className="rating-fill"
                                         style={{
                                             width: `${fillWidth}%`,
                                             backgroundColor: barColor
                                         }}
                                     ></span>
-                                  </div>
+                                </div>
                             </div>
                         )
                     })}
                 </div>
 
                 <div className="rating-categories">
-                    {/* <ul> */}
                     {Object.entries(categories).map(([category, rating]) => (
                         <div key={category} className={`rating-category ${category}`}>
                             <h3>{category.charAt(0).toUpperCase() + category.slice(1)}</h3>
-                            <h4>{averages[category]}</h4>
+                            <h4>{averages[category].toFixed(1)}</h4>
                             <img
                                 src={categories[category]}
                                 alt={`${category} icon`}
@@ -93,7 +81,6 @@ export function StayReview({ stay }) {
                             />
                         </div>
                     ))}
-                    {/* </ul> */}
                 </div>
             </div>
             <section>
