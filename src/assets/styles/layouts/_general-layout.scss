@@ -47,10 +47,12 @@
         }
 
         .search-button.expanded {
-            width: em(160px);
+            min-width: 6em;
+            width: 6em;
             border-radius: 50px;
-            gap: 0.5em;
+            gap: 0.3em;
             background-color: $clr-red;
+            padding-inline: 2em;
         }
     }
 }
