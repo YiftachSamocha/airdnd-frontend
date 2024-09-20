@@ -146,7 +146,7 @@ export function Reservations({ orders, listings }) {
                             <div>
                                 {filterBy.type === 'all' && <p className={`status ${reservation.status.toLowerCase()}`}>{reservation.status}</p>}
                                 {/* <span>·</span> */}
-                                <p>{reservation.totalPrice}$</p>
+                                <p className="price">{reservation.totalPrice}$</p>
                             </div>
                             <Link to={'/stay/' + reservation.stay._id} className="name" >{reservation.stay.name}</Link>
                             <div>

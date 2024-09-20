@@ -9,11 +9,13 @@ import { loadStays } from "../store/actions/stay.actions";
 import securityIcon from '../assets/imgs/icons/security.svg'
 import starIcon from '../assets/imgs/icons/star.svg'
 import { SOCKET_EVENT_TAKE_ORDER, socketService } from "../services/socket.service";
+import logo from '../assets/imgs/small-icon.png';
 
 export function Host() {
     const allOrders = useSelector(state => state.orderModule.orders)
     const [orders, setOrders] = useState([])
     const [stays, setStays] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
     const currUser = useSelector(state => state.userModule.currUser)
     let hostId = currUser ? currUser._id : ''
 
@@ -30,6 +32,7 @@ export function Host() {
                 .then(stays => {
                     const newStays = stays.filter(stay => stay.host._id === currUser._id)
                     setStays(newStays)
+                    setIsLoading(false)
                 })
         }
     }, [currUser])
@@ -104,7 +107,9 @@ export function Host() {
                 <Dashboard orders={orders} stays={stays} />
             </div>
             <Reservations orders={orders} listings={stays} />
-            <Listings listings={stays} />
+            {isLoading ? <div className="spinner-container">
+                <img className="spinner" src={logo} alt="logo" />
+            </div> : <Listings listings={stays} />}
         </>
         }
     </section>
