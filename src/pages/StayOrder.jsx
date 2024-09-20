@@ -37,6 +37,8 @@ export function StayOrder() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isModalWhoWhenOpen, setIsModalWhoWhenOpen] = useState(false)
 
+   const [monthsAmount, setMonthsAmount] = useState(2);
+
     const [filterCapacity, setFilterCapacity] = useState({ adults: 0, children: 0, infants: 0, pets: 0 })
     const [dates, setDates] = useState({ startDate: null, endDate: null })
     const [newOrder, setNewOrder] = useState({
@@ -52,12 +54,12 @@ export function StayOrder() {
     // const toggleWhen = () => setWhenOpen(!isWhenOpen)
 
     const toggleWho = () => {
-        setActiveModal(activeModal === 'who' ? null : 'who')
+        setActiveModal(activeModal === 'whoModal' ? null : 'whoModal')
         setIsModalWhoWhenOpen(true)
     }
 
     const toggleWhen = () => {
-        setActiveModal(activeModal === 'when' ? null : 'when')
+        setActiveModal(activeModal === 'whenModal' ? null : 'whenModal')
         setIsModalWhoWhenOpen(true)
     }
 
@@ -69,6 +71,48 @@ export function StayOrder() {
     useEffect(() => {
         loadStay(stayId)
     }, [stayId])
+
+    useEffect(() => {
+        const handleResize = () => {
+          const width = window.innerWidth;
+    
+          // Handling `monthsAmount` for both regular flow and payment
+          setMonthsAmount(prev => ({
+            regular: width <= 1200 ? 1 : 2,
+            payment: width <= 743 ? 12 : 2
+          }))
+        }
+        window.addEventListener('resize', handleResize)
+        handleResize() // Initial call
+    
+        return () => {
+          window.removeEventListener('resize', handleResize)
+        }
+      }, [])
+
+      
+  function onSetDates(newDates) {
+    console.log(newDates)
+    setDates(newDates)
+
+    const params = new URLSearchParams(searchParams)
+
+    if (newDates.startDate) {
+      const formattedStartDate = format(newDates.startDate, 'yyyy-MM-dd')
+      params.set('start_date', formattedStartDate)
+    } else {
+      params.delete('start_date')
+    }
+
+    if (newDates.endDate) {
+      const formattedEndDate = format(newDates.endDate, 'yyyy-MM-dd')
+      params.set('end_date', formattedEndDate)
+    } else {
+      params.delete('end_date')
+    }
+
+    setSearchParams(params)
+  }
 
 
     useEffect(() => {
@@ -347,26 +391,26 @@ export function StayOrder() {
             </section>
             {isModalWhoWhenOpen && (
                 <div className="modal-overlay" onClick={closeModalWhoWhenOpen}>
-                    <div className="modal-content" onClick={e => e.stopPropagation()}>
+                    <div className={`modal-content ${activeModal}`} onClick={e => e.stopPropagation()}>
                         <div className="modal-header">
-                            {activeModal === 'when' ? <h2>{totalNights} night</h2> : <h2>Guests</h2>}
+                            {activeModal === 'whenModal' ? <h2>{totalNights} night</h2> : <h2>Guests</h2>}
                             <button className="close-button" onClick={closeModalWhoWhenOpen}>X</button>
                         </div>
                         <div className="modal-body">
-                            {activeModal === 'when' && (
+                            {activeModal === 'whenModal' && (
                                 <>
                                     <WhenDetails
                                         dates={dates}
                                         onSetDates={onSetDates}
                                         stay={stay}
                                         breakpoint={743}
-                                        closeWhen={closeWhen}
+                                        // closeWhen={closeWhen}
                                         // type="payment"
                                         monthsAmount={monthsAmount} />
                                 </>
                             )}
 
-                            {activeModal === 'who' && (<Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} />
+                            {activeModal === 'whoModal' && (<Who filterCapacity={filterCapacity} setFilterCapacity={setFilterCapacity} />
                             )}
                         </div>
                         <div className="modal-footer">
