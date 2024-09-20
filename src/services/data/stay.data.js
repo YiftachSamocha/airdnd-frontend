@@ -275,164 +275,171 @@ export const highlights = [
     {
         main: 'Great communication',
         sub: '95% of recent guests gave the host a 5-star rating for communication.',
-        imgUrl: '/src/assets/imgs/labels/omg.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/omg.jpeg'
     },
     {
         main: 'Flexible cancellation policy',
         sub: 'Get a full refund if you cancel within 48 hours of booking.',
-        imgUrl: '/src/assets/imgs/labels/island.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/safe.svg'
 
     },
     {
         main: 'Superhost',
         sub: 'This host is highly rated for their outstanding hospitality.',
-        imgUrl: '/src/assets/imgs/labels/luxe.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/luxe.jpeg'
     },
     {
         main: 'Self check-in',
         sub: 'Check yourself in with the smart lock for added convenience.',
-        imgUrl: '/src/assets/imgs/labels/new.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/new.jpeg'
 
     },
     {
         main: 'Sparkling clean',
         sub: 'Recent guests said this place was sparkling clean.',
-        imgUrl: '/src/assets/imgs/labels/design.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/design.jpeg'
 
     },
     {
         main: 'Fast wifi',
         sub: 'Guests often compliment the fast and reliable wifi.',
-        imgUrl: '/src/assets/imgs/labels/golfing.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/golfing.jpeg'
 
     },
     {
         main: 'Highly rated location',
         sub: '100% of recent guests gave the location a 5-star rating.',
-        imgUrl: '/src/assets/imgs/icons/star.svg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/star.svg'
 
     },
     {
         main: 'Well-equipped for long stays',
         sub: 'Guests who stayed a month or longer rated this place 5 stars.',
-        imgUrl: '/src/assets/imgs/labels/skiing.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/skiing.jpeg'
 
     },
     {
         main: 'Safe and secure',
         sub: 'Guests appreciated the safety features and felt secure.',
-        imgUrl: '/src/assets/imgs/labels/new.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/new.jpeg'
 
     },
     {
         main: 'Pet-friendly',
         sub: 'Previous guests loved bringing their pets to this home.',
-        imgUrl: '/src/assets/imgs/labels/farms.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/farms.jpeg'
 
     },
     {
         main: 'Dedicated workspace',
         sub: 'Perfect for remote work, with a comfortable desk and fast wifi.',
-        imgUrl: '/src/assets/imgs/labels/creative-spaces.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/creative-spaces.jpeg'
 
     },
     {
         main: 'Excellent amenities',
         sub: 'Guests praised the range of amenities offered here.',
-        imgUrl: '/src/assets/imgs/labels/campers.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/campers.jpeg'
 
     },
     {
         main: 'Great for families',
         sub: 'Families rated this home 5 stars for kid-friendly amenities.',
-        imgUrl: '/src/assets/imgs/labels/play.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/play.jpeg'
 
     },
     {
         main: 'Great check-in experience',
         sub: '100% of recent guests gave the check-in process a 5-star rating.',
-        imgUrl: '/src/assets/imgs/icons/star.svg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/star.svg'
 
     },
     {
         main: 'Stylish space',
         sub: 'Guests loved the stylish decor and comfortable layout.',
-        imgUrl: '/src/assets/imgs/labels/design.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/design.jpeg'
 
 
     },
     {
         main: 'Free parking on premises',
         sub: 'This place offers free parking for added convenience.',
-        imgUrl: '/src/assets/imgs/more/parking.svg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/parking2.svg'
 
     },
     {
         main: 'Comfortable beds',
         sub: 'Guests consistently mention the comfortable and cozy beds.',
-        imgUrl: '/src/assets/imgs/labels/mansions.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/mansions.jpeg'
 
     },
     {
         main: 'Highly rated host',
         sub: 'This host has received great reviews for their hospitality.',
-        imgUrl: '/src/assets/imgs/labels/omg.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/omg.jpeg'
 
     },
     {
         main: 'Quiet neighborhood',
         sub: 'Guests praised the peaceful and quiet surroundings.',
-        imgUrl: '/src/assets/imgs/labels/countryside.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/countryside.jpeg'
 
     },
     {
         main: 'Fully equipped kitchen',
         sub: 'Guests appreciated the well-stocked kitchen for home-cooked meals.',
-        imgUrl: '/src/assets/imgs/labels/bed&breakfast.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/breakfast.jpeg'
 
     },
     {
         main: 'Fast response time',
         sub: 'This host is known for responding quickly to guest inquiries.',
-        imgUrl: '/src/assets/imgs/labels/omg.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/omg.jpeg'
 
     },
     {
         main: 'Great value',
         sub: 'Recent guests rated this place 5 stars for value.',
-        imgUrl: '/src/assets/imgs/labels/containers.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/containers.jpeg'
 
     },
     {
         main: 'Thoughtful touches',
         sub: 'Guests loved the small details and thoughtful touches.',
-        imgUrl: '/src/assets/imgs/labels/historical-homes.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/historical-homes.jpeg'
 
     },
     {
         main: 'Private entrance',
         sub: 'Enjoy the privacy of a separate entrance to the property.',
-        imgUrl: '/src/assets/imgs/labels/mansons.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/mansons.jpeg'
 
     },
     {
         main: 'Close to public transport',
         sub: 'Guests found the location convenient for public transportation.',
-        imgUrl: '/src/assets/imgs/labels/off-the-grid.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/off-the-grid.jpeg'
 
     },
     {
         main: 'Walkable area',
         sub: 'Guests loved the walkability of the neighborhood.',
-        imgUrl: '/src/assets/imgs/labels/top-cities.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/top-cities.jpeg'
 
     },
     {
         main: 'Effortless check-in',
         sub: 'Check-in is easy with this hosts detailed',
-        imgUrl: '/src/assets/imgs/labels/trending.jpeg'
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/trending.jpeg'
+
+    },
+    {
+        main: 'Luxury stay',
+        sub: 'Exceptional and uniqe place',
+        imgUrl: 'https://res.cloudinary.com/dfacuc12l/image/upload/luxe1.jpeg'
 
     }
+
 ]
 const types = ['shared-room', 'room', 'entire-place',]
 const amenities = [
