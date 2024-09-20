@@ -34,6 +34,11 @@ export function StayReview({ stay }) {
 
     const percentage = (averageRating / maxRating) * 100;
 
+    if (!stay.reviews || stay.reviews.length === 0) {
+        return <div>No reviews available</div>
+    }
+
+
     return (
         <section className="reviews-stay">
             <div className="rating">
@@ -46,7 +51,7 @@ export function StayReview({ stay }) {
                     <h3>Overall rating</h3>
                     {[...Array(5)].map((_, index) => {
                         const barIndex = 5 - index
-                        const isFull = avgRating < barIndex; 
+                        const isFull = avgRating < barIndex;
                         const isPartial = avgRating === barIndex + 0.5
                         const fillWidth = isFull ? 100 : (isPartial ? 50 : 0)
                         const barColor = barIndex <= 4 ? 'black' : '#ddd'

@@ -210,7 +210,7 @@ if (!stay) {
         </div>
 
         <div className="more-content">
-          {stay.reviews && <StayReview stay={stay} />}
+          {stay.reviews && stay.reviews.length > 0 && <StayReview stay={stay} />}
           {stay.location && <StayLocation stay={stay} />}
           {stay.host && <StayHost stay={stay} />}
           {stay.thingsToKnow && <StayToKnow stay={stay} />}

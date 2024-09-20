@@ -23,6 +23,9 @@ export function WhenDetails({ dates, onSetDates, stay, breakpoint = 1200, closeW
         }
     }, [])
 
+    console.log(dates, onSetDates, stay, breakpoint = 1200, closeWhen, type, monthsAmount);
+    
+
     useEffect(() => {
         // Create an array of all unavailable dates from reservedDates
         const allDisabledDates = reservedDates.flatMap(({ startDate, endDate }) =>
