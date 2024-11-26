@@ -11,7 +11,7 @@ export function StayPreview({ stay, isFilterWhen }) {
     const [likedImages, setLikedImages] = useState({})
 
     const avgRating = calculateAverageRating(stay.reviews)
-   
+
     const userLat = 31.7683
     const userLng = 35.2137
 
@@ -23,7 +23,7 @@ export function StayPreview({ stay, isFilterWhen }) {
     const price = formatNumberWithCommas(stay.price.night)
 
     const availableDates = findFirstAvailableNights(stay.reservedDates, 5)
-    const freeDate = formatDateRange(availableDates)
+    const freeDate = availableDates ? formatDateRange(availableDates) : ''
 
     function handleHeartClick(ev, stay) {
         ev.stopPropagation()
@@ -58,7 +58,7 @@ export function StayPreview({ stay, isFilterWhen }) {
                 <div>
                     <h4>{stay.location.city}, {stay.location.country}</h4>
                     <div className="rating">
-                        {avgRating  && (<>
+                        {avgRating && (<>
                             <img src={starIcon} alt="Star Icon" className="star-icon" />
                             <span>{avgRating}</span> </>
                         )} </div>
